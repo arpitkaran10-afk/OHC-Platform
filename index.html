@@ -1290,9 +1290,7 @@ function toast(msg){
 
 async function loadData() {
 
-  const response = await fetch(
-    "/momentum-dashboard/data.json?v=" + Date.now()
-  );
+  const response = await fetch("data.json?v=" + Date.now());
 
   if (!response.ok) {
     throw new Error("Failed to load data.json");
