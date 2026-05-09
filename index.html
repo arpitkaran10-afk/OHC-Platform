@@ -1291,7 +1291,7 @@ function toast(msg){
 async function loadData() {
 
   const response = await fetch(
-    `data.json?v=${Date.now()}`
+    "/momentum-dashboard/data.json?v=" + Date.now()
   );
 
   if (!response.ok) {
