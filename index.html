@@ -600,7 +600,8 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────────
 
-let ALL = RAW.stocks || [];
+let RAW = {};
+let ALL = [];
 let filtered = [...ALL];
 let sortCol = "rank", sortDir = 1;
 let selTicker = null;
@@ -1302,7 +1303,9 @@ async function loadData() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 async function load(){
-  const DATA = await loadData();
+  RAW = await loadData();
+  ALL = RAW.stocks || [];
+  
   document.getElementById("lupdated").textContent=RAW.generated_at||"";
   document.getElementById("weekBadge").textContent="Week "+RAW.week+" · "+RAW.year;
   filtered=[...ALL];
