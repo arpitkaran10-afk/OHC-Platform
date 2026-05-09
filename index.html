@@ -1,1364 +1,3927 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MomentumIQ Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0a0c10;--surface:#111318;--surface2:#161a22;--surface3:#1c2130;
-  --border:#1f2535;--border2:#252d3d;
-  --text:#e2e8f0;--muted:#64748b;--faint:#1e293b;
-  --primary:#3b82f6;--primary-d:#2563eb;
-  --green:#22c55e;--red:#ef4444;--orange:#f97316;--yellow:#eab308;
-  --purple:#a855f7;--cyan:#06b6d4;
-  --radius:8px;--radius-lg:12px;
-  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
-}
-[data-theme="light"]{
-  --bg:#f1f5f9;--surface:#ffffff;--surface2:#f8fafc;--surface3:#f1f5f9;
-  --border:#e2e8f0;--border2:#cbd5e1;--faint:#f1f5f9;
-  --text:#0f172a;--muted:#64748b;
-}
-html{font-size:14px;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
-
-/* HEADER */
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:56px;
-  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:-.3px;text-decoration:none;color:var(--text)}
-.logo-icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.header-right{display:flex;align-items:center;gap:10px}
-.badge{background:var(--surface3);border:1px solid var(--border2);color:var(--muted);font-size:11px;padding:3px 10px;border-radius:20px;font-family:var(--mono)}
-.btn-icon{background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:6px;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:14px}
-.btn-icon:hover{background:var(--surface3);color:var(--text);border-color:var(--border2)}
-.last-updated{font-size:11px;color:var(--muted);font-family:var(--mono)}
-.cmd-hint{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:11px;padding:4px 8px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;font-family:var(--mono)}
-.cmd-hint:hover{border-color:var(--primary);color:var(--text)}
-.cmd-hint kbd{background:var(--surface3);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:10px}
-
-/* MAIN */
-.main{padding:20px 24px;max-width:1640px;margin:0 auto}
-
-/* KPI */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:20px}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;transition:border-color .15s;cursor:default;overflow:hidden;position:relative}
-.kpi:hover{border-color:var(--border2)}
-.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
-.kpi-value{font-size:22px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;line-height:1}
-.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}
-@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.kpi-value.animate{animation:countUp .5s ease forwards}
-
-/* TOOLBAR */
-.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.search-wrap{position:relative;flex:1;min-width:200px}
-.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);
-  padding:8px 12px 8px 34px;border-radius:var(--radius);font-size:13px;outline:none;
-  transition:border-color .15s;font-family:var(--font)}
-.search-wrap input:focus{border-color:var(--primary)}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-.sel{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 10px;
-  border-radius:var(--radius);font-size:13px;cursor:pointer;outline:none;font-family:var(--font);
-  transition:border-color .15s;min-width:120px}
-.sel:focus{border-color:var(--primary)}
-.btn{padding:8px 14px;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;
-  border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:5px}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary-d)}
-.btn-ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
-.btn-ghost:hover{background:var(--surface2);border-color:var(--border2)}
-.count{font-size:12px;color:var(--muted);margin-left:auto;white-space:nowrap}
-
-/* TABS */
-.view-tabs{display:flex;gap:6px;margin-bottom:16px}
-.vtab{padding:6px 14px;border-radius:var(--radius);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s}
-.vtab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.vtab:hover:not(.active){background:var(--surface2);color:var(--text)}
-
-/* LAYOUT */
-.layout{display:grid;grid-template-columns:1fr 270px;gap:16px;align-items:start}
-@media(max-width:1080px){.layout{grid-template-columns:1fr}}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
-.tbl-scroll{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead th{background:var(--surface2);padding:10px 11px;text-align:left;font-size:11px;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.5px;font-weight:500;border-bottom:1px solid var(--border);
-  white-space:nowrap;cursor:pointer;user-select:none;transition:color .12s;position:sticky;top:0;z-index:2}
-thead th:hover{color:var(--text)}
-thead th.sorted{color:var(--primary)}
-.arr{margin-left:3px;opacity:.4;font-size:10px}
-.sorted .arr{opacity:1}
-tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--surface2)}
-tbody tr.sel-row{background:rgba(59,130,246,.08)!important}
-td{padding:9px 11px;vertical-align:middle;white-space:nowrap;font-family:var(--mono);font-size:12px}
-td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
-.tkr{font-weight:600;color:var(--text);letter-spacing:.4px;font-size:13px}
-.cname{font-size:10px;color:var(--muted);font-family:var(--font);margin-top:1px;letter-spacing:0;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-.sbadge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap}
-.bar-wrap{display:flex;align-items:center;gap:7px;min-width:90px}
-.bar-bg{height:4px;border-radius:2px;background:var(--faint);flex:1;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px;background:var(--primary);transition:width .3s}
-.bar-val{min-width:30px;text-align:right}
-.gpill{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--font)}
-.gA{background:rgba(34,197,94,.15);color:var(--green)}
-.gB{background:rgba(59,130,246,.15);color:var(--primary)}
-.gC{background:rgba(234,179,8,.15);color:var(--yellow)}
-.gD{background:rgba(239,68,68,.15);color:var(--red)}
-.pos{color:var(--green)}.neg{color:var(--red)}.neu{color:var(--muted)}
-.mbuy{color:var(--green);font-weight:600}.msell{color:var(--red);font-weight:600}
-.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.don{background:var(--green)}.doff{background:var(--red)}
-
-/* SIDE */
-.side{display:flex;flex-direction:column;gap:12px}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px}
-.ptitle{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:500;margin-bottom:14px}
-.sector-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}
-.sname{color:var(--muted);width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
-.sbar-bg{flex:1;height:4px;background:var(--faint);border-radius:2px;overflow:hidden}
-.sbar-fill{height:100%;border-radius:2px}
-.scnt{color:var(--muted);min-width:16px;text-align:right;font-family:var(--mono);font-size:11px}
-.gdist{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.gbox{border-radius:var(--radius);padding:10px;text-align:center}
-.gl{font-size:20px;font-weight:700;line-height:1}
-.gc{font-size:11px;color:var(--muted);margin-top:2px}
-.legend{font-size:11px;color:var(--muted);line-height:2}
-.legend b{color:var(--text);font-weight:500}
-/* INDICATOR GUIDE */
-.ig-tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
-.ig-tab{background:var(--surface2);border:1px solid var(--border);color:var(--muted);
-  padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .12s}
-.ig-tab:hover{color:var(--text);border-color:var(--border2)}
-.ig-tab.active{background:rgba(59,130,246,.15);color:var(--primary);border-color:rgba(59,130,246,.4)}
-.ig-section{display:none;flex-direction:column;gap:10px}
-.ig-section.active{display:flex}
-.ig-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
-.ig-new-card{border-left:2px solid var(--primary)}
-.ig-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.ig-name{font-size:12px;font-weight:600;color:var(--text)}
-.ig-range{font-size:10px;color:var(--muted);font-family:var(--mono);background:var(--surface3);
-  padding:1px 6px;border-radius:3px}
-.ig-desc{font-size:11.5px;color:var(--muted);line-height:1.6;margin-bottom:8px}
-.ig-desc em{color:var(--text);font-style:normal;font-weight:500}
-.ig-desc strong{color:var(--text)}
-.ig-thresholds{display:flex;flex-wrap:wrap;gap:4px}
-.igt{font-size:10px;padding:2px 7px;border-radius:3px;font-family:var(--mono);white-space:nowrap}
-
-/* SECTOR HEATMAP */
-.heatmap-view{display:none}
-.heatmap-view.active{display:block}
-.heatmap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;padding:16px}
-.hm-cell{border-radius:var(--radius);padding:12px 10px;cursor:pointer;transition:transform .15s,opacity .15s;position:relative;overflow:hidden}
-.hm-cell:hover{transform:scale(1.03)}
-.hm-tkr{font-size:13px;font-weight:700;font-family:var(--mono);letter-spacing:.3px}
-.hm-name{font-size:9px;opacity:.75;margin-top:2px;font-family:var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hm-ret{font-size:14px;font-weight:700;font-family:var(--mono);margin-top:5px}
-.hm-score{font-size:10px;opacity:.7;font-family:var(--mono)}
-.hmap-controls{display:flex;align-items:center;gap:8px;padding:12px 16px 0;flex-wrap:wrap}
-.hmap-controls label{font-size:12px;color:var(--muted)}
-
-/* HISTORICAL TRACKER */
-.history-view{display:none}
-.history-view.active{display:block}
-.hist-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
-.hist-title{font-size:13px;font-weight:600}
-.hist-list{max-height:480px;overflow-y:auto}
-.hist-week{border-bottom:1px solid var(--border)}
-.hist-week-hdr{padding:10px 16px;background:var(--surface2);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
-.hist-week-hdr:hover{background:var(--surface3);color:var(--text)}
-.hist-tickers{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;display:none}
-.hist-tickers.open{display:flex}
-.hist-chip{background:var(--surface3);border:1px solid var(--border2);border-radius:4px;padding:3px 8px;font-size:12px;font-family:var(--mono);cursor:pointer;transition:all .1s;color:var(--text)}
-.hist-chip:hover{background:rgba(59,130,246,.15);border-color:var(--primary);color:var(--primary)}
-.hist-chip.new-entry{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08)}
-.hist-chip.dropped{border-color:rgba(239,68,68,.3);color:var(--red);background:rgba(239,68,68,.06);text-decoration:line-through;opacity:.7}
-.hist-empty{padding:40px;text-align:center;color:var(--muted);font-size:13px}
-.hist-save-btn{padding:6px 14px;font-size:12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);cursor:pointer;font-family:var(--font);transition:background .15s}
-.hist-save-btn:hover{background:var(--primary-d)}
-.hist-delta{display:flex;gap:12px;font-size:11px;padding:4px 16px 8px;color:var(--muted)}
-.hist-delta span{display:flex;align-items:center;gap:3px}
-
-/* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.overlay.open{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;width:min(680px,95vw);max-height:90vh;overflow-y:auto;padding:24px;position:relative;animation:fadeUp .2s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.mclose{position:absolute;top:14px;right:14px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.mclose:hover{background:var(--surface3);color:var(--text)}
-.mticker{font-size:26px;font-weight:700;letter-spacing:-1px;font-family:var(--mono);margin-bottom:2px}
-.mcompany{font-size:14px;color:var(--muted);margin-bottom:10px;font-family:var(--font)}
-.mmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
-.ai-box{background:var(--surface2);border-radius:var(--radius);padding:14px;font-size:13px;line-height:1.6;color:var(--muted);border-left:2px solid var(--primary);margin-bottom:16px}
-.ai-lbl{font-size:10px;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:600}
-.chart-box{background:var(--surface2);border-radius:var(--radius);padding:16px;margin-bottom:16px}
-.chart-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sbox{background:var(--surface2);border-radius:var(--radius);padding:11px}
-.slbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
-.sval{font-size:15px;font-weight:600;font-family:var(--mono)}
-
-/* COMMAND PALETTE */
-.cmd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;display:none;align-items:flex-start;justify-content:center;padding-top:15vh;backdrop-filter:blur(6px)}
-.cmd-overlay.open{display:flex}
-.cmd-box{background:var(--surface);border:1px solid var(--border2);border-radius:14px;width:min(560px,92vw);box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden;animation:fadeUp .18s ease}
-.cmd-search{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}
-.cmd-search svg{color:var(--muted);flex-shrink:0}
-.cmd-search input{flex:1;background:none;border:none;outline:none;font-size:15px;color:var(--text);font-family:var(--font)}
-.cmd-search input::placeholder{color:var(--muted)}
-.cmd-esc{font-size:10px;color:var(--muted);font-family:var(--mono);background:var(--surface2);border:1px solid var(--border);padding:2px 6px;border-radius:4px;flex-shrink:0}
-.cmd-results{max-height:360px;overflow-y:auto}
-.cmd-section{padding:8px 0}
-.cmd-section-label{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);padding:4px 16px;font-weight:500}
-.cmd-item{display:flex;align-items:center;gap:12px;padding:9px 16px;cursor:pointer;transition:background .1s}
-.cmd-item:hover,.cmd-item.active{background:var(--surface2)}
-.cmd-item-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.cmd-item-body{flex:1;min-width:0}
-.cmd-item-title{font-size:13px;font-weight:500;color:var(--text)}
-.cmd-item-sub{font-size:11px;color:var(--muted);margin-top:1px;font-family:var(--mono)}
-.cmd-item-badge{font-size:10px;font-family:var(--mono);color:var(--muted);background:var(--surface3);border:1px solid var(--border);padding:2px 6px;border-radius:4px;white-space:nowrap}
-.cmd-empty{padding:32px;text-align:center;color:var(--muted);font-size:13px}
-.cmd-footer{border-top:1px solid var(--border);padding:8px 16px;display:flex;gap:16px;font-size:11px;color:var(--muted)}
-.cmd-footer kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-family:var(--mono)}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border2);padding:11px 18px;border-radius:var(--radius);font-size:13px;z-index:600;transform:translateY(80px);opacity:0;transition:all .25s;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1}
-
-.loading{display:flex;align-items:center;justify-content:center;height:280px;flex-direction:column;gap:12px}
-.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty-state{padding:60px 20px;text-align:center;color:var(--muted)}
-</style>
-
-</head>
-<body>
-
-<!-- COMMAND PALETTE -->
-<div class="cmd-overlay" id="cmdOverlay">
-  <div class="cmd-box">
-    <div class="cmd-search">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="cmdInput" placeholder="Search stocks, actions, filters…" autocomplete="off">
-      <span class="cmd-esc">Esc</span>
-    </div>
-    <div class="cmd-results" id="cmdResults"></div>
-    <div class="cmd-footer">
-      <span><kbd>↑↓</kbd> navigate</span>
-      <span><kbd>Enter</kbd> select</span>
-      <span><kbd>Esc</kbd> close</span>
-      <span><kbd>Ctrl+K</kbd> open</span>
-    </div>
-  </div>
-</div>
-
-<!-- HEADER -->
-<header class="header">
-  <a class="logo" href="#">
-    <div class="logo-icon">⚡</div>
-    MomentumIQ
-  </a>
-  <div class="header-right">
-    <span class="last-updated" id="lupdated">–</span>
-    <span class="badge" id="weekBadge">–</span>
-    <button class="cmd-hint" id="cmdHint" title="Open command palette (Ctrl+K)">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <span>Search</span>
-      <kbd>Ctrl+K</kbd>
-    </button>
-    <button class="btn-icon" id="btnTheme" title="Toggle theme">🌙</button>
-  </div>
-</header>
-
-<div class="main">
-  <!-- KPIs -->
-  <div class="kpi-grid" id="kpiGrid">
-    <div class="kpi"><div class="kpi-label">Universe Scanned</div><div class="kpi-value" id="kTotal">–</div><div class="kpi-sub">S&P 500 + NDX stocks</div></div>
-    <div class="kpi"><div class="kpi-label">Top 50 Selected</div><div class="kpi-value" id="kSelected">–</div><div class="kpi-sub">by momentum score</div></div>
-    <div class="kpi"><div class="kpi-label">Avg Score</div><div class="kpi-value" id="kAvg" style="color:var(--primary)">–</div><div class="kpi-sub">composite percentile</div></div>
-    <div class="kpi"><div class="kpi-label">Above MA200</div><div class="kpi-value" id="kMa200" style="color:var(--green)">–</div><div class="kpi-sub">% of selection</div></div>
-    <div class="kpi"><div class="kpi-label">MACD Buy Signals</div><div class="kpi-value" id="kMacd" style="color:var(--cyan)">–</div><div class="kpi-sub">in current selection</div></div>
-    <div class="kpi"><div class="kpi-label">Grade A Stocks</div><div class="kpi-value" id="kGradeA" style="color:var(--green)">–</div><div class="kpi-sub">highest conviction</div></div>
-  </div>
-
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <div class="search-wrap">
-      <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="qSearch" placeholder="Search ticker or company name…">
-    </div>
-    <select class="sel" id="fExch"><option value="">All Exchanges</option><option>S&P500</option><option>Nasdaq-100</option><option>S&P500+NDX</option></select>
-    <select class="sel" id="fSector"><option value="">All Sectors</option></select>
-    <select class="sel" id="fGrade"><option value="">All Grades</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
-    <select class="sel" id="fMacd"><option value="">Any MACD</option><option value="BUY">BUY</option><option value="SELL">SELL</option></select>
-    <select class="sel" id="fMa200"><option value="">Any MA200</option><option value="1">Above MA200</option><option value="0">Below MA200</option></select>
-    <button class="btn btn-ghost" id="btnClear">✕ Clear</button>
-    <button class="btn btn-ghost" id="btnCsv">📥 CSV</button>
-    <button class="btn btn-ghost" id="btnCopy">📋 Copy Tickers</button>
-    <span class="count" id="cntLabel">50 stocks</span>
-  </div>
-
-  <!-- VIEW TABS -->
-  <div class="view-tabs">
-    <button class="vtab active" data-view="table">📋 Table</button>
-    <button class="vtab" data-view="heatmap">🔥 Sector Heatmap</button>
-    <button class="vtab" data-view="history">📈 Historical Tracker</button>
-  </div>
-
-  <!-- TABLE VIEW -->
-  <div id="tableView">
-    <div class="layout">
-      <div class="card">
-        <div class="tbl-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th data-col="rank">#<span class="arr">↕</span></th>
-                <th>Ticker / Company</th>
-                <th data-col="sector">Sector<span class="arr">↕</span></th>
-                <th data-col="exchange">Exchange<span class="arr">↕</span></th>
-                <th data-col="price">Price<span class="arr">↕</span></th>
-                <th data-col="momentum_score">Score<span class="arr">↕</span></th>
-                <th data-col="grade">Grade<span class="arr">↕</span></th>
-                <th data-col="ret_1m">1M<span class="arr">↕</span></th>
-                <th data-col="ret_3m">3M<span class="arr">↕</span></th>
-                <th data-col="ret_6m">6M<span class="arr">↕</span></th>
-                <th data-col="rsi">RSI<span class="arr">↕</span></th>
-                <th data-col="adx">ADX<span class="arr">↕</span></th>
-                <th data-col="stoch_k">Stoch%K<span class="arr">↕</span></th>
-                <th data-col="bb_pct">BB%<span class="arr">↕</span></th>
-                <th data-col="macd_signal">MACD<span class="arr">↕</span></th>
-                <th data-col="vol_ratio">Vol<span class="arr">↕</span></th>
-                <th data-col="pct_from_high">52W Hi<span class="arr">↕</span></th>
-                <th>MAs</th>
-                <th data-col="breakout_quality">BrkQ<span class="arr">↕</span></th>
-                <th data-col="vwap_pct">VWAP%<span class="arr">↕</span></th>
-                <th data-col="rel_strength_sector">RS Sec<span class="arr">↕</span></th>
-                <th data-col="obv_trend">OBV<span class="arr">↕</span></th>
-                <th>Div</th>
-                <th>Spark</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"><tr><td colspan="24"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="side">
-        <div class="panel">
-          <div class="ptitle">Sector Breakdown</div>
-          <div id="sectorChart"></div>
-        </div>
-        <div class="panel">
-          <div class="ptitle">Grade Distribution</div>
-          <div class="gdist" id="gradeDist"></div>
-        </div>
-        <div class="panel" id="indicatorGuidePanel">
-          <div class="ptitle" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleGuide()">
-            <span>📖 Indicator Guide</span>
-            <span id="guideChevron" style="font-size:10px;color:var(--muted)">▲</span>
-          </div>
-          <div id="guideBody">
-            <div class="ig-tabs">
-              <button class="ig-tab active" onclick="showGuideTab('momentum',this)">Momentum</button>
-              <button class="ig-tab" onclick="showGuideTab('trend',this)">Trend</button>
-              <button class="ig-tab" onclick="showGuideTab('volume',this)">Volume</button>
-              <button class="ig-tab" onclick="showGuideTab('new',this)">New ✦</button>
-            </div>
-
-            <div class="ig-section active" id="ig-momentum">
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">Score</span><span class="ig-range">0 – 100</span></div>
-                <div class="ig-desc">Composite percentile rank combining all indicators. Higher = stronger momentum vs universe.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">80–100 Grade A</span>
-                  <span class="igt" style="background:rgba(59,130,246,.15);color:var(--primary)">65–80 Grade B</span>
-                  <span class="igt" style="background:rgba(234,179,8,.15);color:var(--yellow)">50–65 Grade C</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&lt;50 Grade D</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">RSI (14)</span><span class="ig-range">0 – 100</span></div>
-                <div class="ig-desc">Relative Strength Index. Measures speed and magnitude of recent price changes. Compares average gains vs losses over 14 days.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&gt;70 Overbought</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">40–70 Neutral</span>
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&lt;30 Oversold</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">Stoch %K</span><span class="ig-range">0 – 100</span></div>
-                <div class="ig-desc">Stochastic Oscillator. Shows where price closed relative to its high-low range over 14 days. Useful for spotting momentum shifts.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&gt;80 Overbought</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">20–80 Normal</span>
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&lt;20 Oversold</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">ROC 10d</span><span class="ig-range">% change</span></div>
-                <div class="ig-desc">Rate of Change over 10 days. Raw price momentum — how much the stock moved in the last 2 weeks.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&gt;5% Strong</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">-5% to 5% Flat</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&lt;-5% Weak</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">1M / 3M / 6M</span><span class="ig-range">% return</span></div>
-                <div class="ig-desc">Price return over 1, 3, and 6 months. Core momentum signal — stocks with strong multi-timeframe returns tend to continue outperforming.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">Positive Bullish</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">Negative Bearish</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="ig-section" id="ig-trend">
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">ADX</span><span class="ig-range">0 – 100</span></div>
-                <div class="ig-desc">Average Directional Index. Measures trend <em>strength</em> (not direction). A high ADX means a strong trend exists — whether up or down.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&gt;40 Very Strong</span>
-                  <span class="igt" style="background:rgba(6,182,212,.15);color:var(--cyan)">25–40 Strong</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">&lt;25 Weak/Ranging</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">MACD</span><span class="ig-range">BUY / SELL</span></div>
-                <div class="ig-desc">Moving Average Convergence Divergence. BUY = 12-day EMA crossed above 26-day EMA (bullish momentum). SELL = crossed below (weakening).</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">BUY Bullish cross</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">SELL Bearish cross</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">BB% (Bollinger)</span><span class="ig-range">0 – 100%+</span></div>
-                <div class="ig-desc">Bollinger Band position. Where price sits within the bands. &gt;100% means price broke above the upper band — very strong but may be extended.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&gt;100% Above band</span>
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">50–100% Upper half</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">&lt;50% Lower half</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">MAs (dots)</span><span class="ig-range">Above / Below</span></div>
-                <div class="ig-desc">Two dots: MA50 and MA200. Green dot = price is <strong>above</strong> that moving average (bullish). Red = below (bearish). Both green = healthy uptrend.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">🟢🟢 Strong uptrend</span>
-                  <span class="igt" style="background:rgba(234,179,8,.15);color:var(--yellow)">🟢🔴 Mixed</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">🔴🔴 Downtrend</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">52W Hi</span><span class="ig-range">% below peak</span></div>
-                <div class="ig-desc">How far price is from its 52-week high. Stocks close to their highs show sustained buying pressure. 0% = at all-time recent high.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">0 to -5% Near high</span>
-                  <span class="igt" style="background:rgba(234,179,8,.15);color:var(--yellow)">-5 to -15% Pullback</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&lt;-15% Extended down</span>
-                </div>
-              </div>
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">ATR%</span><span class="ig-range">% of price</span></div>
-                <div class="ig-desc">Average True Range as % of price. Measures daily volatility. High ATR = big daily moves. Useful for position sizing — higher ATR = more risk per trade.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&gt;5% High volatility</span>
-                  <span class="igt" style="background:rgba(234,179,8,.15);color:var(--yellow)">2–5% Moderate</span>
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&lt;2% Low volatility</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="ig-section" id="ig-volume">
-              <div class="ig-card">
-                <div class="ig-head"><span class="ig-name">Vol Ratio</span><span class="ig-range">× average</span></div>
-                <div class="ig-desc">5-day average volume ÷ 20-day average volume. A ratio above 1× means recent volume is above normal — confirms moves. Below 1× = low conviction.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&gt;1.5× High interest</span>
-                  <span class="igt" style="background:rgba(6,182,212,.15);color:var(--cyan)">1–1.5× Normal</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">&lt;1× Below average</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="ig-section" id="ig-new">
-              <div class="ig-card ig-new-card">
-                <div class="ig-head"><span class="ig-name">BrkQ (Breakout Quality)</span><span class="ig-range">0 – 100</span></div>
-                <div class="ig-desc">Composite score measuring how genuine a breakout is. Combines 3 signals: (1) price above VWAP — 40%, (2) recent volume surge vs 20-day avg — 35%, (3) price proximity to 20-day high — 25%. Higher = cleaner breakout with volume confirmation.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">&gt;70 Strong breakout</span>
-                  <span class="igt" style="background:rgba(6,182,212,.15);color:var(--cyan)">40–70 Moderate</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">&lt;40 Weak / Fakeout risk</span>
-                </div>
-              </div>
-              <div class="ig-card ig-new-card">
-                <div class="ig-head"><span class="ig-name">VWAP%</span><span class="ig-range">% above/below</span></div>
-                <div class="ig-desc">How far price is above or below the 20-day Volume Weighted Average Price. VWAP = average price paid, weighted by volume. Price above VWAP means buyers are in control. Negative = sellers dominating.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">+% Above VWAP Bullish</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">-% Below VWAP Bearish</span>
-                </div>
-              </div>
-              <div class="ig-card ig-new-card">
-                <div class="ig-head"><span class="ig-name">RS Sec (Relative Strength vs Sector)</span><span class="ig-range">% difference</span></div>
-                <div class="ig-desc">Stock's 3-month return minus the median 3-month return of all stocks in its sector. Positive = outperforming its peers. This identifies rotation winners — stocks leading their sector, not just riding a sector tailwind.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">+% Outperforming sector</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">-% Underperforming sector</span>
-                </div>
-              </div>
-              <div class="ig-card ig-new-card">
-                <div class="ig-head"><span class="ig-name">OBV (On-Balance Volume)</span><span class="ig-range">Rising / Flat / Falling</span></div>
-                <div class="ig-desc">On-Balance Volume tracks cumulative volume flow. On up days, full volume is added; on down days, subtracted. A rising OBV means volume is flowing into the stock (accumulation). Falling OBV = distribution. OBV rising while price rises = healthy trend.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">Rising Accumulation</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">Flat Neutral</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">Falling Distribution</span>
-                </div>
-              </div>
-              <div class="ig-card ig-new-card">
-                <div class="ig-head"><span class="ig-name">Div (RSI Divergence)</span><span class="ig-range">● / ○</span></div>
-                <div class="ig-desc">Compares the slope of price vs the slope of RSI over the last 14 bars. Divergence = they disagree, which often signals a reversal before price acts. One of the most predictive early warning signals.</div>
-                <div class="ig-thresholds">
-                  <span class="igt" style="background:rgba(34,197,94,.15);color:var(--green)">● Bullish: Price↓ RSI↑ — reversal up likely</span>
-                  <span class="igt" style="background:rgba(239,68,68,.15);color:var(--red)">● Bearish: Price↑ RSI↓ — reversal down likely</span>
-                  <span class="igt" style="background:rgba(100,116,139,.15);color:var(--muted)">○ No Div — trend confirmed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- HEATMAP VIEW -->
-  <div id="heatmapView" class="heatmap-view">
-    <div class="card">
-      <div class="hmap-controls">
-        <label>Color by:</label>
-        <select class="sel" id="hmColorBy" style="min-width:90px">
-          <option value="ret_1m">1M Return</option>
-          <option value="ret_3m">3M Return</option>
-          <option value="ret_6m">6M Return</option>
-          <option value="momentum_score">Score</option>
-          <option value="rsi">RSI</option>
-        </select>
-        <label style="margin-left:8px">Size by:</label>
-        <select class="sel" id="hmSizeBy" style="min-width:90px">
-          <option value="momentum_score">Score</option>
-          <option value="ret_1m">1M Return</option>
-          <option value="vol_ratio">Vol Ratio</option>
-        </select>
-        <label style="margin-left:8px">Group by sector:</label>
-        <input type="checkbox" id="hmGroupSector" checked style="cursor:pointer">
-      </div>
-      <div id="heatmapGrid"></div>
-    </div>
-  </div>
-
-  <!-- HISTORY VIEW -->
-  <div id="historyView" class="history-view">
-    <div class="card">
-      <div class="hist-header">
-        <div class="hist-title">📈 Weekly Top-50 Tracker</div>
-        <button class="hist-save-btn" id="btnSaveWeek">💾 Save This Week</button>
-      </div>
-      <div id="histBody" class="hist-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- STOCK MODAL -->
-<div class="overlay" id="overlay">
-  <div class="modal" id="modal">
-    <button class="mclose" id="mclose">✕</button>
-    <div class="mticker" id="mTicker"></div>
-    <div class="mcompany" id="mCompany"></div>
-    <div class="mmeta" id="mMeta"></div>
-    <div class="ai-box" id="aiBox" style="display:none">
-      <div class="ai-lbl">AI Summary</div>
-      <div id="aiText"></div>
-    </div>
-    <div class="chart-box">
-      <div class="chart-lbl">30-Day Price Trajectory (normalized)</div>
-      <canvas id="sparkCanvas" width="600" height="120"></canvas>
-    </div>
-    <div class="mgrid" id="mgrid"></div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ── DATA ──────────────────────────────────────────────────────────────────
-
-let RAW = {};
-let ALL = [];
-let filtered = [...ALL];
-let sortCol = "rank", sortDir = 1;
-let selTicker = null;
-let isDark = true;
-let currentView = "table";
-
-// Company name map
-const COMPANY_NAMES = {
-  // Technology
-  AAPL:"Apple Inc",MSFT:"Microsoft",NVDA:"Nvidia",AMD:"Advanced Micro Devices",
-  INTC:"Intel Corporation",ADBE:"Adobe Inc",CRM:"Salesforce",ORCL:"Oracle",
-  CSCO:"Cisco Systems",AMAT:"Applied Materials",LRCX:"Lam Research",
-  KLAC:"KLA Corporation",SNPS:"Synopsys",CDNS:"Cadence Design",MCHP:"Microchip Technology",
-  NXPI:"NXP Semiconductors",TXN:"Texas Instruments",QCOM:"Qualcomm",ADI:"Analog Devices",
-  MU:"Micron Technology",AVGO:"Broadcom",IBM:"IBM",HPE:"HP Enterprise",HPQ:"HP Inc",
-  STX:"Seagate Technology",WDC:"Western Digital",SMCI:"Super Micro Computer",
-  FTNT:"Fortinet",PANW:"Palo Alto Networks",CRWD:"CrowdStrike",ZBRA:"Zebra Technologies",
-  FFIV:"F5 Inc",MRVL:"Marvell Technology",ARM:"Arm Holdings",APP:"AppLovin",
-  DDOG:"Datadog",WDAY:"Workday",TEAM:"Atlassian",TTD:"The Trade Desk",
-  OKTA:"Okta",ZM:"Zoom Video",ILMN:"Illumina",ON:"ON Semiconductor",JBL:"Jabil Inc",
-  MPWR:"Monolithic Power",ANET:"Arista Networks",KEYS:"Keysight Technologies",
-  CDW:"CDW Corporation",INTU:"Intuit",ISRG:"Intuitive Surgical",
-  // Consumer Discretionary
-  AMZN:"Amazon",TSLA:"Tesla",HD:"Home Depot",MCD:"McDonald's",NKE:"Nike",
-  SBUX:"Starbucks",LOW:"Lowe's",TJX:"TJX Companies",ROST:"Ross Stores",
-  BKNG:"Booking Holdings",ABNB:"Airbnb",MAR:"Marriott",HLT:"Hilton",
-  LVS:"Las Vegas Sands",WYNN:"Wynn Resorts",LULU:"Lululemon",EBAY:"eBay Inc",
-  ETSY:"Etsy",ALGN:"Align Technology",BBY:"Best Buy",KMX:"CarMax",
-  // Communication Services
-  GOOGL:"Alphabet (Class A)",GOOG:"Alphabet (Class C)",META:"Meta Platforms",
-  NFLX:"Netflix",DIS:"Walt Disney",CMCSA:"Comcast",T:"AT&T",VZ:"Verizon",
-  CHTR:"Charter Communications",WBD:"Warner Bros Discovery",TTWO:"Take-Two Interactive",
-  EA:"Electronic Arts",MTCH:"Match Group",
-  // Health Care
-  LLY:"Eli Lilly",UNH:"UnitedHealth Group",JNJ:"Johnson & Johnson",ABBV:"AbbVie",
-  MRK:"Merck",ABT:"Abbott Labs",TMO:"Thermo Fisher",DHR:"Danaher",
-  BMY:"Bristol-Myers Squibb",AMGN:"Amgen",GILD:"Gilead Sciences",
-  REGN:"Regeneron",VRTX:"Vertex Pharma",DXCM:"Dexcom",IDXX:"Idexx Laboratories",
-  BIIB:"Biogen",MRNA:"Moderna",BSX:"Boston Scientific",SYK:"Stryker",
-  BDX:"Becton Dickinson",EW:"Edwards Lifesciences",MDT:"Medtronic",
-  CVS:"CVS Health",HUM:"Humana",CI:"Cigna",MOH:"Molina Healthcare",
-  HOLX:"Hologic",INCY:"Incyte",NBIX:"Neurocrine Bio",PODD:"Insulet",
-  IQV:"IQVIA Holdings",RVTY:"Revvity",A:"Agilent Technologies",
-  BIO:"Bio-Rad",TECH:"Bio-Techne",GEHC:"GE HealthCare",ZBH:"Zimmer Biomet",ZTS:"Zoetis",
-  // Financials
-  JPM:"JPMorgan Chase",BAC:"Bank of America",WFC:"Wells Fargo",GS:"Goldman Sachs",
-  MS:"Morgan Stanley",BLK:"BlackRock",SCHW:"Charles Schwab",AXP:"American Express",
-  V:"Visa",MA:"Mastercard",PYPL:"PayPal",COF:"Capital One",BK:"BNY Mellon",
-  C:"Citigroup",USB:"US Bancorp",PNC:"PNC Financial",TFC:"Truist Financial",
-  MTB:"M&T Bank",RF:"Regions Financial",KEY:"KeyCorp",HBAN:"Huntington Bancshares",
-  CFG:"Citizens Financial",ICE:"Intercontinental Exchange",CME:"CME Group",
-  CBOE:"Cboe Global Markets",NDAQ:"Nasdaq Inc",SPGI:"S&P Global",MCO:"Moody's",
-  MSCI:"MSCI Inc",FDS:"FactSet Research",MKTX:"MarketAxess",BX:"Blackstone",
-  AMP:"Ameriprise Financial",LNC:"Lincoln National",PRU:"Prudential",
-  MET:"MetLife",AFL:"Aflac",ALL:"Allstate",AIG:"AIG",CB:"Chubb",
-  PGR:"Progressive",TRV:"Travelers",HIG:"Hartford Financial",AJG:"Arthur J Gallagher",
-  MMC:"Marsh McLennan",AON:"Aon",WTW:"Willis Towers Watson",AIZ:"Assurant",
-  BR:"Broadridge Financial",IVZ:"Invesco",BEN:"Franklin Resources",
-  TROW:"T. Rowe Price",RJF:"Raymond James",ACGL:"Arch Capital",EG:"Everest Group",WRB:"W.R. Berkley",
-  // Energy
-  XOM:"ExxonMobil",CVX:"Chevron",COP:"ConocoPhillips",EOG:"EOG Resources",
-  SLB:"SLB",OXY:"Occidental Petroleum",MPC:"Marathon Petroleum",
-  PSX:"Phillips 66",VLO:"Valero Energy",FANG:"Diamondback Energy",
-  HAL:"Halliburton",BKR:"Baker Hughes",APA:"APA Corporation",
-  // Utilities
-  NEE:"NextEra Energy",DUK:"Duke Energy",SO:"Southern Company",D:"Dominion Energy",
-  AEP:"American Electric Power",EXC:"Exelon",XEL:"Xcel Energy",CEG:"Constellation Energy",
-  EVRG:"Evergy",ES:"Eversource Energy",PEG:"PSEG",ETR:"Entergy",
-  AEE:"Ameren",LNT:"Alliant Energy",NI:"NiSource",AES:"AES Corporation",
-  PCG:"PG&E",EIX:"Edison International",ED:"Consolidated Edison",
-  WEC:"WEC Energy",AWK:"American Water Works",NRG:"NRG Energy",VST:"Vistra",
-  // Consumer Staples
-  COST:"Costco",WMT:"Walmart",PG:"Procter & Gamble",KO:"Coca-Cola",
-  PEP:"PepsiCo",PM:"Philip Morris",MO:"Altria",MDLZ:"Mondelez",
-  KHC:"Kraft Heinz",GIS:"General Mills",KMB:"Kimberly-Clark",SYY:"Sysco",
-  CL:"Colgate-Palmolive",MNST:"Monster Beverage",KDP:"Keurig Dr Pepper",
-  STZ:"Constellation Brands",TAP:"Molson Coors",CPB:"Campbell Soup",
-  CAG:"Conagra Brands",SJM:"J.M. Smucker",MKC:"McCormick",
-  HSY:"Hershey",KVUE:"Kenvue",CHD:"Church & Dwight",CLX:"Clorox",HRL:"Hormel",
-  // Industrials
-  CAT:"Caterpillar Inc",HON:"Honeywell",GE:"GE Aerospace",UPS:"UPS",
-  RTX:"RTX Corporation",LMT:"Lockheed Martin",BA:"Boeing",GD:"General Dynamics",
-  NOC:"Northrop Grumman",DE:"Deere & Company",MMM:"3M",EMR:"Emerson Electric",
-  ETN:"Eaton",ITW:"Illinois Tool Works",CMI:"Cummins Inc",PCAR:"PACCAR",
-  FAST:"Fastenal",CTAS:"Cintas",NSC:"Norfolk Southern",CSX:"CSX Corporation",
-  UNP:"Union Pacific",FDX:"FedEx",ODFL:"Old Dominion Freight",EXPD:"Expeditors",
-  JBHT:"J.B. Hunt Transport",PWR:"Quanta Services",URI:"United Rentals",
-  LHX:"L3Harris Technologies",TDG:"TransDigm",TT:"Trane Technologies",
-  CARR:"Carrier Global",OTIS:"Otis Worldwide",ROK:"Rockwell Automation",
-  DOV:"Dover Corporation",PH:"Parker Hannifin",AME:"Ametek",GNRC:"Generac Holdings",
-  HUBB:"Hubbell",NDSN:"Nordson",SNA:"Snap-on",SWK:"Stanley Black & Decker",
-  TXT:"Textron",HII:"Huntington Ingalls",LDOS:"Leidos",J:"Jacobs Solutions",
-  TRMB:"Trimble",GWW:"W.W. Grainger",WAB:"Wabtec",FTV:"Fortive",
-  AXON:"Axon Enterprise",RSG:"Republic Services",WM:"Waste Management",
-  ROL:"Rollins",ROP:"Roper Technologies",CPRT:"Copart",HWM:"Howmet Aerospace",
-  // Materials
-  LIN:"Linde",APD:"Air Products",SHW:"Sherwin-Williams",FCX:"Freeport-McMoRan",
-  NEM:"Newmont",ALB:"Albemarle",DD:"DuPont",EMN:"Eastman Chemical",
-  NUE:"Nucor Corporation",STLD:"Steel Dynamics",MLM:"Martin Marietta",
-  PKG:"Packaging Corp",IP:"International Paper",CE:"Celanese",
-  MOS:"Mosaic",CF:"CF Industries",FMC:"FMC Corporation",BG:"Bunge",
-  LYB:"LyondellBasell",AMCR:"Amcor",
-  // Real Estate
-  AMT:"American Tower",PLD:"Prologis",EQIX:"Equinix",CCI:"Crown Castle",
-  SBAC:"SBA Communications",DLR:"Digital Realty",PSA:"Public Storage",
-  O:"Realty Income",AVB:"AvalonBay",EQR:"Equity Residential",
-  ARE:"Alexandria Real Estate",MAA:"Mid-America Apartment",CPT:"Camden Property",
-  INVH:"Invitation Homes",IRM:"Iron Mountain",VICI:"VICI Properties",
-  REG:"Regency Centers",FRT:"Federal Realty",UDR:"UDR Inc",
-  HST:"Host Hotels & Resorts",DOC:"Healthpeak Properties",WELL:"Welltower",VTR:"Ventas",
-  // Other / Mixed
-  DVA:"DaVita Inc",CNC:"Centene Corporation",VTRS:"Viatris Inc",
-  ADM:"Archer-Daniels-Midland",WST:"West Pharmaceutical",BWA:"BorgWarner",
-  GLW:"Corning Inc",ELV:"Elevance Health",HWM:"Howmet Aerospace",
-  WBD:"Warner Bros Discovery",
-};
-
-const SC = {
-  Technology:"#3b82f6",Industrials:"#f97316",Financials:"#a855f7",
-  "Real Estate":"#06b6d4","Communication Services":"#eab308",
-  Materials:"#22c55e","Consumer Discretionary":"#ef4444",
-  "Health Care":"#10b981",Other:"#64748b"
-};
-
-// ── HISTORY (localStorage) ────────────────────────────────────────────────
-function getHistory(){try{return JSON.parse(localStorage.getItem("miq_history")||"[]")}catch{return[]}}
-function saveHistory(h){try{localStorage.setItem("miq_history",JSON.stringify(h))}catch{}}
-
-// ── UTILS ─────────────────────────────────────────────────────────────────
-const fmt=v=>v>=1000?v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):v.toFixed(2);
-const ret=v=>`<span class="${v>0?"pos":"neg"}">${v>0?"+":""}${v.toFixed(2)}%</span>`;
-const rsiC=v=>v>70?"var(--red)":v<30?"var(--green)":"var(--muted)";
-const adxC=v=>v>40?"var(--green)":v>25?"var(--cyan)":"var(--muted)";
-
-function sbadge(sector){
-  const colors={Technology:"rgba(59,130,246,.15)",Industrials:"rgba(249,115,22,.15)",
-    Financials:"rgba(168,85,247,.15)","Real Estate":"rgba(6,182,212,.15)",
-    "Communication Services":"rgba(234,179,8,.15)",Materials:"rgba(34,197,94,.15)",
-    "Consumer Discretionary":"rgba(239,68,68,.15)","Health Care":"rgba(16,185,129,.15)",Other:"rgba(100,116,139,.15)"};
-  const tc={Technology:"#3b82f6",Industrials:"#f97316",Financials:"#a855f7",
-    "Real Estate":"#06b6d4","Communication Services":"#eab308",Materials:"#22c55e",
-    "Consumer Discretionary":"#ef4444","Health Care":"#10b981",Other:"#94a3b8"};
-  return`<span class="sbadge" style="background:${colors[sector]||"rgba(100,116,139,.15)"};color:${tc[sector]||"#94a3b8"}">${sector}</span>`;
-}
-
-function sparkSVG(pts){
-  if(!pts||!pts.length)return"";
-  const W=80,H=24,min=Math.min(...pts),max=Math.max(...pts),range=max-min||1;
-  const xs=pts.map((_,i)=>i/(pts.length-1)*W);
-  const ys=pts.map(v=>H-(v-min)/range*(H-4)-2);
-  const col=pts[pts.length-1]>pts[0]?"#22c55e":"#ef4444";
-  const d="M"+xs.map((x,i)=>`${x.toFixed(1)},${ys[i].toFixed(1)}`).join("L");
-  return`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><polyline points="${xs.map((x,i)=>x.toFixed(1)+","+ys[i].toFixed(1)).join(" ")}" fill="none" stroke="${col}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
-}
-
-// ── ANIMATED KPI COUNTERS ─────────────────────────────────────────────────
-function animateCount(el, from, to, decimals=0, suffix="", duration=600){
-  const start=performance.now();
-  function step(now){
-    const p=Math.min((now-start)/duration,1);
-    const ease=1-Math.pow(1-p,3);
-    const val=from+(to-from)*ease;
-    el.textContent=(decimals>0?val.toFixed(decimals):Math.round(val))+suffix;
-    if(p<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-function setKPIs(d){
-  const data=filtered.length?filtered:ALL;
-  const macdBuys=data.filter(s=>s.macd_signal==="BUY").length;
-  const gradeAs=data.filter(s=>s.grade==="A").length;
-  animateCount(document.getElementById("kTotal"),0,d.total_universe||492,0,"");
-  animateCount(document.getElementById("kSelected"),0,data.length,0,"");
-  animateCount(document.getElementById("kAvg"),0,d.avg_score||87.2,1,"");
-  animateCount(document.getElementById("kMa200"),0,d.pct_above_ma200||100,1,"%");
-  animateCount(document.getElementById("kMacd"),0,macdBuys,0,"");
-  animateCount(document.getElementById("kGradeA"),0,gradeAs,0,"");
-}
-
-// ── FILTERS & SORT ────────────────────────────────────────────────────────
-function applyFilters(){
-  const q=document.getElementById("qSearch").value.toLowerCase();
-  const exch=document.getElementById("fExch").value;
-  const sector=document.getElementById("fSector").value;
-  const grade=document.getElementById("fGrade").value;
-  const macd=document.getElementById("fMacd").value;
-  const ma200=document.getElementById("fMa200").value;
-  filtered=ALL.filter(s=>{
-    if(q){
-      const name=(COMPANY_NAMES[s.ticker]||"").toLowerCase();
-      if(!s.ticker.toLowerCase().includes(q)&&!name.includes(q)&&!s.sector.toLowerCase().includes(q))return false;
+{
+  "generated_at": "2026-05-09 15:51 UTC",
+  "week": 19,
+  "year": 2026,
+  "total_universe": 492,
+  "sector_breakdown": {
+    "Technology": 23,
+    "Other": 10,
+    "Industrials": 3,
+    "Communication Services": 3,
+    "Real Estate": 3,
+    "Health Care": 3,
+    "Financials": 2,
+    "Materials": 2,
+    "Consumer Discretionary": 1
+  },
+  "grade_breakdown": {
+    "A": 46,
+    "B": 4,
+    "D": 0,
+    "C": 0
+  },
+  "avg_score": 85.4,
+  "pct_above_ma200": 100.0,
+  "stocks": [
+    {
+      "rank": 1,
+      "ticker": "AKAM",
+      "sector": "Other",
+      "price": 147.71,
+      "ret_1m": 34.76,
+      "ret_3m": 60.69,
+      "ret_6m": 102.34,
+      "rsi": 78.2,
+      "stoch_k": 96.4,
+      "stoch_d": 92.1,
+      "adx": 27.4,
+      "bb_pct": 131.2,
+      "atr_pct": 6.61,
+      "roc10": 55.08,
+      "macd_signal": "BUY",
+      "macd_hist": 4.6721,
+      "vol_ratio": 1.75,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 106.24,
+      "ma200": 89.44,
+      "sparkline": [
+        43.6,
+        36.3,
+        44.2,
+        45.7,
+        49.5,
+        43.8,
+        42.6,
+        46.1,
+        35.3,
+        4.3,
+        10.4,
+        0.0,
+        2.6,
+        13.5,
+        12.0,
+        14.9,
+        15.7,
+        14.0,
+        12.5,
+        10.9,
+        12.0,
+        11.2,
+        18.6,
+        24.0,
+        25.5,
+        28.8,
+        49.4,
+        56.3,
+        47.3,
+        100.0
+      ],
+      "vwap_pct": 34.74,
+      "breakout_quality": 82.0,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.1,
+      "rel_strength_sector": 66.13,
+      "s_1m": 96.3414634146,
+      "s_3m": 97.7642276423,
+      "s_6m": 98.3739837398,
+      "s_rsi": 96.9512195122,
+      "s_adx": 76.7276422764,
+      "s_vol": 97.5609756098,
+      "s_roc": 100.0,
+      "s_breakout": 98.6788617886,
+      "s_obv": 86.0772357724,
+      "s_rs": 98.7804878049,
+      "s_div": 50,
+      "momentum_score": 93.8,
+      "grade": "A",
+      "ai_summary": "AKAM's price has surged 34.8% over the past month and 60.7% over the past quarter, with its RSI at 78.2 and a MACD buy signal, indicating strong momentum. The stock's technical indicators, including a high stochastic reading of 96.4 and a rising On Balance Volume (OBV), support its upward trend, with the stock outperforming its sector by 66.1% in terms of relative strength.",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 2,
+      "ticker": "AMD",
+      "sector": "Technology",
+      "price": 455.19,
+      "ret_1m": 92.36,
+      "ret_3m": 127.38,
+      "ret_6m": 91.5,
+      "rsi": 80.8,
+      "stoch_k": 99.4,
+      "stoch_d": 93.2,
+      "adx": 49.4,
+      "bb_pct": 106.4,
+      "atr_pct": 6.28,
+      "roc10": 30.87,
+      "macd_signal": "BUY",
+      "macd_hist": 10.4032,
+      "vol_ratio": 1.27,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 254.51,
+      "ma200": 217.35,
+      "sparkline": [
+        2.3,
+        0.0,
+        2.9,
+        5.5,
+        8.3,
+        9.3,
+        9.8,
+        13.8,
+        15.7,
+        18.9,
+        19.6,
+        22.8,
+        24.0,
+        31.7,
+        31.8,
+        30.4,
+        34.1,
+        41.5,
+        42.2,
+        58.6,
+        53.5,
+        49.1,
+        54.4,
+        61.1,
+        63.5,
+        56.1,
+        61.4,
+        87.0,
+        82.0,
+        100.0
+      ],
+      "vwap_pct": 35.57,
+      "breakout_quality": 79.2,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.7,
+      "rel_strength_sector": 98.48,
+      "s_1m": 99.7967479675,
+      "s_3m": 99.593495935,
+      "s_6m": 97.7642276423,
+      "s_rsi": 97.7642276423,
+      "s_adx": 97.7642276423,
+      "s_vol": 78.3536585366,
+      "s_roc": 98.3739837398,
+      "s_breakout": 96.8495934959,
+      "s_obv": 80.5894308943,
+      "s_rs": 99.593495935,
+      "s_div": 25,
+      "momentum_score": 93.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 3,
+      "ticker": "MU",
+      "sector": "Technology",
+      "price": 746.81,
+      "ret_1m": 77.17,
+      "ret_3m": 96.92,
+      "ret_6m": 213.61,
+      "rsi": 83.8,
+      "stoch_k": 99.9,
+      "stoch_d": 94.9,
+      "adx": 37.7,
+      "bb_pct": 113.6,
+      "atr_pct": 6.4,
+      "roc10": 50.35,
+      "macd_signal": "BUY",
+      "macd_hist": 21.9647,
+      "vol_ratio": 1.3,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 448.89,
+      "ma200": 290.45,
+      "sparkline": [
+        8.3,
+        0.0,
+        3.8,
+        10.8,
+        10.5,
+        13.2,
+        13.1,
+        20.0,
+        23.5,
+        23.2,
+        24.6,
+        33.8,
+        31.6,
+        31.9,
+        31.4,
+        29.8,
+        30.0,
+        39.0,
+        37.6,
+        41.2,
+        47.7,
+        42.9,
+        46.3,
+        46.0,
+        51.9,
+        59.9,
+        74.9,
+        81.1,
+        76.4,
+        100.0
+      ],
+      "vwap_pct": 39.19,
+      "breakout_quality": 80.1,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.6,
+      "rel_strength_sector": 68.02,
+      "s_1m": 99.3902439024,
+      "s_3m": 99.1869918699,
+      "s_6m": 99.7967479675,
+      "s_rsi": 98.7804878049,
+      "s_adx": 91.8699186992,
+      "s_vol": 80.3861788618,
+      "s_roc": 99.3902439024,
+      "s_breakout": 97.5609756098,
+      "s_obv": 77.9471544715,
+      "s_rs": 98.9837398374,
+      "s_div": 25,
+      "momentum_score": 93.5,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 4,
+      "ticker": "DVA",
+      "sector": "Other",
+      "price": 198.65,
+      "ret_1m": 31.84,
+      "ret_3m": 39.84,
+      "ret_6m": 63.46,
+      "rsi": 83.5,
+      "stoch_k": 98.8,
+      "stoch_d": 98.8,
+      "adx": 23.0,
+      "bb_pct": 110.7,
+      "atr_pct": 4.43,
+      "roc10": 30.82,
+      "macd_signal": "BUY",
+      "macd_hist": 5.3123,
+      "vol_ratio": 1.98,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 154.17,
+      "ma200": 133.78,
+      "sparkline": [
+        18.2,
+        14.4,
+        16.9,
+        10.7,
+        1.9,
+        10.3,
+        9.5,
+        7.2,
+        11.3,
+        10.1,
+        12.9,
+        9.0,
+        0.0,
+        6.6,
+        6.2,
+        8.8,
+        9.9,
+        14.5,
+        19.3,
+        13.5,
+        10.1,
+        10.2,
+        13.7,
+        19.5,
+        13.1,
+        17.6,
+        23.1,
+        91.2,
+        95.6,
+        100.0
+      ],
+      "vwap_pct": 20.85,
+      "breakout_quality": 87.3,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.5,
+      "rel_strength_sector": 45.28,
+      "s_1m": 95.7317073171,
+      "s_3m": 95.1219512195,
+      "s_6m": 95.1219512195,
+      "s_rsi": 98.5772357724,
+      "s_adx": 64.7357723577,
+      "s_vol": 99.593495935,
+      "s_roc": 98.1707317073,
+      "s_breakout": 99.7967479675,
+      "s_obv": 91.7682926829,
+      "s_rs": 97.3577235772,
+      "s_div": 50,
+      "momentum_score": 92.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 5,
+      "ticker": "QCOM",
+      "sector": "Technology",
+      "price": 219.09,
+      "ret_1m": 71.5,
+      "ret_3m": 48.09,
+      "ret_6m": 27.96,
+      "rsi": 85.8,
+      "stoch_k": 90.7,
+      "stoch_d": 86.7,
+      "adx": 42.7,
+      "bb_pct": 107.4,
+      "atr_pct": 7.47,
+      "roc10": 47.19,
+      "macd_signal": "BUY",
+      "macd_hist": 6.9335,
+      "vol_ratio": 1.49,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 141.62,
+      "ma200": 156.34,
+      "sparkline": [
+        3.2,
+        3.2,
+        5.0,
+        3.4,
+        2.9,
+        1.7,
+        0.0,
+        3.6,
+        3.9,
+        4.2,
+        7.5,
+        9.2,
+        9.5,
+        10.9,
+        12.8,
+        14.2,
+        12.1,
+        12.6,
+        10.4,
+        26.1,
+        27.6,
+        27.3,
+        33.6,
+        58.4,
+        55.7,
+        46.6,
+        65.8,
+        72.1,
+        82.6,
+        100.0
+      ],
+      "vwap_pct": 29.18,
+      "breakout_quality": 72.6,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 56.2,
+      "rel_strength_sector": 19.19,
+      "s_1m": 99.1869918699,
+      "s_3m": 96.9512195122,
+      "s_6m": 80.8943089431,
+      "s_rsi": 99.8983739837,
+      "s_adx": 94.918699187,
+      "s_vol": 91.5650406504,
+      "s_roc": 99.1869918699,
+      "s_breakout": 83.9430894309,
+      "s_obv": 96.5447154472,
+      "s_rs": 90.243902439,
+      "s_div": 50,
+      "momentum_score": 92.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 6,
+      "ticker": "STX",
+      "sector": "Technology",
+      "price": 782.64,
+      "ret_1m": 56.29,
+      "ret_3m": 87.28,
+      "ret_6m": 182.28,
+      "rsi": 82.1,
+      "stoch_k": 92.7,
+      "stoch_d": 93.6,
+      "adx": 53.8,
+      "bb_pct": 89.2,
+      "atr_pct": 5.27,
+      "roc10": 33.5,
+      "macd_signal": "BUY",
+      "macd_hist": 14.4763,
+      "vol_ratio": 1.19,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 495.91,
+      "ma200": 320.58,
+      "sparkline": [
+        4.2,
+        0.0,
+        6.9,
+        14.3,
+        15.8,
+        21.4,
+        25.1,
+        31.6,
+        32.6,
+        33.2,
+        35.6,
+        40.3,
+        37.1,
+        39.9,
+        43.7,
+        41.8,
+        46.6,
+        51.3,
+        53.1,
+        52.8,
+        55.1,
+        51.1,
+        66.2,
+        73.4,
+        86.0,
+        88.7,
+        96.4,
+        100.0,
+        95.3,
+        99.1
+      ],
+      "vwap_pct": 20.77,
+      "breakout_quality": 72.8,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.7,
+      "rel_strength_sector": 58.38,
+      "s_1m": 98.9837398374,
+      "s_3m": 98.9837398374,
+      "s_6m": 99.3902439024,
+      "s_rsi": 97.9674796748,
+      "s_adx": 99.1869918699,
+      "s_vol": 72.0528455285,
+      "s_roc": 98.5772357724,
+      "s_breakout": 84.8577235772,
+      "s_obv": 80.5894308943,
+      "s_rs": 98.3739837398,
+      "s_div": 25,
+      "momentum_score": 92.1,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 7,
+      "ticker": "ON",
+      "sector": "Technology",
+      "price": 103.2,
+      "ret_1m": 50.68,
+      "ret_3m": 66.29,
+      "ret_6m": 111.48,
+      "rsi": 71.9,
+      "stoch_k": 87.2,
+      "stoch_d": 88.3,
+      "adx": 42.8,
+      "bb_pct": 74.0,
+      "atr_pct": 4.76,
+      "roc10": 4.88,
+      "macd_signal": "BUY",
+      "macd_hist": 0.1611,
+      "vol_ratio": 1.37,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 73.89,
+      "ma200": 59.23,
+      "sparkline": [
+        5.4,
+        0.0,
+        12.5,
+        13.1,
+        13.0,
+        15.6,
+        16.2,
+        25.4,
+        25.6,
+        25.9,
+        30.7,
+        32.7,
+        33.5,
+        48.4,
+        54.6,
+        59.7,
+        62.4,
+        66.5,
+        84.1,
+        85.3,
+        84.6,
+        75.1,
+        86.2,
+        90.1,
+        94.5,
+        92.6,
+        93.8,
+        100.0,
+        89.7,
+        94.9
+      ],
+      "vwap_pct": 10.08,
+      "breakout_quality": 74.7,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.6,
+      "rel_strength_sector": 37.39,
+      "s_1m": 98.3739837398,
+      "s_3m": 98.1707317073,
+      "s_6m": 98.5772357724,
+      "s_rsi": 91.8699186992,
+      "s_adx": 95.1219512195,
+      "s_vol": 85.5691056911,
+      "s_roc": 78.4552845528,
+      "s_breakout": 88.8211382114,
+      "s_obv": 92.174796748,
+      "s_rs": 96.3414634146,
+      "s_div": 25,
+      "momentum_score": 91.9,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 8,
+      "ticker": "VTRS",
+      "sector": "Other",
+      "price": 17.17,
+      "ret_1m": 26.16,
+      "ret_3m": 20.59,
+      "ret_6m": 73.27,
+      "rsi": 79.7,
+      "stoch_k": 88.6,
+      "stoch_d": 93.6,
+      "adx": 31.7,
+      "bb_pct": 107.6,
+      "atr_pct": 3.74,
+      "roc10": 17.68,
+      "macd_signal": "BUY",
+      "macd_hist": 0.258,
+      "vol_ratio": 1.66,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 14.25,
+      "ma200": 11.94,
+      "sparkline": [
+        2.0,
+        0.0,
+        12.4,
+        15.1,
+        10.8,
+        10.2,
+        4.5,
+        13.8,
+        14.7,
+        11.5,
+        19.6,
+        21.4,
+        20.3,
+        23.7,
+        38.8,
+        43.1,
+        40.0,
+        35.2,
+        40.4,
+        36.8,
+        41.8,
+        42.0,
+        45.4,
+        44.7,
+        47.0,
+        50.6,
+        57.8,
+        67.5,
+        100.0,
+        95.0
+      ],
+      "vwap_pct": 12.18,
+      "breakout_quality": 79.2,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.9,
+      "rel_strength_sector": 26.03,
+      "s_1m": 94.0040650407,
+      "s_3m": 87.3983739837,
+      "s_6m": 96.1382113821,
+      "s_rsi": 97.3577235772,
+      "s_adx": 86.0772357724,
+      "s_vol": 95.7317073171,
+      "s_roc": 95.5284552846,
+      "s_breakout": 96.8495934959,
+      "s_obv": 84.1463414634,
+      "s_rs": 93.6991869919,
+      "s_div": 50,
+      "momentum_score": 91.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 9,
+      "ticker": "INTC",
+      "sector": "Technology",
+      "price": 124.92,
+      "ret_1m": 102.4,
+      "ret_3m": 157.04,
+      "ret_6m": 235.45,
+      "rsi": 85.1,
+      "stoch_k": 91.4,
+      "stoch_d": 93.5,
+      "adx": 59.8,
+      "bb_pct": 101.8,
+      "atr_pct": 6.87,
+      "roc10": 51.34,
+      "macd_signal": "BUY",
+      "macd_hist": 3.4912,
+      "vol_ratio": 1.11,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 62.11,
+      "ma200": 42.34,
+      "sparkline": [
+        2.3,
+        0.0,
+        3.5,
+        8.2,
+        11.0,
+        11.5,
+        14.0,
+        21.2,
+        24.5,
+        25.3,
+        28.7,
+        27.0,
+        28.4,
+        32.6,
+        32.6,
+        29.3,
+        29.9,
+        28.8,
+        30.6,
+        49.4,
+        52.3,
+        51.7,
+        64.0,
+        63.6,
+        69.8,
+        65.2,
+        80.0,
+        85.8,
+        81.7,
+        100.0
+      ],
+      "vwap_pct": 42.98,
+      "breakout_quality": 67.2,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.8,
+      "rel_strength_sector": 128.14,
+      "s_1m": 100.0,
+      "s_3m": 100.0,
+      "s_6m": 100.0,
+      "s_rsi": 99.593495935,
+      "s_adx": 100.0,
+      "s_vol": 63.7195121951,
+      "s_roc": 99.593495935,
+      "s_breakout": 70.325203252,
+      "s_obv": 82.6219512195,
+      "s_rs": 100.0,
+      "s_div": 25,
+      "momentum_score": 91.0,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 10,
+      "ticker": "FTNT",
+      "sector": "Technology",
+      "price": 114.07,
+      "ret_1m": 41.42,
+      "ret_3m": 40.62,
+      "ret_6m": 41.63,
+      "rsi": 84.4,
+      "stoch_k": 98.2,
+      "stoch_d": 93.4,
+      "adx": 21.0,
+      "bb_pct": 126.0,
+      "atr_pct": 5.03,
+      "roc10": 35.25,
+      "macd_signal": "BUY",
+      "macd_hist": 2.7723,
+      "vol_ratio": 1.49,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 83.99,
+      "ma200": 82.95,
+      "sparkline": [
+        4.0,
+        6.3,
+        13.4,
+        11.9,
+        15.6,
+        15.0,
+        18.8,
+        18.2,
+        10.6,
+        0.0,
+        5.5,
+        5.4,
+        7.9,
+        15.3,
+        13.8,
+        15.8,
+        22.9,
+        27.8,
+        16.2,
+        20.4,
+        24.0,
+        24.1,
+        25.2,
+        20.4,
+        25.7,
+        33.6,
+        35.4,
+        35.5,
+        83.7,
+        100.0
+      ],
+      "vwap_pct": 26.97,
+      "breakout_quality": 81.1,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 53.3,
+      "rel_strength_sector": 11.72,
+      "s_1m": 96.9512195122,
+      "s_3m": 95.7317073171,
+      "s_6m": 90.243902439,
+      "s_rsi": 99.1869918699,
+      "s_adx": 57.418699187,
+      "s_vol": 91.5650406504,
+      "s_roc": 98.9837398374,
+      "s_breakout": 98.1707317073,
+      "s_obv": 94.0040650407,
+      "s_rs": 81.0975609756,
+      "s_div": 50,
+      "momentum_score": 90.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 11,
+      "ticker": "WDC",
+      "sector": "Technology",
+      "price": 480.0,
+      "ret_1m": 42.06,
+      "ret_3m": 78.25,
+      "ret_6m": 193.77,
+      "rsi": 76.3,
+      "stoch_k": 96.6,
+      "stoch_d": 93.0,
+      "adx": 41.5,
+      "bb_pct": 93.1,
+      "atr_pct": 5.92,
+      "roc10": 18.81,
+      "macd_signal": "BUY",
+      "macd_hist": 5.1197,
+      "vol_ratio": 1.11,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 335.55,
+      "ma200": 200.89,
+      "sparkline": [
+        10.2,
+        0.0,
+        8.1,
+        19.9,
+        18.7,
+        22.7,
+        26.0,
+        37.6,
+        37.2,
+        39.6,
+        42.5,
+        49.5,
+        49.0,
+        47.5,
+        52.2,
+        52.9,
+        57.1,
+        59.4,
+        65.4,
+        65.8,
+        64.4,
+        60.2,
+        69.6,
+        79.0,
+        77.7,
+        82.4,
+        92.3,
+        100.0,
+        91.7,
+        98.6
+      ],
+      "vwap_pct": 15.93,
+      "breakout_quality": 76.0,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.3,
+      "rel_strength_sector": 49.35,
+      "s_1m": 97.3577235772,
+      "s_3m": 98.7804878049,
+      "s_6m": 99.593495935,
+      "s_rsi": 95.9349593496,
+      "s_adx": 94.512195122,
+      "s_vol": 63.7195121951,
+      "s_roc": 96.1382113821,
+      "s_breakout": 92.2764227642,
+      "s_obv": 68.8008130081,
+      "s_rs": 97.7642276423,
+      "s_div": 25,
+      "momentum_score": 90.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 12,
+      "ticker": "CNC",
+      "sector": "Other",
+      "price": 55.96,
+      "ret_1m": 49.03,
+      "ret_3m": 36.62,
+      "ret_6m": 50.84,
+      "rsi": 82.8,
+      "stoch_k": 97.8,
+      "stoch_d": 96.8,
+      "adx": 44.5,
+      "bb_pct": 83.5,
+      "atr_pct": 3.9,
+      "roc10": 33.81,
+      "macd_signal": "BUY",
+      "macd_hist": 1.0641,
+      "vol_ratio": 0.93,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 40.46,
+      "ma200": 37.4,
+      "sparkline": [
+        0.8,
+        0.0,
+        3.9,
+        8.9,
+        13.7,
+        14.9,
+        18.7,
+        22.7,
+        23.8,
+        22.8,
+        23.5,
+        22.6,
+        24.0,
+        29.8,
+        26.4,
+        26.9,
+        30.4,
+        29.5,
+        38.5,
+        41.5,
+        48.4,
+        73.6,
+        91.8,
+        90.6,
+        89.2,
+        90.1,
+        87.7,
+        97.4,
+        95.9,
+        100.0
+      ],
+      "vwap_pct": 17.86,
+      "breakout_quality": 74.1,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 58.3,
+      "rel_strength_sector": 42.06,
+      "s_1m": 98.1707317073,
+      "s_3m": 94.512195122,
+      "s_6m": 93.2926829268,
+      "s_rsi": 98.1707317073,
+      "s_adx": 96.1382113821,
+      "s_vol": 33.9430894309,
+      "s_roc": 98.7804878049,
+      "s_breakout": 87.6016260163,
+      "s_obv": 99.1869918699,
+      "s_rs": 96.7479674797,
+      "s_div": 50,
+      "momentum_score": 90.0,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 13,
+      "ticker": "DDOG",
+      "sector": "Technology",
+      "price": 200.16,
+      "ret_1m": 83.67,
+      "ret_3m": 72.98,
+      "ret_6m": 4.89,
+      "rsi": 85.8,
+      "stoch_k": 99.7,
+      "stoch_d": 87.6,
+      "adx": 26.9,
+      "bb_pct": 121.9,
+      "atr_pct": 6.73,
+      "roc10": 54.59,
+      "macd_signal": "BUY",
+      "macd_hist": 6.6549,
+      "vol_ratio": 1.8,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 127.21,
+      "ma200": 138.59,
+      "sparkline": [
+        9.6,
+        11.0,
+        13.4,
+        14.0,
+        15.8,
+        11.7,
+        11.8,
+        11.7,
+        3.8,
+        0.0,
+        5.0,
+        5.5,
+        16.6,
+        19.1,
+        22.4,
+        25.7,
+        25.2,
+        28.2,
+        23.7,
+        25.4,
+        28.8,
+        27.6,
+        30.2,
+        28.3,
+        37.1,
+        43.6,
+        42.6,
+        40.4,
+        87.9,
+        100.0
+      ],
+      "vwap_pct": 34.73,
+      "breakout_quality": 85.8,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.7,
+      "rel_strength_sector": 44.08,
+      "s_1m": 99.593495935,
+      "s_3m": 98.5772357724,
+      "s_6m": 47.9674796748,
+      "s_rsi": 99.8983739837,
+      "s_adx": 75.2032520325,
+      "s_vol": 98.3739837398,
+      "s_roc": 99.7967479675,
+      "s_breakout": 99.593495935,
+      "s_obv": 80.5894308943,
+      "s_rs": 97.1544715447,
+      "s_div": 50,
+      "momentum_score": 89.3,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "Nasdaq-100"
+    },
+    {
+      "rank": 14,
+      "ticker": "NXPI",
+      "sector": "Technology",
+      "price": 294.75,
+      "ret_1m": 43.31,
+      "ret_3m": 30.6,
+      "ret_6m": 44.15,
+      "rsi": 72.9,
+      "stoch_k": 88.9,
+      "stoch_d": 91.1,
+      "adx": 41.2,
+      "bb_pct": 79.4,
+      "atr_pct": 4.26,
+      "roc10": 20.78,
+      "macd_signal": "BUY",
+      "macd_hist": 4.5655,
+      "vol_ratio": 1.16,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 220.34,
+      "ma200": 220.49,
+      "sparkline": [
+        3.7,
+        0.0,
+        8.2,
+        7.1,
+        6.2,
+        8.3,
+        6.7,
+        14.5,
+        15.7,
+        14.6,
+        17.7,
+        19.4,
+        18.9,
+        22.7,
+        24.7,
+        29.2,
+        31.9,
+        33.0,
+        46.3,
+        48.8,
+        42.6,
+        37.0,
+        87.7,
+        91.4,
+        92.8,
+        89.0,
+        90.4,
+        100.0,
+        88.5,
+        92.4
+      ],
+      "vwap_pct": 13.43,
+      "breakout_quality": 70.9,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 58.5,
+      "rel_strength_sector": 1.7,
+      "s_1m": 97.9674796748,
+      "s_3m": 93.0894308943,
+      "s_6m": 91.4634146341,
+      "s_rsi": 93.0894308943,
+      "s_adx": 94.3089430894,
+      "s_vol": 69.918699187,
+      "s_roc": 97.1544715447,
+      "s_breakout": 78.6585365854,
+      "s_obv": 99.3902439024,
+      "s_rs": 55.9959349593,
+      "s_div": 50,
+      "momentum_score": 88.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 15,
+      "ticker": "PWR",
+      "sector": "Industrials",
+      "price": 745.0,
+      "ret_1m": 27.99,
+      "ret_3m": 60.39,
+      "ret_6m": 68.29,
+      "rsi": 71.6,
+      "stoch_k": 76.6,
+      "stoch_d": 84.9,
+      "adx": 43.0,
+      "bb_pct": 79.0,
+      "atr_pct": 3.73,
+      "roc10": 19.23,
+      "macd_signal": "BUY",
+      "macd_hist": 10.6122,
+      "vol_ratio": 1.22,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 602.74,
+      "ma200": 476.9,
+      "sparkline": [
+        6.4,
+        0.0,
+        6.1,
+        10.5,
+        10.7,
+        8.2,
+        8.7,
+        16.9,
+        19.2,
+        20.5,
+        24.7,
+        24.1,
+        23.1,
+        21.4,
+        27.1,
+        28.3,
+        28.7,
+        31.8,
+        39.7,
+        36.2,
+        41.2,
+        38.7,
+        37.7,
+        77.2,
+        82.9,
+        88.9,
+        94.6,
+        100.0,
+        86.3,
+        84.0
+      ],
+      "vwap_pct": 10.3,
+      "breakout_quality": 65.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.6,
+      "rel_strength_sector": 63.88,
+      "s_1m": 94.7154471545,
+      "s_3m": 97.5609756098,
+      "s_6m": 95.7317073171,
+      "s_rsi": 91.6666666667,
+      "s_adx": 95.5284552846,
+      "s_vol": 74.3902439024,
+      "s_roc": 96.5447154472,
+      "s_breakout": 66.8699186992,
+      "s_obv": 77.9471544715,
+      "s_rs": 98.5772357724,
+      "s_div": 25,
+      "momentum_score": 87.8,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 16,
+      "ticker": "GNRC",
+      "sector": "Industrials",
+      "price": 269.41,
+      "ret_1m": 29.94,
+      "ret_3m": 52.05,
+      "ret_6m": 75.18,
+      "rsi": 77.9,
+      "stoch_k": 95.1,
+      "stoch_d": 95.7,
+      "adx": 31.4,
+      "bb_pct": 86.5,
+      "atr_pct": 3.6,
+      "roc10": 21.94,
+      "macd_signal": "BUY",
+      "macd_hist": 4.2115,
+      "vol_ratio": 0.89,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 216.17,
+      "ma200": 184.55,
+      "sparkline": [
+        10.6,
+        0.0,
+        11.7,
+        16.1,
+        10.2,
+        11.9,
+        6.7,
+        20.8,
+        26.0,
+        25.7,
+        23.4,
+        31.4,
+        22.5,
+        26.1,
+        31.7,
+        37.9,
+        33.8,
+        33.6,
+        39.2,
+        42.2,
+        41.5,
+        37.7,
+        80.3,
+        87.9,
+        88.0,
+        85.3,
+        93.2,
+        97.6,
+        96.8,
+        100.0
+      ],
+      "vwap_pct": 14.15,
+      "breakout_quality": 72.6,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.5,
+      "rel_strength_sector": 55.54,
+      "s_1m": 95.325203252,
+      "s_3m": 97.3577235772,
+      "s_6m": 96.3414634146,
+      "s_rsi": 96.7479674797,
+      "s_adx": 85.4674796748,
+      "s_vol": 24.0853658537,
+      "s_roc": 97.5609756098,
+      "s_breakout": 83.9430894309,
+      "s_obv": 74.8983739837,
+      "s_rs": 98.1707317073,
+      "s_div": 50,
+      "momentum_score": 86.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 17,
+      "ticker": "CBOE",
+      "sector": "Financials",
+      "price": 348.56,
+      "ret_1m": 18.23,
+      "ret_3m": 28.84,
+      "ret_6m": 38.31,
+      "rsi": 72.5,
+      "stoch_k": 98.5,
+      "stoch_d": 94.3,
+      "adx": 23.7,
+      "bb_pct": 96.7,
+      "atr_pct": 3.19,
+      "roc10": 14.73,
+      "macd_signal": "BUY",
+      "macd_hist": 4.2348,
+      "vol_ratio": 1.11,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 299.35,
+      "ma200": 263.7,
+      "sparkline": [
+        0.0,
+        12.3,
+        10.7,
+        9.6,
+        22.4,
+        30.5,
+        30.0,
+        31.7,
+        28.9,
+        30.4,
+        36.1,
+        36.7,
+        42.3,
+        48.1,
+        35.7,
+        41.6,
+        34.7,
+        32.4,
+        35.9,
+        40.8,
+        33.7,
+        40.6,
+        43.1,
+        35.9,
+        71.4,
+        87.2,
+        93.9,
+        96.6,
+        86.9,
+        100.0
+      ],
+      "vwap_pct": 10.82,
+      "breakout_quality": 77.4,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.7,
+      "rel_strength_sector": 33.13,
+      "s_1m": 88.8211382114,
+      "s_3m": 92.0731707317,
+      "s_6m": 89.0243902439,
+      "s_rsi": 92.174796748,
+      "s_adx": 68.1910569106,
+      "s_vol": 63.7195121951,
+      "s_roc": 94.1056910569,
+      "s_breakout": 94.8170731707,
+      "s_obv": 80.5894308943,
+      "s_rs": 94.918699187,
+      "s_div": 50,
+      "momentum_score": 85.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 18,
+      "ticker": "GOOGL",
+      "sector": "Communication Services",
+      "price": 400.8,
+      "ret_1m": 25.84,
+      "ret_3m": 20.43,
+      "ret_6m": 40.95,
+      "rsi": 84.0,
+      "stoch_k": 98.3,
+      "stoch_d": 97.5,
+      "adx": 45.8,
+      "bb_pct": 90.7,
+      "atr_pct": 2.43,
+      "roc10": 16.38,
+      "macd_signal": "BUY",
+      "macd_hist": 4.3974,
+      "vol_ratio": 0.93,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 323.7,
+      "ma200": 286.02,
+      "sparkline": [
+        0.7,
+        0.0,
+        11.0,
+        18.8,
+        17.5,
+        20.8,
+        25.1,
+        34.4,
+        35.3,
+        34.4,
+        37.6,
+        46.7,
+        50.0,
+        49.1,
+        53.6,
+        50.2,
+        46.2,
+        51.7,
+        51.4,
+        55.7,
+        60.4,
+        59.9,
+        60.0,
+        87.4,
+        88.1,
+        86.2,
+        90.3,
+        97.8,
+        97.8,
+        100.0
+      ],
+      "vwap_pct": 11.45,
+      "breakout_quality": 75.1,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.5,
+      "rel_strength_sector": 18.5,
+      "s_1m": 93.6991869919,
+      "s_3m": 87.1951219512,
+      "s_6m": 89.837398374,
+      "s_rsi": 98.9837398374,
+      "s_adx": 96.5447154472,
+      "s_vol": 33.9430894309,
+      "s_roc": 94.7154471545,
+      "s_breakout": 89.7357723577,
+      "s_obv": 74.8983739837,
+      "s_rs": 89.4308943089,
+      "s_div": 50,
+      "momentum_score": 85.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 19,
+      "ticker": "DOC",
+      "sector": "Real Estate",
+      "price": 19.64,
+      "ret_1m": 18.38,
+      "ret_3m": 19.19,
+      "ret_6m": 15.95,
+      "rsi": 77.6,
+      "stoch_k": 94.5,
+      "stoch_d": 97.0,
+      "adx": 23.3,
+      "bb_pct": 105.9,
+      "atr_pct": 3.8,
+      "roc10": 19.54,
+      "macd_signal": "BUY",
+      "macd_hist": 0.3944,
+      "vol_ratio": 1.48,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 16.95,
+      "ma200": 16.95,
+      "sparkline": [
+        13.7,
+        12.6,
+        9.3,
+        8.0,
+        11.8,
+        15.8,
+        21.5,
+        16.1,
+        16.4,
+        17.7,
+        11.2,
+        21.2,
+        30.2,
+        29.6,
+        37.6,
+        30.2,
+        13.1,
+        9.3,
+        11.4,
+        12.0,
+        5.7,
+        1.6,
+        0.0,
+        4.9,
+        11.7,
+        8.2,
+        14.2,
+        95.6,
+        100.0,
+        99.5
+      ],
+      "vwap_pct": 14.19,
+      "breakout_quality": 79.4,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 54.9,
+      "rel_strength_sector": 11.47,
+      "s_1m": 89.0243902439,
+      "s_3m": 85.5691056911,
+      "s_6m": 65.8536585366,
+      "s_rsi": 96.3414634146,
+      "s_adx": 66.8699186992,
+      "s_vol": 91.1585365854,
+      "s_roc": 96.9512195122,
+      "s_breakout": 97.3577235772,
+      "s_obv": 95.7317073171,
+      "s_rs": 80.487804878,
+      "s_div": 50,
+      "momentum_score": 85.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 20,
+      "ticker": "MCHP",
+      "sector": "Technology",
+      "price": 99.09,
+      "ret_1m": 39.13,
+      "ret_3m": 27.41,
+      "ret_6m": 69.46,
+      "rsi": 72.8,
+      "stoch_k": 73.4,
+      "stoch_d": 88.5,
+      "adx": 46.8,
+      "bb_pct": 81.0,
+      "atr_pct": 4.61,
+      "roc10": 10.79,
+      "macd_signal": "BUY",
+      "macd_hist": 1.15,
+      "vol_ratio": 1.25,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 74.72,
+      "ma200": 68.03,
+      "sparkline": [
+        4.5,
+        0.0,
+        10.6,
+        12.4,
+        12.9,
+        16.7,
+        17.4,
+        24.9,
+        26.0,
+        26.8,
+        31.5,
+        33.7,
+        33.7,
+        39.2,
+        43.6,
+        47.4,
+        48.7,
+        52.3,
+        71.3,
+        68.5,
+        62.5,
+        56.5,
+        70.3,
+        76.6,
+        79.1,
+        82.2,
+        89.6,
+        100.0,
+        96.9,
+        91.1
+      ],
+      "vwap_pct": 11.4,
+      "breakout_quality": 63.5,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.7,
+      "rel_strength_sector": -1.49,
+      "s_1m": 96.5447154472,
+      "s_3m": 91.4634146341,
+      "s_6m": 95.9349593496,
+      "s_rsi": 92.6829268293,
+      "s_adx": 97.1544715447,
+      "s_vol": 76.9308943089,
+      "s_roc": 91.0569105691,
+      "s_breakout": 64.2276422764,
+      "s_obv": 92.581300813,
+      "s_rs": 43.9024390244,
+      "s_div": 25,
+      "momentum_score": 85.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 21,
+      "ticker": "GOOG",
+      "sector": "Communication Services",
+      "price": 397.05,
+      "ret_1m": 25.5,
+      "ret_3m": 19.2,
+      "ret_6m": 39.34,
+      "rsi": 83.3,
+      "stoch_k": 98.1,
+      "stoch_d": 97.7,
+      "adx": 45.9,
+      "bb_pct": 90.3,
+      "atr_pct": 2.39,
+      "roc10": 15.99,
+      "macd_signal": "BUY",
+      "macd_hist": 4.3196,
+      "vol_ratio": 0.93,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 322.07,
+      "ma200": 286.07,
+      "sparkline": [
+        0.5,
+        0.0,
+        11.1,
+        17.6,
+        17.2,
+        19.8,
+        24.8,
+        33.6,
+        34.9,
+        34.4,
+        37.2,
+        46.4,
+        49.5,
+        48.1,
+        53.5,
+        50.2,
+        46.3,
+        52.1,
+        52.1,
+        55.8,
+        60.8,
+        60.0,
+        59.9,
+        87.8,
+        88.8,
+        85.9,
+        89.7,
+        98.5,
+        98.6,
+        100.0
+      ],
+      "vwap_pct": 11.09,
+      "breakout_quality": 75.0,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.5,
+      "rel_strength_sector": 17.27,
+      "s_1m": 93.4959349593,
+      "s_3m": 85.7723577236,
+      "s_6m": 89.6341463415,
+      "s_rsi": 98.3739837398,
+      "s_adx": 96.7479674797,
+      "s_vol": 33.9430894309,
+      "s_roc": 94.3089430894,
+      "s_breakout": 89.4308943089,
+      "s_obv": 74.8983739837,
+      "s_rs": 87.906504065,
+      "s_div": 50,
+      "momentum_score": 85.3,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 22,
+      "ticker": "ZM",
+      "sector": "Technology",
+      "price": 109.21,
+      "ret_1m": 29.97,
+      "ret_3m": 20.24,
+      "ret_6m": 32.83,
+      "rsi": 74.7,
+      "stoch_k": 98.7,
+      "stoch_d": 91.4,
+      "adx": 40.9,
+      "bb_pct": 90.3,
+      "atr_pct": 3.85,
+      "roc10": 18.67,
+      "macd_signal": "BUY",
+      "macd_hist": 1.4945,
+      "vol_ratio": 1.03,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 84.76,
+      "ma200": 83.77,
+      "sparkline": [
+        0.0,
+        3.1,
+        8.5,
+        9.5,
+        14.8,
+        15.8,
+        20.0,
+        17.5,
+        20.1,
+        4.9,
+        16.2,
+        14.9,
+        35.9,
+        28.5,
+        32.7,
+        40.8,
+        42.1,
+        45.1,
+        39.0,
+        45.5,
+        41.7,
+        42.6,
+        57.3,
+        61.7,
+        81.7,
+        91.8,
+        99.7,
+        87.0,
+        97.3,
+        100.0
+      ],
+      "vwap_pct": 14.76,
+      "breakout_quality": 76.4,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 57.2,
+      "rel_strength_sector": -8.66,
+      "s_1m": 95.5284552846,
+      "s_3m": 86.9918699187,
+      "s_6m": 85.9756097561,
+      "s_rsi": 94.918699187,
+      "s_adx": 94.0040650407,
+      "s_vol": 50.9146341463,
+      "s_roc": 95.9349593496,
+      "s_breakout": 93.0894308943,
+      "s_obv": 98.5772357724,
+      "s_rs": 24.593495935,
+      "s_div": 50,
+      "momentum_score": 85.1,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "Nasdaq-100"
+    },
+    {
+      "rank": 23,
+      "ticker": "JBL",
+      "sector": "Technology",
+      "price": 355.15,
+      "ret_1m": 21.2,
+      "ret_3m": 50.5,
+      "ret_6m": 65.26,
+      "rsi": 65.1,
+      "stoch_k": 63.3,
+      "stoch_d": 72.9,
+      "adx": 30.3,
+      "bb_pct": 81.5,
+      "atr_pct": 4.53,
+      "roc10": 3.95,
+      "macd_signal": "BUY",
+      "macd_hist": 0.2045,
+      "vol_ratio": 1.35,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 291.57,
+      "ma200": 240.08,
+      "sparkline": [
+        10.9,
+        0.0,
+        14.5,
+        19.6,
+        16.9,
+        16.0,
+        20.3,
+        31.8,
+        36.5,
+        41.7,
+        46.4,
+        46.8,
+        46.0,
+        50.2,
+        59.4,
+        66.3,
+        69.0,
+        71.2,
+        72.9,
+        75.4,
+        74.7,
+        66.8,
+        69.2,
+        72.1,
+        76.1,
+        74.7,
+        71.9,
+        100.0,
+        81.8,
+        86.2
+      ],
+      "vwap_pct": 5.54,
+      "breakout_quality": 69.2,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.4,
+      "rel_strength_sector": 21.6,
+      "s_1m": 90.8536585366,
+      "s_3m": 97.1544715447,
+      "s_6m": 95.325203252,
+      "s_rsi": 84.0447154472,
+      "s_adx": 83.3333333333,
+      "s_vol": 83.5365853659,
+      "s_roc": 75.0,
+      "s_breakout": 74.0853658537,
+      "s_obv": 72.0528455285,
+      "s_rs": 92.0731707317,
+      "s_div": 25,
+      "momentum_score": 84.8,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 24,
+      "ticker": "HUM",
+      "sector": "Health Care",
+      "price": 274.96,
+      "ret_1m": 39.35,
+      "ret_3m": 43.88,
+      "ret_6m": 10.43,
+      "rsi": 84.7,
+      "stoch_k": 100.0,
+      "stoch_d": 93.2,
+      "adx": 38.7,
+      "bb_pct": 111.2,
+      "atr_pct": 4.29,
+      "roc10": 27.75,
+      "macd_signal": "BUY",
+      "macd_hist": 3.4148,
+      "vol_ratio": 0.9,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 195.87,
+      "ma200": 239.23,
+      "sparkline": [
+        2.8,
+        0.0,
+        6.8,
+        10.0,
+        10.9,
+        15.3,
+        28.6,
+        29.7,
+        28.7,
+        24.0,
+        29.6,
+        27.7,
+        29.7,
+        31.9,
+        35.9,
+        40.7,
+        47.1,
+        47.2,
+        44.9,
+        45.2,
+        52.9,
+        58.5,
+        70.8,
+        64.6,
+        62.1,
+        66.0,
+        67.5,
+        73.7,
+        74.4,
+        100.0
+      ],
+      "vwap_pct": 21.74,
+      "breakout_quality": 75.5,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.8,
+      "rel_strength_sector": 51.86,
+      "s_1m": 96.7479674797,
+      "s_3m": 96.3414634146,
+      "s_6m": 56.9105691057,
+      "s_rsi": 99.3902439024,
+      "s_adx": 92.4796747967,
+      "s_vol": 25.9146341463,
+      "s_roc": 97.7642276423,
+      "s_breakout": 91.2601626016,
+      "s_obv": 90.5487804878,
+      "s_rs": 97.9674796748,
+      "s_div": 25,
+      "momentum_score": 84.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 25,
+      "ticker": "WST",
+      "sector": "Other",
+      "price": 325.92,
+      "ret_1m": 26.16,
+      "ret_3m": 37.59,
+      "ret_6m": 18.66,
+      "rsi": 77.8,
+      "stoch_k": 95.5,
+      "stoch_d": 92.5,
+      "adx": 42.0,
+      "bb_pct": 92.8,
+      "atr_pct": 3.0,
+      "roc10": 6.53,
+      "macd_signal": "BUY",
+      "macd_hist": 2.3356,
+      "vol_ratio": 0.93,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 264.72,
+      "ma200": 261.24,
+      "sparkline": [
+        0.0,
+        2.2,
+        8.8,
+        11.3,
+        13.8,
+        16.3,
+        19.3,
+        27.3,
+        18.3,
+        15.9,
+        20.1,
+        29.7,
+        28.0,
+        32.0,
+        36.7,
+        41.8,
+        37.9,
+        37.5,
+        80.1,
+        75.8,
+        71.1,
+        58.9,
+        63.1,
+        65.8,
+        69.5,
+        68.9,
+        80.7,
+        83.8,
+        95.3,
+        100.0
+      ],
+      "vwap_pct": 10.41,
+      "breakout_quality": 74.0,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.8,
+      "rel_strength_sector": 43.03,
+      "s_1m": 94.0040650407,
+      "s_3m": 94.7154471545,
+      "s_6m": 70.2235772358,
+      "s_rsi": 96.5447154472,
+      "s_adx": 94.7154471545,
+      "s_vol": 33.9430894309,
+      "s_roc": 82.7235772358,
+      "s_breakout": 87.2967479675,
+      "s_obv": 92.987804878,
+      "s_rs": 96.9512195122,
+      "s_div": 25,
+      "momentum_score": 84.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 26,
+      "ticker": "CVS",
+      "sector": "Health Care",
+      "price": 90.55,
+      "ret_1m": 15.86,
+      "ret_3m": 21.4,
+      "ret_6m": 17.08,
+      "rsi": 74.8,
+      "stoch_k": 97.8,
+      "stoch_d": 91.5,
+      "adx": 34.0,
+      "bb_pct": 108.5,
+      "atr_pct": 3.02,
+      "roc10": 16.18,
+      "macd_signal": "BUY",
+      "macd_hist": 0.9975,
+      "vol_ratio": 1.21,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 76.91,
+      "ma200": 75.0,
+      "sparkline": [
+        0.0,
+        0.3,
+        8.2,
+        11.3,
+        16.0,
+        15.0,
+        38.3,
+        41.0,
+        41.2,
+        43.5,
+        37.7,
+        35.5,
+        23.1,
+        31.6,
+        34.0,
+        30.6,
+        34.2,
+        29.9,
+        44.5,
+        40.2,
+        42.2,
+        54.6,
+        68.5,
+        65.6,
+        59.9,
+        59.5,
+        53.2,
+        82.5,
+        84.9,
+        100.0
+      ],
+      "vwap_pct": 12.31,
+      "breakout_quality": 78.1,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.3,
+      "rel_strength_sector": 29.38,
+      "s_1m": 86.7886178862,
+      "s_3m": 88.4146341463,
+      "s_6m": 67.3780487805,
+      "s_rsi": 95.1219512195,
+      "s_adx": 88.8211382114,
+      "s_vol": 73.5772357724,
+      "s_roc": 94.512195122,
+      "s_breakout": 95.9349593496,
+      "s_obv": 68.8008130081,
+      "s_rs": 94.512195122,
+      "s_div": 50,
+      "momentum_score": 84.5,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 27,
+      "ticker": "BWA",
+      "sector": "Other",
+      "price": 61.32,
+      "ret_1m": 11.55,
+      "ret_3m": 21.81,
+      "ret_6m": 37.18,
+      "rsi": 67.7,
+      "stoch_k": 99.3,
+      "stoch_d": 84.4,
+      "adx": 18.5,
+      "bb_pct": 113.7,
+      "atr_pct": 3.54,
+      "roc10": 8.94,
+      "macd_signal": "BUY",
+      "macd_hist": 0.5109,
+      "vol_ratio": 1.62,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 54.47,
+      "ma200": 47.33,
+      "sparkline": [
+        20.7,
+        1.8,
+        20.9,
+        24.4,
+        4.9,
+        7.5,
+        0.0,
+        28.8,
+        28.9,
+        23.4,
+        13.1,
+        14.6,
+        1.1,
+        10.2,
+        36.6,
+        37.4,
+        26.3,
+        38.3,
+        42.0,
+        43.7,
+        33.6,
+        21.5,
+        20.4,
+        51.3,
+        49.0,
+        43.3,
+        54.5,
+        78.6,
+        64.8,
+        100.0
+      ],
+      "vwap_pct": 8.69,
+      "breakout_quality": 83.7,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.1,
+      "rel_strength_sector": 27.25,
+      "s_1m": 82.5203252033,
+      "s_3m": 88.8211382114,
+      "s_6m": 88.4146341463,
+      "s_rsi": 87.6016260163,
+      "s_adx": 46.1382113821,
+      "s_vol": 95.5284552846,
+      "s_roc": 87.6016260163,
+      "s_breakout": 99.3902439024,
+      "s_obv": 86.0772357724,
+      "s_rs": 94.1056910569,
+      "s_div": 50,
+      "momentum_score": 84.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 28,
+      "ticker": "HPE",
+      "sector": "Technology",
+      "price": 31.35,
+      "ret_1m": 26.26,
+      "ret_3m": 35.77,
+      "ret_6m": 35.65,
+      "rsi": 74.2,
+      "stoch_k": 100.0,
+      "stoch_d": 93.7,
+      "adx": 35.6,
+      "bb_pct": 94.5,
+      "atr_pct": 3.46,
+      "roc10": 11.33,
+      "macd_signal": "BUY",
+      "macd_hist": 0.1445,
+      "vol_ratio": 0.98,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 24.86,
+      "ma200": 23.16,
+      "sparkline": [
+        15.2,
+        0.0,
+        13.7,
+        15.7,
+        22.9,
+        22.5,
+        23.1,
+        27.1,
+        25.4,
+        26.1,
+        25.2,
+        21.3,
+        23.0,
+        37.5,
+        43.8,
+        59.5,
+        70.4,
+        67.5,
+        60.9,
+        63.5,
+        68.8,
+        61.1,
+        65.1,
+        70.5,
+        68.2,
+        69.8,
+        85.0,
+        88.8,
+        81.1,
+        100.0
+      ],
+      "vwap_pct": 12.65,
+      "breakout_quality": 76.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.3,
+      "rel_strength_sector": 6.87,
+      "s_1m": 94.3089430894,
+      "s_3m": 94.3089430894,
+      "s_6m": 87.6016260163,
+      "s_rsi": 94.6138211382,
+      "s_adx": 90.4471544715,
+      "s_vol": 42.7845528455,
+      "s_roc": 91.6666666667,
+      "s_breakout": 93.0894308943,
+      "s_obv": 68.8008130081,
+      "s_rs": 70.325203252,
+      "s_div": 25,
+      "momentum_score": 84.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 29,
+      "ticker": "HST",
+      "sector": "Real Estate",
+      "price": 22.27,
+      "ret_1m": 11.85,
+      "ret_3m": 16.56,
+      "ret_6m": 32.49,
+      "rsi": 74.1,
+      "stoch_k": 94.5,
+      "stoch_d": 76.4,
+      "adx": 32.2,
+      "bb_pct": 118.8,
+      "atr_pct": 2.26,
+      "roc10": 6.56,
+      "macd_signal": "BUY",
+      "macd_hist": 0.0548,
+      "vol_ratio": 1.15,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 19.9,
+      "ma200": 17.76,
+      "sparkline": [
+        0.0,
+        3.3,
+        14.3,
+        12.6,
+        13.7,
+        16.2,
+        12.4,
+        29.5,
+        35.0,
+        41.3,
+        44.9,
+        62.5,
+        56.5,
+        53.2,
+        68.3,
+        73.0,
+        68.3,
+        60.9,
+        66.9,
+        62.2,
+        61.7,
+        63.3,
+        66.7,
+        68.6,
+        68.6,
+        61.1,
+        73.5,
+        83.7,
+        83.5,
+        100.0
+      ],
+      "vwap_pct": 5.56,
+      "breakout_quality": 77.4,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.9,
+      "rel_strength_sector": 8.84,
+      "s_1m": 83.3333333333,
+      "s_3m": 83.9430894309,
+      "s_6m": 85.7723577236,
+      "s_rsi": 94.3089430894,
+      "s_adx": 86.5853658537,
+      "s_vol": 68.6991869919,
+      "s_roc": 82.9268292683,
+      "s_breakout": 94.8170731707,
+      "s_obv": 84.1463414634,
+      "s_rs": 75.2032520325,
+      "s_div": 50,
+      "momentum_score": 83.8,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 30,
+      "ticker": "ADM",
+      "sector": "Other",
+      "price": 77.66,
+      "ret_1m": 10.39,
+      "ret_3m": 16.19,
+      "ret_6m": 39.11,
+      "rsi": 66.6,
+      "stoch_k": 70.2,
+      "stoch_d": 72.4,
+      "adx": 28.3,
+      "bb_pct": 84.2,
+      "atr_pct": 3.26,
+      "roc10": 12.18,
+      "macd_signal": "BUY",
+      "macd_hist": 0.7344,
+      "vol_ratio": 1.43,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 71.13,
+      "ma200": 63.23,
+      "sparkline": [
+        43.1,
+        39.2,
+        46.9,
+        44.3,
+        56.2,
+        52.5,
+        42.5,
+        39.0,
+        27.8,
+        22.7,
+        23.4,
+        15.4,
+        0.0,
+        14.1,
+        0.7,
+        11.6,
+        23.5,
+        20.3,
+        25.2,
+        18.6,
+        29.3,
+        47.8,
+        59.8,
+        62.0,
+        65.3,
+        76.1,
+        100.0,
+        90.4,
+        86.4,
+        87.5
+      ],
+      "vwap_pct": 6.09,
+      "breakout_quality": 69.2,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 56.8,
+      "rel_strength_sector": 21.63,
+      "s_1m": 80.487804878,
+      "s_3m": 83.3333333333,
+      "s_6m": 89.4308943089,
+      "s_rsi": 85.8739837398,
+      "s_adx": 79.5731707317,
+      "s_vol": 89.3292682927,
+      "s_roc": 92.2764227642,
+      "s_breakout": 74.0853658537,
+      "s_obv": 97.662601626,
+      "s_rs": 92.2764227642,
+      "s_div": 50,
+      "momentum_score": 83.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 31,
+      "ticker": "TXN",
+      "sector": "Technology",
+      "price": 287.8,
+      "ret_1m": 34.55,
+      "ret_3m": 29.76,
+      "ret_6m": 80.41,
+      "rsi": 76.5,
+      "stoch_k": 92.3,
+      "stoch_d": 92.0,
+      "adx": 49.7,
+      "bb_pct": 77.7,
+      "atr_pct": 3.3,
+      "roc10": 4.37,
+      "macd_signal": "BUY",
+      "macd_hist": 1.6305,
+      "vol_ratio": 0.9,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 220.54,
+      "ma200": 192.56,
+      "sparkline": [
+        3.7,
+        0.0,
+        7.4,
+        9.5,
+        8.1,
+        12.4,
+        12.7,
+        21.5,
+        27.3,
+        27.1,
+        29.0,
+        31.1,
+        28.6,
+        35.1,
+        41.5,
+        45.2,
+        44.7,
+        47.7,
+        91.7,
+        86.8,
+        79.5,
+        75.2,
+        79.2,
+        90.6,
+        90.5,
+        90.4,
+        91.9,
+        100.0,
+        96.0,
+        98.4
+      ],
+      "vwap_pct": 10.18,
+      "breakout_quality": 71.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.5,
+      "rel_strength_sector": 0.86,
+      "s_1m": 96.1382113821,
+      "s_3m": 92.2764227642,
+      "s_6m": 96.9512195122,
+      "s_rsi": 96.1382113821,
+      "s_adx": 97.9674796748,
+      "s_vol": 25.9146341463,
+      "s_roc": 76.6260162602,
+      "s_breakout": 80.3861788618,
+      "s_obv": 88.8211382114,
+      "s_rs": 53.2520325203,
+      "s_div": 25,
+      "momentum_score": 83.5,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 32,
+      "ticker": "MRVL",
+      "sector": "Technology",
+      "price": 170.13,
+      "ret_1m": 41.93,
+      "ret_3m": 130.86,
+      "ret_6m": 82.51,
+      "rsi": 69.0,
+      "stoch_k": 80.4,
+      "stoch_d": 74.1,
+      "adx": 49.0,
+      "bb_pct": 78.9,
+      "atr_pct": 5.53,
+      "roc10": 3.54,
+      "macd_signal": "SELL",
+      "macd_hist": -0.8427,
+      "vol_ratio": 0.79,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 118.59,
+      "ma200": 90.69,
+      "sparkline": [
+        8.4,
+        0.0,
+        13.3,
+        22.4,
+        22.9,
+        25.7,
+        25.5,
+        31.6,
+        38.0,
+        48.3,
+        51.6,
+        54.6,
+        55.5,
+        54.0,
+        61.5,
+        71.2,
+        75.3,
+        82.4,
+        92.2,
+        90.7,
+        83.5,
+        77.6,
+        81.5,
+        91.7,
+        91.5,
+        89.9,
+        96.0,
+        100.0,
+        85.6,
+        97.6
+      ],
+      "vwap_pct": 11.19,
+      "breakout_quality": 66.2,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.6,
+      "rel_strength_sector": 101.96,
+      "s_1m": 97.1544715447,
+      "s_3m": 99.7967479675,
+      "s_6m": 97.3577235772,
+      "s_rsi": 88.9227642276,
+      "s_adx": 97.5609756098,
+      "s_vol": 9.3495934959,
+      "s_roc": 73.8821138211,
+      "s_breakout": 68.9024390244,
+      "s_obv": 77.9471544715,
+      "s_rs": 99.7967479675,
+      "s_div": 25,
+      "momentum_score": 83.3,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "Nasdaq-100"
+    },
+    {
+      "rank": 33,
+      "ticker": "ARM",
+      "sector": "Technology",
+      "price": 213.27,
+      "ret_1m": 42.37,
+      "ret_3m": 103.31,
+      "ret_6m": 34.77,
+      "rsi": 59.9,
+      "stoch_k": 60.4,
+      "stoch_d": 74.3,
+      "adx": 37.4,
+      "bb_pct": 67.9,
+      "atr_pct": 7.98,
+      "roc10": -9.17,
+      "macd_signal": "SELL",
+      "macd_hist": -0.0099,
+      "vol_ratio": 1.41,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 158.59,
+      "ma200": 142.7,
+      "sparkline": [
+        7.1,
+        0.0,
+        14.3,
+        18.0,
+        12.1,
+        11.8,
+        6.9,
+        11.9,
+        12.8,
+        11.9,
+        20.6,
+        24.2,
+        22.3,
+        25.3,
+        29.7,
+        38.0,
+        38.4,
+        59.4,
+        67.4,
+        97.5,
+        78.7,
+        61.5,
+        64.5,
+        73.1,
+        74.0,
+        66.1,
+        71.6,
+        100.0,
+        76.1,
+        76.1
+      ],
+      "vwap_pct": 4.11,
+      "breakout_quality": 56.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.2,
+      "rel_strength_sector": 74.41,
+      "s_1m": 97.7642276423,
+      "s_3m": 99.3902439024,
+      "s_6m": 87.1951219512,
+      "s_rsi": 76.6260162602,
+      "s_adx": 91.5650406504,
+      "s_vol": 88.0081300813,
+      "s_roc": 9.2479674797,
+      "s_breakout": 58.7398373984,
+      "s_obv": 91.2601626016,
+      "s_rs": 99.1869918699,
+      "s_div": 25,
+      "momentum_score": 82.8,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "Nasdaq-100"
+    },
+    {
+      "rank": 34,
+      "ticker": "GLW",
+      "sector": "Other",
+      "price": 186.94,
+      "ret_1m": 10.09,
+      "ret_3m": 70.74,
+      "ret_6m": 113.89,
+      "rsi": 66.7,
+      "stoch_k": 77.4,
+      "stoch_d": 73.1,
+      "adx": 23.1,
+      "bb_pct": 101.4,
+      "atr_pct": 6.81,
+      "roc10": 6.28,
+      "macd_signal": "BUY",
+      "macd_hist": 1.2276,
+      "vol_ratio": 1.53,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 151.43,
+      "ma200": 103.0,
+      "sparkline": [
+        14.1,
+        0.0,
+        12.7,
+        23.7,
+        33.2,
+        30.7,
+        34.2,
+        62.6,
+        70.6,
+        73.1,
+        79.8,
+        75.8,
+        68.0,
+        64.3,
+        61.4,
+        63.1,
+        63.2,
+        68.9,
+        70.1,
+        81.1,
+        67.6,
+        42.0,
+        40.0,
+        61.1,
+        50.9,
+        53.8,
+        57.5,
+        90.8,
+        92.2,
+        100.0
+      ],
+      "vwap_pct": 9.71,
+      "breakout_quality": 68.6,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.2,
+      "rel_strength_sector": 76.18,
+      "s_1m": 80.081300813,
+      "s_3m": 98.3739837398,
+      "s_6m": 98.7804878049,
+      "s_rsi": 86.3821138211,
+      "s_adx": 65.1422764228,
+      "s_vol": 92.7845528455,
+      "s_roc": 82.1138211382,
+      "s_breakout": 73.4756097561,
+      "s_obv": 64.6341463415,
+      "s_rs": 99.3902439024,
+      "s_div": 25,
+      "momentum_score": 82.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 35,
+      "ticker": "BEN",
+      "sector": "Financials",
+      "price": 31.05,
+      "ret_1m": 24.0,
+      "ret_3m": 13.2,
+      "ret_6m": 37.36,
+      "rsi": 73.6,
+      "stoch_k": 92.2,
+      "stoch_d": 89.4,
+      "adx": 33.7,
+      "bb_pct": 87.7,
+      "atr_pct": 2.96,
+      "roc10": 14.49,
+      "macd_signal": "BUY",
+      "macd_hist": 0.2288,
+      "vol_ratio": 0.91,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 25.95,
+      "ma200": 24.27,
+      "sparkline": [
+        0.0,
+        1.8,
+        13.7,
+        13.4,
+        11.2,
+        11.2,
+        15.5,
+        28.1,
+        30.0,
+        28.5,
+        37.2,
+        45.9,
+        48.2,
+        47.2,
+        55.5,
+        60.7,
+        55.1,
+        58.0,
+        50.3,
+        53.8,
+        58.9,
+        80.5,
+        80.4,
+        86.4,
+        84.9,
+        83.3,
+        92.0,
+        100.0,
+        92.7,
+        98.7
+      ],
+      "vwap_pct": 8.89,
+      "breakout_quality": 72.5,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.7,
+      "rel_strength_sector": 17.49,
+      "s_1m": 93.0894308943,
+      "s_3m": 81.3008130081,
+      "s_6m": 88.6178861789,
+      "s_rsi": 93.9024390244,
+      "s_adx": 88.3130081301,
+      "s_vol": 28.3536585366,
+      "s_roc": 93.4959349593,
+      "s_breakout": 83.4349593496,
+      "s_obv": 80.5894308943,
+      "s_rs": 88.2113821138,
+      "s_div": 50,
+      "momentum_score": 82.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 36,
+      "ticker": "UNH",
+      "sector": "Health Care",
+      "price": 379.98,
+      "ret_1m": 23.81,
+      "ret_3m": 38.78,
+      "ret_6m": 19.89,
+      "rsi": 80.4,
+      "stoch_k": 100.0,
+      "stoch_d": 94.6,
+      "adx": 50.9,
+      "bb_pct": 82.5,
+      "atr_pct": 2.34,
+      "roc10": 7.06,
+      "macd_signal": "BUY",
+      "macd_hist": 0.3842,
+      "vol_ratio": 0.72,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 309.67,
+      "ma200": 314.2,
+      "sparkline": [
+        0.0,
+        2.3,
+        9.6,
+        12.4,
+        15.1,
+        18.5,
+        40.3,
+        38.8,
+        39.6,
+        37.5,
+        44.6,
+        45.6,
+        45.5,
+        47.4,
+        54.2,
+        53.3,
+        71.9,
+        78.1,
+        79.0,
+        79.3,
+        79.1,
+        89.1,
+        92.4,
+        92.1,
+        90.7,
+        92.4,
+        86.7,
+        89.5,
+        91.5,
+        100.0
+      ],
+      "vwap_pct": 8.84,
+      "breakout_quality": 73.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.1,
+      "rel_strength_sector": 46.76,
+      "s_1m": 92.4796747967,
+      "s_3m": 94.918699187,
+      "s_6m": 72.1544715447,
+      "s_rsi": 97.5609756098,
+      "s_adx": 98.4756097561,
+      "s_vol": 2.8455284553,
+      "s_roc": 84.4512195122,
+      "s_breakout": 85.9756097561,
+      "s_obv": 91.0569105691,
+      "s_rs": 97.5609756098,
+      "s_div": 25,
+      "momentum_score": 82.6,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 37,
+      "ticker": "IRM",
+      "sector": "Real Estate",
+      "price": 128.84,
+      "ret_1m": 18.54,
+      "ret_3m": 44.21,
+      "ret_6m": 30.13,
+      "rsi": 67.8,
+      "stoch_k": 78.2,
+      "stoch_d": 79.9,
+      "adx": 32.9,
+      "bb_pct": 81.5,
+      "atr_pct": 3.11,
+      "roc10": 11.04,
+      "macd_signal": "BUY",
+      "macd_hist": 0.8654,
+      "vol_ratio": 0.97,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 110.86,
+      "ma200": 97.65,
+      "sparkline": [
+        2.0,
+        0.0,
+        13.2,
+        9.7,
+        16.5,
+        19.6,
+        20.7,
+        27.2,
+        32.2,
+        34.2,
+        41.4,
+        47.7,
+        46.3,
+        58.4,
+        59.4,
+        66.5,
+        58.7,
+        57.0,
+        53.7,
+        53.5,
+        44.0,
+        43.6,
+        49.1,
+        82.4,
+        85.9,
+        88.9,
+        99.0,
+        100.0,
+        84.8,
+        90.7
+      ],
+      "vwap_pct": 6.66,
+      "breakout_quality": 66.6,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.5,
+      "rel_strength_sector": 36.49,
+      "s_1m": 89.2276422764,
+      "s_3m": 96.5447154472,
+      "s_6m": 83.6382113821,
+      "s_rsi": 87.906504065,
+      "s_adx": 87.2967479675,
+      "s_vol": 40.7520325203,
+      "s_roc": 91.4634146341,
+      "s_breakout": 69.6138211382,
+      "s_obv": 74.8983739837,
+      "s_rs": 96.1382113821,
+      "s_div": 50,
+      "momentum_score": 82.4,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 38,
+      "ticker": "ADI",
+      "sector": "Technology",
+      "price": 416.52,
+      "ret_1m": 18.55,
+      "ret_3m": 30.39,
+      "ret_6m": 80.05,
+      "rsi": 70.5,
+      "stoch_k": 95.1,
+      "stoch_d": 92.8,
+      "adx": 36.4,
+      "bb_pct": 84.4,
+      "atr_pct": 2.7,
+      "roc10": 4.24,
+      "macd_signal": "BUY",
+      "macd_hist": 1.1414,
+      "vol_ratio": 1.02,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 348.32,
+      "ma200": 284.22,
+      "sparkline": [
+        3.8,
+        0.0,
+        13.3,
+        15.4,
+        13.4,
+        21.4,
+        21.4,
+        38.0,
+        42.5,
+        41.5,
+        41.4,
+        40.1,
+        39.5,
+        44.7,
+        60.3,
+        68.7,
+        63.6,
+        69.1,
+        88.9,
+        85.1,
+        78.9,
+        70.7,
+        76.0,
+        87.4,
+        83.4,
+        82.8,
+        89.6,
+        99.2,
+        92.9,
+        100.0
+      ],
+      "vwap_pct": 7.46,
+      "breakout_quality": 75.6,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.2,
+      "rel_strength_sector": 1.49,
+      "s_1m": 89.4308943089,
+      "s_3m": 92.8861788618,
+      "s_6m": 96.7479674797,
+      "s_rsi": 91.0569105691,
+      "s_adx": 91.2601626016,
+      "s_vol": 49.1869918699,
+      "s_roc": 75.9146341463,
+      "s_breakout": 91.6666666667,
+      "s_obv": 64.6341463415,
+      "s_rs": 54.8780487805,
+      "s_div": 25,
+      "momentum_score": 82.3,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 39,
+      "ticker": "CAT",
+      "sector": "Industrials",
+      "price": 897.45,
+      "ret_1m": 14.24,
+      "ret_3m": 29.97,
+      "ret_6m": 58.18,
+      "rsi": 66.9,
+      "stoch_k": 74.6,
+      "stoch_d": 82.5,
+      "adx": 31.3,
+      "bb_pct": 80.9,
+      "atr_pct": 3.3,
+      "roc10": 8.02,
+      "macd_signal": "BUY",
+      "macd_hist": 5.1325,
+      "vol_ratio": 1.09,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 763.28,
+      "ma200": 600.94,
+      "sparkline": [
+        10.7,
+        0.0,
+        15.7,
+        24.1,
+        19.1,
+        20.6,
+        21.8,
+        39.9,
+        45.8,
+        47.2,
+        47.6,
+        48.5,
+        39.3,
+        40.3,
+        48.7,
+        50.7,
+        51.5,
+        54.7,
+        64.8,
+        63.1,
+        62.4,
+        58.2,
+        55.2,
+        85.9,
+        85.7,
+        80.0,
+        91.4,
+        100.0,
+        88.0,
+        88.7
+      ],
+      "vwap_pct": 6.54,
+      "breakout_quality": 68.6,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.1,
+      "rel_strength_sector": 33.46,
+      "s_1m": 85.5691056911,
+      "s_3m": 92.6829268293,
+      "s_6m": 94.3089430894,
+      "s_rsi": 86.8902439024,
+      "s_adx": 85.0609756098,
+      "s_vol": 61.0772357724,
+      "s_roc": 86.1788617886,
+      "s_breakout": 73.4756097561,
+      "s_obv": 59.3495934959,
+      "s_rs": 95.325203252,
+      "s_div": 25,
+      "momentum_score": 81.5,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 40,
+      "ticker": "EBAY",
+      "sector": "Consumer Discretionary",
+      "price": 107.69,
+      "ret_1m": 12.67,
+      "ret_3m": 25.87,
+      "ret_6m": 34.11,
+      "rsi": 61.2,
+      "stoch_k": 75.6,
+      "stoch_d": 73.8,
+      "adx": 21.7,
+      "bb_pct": 80.1,
+      "atr_pct": 3.85,
+      "roc10": 9.96,
+      "macd_signal": "BUY",
+      "macd_hist": 0.0989,
+      "vol_ratio": 1.33,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 96.5,
+      "ma200": 90.51,
+      "sparkline": [
+        0.0,
+        0.1,
+        14.2,
+        24.1,
+        28.9,
+        45.6,
+        37.6,
+        41.3,
+        35.6,
+        34.8,
+        47.6,
+        58.2,
+        56.3,
+        65.5,
+        78.1,
+        89.7,
+        81.6,
+        82.7,
+        72.2,
+        46.7,
+        57.7,
+        58.0,
+        74.1,
+        72.6,
+        75.4,
+        100.0,
+        80.9,
+        94.5,
+        86.4,
+        92.3
+      ],
+      "vwap_pct": 3.38,
+      "breakout_quality": 72.3,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.6,
+      "rel_strength_sector": 25.97,
+      "s_1m": 84.1463414634,
+      "s_3m": 90.4471544715,
+      "s_6m": 86.5853658537,
+      "s_rsi": 78.5569105691,
+      "s_adx": 60.7723577236,
+      "s_vol": 82.418699187,
+      "s_roc": 89.2276422764,
+      "s_breakout": 82.9268292683,
+      "s_obv": 77.9471544715,
+      "s_rs": 93.4959349593,
+      "s_div": 25,
+      "momentum_score": 81.2,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 41,
+      "ticker": "SNPS",
+      "sector": "Technology",
+      "price": 516.48,
+      "ret_1m": 27.55,
+      "ret_3m": 23.27,
+      "ret_6m": 30.38,
+      "rsi": 71.5,
+      "stoch_k": 96.2,
+      "stoch_d": 88.9,
+      "adx": 27.2,
+      "bb_pct": 85.6,
+      "atr_pct": 3.07,
+      "roc10": 3.13,
+      "macd_signal": "BUY",
+      "macd_hist": 2.952,
+      "vol_ratio": 1.0,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 438.92,
+      "ma200": 477.14,
+      "sparkline": [
+        0.0,
+        2.0,
+        11.8,
+        12.0,
+        11.4,
+        12.2,
+        12.8,
+        21.8,
+        18.0,
+        8.7,
+        27.4,
+        28.2,
+        42.6,
+        44.6,
+        50.8,
+        59.2,
+        64.0,
+        71.2,
+        56.2,
+        88.5,
+        86.8,
+        76.0,
+        74.1,
+        75.1,
+        79.8,
+        86.0,
+        89.7,
+        91.1,
+        91.7,
+        100.0
+      ],
+      "vwap_pct": 9.32,
+      "breakout_quality": 75.4,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 58.1,
+      "rel_strength_sector": -5.63,
+      "s_1m": 94.512195122,
+      "s_3m": 89.6341463415,
+      "s_6m": 83.9430894309,
+      "s_rsi": 91.4634146341,
+      "s_adx": 75.8130081301,
+      "s_vol": 45.7317073171,
+      "s_roc": 72.1544715447,
+      "s_breakout": 90.5487804878,
+      "s_obv": 98.9837398374,
+      "s_rs": 31.7073170732,
+      "s_div": 25,
+      "momentum_score": 81.1,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 42,
+      "ticker": "NTAP",
+      "sector": "Other",
+      "price": 118.0,
+      "ret_1m": 23.34,
+      "ret_3m": 17.98,
+      "ret_6m": 4.76,
+      "rsi": 70.3,
+      "stoch_k": 98.2,
+      "stoch_d": 82.2,
+      "adx": 28.3,
+      "bb_pct": 96.8,
+      "atr_pct": 3.12,
+      "roc10": 8.55,
+      "macd_signal": "BUY",
+      "macd_hist": 0.6548,
+      "vol_ratio": 1.02,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 103.46,
+      "ma200": 108.19,
+      "sparkline": [
+        27.5,
+        22.4,
+        27.8,
+        26.2,
+        34.4,
+        23.4,
+        8.7,
+        17.0,
+        0.0,
+        1.2,
+        12.2,
+        14.4,
+        20.9,
+        35.9,
+        39.7,
+        49.8,
+        72.2,
+        68.7,
+        57.0,
+        58.4,
+        57.2,
+        56.5,
+        58.1,
+        67.6,
+        73.5,
+        68.4,
+        82.7,
+        72.0,
+        77.6,
+        100.0
+      ],
+      "vwap_pct": 8.95,
+      "breakout_quality": 76.5,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 53.0,
+      "rel_strength_sector": 23.42,
+      "s_1m": 91.2601626016,
+      "s_3m": 84.9593495935,
+      "s_6m": 47.7642276423,
+      "s_rsi": 90.8536585366,
+      "s_adx": 79.5731707317,
+      "s_vol": 49.1869918699,
+      "s_roc": 87.3983739837,
+      "s_breakout": 93.4959349593,
+      "s_obv": 93.4959349593,
+      "s_rs": 92.6829268293,
+      "s_div": 50,
+      "momentum_score": 81.1,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 43,
+      "ticker": "NUE",
+      "sector": "Materials",
+      "price": 227.5,
+      "ret_1m": 23.64,
+      "ret_3m": 20.18,
+      "ret_6m": 58.34,
+      "rsi": 72.9,
+      "stoch_k": 75.8,
+      "stoch_d": 83.8,
+      "adx": 53.9,
+      "bb_pct": 73.0,
+      "atr_pct": 2.66,
+      "roc10": 6.16,
+      "macd_signal": "BUY",
+      "macd_hist": 0.3115,
+      "vol_ratio": 0.81,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 186.97,
+      "ma200": 162.01,
+      "sparkline": [
+        0.0,
+        1.9,
+        8.8,
+        15.3,
+        13.5,
+        9.5,
+        14.6,
+        27.1,
+        29.7,
+        32.6,
+        37.6,
+        38.1,
+        37.5,
+        40.7,
+        46.3,
+        55.2,
+        63.4,
+        72.0,
+        70.2,
+        72.1,
+        73.1,
+        87.2,
+        83.4,
+        87.5,
+        88.5,
+        88.2,
+        97.0,
+        100.0,
+        89.5,
+        90.6
+      ],
+      "vwap_pct": 6.17,
+      "breakout_quality": 66.0,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.2,
+      "rel_strength_sector": 18.36,
+      "s_1m": 92.0731707317,
+      "s_3m": 86.7886178862,
+      "s_6m": 94.512195122,
+      "s_rsi": 93.0894308943,
+      "s_adx": 99.3902439024,
+      "s_vol": 11.0772357724,
+      "s_roc": 81.7073170732,
+      "s_breakout": 68.3943089431,
+      "s_obv": 87.1951219512,
+      "s_rs": 88.8211382114,
+      "s_div": 25,
+      "momentum_score": 81.1,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 44,
+      "ticker": "MPWR",
+      "sector": "Technology",
+      "price": 1600.84,
+      "ret_1m": 19.98,
+      "ret_3m": 41.1,
+      "ret_6m": 67.71,
+      "rsi": 63.3,
+      "stoch_k": 64.8,
+      "stoch_d": 73.2,
+      "adx": 39.2,
+      "bb_pct": 70.2,
+      "atr_pct": 4.35,
+      "roc10": -1.91,
+      "macd_signal": "SELL",
+      "macd_hist": -7.4749,
+      "vol_ratio": 1.06,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 1276.3,
+      "ma200": 1034.7,
+      "sparkline": [
+        7.8,
+        0.0,
+        14.3,
+        18.3,
+        18.1,
+        27.6,
+        29.3,
+        47.9,
+        51.2,
+        54.2,
+        57.0,
+        55.7,
+        54.1,
+        61.7,
+        71.8,
+        75.2,
+        80.9,
+        80.0,
+        90.8,
+        96.9,
+        90.1,
+        77.3,
+        80.8,
+        94.2,
+        89.4,
+        87.9,
+        90.1,
+        100.0,
+        88.3,
+        92.1
+      ],
+      "vwap_pct": 4.28,
+      "breakout_quality": 68.2,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.6,
+      "rel_strength_sector": 12.2,
+      "s_1m": 90.0406504065,
+      "s_3m": 95.9349593496,
+      "s_6m": 95.5284552846,
+      "s_rsi": 80.8943089431,
+      "s_adx": 92.8861788618,
+      "s_vol": 56.5040650407,
+      "s_roc": 40.6504065041,
+      "s_breakout": 72.7642276423,
+      "s_obv": 77.9471544715,
+      "s_rs": 81.9105691057,
+      "s_div": 25,
+      "momentum_score": 81.0,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 45,
+      "ticker": "FFIV",
+      "sector": "Technology",
+      "price": 354.03,
+      "ret_1m": 20.18,
+      "ret_3m": 28.04,
+      "ret_6m": 42.7,
+      "rsi": 73.9,
+      "stoch_k": 99.2,
+      "stoch_d": 97.1,
+      "adx": 24.2,
+      "bb_pct": 102.0,
+      "atr_pct": 3.05,
+      "roc10": 16.78,
+      "macd_signal": "BUY",
+      "macd_hist": 3.693,
+      "vol_ratio": 0.84,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 300.28,
+      "ma200": 289.24,
+      "sparkline": [
+        3.0,
+        0.0,
+        12.9,
+        21.4,
+        31.8,
+        37.6,
+        39.5,
+        33.7,
+        20.0,
+        13.6,
+        24.7,
+        20.8,
+        26.1,
+        38.1,
+        41.9,
+        46.1,
+        48.2,
+        42.3,
+        27.1,
+        31.5,
+        24.2,
+        32.4,
+        65.2,
+        59.4,
+        58.5,
+        67.6,
+        81.0,
+        82.5,
+        87.9,
+        100.0
+      ],
+      "vwap_pct": 12.23,
+      "breakout_quality": 74.4,
+      "div_score": 0,
+      "div_label": "No Div",
+      "obv_trend": "Rising",
+      "obv_score": 52.5,
+      "rel_strength_sector": -0.86,
+      "s_1m": 90.243902439,
+      "s_3m": 91.8699186992,
+      "s_6m": 90.8536585366,
+      "s_rsi": 94.1056910569,
+      "s_adx": 68.8008130081,
+      "s_vol": 15.0406504065,
+      "s_roc": 95.325203252,
+      "s_breakout": 88.3130081301,
+      "s_obv": 91.7682926829,
+      "s_rs": 46.5447154472,
+      "s_div": 50,
+      "momentum_score": 80.7,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 46,
+      "ticker": "MTCH",
+      "sector": "Communication Services",
+      "price": 36.96,
+      "ret_1m": 13.76,
+      "ret_3m": 21.5,
+      "ret_6m": 14.58,
+      "rsi": 58.4,
+      "stoch_k": 49.6,
+      "stoch_d": 49.0,
+      "adx": 34.5,
+      "bb_pct": 61.1,
+      "atr_pct": 3.99,
+      "roc10": 0.57,
+      "macd_signal": "SELL",
+      "macd_hist": -0.1571,
+      "vol_ratio": 1.51,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 33.05,
+      "ma200": 33.23,
+      "sparkline": [
+        0.0,
+        4.5,
+        10.6,
+        15.3,
+        18.5,
+        26.2,
+        25.9,
+        34.5,
+        32.2,
+        23.5,
+        40.0,
+        44.3,
+        54.5,
+        57.0,
+        65.3,
+        71.9,
+        69.9,
+        76.5,
+        67.0,
+        78.9,
+        80.8,
+        81.8,
+        81.3,
+        86.3,
+        100.0,
+        94.5,
+        88.8,
+        92.6,
+        68.8,
+        81.2
+      ],
+      "vwap_pct": 1.67,
+      "breakout_quality": 70.0,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 55.6,
+      "rel_strength_sector": 19.57,
+      "s_1m": 85.3658536585,
+      "s_3m": 88.6178861789,
+      "s_6m": 63.8211382114,
+      "s_rsi": 72.662601626,
+      "s_adx": 89.0243902439,
+      "s_vol": 92.174796748,
+      "s_roc": 60.0609756098,
+      "s_breakout": 76.1178861789,
+      "s_obv": 96.3414634146,
+      "s_rs": 90.6504065041,
+      "s_div": 25,
+      "momentum_score": 80.2,
+      "grade": "A",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
+    },
+    {
+      "rank": 47,
+      "ticker": "KEYS",
+      "sector": "Technology",
+      "price": 360.3,
+      "ret_1m": 11.57,
+      "ret_3m": 62.59,
+      "ret_6m": 94.7,
+      "rsi": 66.9,
+      "stoch_k": 84.1,
+      "stoch_d": 85.2,
+      "adx": 29.6,
+      "bb_pct": 87.7,
+      "atr_pct": 2.87,
+      "roc10": 3.84,
+      "macd_signal": "BUY",
+      "macd_hist": 0.0723,
+      "vol_ratio": 0.9,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 312.22,
+      "ma200": 220.99,
+      "sparkline": [
+        9.9,
+        0.0,
+        13.3,
+        21.0,
+        22.4,
+        24.2,
+        32.1,
+        50.3,
+        55.0,
+        56.3,
+        63.4,
+        62.8,
+        57.4,
+        62.2,
+        66.8,
+        67.6,
+        71.9,
+        71.5,
+        79.3,
+        79.7,
+        73.2,
+        64.7,
+        67.9,
+        82.8,
+        85.3,
+        84.2,
+        88.9,
+        100.0,
+        88.1,
+        93.4
+      ],
+      "vwap_pct": 5.37,
+      "breakout_quality": 70.9,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.2,
+      "rel_strength_sector": 33.69,
+      "s_1m": 82.7235772358,
+      "s_3m": 97.9674796748,
+      "s_6m": 98.1707317073,
+      "s_rsi": 86.8902439024,
+      "s_adx": 81.9105691057,
+      "s_vol": 25.9146341463,
+      "s_roc": 74.7967479675,
+      "s_breakout": 78.6585365854,
+      "s_obv": 64.6341463415,
+      "s_rs": 95.5284552846,
+      "s_div": 25,
+      "momentum_score": 79.8,
+      "grade": "B",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 48,
+      "ticker": "ELV",
+      "sector": "Other",
+      "price": 378.07,
+      "ret_1m": 19.31,
+      "ret_3m": 11.69,
+      "ret_6m": 21.6,
+      "rsi": 75.5,
+      "stoch_k": 97.8,
+      "stoch_d": 95.0,
+      "adx": 44.2,
+      "bb_pct": 79.3,
+      "atr_pct": 2.35,
+      "roc10": 9.66,
+      "macd_signal": "BUY",
+      "macd_hist": 1.8592,
+      "vol_ratio": 0.74,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 316.06,
+      "ma200": 324.49,
+      "sparkline": [
+        1.7,
+        0.0,
+        8.5,
+        14.7,
+        17.1,
+        19.1,
+        29.0,
+        35.8,
+        34.4,
+        28.7,
+        33.5,
+        30.6,
+        28.3,
+        33.3,
+        41.0,
+        37.1,
+        46.4,
+        46.5,
+        65.9,
+        64.3,
+        76.5,
+        83.6,
+        98.5,
+        98.2,
+        94.2,
+        93.4,
+        90.4,
+        96.4,
+        94.5,
+        100.0
+      ],
+      "vwap_pct": 9.42,
+      "breakout_quality": 72.8,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 56.8,
+      "rel_strength_sector": 17.13,
+      "s_1m": 89.837398374,
+      "s_3m": 79.4715447154,
+      "s_6m": 74.3902439024,
+      "s_rsi": 95.5284552846,
+      "s_adx": 95.7317073171,
+      "s_vol": 4.3699186992,
+      "s_roc": 88.6178861789,
+      "s_breakout": 84.8577235772,
+      "s_obv": 97.662601626,
+      "s_rs": 87.3983739837,
+      "s_div": 25,
+      "momentum_score": 79.7,
+      "grade": "B",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 49,
+      "ticker": "STLD",
+      "sector": "Materials",
+      "price": 235.1,
+      "ret_1m": 23.74,
+      "ret_3m": 18.58,
+      "ret_6m": 54.67,
+      "rsi": 69.8,
+      "stoch_k": 73.5,
+      "stoch_d": 81.6,
+      "adx": 39.1,
+      "bb_pct": 74.1,
+      "atr_pct": 2.99,
+      "roc10": 3.66,
+      "macd_signal": "BUY",
+      "macd_hist": 0.4498,
+      "vol_ratio": 0.81,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 195.61,
+      "ma200": 165.38,
+      "sparkline": [
+        0.0,
+        1.1,
+        13.4,
+        17.4,
+        13.7,
+        8.5,
+        9.4,
+        24.0,
+        27.4,
+        28.2,
+        35.0,
+        34.8,
+        33.1,
+        35.4,
+        41.8,
+        54.5,
+        69.7,
+        79.8,
+        76.5,
+        78.9,
+        76.5,
+        79.1,
+        75.5,
+        81.5,
+        82.4,
+        83.2,
+        93.9,
+        100.0,
+        87.5,
+        90.5
+      ],
+      "vwap_pct": 7.22,
+      "breakout_quality": 65.6,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Rising",
+      "obv_score": 51.5,
+      "rel_strength_sector": 16.76,
+      "s_1m": 92.2764227642,
+      "s_3m": 85.162601626,
+      "s_6m": 93.6991869919,
+      "s_rsi": 89.9390243902,
+      "s_adx": 92.6829268293,
+      "s_vol": 11.0772357724,
+      "s_roc": 74.3902439024,
+      "s_breakout": 67.4796747967,
+      "s_obv": 88.8211382114,
+      "s_rs": 87.1951219512,
+      "s_div": 25,
+      "momentum_score": 79.6,
+      "grade": "B",
+      "ai_summary": "",
+      "exchange": "S&P500"
+    },
+    {
+      "rank": 50,
+      "ticker": "AMAT",
+      "sector": "Technology",
+      "price": 435.44,
+      "ret_1m": 9.46,
+      "ret_3m": 46.5,
+      "ret_6m": 87.06,
+      "rsi": 64.6,
+      "stoch_k": 95.7,
+      "stoch_d": 82.8,
+      "adx": 17.8,
+      "bb_pct": 111.5,
+      "atr_pct": 4.29,
+      "roc10": 4.41,
+      "macd_signal": "BUY",
+      "macd_hist": 1.9755,
+      "vol_ratio": 1.15,
+      "pct_from_high": null,
+      "above_ma50": true,
+      "above_ma200": true,
+      "ma50": 373.03,
+      "ma200": 274.55,
+      "sparkline": [
+        12.5,
+        0.0,
+        16.6,
+        27.3,
+        22.6,
+        26.3,
+        27.8,
+        55.7,
+        66.5,
+        68.0,
+        64.6,
+        64.6,
+        63.3,
+        59.5,
+        65.7,
+        61.0,
+        63.4,
+        71.5,
+        71.9,
+        83.6,
+        72.8,
+        51.6,
+        52.9,
+        63.5,
+        58.7,
+        60.8,
+        78.1,
+        93.9,
+        77.9,
+        100.0
+      ],
+      "vwap_pct": 8.6,
+      "breakout_quality": 76.9,
+      "div_score": -1,
+      "div_label": "Bearish Div",
+      "obv_trend": "Flat",
+      "obv_score": 50.3,
+      "rel_strength_sector": 17.6,
+      "s_1m": 79.0650406504,
+      "s_3m": 96.7479674797,
+      "s_6m": 97.5609756098,
+      "s_rsi": 83.2317073171,
+      "s_adx": 39.1260162602,
+      "s_vol": 68.6991869919,
+      "s_roc": 76.9308943089,
+      "s_breakout": 94.1056910569,
+      "s_obv": 68.8008130081,
+      "s_rs": 88.4146341463,
+      "s_div": 25,
+      "momentum_score": 79.6,
+      "grade": "B",
+      "ai_summary": "",
+      "exchange": "S&P500+NDX"
     }
-    if(exch&&s.exchange!==exch)return false;
-    if(sector&&s.sector!==sector)return false;
-    if(grade&&s.grade!==grade)return false;
-    if(macd&&s.macd_signal!==macd)return false;
-    if(ma200!==""){if(ma200==="1"&&!s.above_ma200)return false;if(ma200==="0"&&s.above_ma200)return false;}
-    return true;
-  });
-  doSort();
-  drawTable();
-  setKPIs(RAW);
-  document.getElementById("cntLabel").textContent=filtered.length+" stock"+(filtered.length!==1?"s":"");
-  if(currentView==="heatmap")drawHeatmap();
+  ]
 }
-
-function setSort(col){
-  if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=1;}
-  document.querySelectorAll("thead th").forEach(th=>{
-    th.classList.toggle("sorted",th.dataset.col===col);
-    if(th.dataset.col===col)th.querySelector(".arr").textContent=sortDir===1?"↓":"↑";
-  });
-  doSort();drawTable();
-}
-
-function doSort(){
-  filtered.sort((a,b)=>{
-    let av=a[sortCol],bv=b[sortCol];
-    if(typeof av==="boolean")av=av?1:0,bv=bv?1:0;
-    if(typeof av==="string")return av.localeCompare(bv)*sortDir;
-    return((av||0)-(bv||0))*sortDir;
-  });
-}
-
-// ── INDICATOR GUIDE CONTROLS ─────────────────────────────────────────────
-function showGuideTab(tab, btn){
-  document.querySelectorAll(".ig-section").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".ig-tab").forEach(b=>b.classList.remove("active"));
-  document.getElementById("ig-"+tab).classList.add("active");
-  btn.classList.add("active");
-}
-function toggleGuide(){
-  const body=document.getElementById("guideBody");
-  const chev=document.getElementById("guideChevron");
-  const hidden=body.style.display==="none";
-  body.style.display=hidden?"":"none";
-  chev.textContent=hidden?"▲":"▼";
-}
-
-// ── NEW INDICATOR HELPERS ──────────────────────────────────────────────────
-function brkqC(v){
-  if(v==null)return"var(--muted)";
-  if(v>=70)return"var(--green)";if(v>=40)return"var(--cyan)";return"var(--red)";
-}
-function obvC(trend){
-  if(trend==="Rising")return"var(--green)";
-  if(trend==="Falling")return"var(--red)";
-  return"var(--muted)";
-}
-function divC(score){
-  if(score===1)return"var(--green)";
-  if(score===-1)return"var(--red)";
-  return"var(--muted)";
-}
-function divIcon(score){
-  if(score===1)return'<span title="Bullish Divergence" style="color:var(--green)">●</span>';
-  if(score===-1)return'<span title="Bearish Divergence" style="color:var(--red)">●</span>';
-  return'<span style="color:var(--border2)">○</span>';
-}
-
-// ── TABLE ─────────────────────────────────────────────────────────────────
-function drawTable(){
-  const tb=document.getElementById("tbody");
-  if(!filtered.length){tb.innerHTML=`<tr><td colspan="19"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
-  tb.innerHTML=filtered.map(s=>`<tr class="${selTicker===s.ticker?"sel-row":""}" data-ticker="${s.ticker}">
-    <td>${s.rank}</td>
-    <td><div class="tkr">${s.ticker}</div><div class="cname">${COMPANY_NAMES[s.ticker]||""}</div></td>
-    <td>${sbadge(s.sector)}</td>
-    <td style="color:var(--muted);font-size:11px">${s.exchange||""}</td>
-    <td>$${fmt(s.price)}</td>
-    <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${s.momentum_score}%"></div></div><span class="bar-val">${s.momentum_score}</span></div></td>
-    <td><span class="gpill g${s.grade}">${s.grade}</span></td>
-    <td>${ret(s.ret_1m)}</td>
-    <td>${ret(s.ret_3m)}</td>
-    <td>${ret(s.ret_6m)}</td>
-    <td style="color:${rsiC(s.rsi)}">${s.rsi}</td>
-    <td style="color:${adxC(s.adx)}">${s.adx}</td>
-    <td>${s.stoch_k}</td>
-    <td>${s.bb_pct.toFixed(0)}%</td>
-    <td class="${s.macd_signal==="BUY"?"mbuy":"msell"}">${s.macd_signal}</td>
-    <td>${s.vol_ratio}x</td>
-    <td class="${(s.pct_from_high ?? -999)>-5?"pos":"neu"}">
-      ${s.pct_from_high != null ? s.pct_from_high.toFixed(1) + "%" : "-"}
-    </td> 
-    <td><span class="dot ${s.above_ma50?"don":"doff"}" title="MA50"></span><span class="dot ${s.above_ma200?"don":"doff"}" title="MA200" style="margin-left:3px"></span></td>
-    <td style="color:${brkqC(s.breakout_quality)}">${s.breakout_quality??"-"}</td>
-    <td class="${(s.vwap_pct??0)>=0?"pos":"neg"}">${s.vwap_pct!=null?(s.vwap_pct>=0?"+":"")+s.vwap_pct.toFixed(1)+"%":"-"}</td>
-    <td class="${(s.rel_strength_sector??0)>=0?"pos":"neg"}">${s.rel_strength_sector!=null?(s.rel_strength_sector>=0?"+":"")+s.rel_strength_sector.toFixed(1)+"%":"-"}</td>
-    <td style="color:${obvC(s.obv_trend)}">${s.obv_trend??"-"}</td>
-    <td style="color:${divC(s.div_score)}" title="${s.div_label||""}">${divIcon(s.div_score)}</td>
-    <td>${sparkSVG(s.sparkline)}</td>
-  </tr>`).join("");
-}
-
-// ── SIDEBAR ───────────────────────────────────────────────────────────────
-function setSide(d){
-  const secs=d.sector_breakdown||{};
-  const maxV=Math.max(...Object.values(secs),1);
-  document.getElementById("sectorChart").innerHTML=Object.entries(secs).sort((a,b)=>b[1]-a[1]).slice(0,9).map(([n,c])=>{
-    const col=SC[n]||"#94a3b8";
-    return`<div class="sector-row"><span class="sname" style="color:${col}" title="${n}">${n}</span>
-    <div class="sbar-bg"><div class="sbar-fill" style="width:${(c/maxV*100).toFixed(0)}%;background:${col}"></div></div>
-    <span class="scnt">${c}</span></div>`;
-  }).join("");
-  const gb=d.grade_breakdown||{};
-  const gc={A:"var(--green)",B:"var(--primary)",C:"var(--yellow)",D:"var(--red)"};
-  const gbg={A:"rgba(34,197,94,.1)",B:"rgba(59,130,246,.1)",C:"rgba(234,179,8,.1)",D:"rgba(239,68,68,.1)"};
-  document.getElementById("gradeDist").innerHTML=["A","B","C","D"].map(g=>
-    `<div class="gbox" style="background:${gbg[g]}"><div class="gl" style="color:${gc[g]}">${g}</div><div class="gc">${gb[g]||0} stocks</div></div>`
-  ).join("");
-}
-
-// ── SECTOR HEATMAP ────────────────────────────────────────────────────────
-function getHmColor(val, field){
-  // Returns a CSS color based on field value
-  if(field==="momentum_score"){
-    const t=(val-70)/30; // 70-100 range
-    const r=Math.round(59+(34-59)*Math.min(Math.max(t,0),1));
-    const g=Math.round(130+(197-130)*Math.min(Math.max(t,0),1));
-    const b=Math.round(246+(94-246)*Math.min(Math.max(t,0),1));
-    return`rgba(${r},${g},${b},0.85)`;
-  }
-  if(field==="rsi"){
-    if(val>=70)return"rgba(239,68,68,0.75)";
-    if(val<=30)return"rgba(34,197,94,0.75)";
-    return"rgba(59,130,246,0.55)";
-  }
-  // Return-based
-  if(val>=50)return"rgba(34,197,94,0.85)";
-  if(val>=30)return"rgba(34,197,94,0.65)";
-  if(val>=15)return"rgba(34,197,94,0.45)";
-  if(val>=5) return"rgba(34,197,94,0.28)";
-  if(val>=0) return"rgba(100,116,139,0.35)";
-  if(val>=-10)return"rgba(239,68,68,0.35)";
-  return"rgba(239,68,68,0.65)";
-}
-
-function drawHeatmap(){
-  const colorBy=document.getElementById("hmColorBy").value;
-  const sizeBy=document.getElementById("hmSizeBy").value;
-  const groupSector=document.getElementById("hmGroupSector").checked;
-  const data=filtered.length?filtered:ALL;
-  const grid=document.getElementById("heatmapGrid");
-
-  const sizeVals=data.map(s=>s[sizeBy]||0);
-  const smin=Math.min(...sizeVals),smax=Math.max(...sizeVals);
-  const normSize=v=>0.7+((v-smin)/(smax-smin||1))*0.6; // 0.7x to 1.3x
-
-  let html="";
-  if(groupSector){
-    const sectors=[...new Set(data.map(s=>s.sector))].sort();
-    sectors.forEach(sec=>{
-      const stocks=data.filter(s=>s.sector===sec);
-      const col=SC[sec]||"#94a3b8";
-      html+=`<div style="margin-bottom:4px"><div style="padding:8px 16px 4px;font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:${col};font-weight:600">${sec} <span style="color:var(--muted);font-weight:400">(${stocks.length})</span></div>`;
-      html+=`<div class="heatmap-grid">`;
-      stocks.forEach(s=>{
-        const cval=s[colorBy]||0;
-        const bg=getHmColor(cval,colorBy);
-        const sz=normSize(s[sizeBy]||0);
-        const dispVal=colorBy.startsWith("ret")?((cval>0?"+":"")+cval.toFixed(1)+"%"):cval.toFixed(1);
-        html+=`<div class="hm-cell" style="background:${bg};transform:scale(${sz.toFixed(2)})" data-ticker="${s.ticker}">
-          <div class="hm-tkr">${s.ticker}</div>
-          <div class="hm-name">${COMPANY_NAMES[s.ticker]||""}</div>
-          <div class="hm-ret">${dispVal}</div>
-          <div class="hm-score">Score ${s.momentum_score}</div>
-        </div>`;
-      });
-      html+=`</div></div>`;
-    });
-  } else {
-    html+=`<div class="heatmap-grid">`;
-    data.forEach(s=>{
-      const cval=s[colorBy]||0;
-      const bg=getHmColor(cval,colorBy);
-      const sz=normSize(s[sizeBy]||0);
-      const dispVal=colorBy.startsWith("ret")?((cval>0?"+":"")+cval.toFixed(1)+"%"):cval.toFixed(1);
-      html+=`<div class="hm-cell" style="background:${bg};transform:scale(${sz.toFixed(2)})" data-ticker="${s.ticker}">
-        <div class="hm-tkr">${s.ticker}</div>
-        <div class="hm-name">${COMPANY_NAMES[s.ticker]||""}</div>
-        <div class="hm-ret">${dispVal}</div>
-        <div class="hm-score">Score ${s.momentum_score}</div>
-      </div>`;
-    });
-    html+=`</div>`;
-  }
-  grid.innerHTML=html;
-
-  grid.querySelectorAll(".hm-cell[data-ticker]").forEach(cell=>{
-    cell.addEventListener("click",()=>openModal(cell.dataset.ticker));
-  });
-}
-
-// ── HISTORICAL TRACKER ────────────────────────────────────────────────────
-function drawHistory(){
-  const hist=getHistory();
-  const container=document.getElementById("histBody");
-  if(!hist.length){
-    container.innerHTML=`<div class="hist-empty">No saved weeks yet. Click "💾 Save This Week" to start tracking.</div>`;
-    return;
-  }
-  // Sort newest first
-  const sorted=[...hist].sort((a,b)=>b.week-a.week||(b.year||0)-(a.year||0));
-  let html="";
-  sorted.forEach((entry,i)=>{
-    const prev=sorted[i+1];
-    let newTkrs=[],droppedTkrs=[];
-    if(prev){
-      const prevSet=new Set(prev.tickers);
-      const currSet=new Set(entry.tickers);
-      newTkrs=entry.tickers.filter(t=>!prevSet.has(t));
-      droppedTkrs=prev.tickers.filter(t=>!currSet.has(t));
-    }
-    const expanded=i===0?"open":"";
-    html+=`<div class="hist-week">
-      <div class="hist-week-hdr" onclick="toggleHist(this)">
-        <span>📅 Week ${entry.week}, ${entry.year||"2026"} <span style="color:var(--muted);font-size:11px;margin-left:6px">— ${entry.tickers.length} stocks</span></span>
-        <span style="color:var(--muted);font-size:11px">${entry.saved_at||""} ${expanded?"▲":"▼"}</span>
-      </div>`;
-    if(newTkrs.length||droppedTkrs.length){
-      html+=`<div class="hist-delta" style="${expanded?"":"display:none"}">`;
-      if(newTkrs.length)html+=`<span style="color:var(--green)">▲ +${newTkrs.length} new: ${newTkrs.join(", ")}</span>`;
-      if(droppedTkrs.length)html+=`<span style="color:var(--red)">▼ -${droppedTkrs.length} out: ${droppedTkrs.join(", ")}</span>`;
-      html+=`</div>`;
-    }
-    html+=`<div class="hist-tickers ${expanded}">`;
-    entry.tickers.forEach(t=>{
-      const isNew=newTkrs.includes(t);
-      const cls=isNew?"hist-chip new-entry":"hist-chip";
-      html+=`<span class="${cls}" onclick="openModal('${t}')" title="${COMPANY_NAMES[t]||t}">${t}</span>`;
-    });
-    droppedTkrs.forEach(t=>{
-      html+=`<span class="hist-chip dropped" title="${COMPANY_NAMES[t]||t}: dropped this week">${t}</span>`;
-    });
-    html+=`</div></div>`;
-  });
-  container.innerHTML=html;
-}
-
-function toggleHist(hdr){
-  const parent=hdr.parentElement;
-  const tickers=parent.querySelector(".hist-tickers");
-  const delta=parent.querySelector(".hist-delta");
-  const isOpen=tickers.classList.contains("open");
-  tickers.classList.toggle("open",!isOpen);
-  if(delta)delta.style.display=isOpen?"none":"";
-  hdr.querySelector("span:last-child").textContent=(hdr.querySelector("span:last-child").textContent.replace(/[▲▼]/,isOpen?"▼":"▲"));
-}
-
-function saveCurrentWeek(){
-  const hist=getHistory();
-  const week=RAW.week||19;
-  const year=RAW.year||2026;
-  // Remove existing entry for same week
-  const filtered_hist=hist.filter(h=>!(h.week===week&&(h.year||2026)===year));
-  const entry={week,year,tickers:ALL.map(s=>s.ticker),saved_at:new Date().toLocaleString("en-IN",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})};
-  filtered_hist.push(entry);
-  saveHistory(filtered_hist);
-  drawHistory();
-  toast("💾 Week "+week+" saved to tracker!");
-}
-
-// ── MODAL ─────────────────────────────────────────────────────────────────
-function openModal(ticker){
-  const s=ALL.find(x=>x.ticker===ticker);if(!s)return;
-  selTicker=ticker;drawTable();
-  document.getElementById("mTicker").textContent=s.ticker;
-  document.getElementById("mCompany").textContent=COMPANY_NAMES[s.ticker]||"";
-  document.getElementById("mMeta").innerHTML=
-    `${sbadge(s.sector)}<span style="color:var(--muted);font-size:12px">${s.exchange||""}</span>
-     <span class="gpill g${s.grade}">${s.grade}</span>
-     <span style="font-size:13px;font-family:var(--mono)">$${fmt(s.price)}</span>
-     <span style="background:rgba(59,130,246,.12);color:var(--primary);padding:2px 8px;border-radius:4px;font-size:12px">Score ${s.momentum_score}</span>`;
-  if(s.ai_summary){
-    document.getElementById("aiBox").style.display="block";
-    document.getElementById("aiText").textContent=s.ai_summary;
-  } else document.getElementById("aiBox").style.display="none";
-  drawCanvas(s.sparkline||[]);
-  const stats=[
-    ["1M Return",(s.ret_1m>0?"+":"")+s.ret_1m.toFixed(2)+"%",s.ret_1m>0?"var(--green)":"var(--red)"],
-    ["3M Return",(s.ret_3m>0?"+":"")+s.ret_3m.toFixed(2)+"%",s.ret_3m>0?"var(--green)":"var(--red)"],
-    ["6M Return",(s.ret_6m>0?"+":"")+s.ret_6m.toFixed(2)+"%",s.ret_6m>0?"var(--green)":"var(--red)"],
-    ["RSI (14)",s.rsi,rsiC(s.rsi)],["ADX",s.adx,adxC(s.adx)],
-    ["Stoch %K/%D",s.stoch_k+"/"+s.stoch_d,"var(--text)"],
-    ["Bollinger %",s.bb_pct.toFixed(0)+"%","var(--text)"],
-    ["ATR %",s.atr_pct+"%","var(--muted)"],
-    ["ROC 10d",(s.roc10>0?"+":"")+s.roc10+"%",s.roc10>0?"var(--green)":"var(--red)"],
-    ["MACD",s.macd_signal,s.macd_signal==="BUY"?"var(--green)":"var(--red)"],
-    ["Vol Ratio",s.vol_ratio+"x",s.vol_ratio>1.5?"var(--green)":"var(--muted)"],
-    [
-      "52W High",
-      s.pct_from_high != null
-        ? s.pct_from_high.toFixed(1) + "%"
-        : "-",
-      (s.pct_from_high ?? -999) > -5
-        ? "var(--green)"
-        : "var(--muted)"
-    ],
-    ["MA50",s.above_ma50?"Above":"Below",s.above_ma50?"var(--green)":"var(--red)"],
-    ["MA200",s.above_ma200?"Above":"Below",s.above_ma200?"var(--green)":"var(--red)"],
-    ["Rank","#"+s.rank+" of 50","var(--muted)"],
-    ["Breakout Q",(s.breakout_quality??"–")+"/100",brkqC(s.breakout_quality)],
-    ["VWAP%",s.vwap_pct!=null?(s.vwap_pct>=0?"+":"")+s.vwap_pct.toFixed(1)+"%":"-",(s.vwap_pct??0)>=0?"var(--green)":"var(--red)"],
-    ["OBV Trend",s.obv_trend||"–",obvC(s.obv_trend)],
-    ["OBV Score",(s.obv_score!=null?s.obv_score.toFixed(0):"–")+"/100","var(--muted)"],
-    ["RSI Divergence",s.div_label||"N/A",divC(s.div_score)],
-    ["RS vs Sector",s.rel_strength_sector!=null?(s.rel_strength_sector>=0?"+":"")+s.rel_strength_sector.toFixed(1)+"%":"-",(s.rel_strength_sector??0)>=0?"var(--green)":"var(--red)"],
-  ];
-  document.getElementById("mgrid").innerHTML=stats.map(([l,v,c])=>
-    `<div class="sbox"><div class="slbl">${l}</div><div class="sval" style="color:${c}">${v}</div></div>`
-  ).join("");
-  document.getElementById("overlay").classList.add("open");
-}
-
-function drawCanvas(pts){
-  const cv=document.getElementById("sparkCanvas"),ctx=cv.getContext("2d");
-  const W=cv.width,H=cv.height;
-  ctx.clearRect(0,0,W,H);
-  if(!pts.length)return;
-  const col=pts[pts.length-1]>pts[0]?"#22c55e":"#ef4444";
-  const xs=pts.map((_,i)=>i/(pts.length-1)*W);
-  const ys=pts.map(v=>(1-v/100)*(H-20)+10);
-  const grad=ctx.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0,col+"44");grad.addColorStop(1,col+"00");
-  ctx.beginPath();ctx.moveTo(xs[0],H);
-  xs.forEach((x,i)=>ctx.lineTo(x,ys[i]));
-  ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-  ctx.beginPath();xs.forEach((x,i)=>i===0?ctx.moveTo(x,ys[i]):ctx.lineTo(x,ys[i]));
-  ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin="round";ctx.stroke();
-  ctx.beginPath();ctx.arc(xs[xs.length-1],ys[ys.length-1],4,0,Math.PI*2);
-  ctx.fillStyle=col;ctx.fill();
-}
-
-function closeModal(){document.getElementById("overlay").classList.remove("open");selTicker=null;drawTable();}
-
-// ── COMMAND PALETTE ────────────────────────────────────────────────────────
-let cmdActive=0;
-const ACTIONS=[
-  {icon:"📋",label:"Switch to Table View",sub:"View stock rankings",action:()=>switchView("table")},
-  {icon:"🔥",label:"Switch to Sector Heatmap",sub:"Visual heatmap by return",action:()=>switchView("heatmap")},
-  {icon:"📈",label:"Switch to Historical Tracker",sub:"Track weekly changes",action:()=>switchView("history")},
-  {icon:"💾",label:"Save This Week to Tracker",sub:"Snapshot current top-50",action:saveCurrentWeek},
-  {icon:"📥",label:"Export CSV",sub:"Download top-50 data",action:exportCSV},
-  {icon:"📋",label:"Copy Tickers",sub:"Copy all tickers to clipboard",action:copyTickers},
-  {icon:"🌙",label:"Toggle Dark/Light Mode",sub:"Switch theme",action:()=>{
-    isDark=!isDark;document.documentElement.setAttribute("data-theme",isDark?"dark":"light");
-    document.getElementById("btnTheme").textContent=isDark?"🌙":"☀️";
-  }},
-  {icon:"✕",label:"Clear All Filters",sub:"Reset search and filters",action:()=>{
-    document.getElementById("qSearch").value="";
-    ["fExch","fSector","fGrade","fMacd","fMa200"].forEach(id=>document.getElementById(id).value="");
-    applyFilters();
-  }},
-];
-
-function buildCmdResults(q){
-  const results=document.getElementById("cmdResults");
-  const lq=q.toLowerCase().trim();
-  cmdActive=0;
-
-  // Stock matches
-  const stockMatches=ALL.filter(s=>{
-    if(!lq)return false;
-    const name=(COMPANY_NAMES[s.ticker]||"").toLowerCase();
-    return s.ticker.toLowerCase().includes(lq)||name.includes(lq);
-  }).slice(0,6);
-
-  // Action matches
-  const actionMatches=ACTIONS.filter(a=>
-    !lq||a.label.toLowerCase().includes(lq)||a.sub.toLowerCase().includes(lq)
-  );
-
-  let html="";
-  if(stockMatches.length){
-    html+=`<div class="cmd-section"><div class="cmd-section-label">Stocks</div>`;
-    stockMatches.forEach(s=>{
-      const col=SC[s.sector]||"#94a3b8";
-      html+=`<div class="cmd-item" data-type="stock" data-ticker="${s.ticker}">
-        <div class="cmd-item-icon" style="background:rgba(59,130,246,.15);color:${col}">${s.ticker[0]}</div>
-        <div class="cmd-item-body">
-          <div class="cmd-item-title">${s.ticker} — ${COMPANY_NAMES[s.ticker]||s.sector}</div>
-          <div class="cmd-item-sub">Score ${s.momentum_score} · ${s.sector} · $${fmt(s.price)}</div>
-        </div>
-        <span class="cmd-item-badge g${s.grade}" style="background:${s.grade==="A"?"rgba(34,197,94,.1)":"rgba(59,130,246,.1)"};color:${s.grade==="A"?"var(--green)":"var(--primary)"}">${s.grade}</span>
-      </div>`;
-    });
-    html+=`</div>`;
-  }
-  if(actionMatches.length){
-    html+=`<div class="cmd-section"><div class="cmd-section-label">Actions</div>`;
-    actionMatches.forEach((a,i)=>{
-      html+=`<div class="cmd-item" data-type="action" data-idx="${i}">
-        <div class="cmd-item-icon" style="background:var(--surface3)">${a.icon}</div>
-        <div class="cmd-item-body">
-          <div class="cmd-item-title">${a.label}</div>
-          <div class="cmd-item-sub">${a.sub}</div>
-        </div>
-      </div>`;
-    });
-    html+=`</div>`;
-  }
-  if(!html)html=`<div class="cmd-empty">No results for "${q}"</div>`;
-  results.innerHTML=html;
-
-  // Attach click handlers
-  results.querySelectorAll(".cmd-item[data-type='stock']").forEach(el=>{
-    el.addEventListener("click",()=>{closeCmdPalette();openModal(el.dataset.ticker);});
-  });
-  results.querySelectorAll(".cmd-item[data-type='action']").forEach(el=>{
-    el.addEventListener("click",()=>{closeCmdPalette();ACTIONS[+el.dataset.idx].action();});
-  });
-
-  // Highlight first
-  highlightCmd();
-}
-
-function highlightCmd(){
-  const items=document.querySelectorAll(".cmd-item");
-  items.forEach((el,i)=>el.classList.toggle("active",i===cmdActive));
-  const active=items[cmdActive];
-  if(active)active.scrollIntoView({block:"nearest"});
-}
-
-function openCmdPalette(){
-  document.getElementById("cmdOverlay").classList.add("open");
-  const input=document.getElementById("cmdInput");
-  input.value="";
-  buildCmdResults("");
-  input.focus();
-}
-
-function closeCmdPalette(){
-  document.getElementById("cmdOverlay").classList.remove("open");
-}
-
-document.getElementById("cmdInput").addEventListener("input",e=>buildCmdResults(e.target.value));
-document.getElementById("cmdInput").addEventListener("keydown",e=>{
-  const items=[...document.querySelectorAll(".cmd-item")];
-  if(e.key==="ArrowDown"){e.preventDefault();cmdActive=Math.min(cmdActive+1,items.length-1);highlightCmd();}
-  else if(e.key==="ArrowUp"){e.preventDefault();cmdActive=Math.max(cmdActive-1,0);highlightCmd();}
-  else if(e.key==="Enter"){
-    e.preventDefault();
-    if(items[cmdActive]){items[cmdActive].click();}
-  }
-});
-document.getElementById("cmdOverlay").addEventListener("click",e=>{
-  if(e.target===document.getElementById("cmdOverlay"))closeCmdPalette();
-});
-document.getElementById("cmdHint").addEventListener("click",openCmdPalette);
-
-// ── VIEW SWITCHER ─────────────────────────────────────────────────────────
-function switchView(v){
-  currentView=v;
-  document.querySelectorAll(".vtab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
-  document.getElementById("tableView").style.display=v==="table"?"":"none";
-  document.getElementById("heatmapView").classList.toggle("active",v==="heatmap");
-  document.getElementById("historyView").classList.toggle("active",v==="history");
-  if(v==="heatmap")drawHeatmap();
-  if(v==="history")drawHistory();
-}
-
-// ── EXPORTS ────────────────────────────────────────────────────────────────
-function exportCSV(){
-  const cols=["rank","ticker","exchange","sector","price","momentum_score","grade",
-    "ret_1m","ret_3m","ret_6m","rsi","stoch_k","stoch_d","adx","bb_pct","atr_pct",
-    "roc10","macd_signal","vol_ratio","pct_from_high","above_ma50","above_ma200",
-    "vwap_pct","breakout_quality","div_score","div_label","obv_trend","obv_score","rel_strength_sector"];
-  const data=filtered.length?filtered:ALL;
-  const rows=[cols.join(","),...data.map(s=>cols.map(c=>JSON.stringify(s[c]??"")).join(","))];
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));
-  a.download="top50_momentum.csv";a.click();
-  toast("📥 CSV exported!");
-}
-
-function copyTickers(){
-  const tickers=(filtered.length?filtered:ALL).map(s=>s.ticker).join(", ");
-  navigator.clipboard.writeText(tickers).then(()=>toast("📋 "+(filtered.length||ALL.length)+" tickers copied!"));
-}
-
-function toast(msg){
-  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2500);
-}
-
-async function loadData() {
-
-  const response = await fetch("data.json?v=" + Date.now());
-
-  if (!response.ok) {
-    throw new Error("Failed to load data.json");
-  }
-
-  return await response.json();
-}              
-
-// ── INIT ──────────────────────────────────────────────────────────────────
-async function load(){
-  RAW = await loadData();
-  ALL = RAW.stocks || [];
-  
-  document.getElementById("lupdated").textContent=RAW.generated_at||"";
-  document.getElementById("weekBadge").textContent="Week "+RAW.week+" · "+RAW.year;
-  filtered=[...ALL];
-  doSort();
-
-  // Populate sector filter
-  const secs=[...new Set(ALL.map(s=>s.sector))].sort();
-  const sf=document.getElementById("fSector");
-  secs.forEach(s=>{const o=document.createElement("option");o.value=o.textContent=s;sf.appendChild(o);});
-
-  setKPIs(RAW);
-  drawTable();
-  setSide(RAW);
-
-  // Events
-  document.getElementById("qSearch").addEventListener("input",applyFilters);
-  ["fExch","fSector","fGrade","fMacd","fMa200"].forEach(id=>document.getElementById(id).addEventListener("change",applyFilters));
-  document.getElementById("btnClear").addEventListener("click",()=>{
-    document.getElementById("qSearch").value="";
-    ["fExch","fSector","fGrade","fMacd","fMa200"].forEach(id=>document.getElementById(id).value="");
-    applyFilters();
-  });
-  document.getElementById("btnCsv").addEventListener("click",exportCSV);
-  document.getElementById("btnCopy").addEventListener("click",copyTickers);
-  document.getElementById("btnTheme").addEventListener("click",()=>{
-    isDark=!isDark;
-    document.documentElement.setAttribute("data-theme",isDark?"dark":"light");
-    document.getElementById("btnTheme").textContent=isDark?"🌙":"☀️";
-  });
-  document.getElementById("mclose").addEventListener("click",closeModal);
-  document.getElementById("overlay").addEventListener("click",e=>{if(e.target===document.getElementById("overlay"))closeModal();});
-  document.getElementById("btnSaveWeek").addEventListener("click",saveCurrentWeek);
-
-  document.querySelectorAll("thead th[data-col]").forEach(th=>th.addEventListener("click",()=>setSort(th.dataset.col)));
-  document.getElementById("tbody").addEventListener("click",e=>{
-    const row=e.target.closest("tr[data-ticker]");if(row)openModal(row.dataset.ticker);
-  });
-  document.querySelectorAll(".vtab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
-  document.getElementById("hmColorBy").addEventListener("change",drawHeatmap);
-  document.getElementById("hmSizeBy").addEventListener("change",drawHeatmap);
-  document.getElementById("hmGroupSector").addEventListener("change",drawHeatmap);
-
-  // Keyboard shortcuts
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){closeModal();closeCmdPalette();}
-    // Ctrl+K (Windows/Linux) or Cmd+K (Mac)
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){
-      e.preventDefault();
-      if(document.getElementById("cmdOverlay").classList.contains("open"))closeCmdPalette();
-      else openCmdPalette();
-    }
-  });
-}
-
-load();
-</script>
-</body>
-</html>
