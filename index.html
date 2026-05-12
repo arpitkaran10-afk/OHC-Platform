@@ -236,6 +236,37 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
 .spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .empty-state{padding:60px 20px;text-align:center;color:var(--muted)}
+
+/* ── Segmented Toggle ──────────────────────────────────────────── */
+.seg-toggle-wrap{display:flex;justify-content:center;margin:14px 0 10px;gap:0}
+.seg-btn{
+  padding:9px 28px;font-size:.82rem;font-weight:600;cursor:pointer;
+  background:var(--surface2,#161b22);color:var(--muted,#8b949e);
+  border:1px solid var(--border,#21262d);transition:background .18s,color .18s;
+  letter-spacing:.04em;
+}
+.seg-btn:first-child{border-radius:8px 0 0 8px}
+.seg-btn:last-child {border-radius:0 8px 8px 0}
+.seg-btn.active{background:var(--primary,#58a6ff);color:#000;border-color:var(--primary,#58a6ff)}
+.seg-btn:not(.active):hover{background:var(--surface3,#1c2128);color:var(--fg,#e6edf3)}
+#stock-section{display:block}
+#etf-section  {display:none}
+.cat-badge{
+  display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:600;
+  background:rgba(88,166,255,.13);color:#58a6ff;letter-spacing:.03em;
+}
+
+/* ── Rank-mode toggle ──────────────────────────────────────── */
+.rank-toggle-wrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px}
+.rank-toggle-wrap label{font-size:.78rem;color:var(--muted);white-space:nowrap;font-weight:500}
+.rtab{
+  padding:5px 11px;font-size:.75rem;font-weight:600;cursor:pointer;
+  background:var(--surface2,#161b22);color:var(--muted,#8b949e);
+  border:1px solid var(--border,#21262d);border-radius:4px;
+  transition:background .15s,color .15s;letter-spacing:.03em;
+}
+.rtab.active{background:#f78166;color:#000;border-color:#f78166}
+.rtab:not(.active):hover{background:var(--surface3,#1c2128);color:var(--fg,#e6edf3)}
 </style>
 
 </head>
@@ -281,11 +312,19 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
   <!-- KPIs -->
   <div class="kpi-grid" id="kpiGrid">
     <div class="kpi"><div class="kpi-label">Universe Scanned</div><div class="kpi-value" id="kTotal">–</div><div class="kpi-sub">S&P 500 + NDX stocks</div></div>
-    <div class="kpi"><div class="kpi-label">Top 50 Selected</div><div class="kpi-value" id="kSelected">–</div><div class="kpi-sub">by momentum score</div></div>
+    <div class="kpi"><div class="kpi-label">Top 50 Selected</div><div class="kpi-value" id="kSelected">–</div><div class="kpi-sub">by chosen rank mode</div></div>
     <div class="kpi"><div class="kpi-label">Avg Score</div><div class="kpi-value" id="kAvg" style="color:var(--primary)">–</div><div class="kpi-sub">composite percentile</div></div>
     <div class="kpi"><div class="kpi-label">Above MA200</div><div class="kpi-value" id="kMa200" style="color:var(--green)">–</div><div class="kpi-sub">% of selection</div></div>
     <div class="kpi"><div class="kpi-label">MACD Buy Signals</div><div class="kpi-value" id="kMacd" style="color:var(--cyan)">–</div><div class="kpi-sub">in current selection</div></div>
     <div class="kpi"><div class="kpi-label">Grade A Stocks</div><div class="kpi-value" id="kGradeA" style="color:var(--green)">–</div><div class="kpi-sub">highest conviction</div></div>
+  </div>
+  <!-- ETF KPIs (shown only in ETF / Both views) -->
+  <div class="kpi-grid" id="etfKpiGrid" style="display:none">
+    <div class="kpi"><div class="kpi-label">ETFs Scanned</div><div class="kpi-value" id="eTotal" style="color:#a3e635">–</div><div class="kpi-sub">in universe</div></div>
+    <div class="kpi"><div class="kpi-label">Top ETFs Selected</div><div class="kpi-value" id="eSelected" style="color:#a3e635">–</div><div class="kpi-sub">by chosen rank mode</div></div>
+    <div class="kpi"><div class="kpi-label">Avg Score</div><div class="kpi-value" id="eAvg" style="color:#a3e635">–</div><div class="kpi-sub">composite percentile</div></div>
+    <div class="kpi"><div class="kpi-label">Above MA200</div><div class="kpi-value" id="eMA200" style="color:#a3e635">–</div><div class="kpi-sub">% of selection</div></div>
+    <div class="kpi"><div class="kpi-label">Grade A ETFs</div><div class="kpi-value" id="eGradeA" style="color:#a3e635">–</div><div class="kpi-sub">highest conviction</div></div>
   </div>
 
   <!-- TOOLBAR -->
@@ -303,6 +342,17 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     <button class="btn btn-ghost" id="btnCsv">📥 CSV</button>
     <button class="btn btn-ghost" id="btnCopy">📋 Copy Tickers</button>
     <span class="count" id="cntLabel">50 stocks</span>
+      <!-- Rank-mode toggle -->
+    <div class="rank-toggle-wrap">
+      <label>Rank by:</label>
+      <button class="rtab active" id="rt-score" onclick="setRankMode('momentum_score')">🏆 Score</button>
+      <button class="rtab" id="rt-mtd"  onclick="setRankMode('ret_mtd')">MTD</button>
+      <button class="rtab" id="rt-1m"   onclick="setRankMode('ret_1m')">1M</button>
+      <button class="rtab" id="rt-3m"   onclick="setRankMode('ret_3m')">3M</button>
+      <button class="rtab" id="rt-6m"   onclick="setRankMode('ret_6m')">6M</button>
+      <button class="rtab" id="rt-ytd"  onclick="setRankMode('ret_ytd')">YTD</button>
+      <button class="rtab" id="rt-1y"   onclick="setRankMode('ret_1y')">1Y</button>
+    </div>
   </div>
 
   <!-- VIEW TABS -->
@@ -312,8 +362,16 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     <button class="vtab" data-view="history">📈 Historical Tracker</button>
   </div>
 
+  <!-- Segmented Toggle -->
+  <div class="seg-toggle-wrap">
+    <button class="seg-btn active" id="btn-stocks" onclick="switchAssetView('stocks')">📈 Stocks</button>
+    <button class="seg-btn"        id="btn-etfs"   onclick="switchAssetView('etfs')">🗂️ ETFs</button>
+    <button class="seg-btn"        id="btn-both"   onclick="switchAssetView('both')">⊞ Both</button>
+  </div>
+
   <!-- TABLE VIEW -->
   <div id="tableView">
+    <div id="stock-section">
     <div class="layout">
       <div class="card">
         <div class="tbl-scroll">
@@ -327,6 +385,9 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 <th data-col="price">Price<span class="arr">↕</span></th>
                 <th data-col="momentum_score">Score<span class="arr">↕</span></th>
                 <th data-col="grade">Grade<span class="arr">↕</span></th>
+                <th data-col="ret_mtd">MTD<span class="arr">↕</span></th>
+                <th data-col="ret_ytd">YTD<span class="arr">↕</span></th>
+                <th data-col="ret_1y">1Y<span class="arr">↕</span></th>
                 <th data-col="ret_1m">1M<span class="arr">↕</span></th>
                 <th data-col="ret_3m">3M<span class="arr">↕</span></th>
                 <th data-col="ret_6m">6M<span class="arr">↕</span></th>
@@ -346,7 +407,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 <th>Spark</th>
               </tr>
             </thead>
-            <tbody id="tbody"><tr><td colspan="24"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
+            <tbody id="tbody"><tr><td colspan="27"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
           </table>
         </div>
       </div>
@@ -562,7 +623,56 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
       </div>
       <div id="heatmapGrid"></div>
     </div>
-  </div>
+  
+    </div><!-- /stock-section -->
+
+    <!-- ══ ETF SECTION ══════════════════════════════════════════════════ -->
+    <div id="etf-section">
+      <div class="layout">
+        <div class="card">
+          <div class="tbl-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ticker</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Score</th>
+                  <th>Grade</th>
+                  <th>MTD</th><th>YTD</th><th>1Y</th><th>1M</th><th>3M</th><th>6M</th>
+                  <th>RSI</th><th>ADX</th>
+                  <th>MACD</th>
+                  <th>Vol</th>
+                  <th>52W Hi</th>
+                  <th>MAs</th>
+                  <th>BrkQ</th>
+                  <th>VWAP%</th>
+                  <th>OBV</th>
+                  <th>Spark</th>
+                </tr>
+              </thead>
+              <tbody id="etf-tbody">
+                <tr><td colspan="22"><div class="loading"><div class="spinner"></div><span style="margin-left:10px">Loading ETFs…</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="side">
+          <div class="panel">
+            <div class="ptitle">Category Breakdown</div>
+            <div id="etfCategoryChart"></div>
+          </div>
+          <div class="panel">
+            <div class="ptitle">Grade Distribution</div>
+            <div class="gdist" id="etfGradeDist"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /etf-section -->
+
+  </div><!-- /tableView -->
+
 
   <!-- HISTORY VIEW -->
   <div id="historyView" class="history-view">
@@ -866,7 +976,7 @@ function divIcon(score){
 // ── TABLE ─────────────────────────────────────────────────────────────────
 function drawTable(){
   const tb=document.getElementById("tbody");
-  if(!filtered.length){tb.innerHTML=`<tr><td colspan="19"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
+  if(!filtered.length){tb.innerHTML=`<tr><td colspan="27"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
   tb.innerHTML=filtered.map(s=>`<tr class="${selTicker===s.ticker?"sel-row":""}" data-ticker="${s.ticker}">
     <td>${s.rank}</td>
     <td><div class="tkr">${s.ticker}</div><div class="cname">${COMPANY_NAMES[s.ticker]||""}</div></td>
@@ -875,6 +985,9 @@ function drawTable(){
     <td>$${fmt(s.price)}</td>
     <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${s.momentum_score}%"></div></div><span class="bar-val">${s.momentum_score}</span></div></td>
     <td><span class="gpill g${s.grade}">${s.grade}</span></td>
+    <td>${ret(s.ret_mtd)}</td>
+    <td>${ret(s.ret_ytd)}</td>
+    <td>${ret(s.ret_1y)}</td>
     <td>${ret(s.ret_1m)}</td>
     <td>${ret(s.ret_3m)}</td>
     <td>${ret(s.ret_6m)}</td>
@@ -1317,6 +1430,7 @@ async function load(){
   setKPIs(RAW);
   drawTable();
   setSide(RAW);
+  renderEtfs(RAW);
 
   // Events
   document.getElementById("qSearch").addEventListener("input",applyFilters);
@@ -1359,6 +1473,129 @@ async function load(){
 }
 
 load();
+
+// ── Segmented Toggle ─────────────────────────────────────────────────────────
+function switchAssetView(view) {
+  const ss = document.getElementById('stock-section');
+  const es = document.getElementById('etf-section');
+  const sk = document.getElementById('kpiGrid');
+  const ek = document.getElementById('etfKpiGrid');
+  const bs = document.getElementById('btn-stocks');
+  const be = document.getElementById('btn-etfs');
+  const bv = document.getElementById('btn-both');
+  [bs, be, bv].forEach(b => b.classList.remove('active'));
+  if (view === 'stocks') {
+    ss.style.display = 'block'; es.style.display = 'none';
+    sk.style.display = '';      ek.style.display = 'none';
+    bs.classList.add('active');
+  } else if (view === 'etfs') {
+    ss.style.display = 'none';  es.style.display = 'block';
+    sk.style.display = 'none';  ek.style.display = '';
+    be.classList.add('active');
+  } else {
+    ss.style.display = 'block'; es.style.display = 'block';
+    sk.style.display = '';      ek.style.display = '';
+    bv.classList.add('active');
+  }
+}
+
+// ── ETF Rendering ─────────────────────────────────────────────────────────────
+function renderEtfs(data) {
+  if (!data.etfs || !data.etfs.length) return;
+  const etfs = data.etfs;
+
+  // KPI bar
+  document.getElementById('eTotal').textContent  = etfs.length;
+  document.getElementById('eSelected').textContent = etfs.length;
+  document.getElementById('eAvg').textContent    = (data.etf_avg_score || 0).toFixed(1);
+  document.getElementById('eMA200').textContent  = (data.etf_pct_above_ma200 || 0).toFixed(0) + '%';
+  document.getElementById('eGradeA').textContent = etfs.filter(e => e.grade === 'A').length;
+
+  // Table rows — reuses all existing helper functions (fmt, ret, rsiC, adxC, brkqC, obvC, sparkSVG)
+  document.getElementById('etf-tbody').innerHTML = etfs.map((e, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td><div class="tkr">${e.ticker}</div></td>
+      <td><span class="cat-badge">${e.sector || '—'}</span></td>
+      <td>$${fmt(e.price)}</td>
+      <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${e.momentum_score}%"></div></div><span class="bar-val">${e.momentum_score}</span></div></td>
+      <td><span class="gpill g${e.grade}">${e.grade}</span></td>
+      <td>${ret(e.ret_mtd)}</td>
+      <td>${ret(e.ret_ytd)}</td>
+      <td>${ret(e.ret_1y)}</td>
+      <td>${ret(e.ret_1m)}</td>
+      <td>${ret(e.ret_3m)}</td>
+      <td>${ret(e.ret_6m)}</td>
+      <td style="color:${rsiC(e.rsi)}">${e.rsi}</td>
+      <td style="color:${adxC(e.adx)}">${e.adx}</td>
+      <td class="${e.macd_signal === 'BUY' ? 'mbuy' : 'msell'}">${e.macd_signal}</td>
+      <td>${e.vol_ratio}x</td>
+      <td class="${(e.pct_from_high ?? -999) > -5 ? 'pos' : 'neu'}">${e.pct_from_high != null ? e.pct_from_high.toFixed(1) + '%' : '-'}</td>
+      <td><span class="dot ${e.above_ma50 ? 'don' : 'doff'}" title="MA50"></span><span class="dot ${e.above_ma200 ? 'don' : 'doff'}" title="MA200" style="margin-left:3px"></span></td>
+      <td style="color:${brkqC(e.breakout_quality)}">${e.breakout_quality ?? '-'}</td>
+      <td class="${(e.vwap_pct ?? 0) >= 0 ? 'pos' : 'neg'}">${e.vwap_pct != null ? (e.vwap_pct >= 0 ? '+' : '') + e.vwap_pct.toFixed(1) + '%' : '-'}</td>
+      <td style="color:${obvC(e.obv_trend)}">${e.obv_trend ?? '-'}</td>
+      <td>${sparkSVG(e.sparkline)}</td>
+    </tr>`).join('');
+
+  // Category bar chart — mirrors existing setSide sector chart style
+  const cats = data.etf_category_breakdown || {};
+  const maxV = Math.max(...Object.values(cats), 1);
+  document.getElementById('etfCategoryChart').innerHTML = Object.entries(cats)
+    .sort((a, b) => b[1] - a[1])
+    .map(([n, c]) => `
+      <div class="sector-row">
+        <span class="sname" style="color:#58a6ff" title="${n}">${n}</span>
+        <div class="sbar-bg"><div class="sbar-fill" style="width:${(c / maxV * 100).toFixed(0)}%;background:#58a6ff"></div></div>
+        <span class="scnt">${c}</span>
+      </div>`).join('');
+
+  // Grade distribution — mirrors existing gradeDist style
+  const gb  = data.etf_grade_breakdown || {};
+  const gc  = { A: 'var(--green)', B: 'var(--primary)', C: 'var(--yellow)', D: 'var(--red)' };
+  const gbg = { A: 'rgba(34,197,94,.1)', B: 'rgba(59,130,246,.1)', C: 'rgba(234,179,8,.1)', D: 'rgba(239,68,68,.1)' };
+  document.getElementById('etfGradeDist').innerHTML = ['A', 'B', 'C', 'D'].map(g =>
+    `<div class="gbox" style="background:${gbg[g]}">
+       <div class="gl" style="color:${gc[g]}">${g}</div>
+       <div class="gc">${gb[g] || 0} ETFs</div>
+     </div>`).join('');
+}
+
+
+// ── Rank-mode toggle ─────────────────────────────────────────────────────────
+let rankMode = 'momentum_score';
+const RANK_BTN_MAP = {
+  'momentum_score':'rt-score','ret_mtd':'rt-mtd','ret_1m':'rt-1m',
+  'ret_3m':'rt-3m','ret_6m':'rt-6m','ret_ytd':'rt-ytd','ret_1y':'rt-1y'
+};
+
+function setRankMode(field) {
+  rankMode = field;
+  Object.entries(RANK_BTN_MAP).forEach(([f, id]) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.toggle('active', f === field);
+  });
+
+  ALL.sort((a, b) => (b[field] || 0) - (a[field] || 0));
+  ALL.forEach((s, i) => { s.rank = i + 1; });
+
+  if (RAW.etfs && RAW.etfs.length) {
+    RAW.etfs.sort((a, b) => (b[field] || 0) - (a[field] || 0));
+    RAW.etfs.forEach((e, i) => { e.rank = i + 1; });
+    renderEtfs(RAW);
+  }
+
+  sortCol = 'rank';
+  sortDir = 1;
+  document.querySelectorAll("thead th").forEach(th => {
+    th.classList.toggle("sorted", th.dataset.col === 'rank');
+    const arr = th.querySelector(".arr");
+    if (arr) arr.textContent = th.dataset.col === 'rank' ? "↓" : "↕";
+  });
+
+  applyFilters();
+}
+
 </script>
 </body>
 </html>
