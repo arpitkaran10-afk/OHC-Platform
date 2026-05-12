@@ -174,7 +174,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
 .hist-week{border-bottom:1px solid var(--border)}
 .hist-week-hdr{padding:10px 16px;background:var(--surface2);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
 .hist-week-hdr:hover{background:var(--surface3);color:var(--text)}
-.hist-tickers{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;display:none}
+.hist-tickers{flex-wrap:wrap;gap:6px;padding:10px 16px;display:none}
 .hist-tickers.open{display:flex}
 .hist-chip{background:var(--surface3);border:1px solid var(--border2);border-radius:4px;padding:3px 8px;font-size:12px;font-family:var(--mono);cursor:pointer;transition:all .1s;color:var(--text)}
 .hist-chip:hover{background:rgba(59,130,246,.15);border-color:var(--primary);color:var(--primary)}
@@ -600,30 +600,6 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     </div>
   </div>
 
-  <!-- HEATMAP VIEW -->
-  <div id="heatmapView" class="heatmap-view">
-    <div class="card">
-      <div class="hmap-controls">
-        <label>Color by:</label>
-        <select class="sel" id="hmColorBy" style="min-width:90px">
-          <option value="ret_1m">1M Return</option>
-          <option value="ret_3m">3M Return</option>
-          <option value="ret_6m">6M Return</option>
-          <option value="momentum_score">Score</option>
-          <option value="rsi">RSI</option>
-        </select>
-        <label style="margin-left:8px">Size by:</label>
-        <select class="sel" id="hmSizeBy" style="min-width:90px">
-          <option value="momentum_score">Score</option>
-          <option value="ret_1m">1M Return</option>
-          <option value="vol_ratio">Vol Ratio</option>
-        </select>
-        <label style="margin-left:8px">Group by sector:</label>
-        <input type="checkbox" id="hmGroupSector" checked style="cursor:pointer">
-      </div>
-      <div id="heatmapGrid"></div>
-    </div>
-  
     </div><!-- /stock-section -->
 
     <!-- ══ ETF SECTION ══════════════════════════════════════════════════ -->
@@ -673,6 +649,30 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
 
   </div><!-- /tableView -->
 
+  <!-- HEATMAP VIEW -->
+  <div id="heatmapView" class="heatmap-view">
+    <div class="card">
+      <div class="hmap-controls">
+        <label>Color by:</label>
+        <select class="sel" id="hmColorBy" style="min-width:90px">
+          <option value="ret_1m">1M Return</option>
+          <option value="ret_3m">3M Return</option>
+          <option value="ret_6m">6M Return</option>
+          <option value="momentum_score">Score</option>
+          <option value="rsi">RSI</option>
+        </select>
+        <label style="margin-left:8px">Size by:</label>
+        <select class="sel" id="hmSizeBy" style="min-width:90px">
+          <option value="momentum_score">Score</option>
+          <option value="ret_1m">1M Return</option>
+          <option value="vol_ratio">Vol Ratio</option>
+        </select>
+        <label style="margin-left:8px">Group by sector:</label>
+        <input type="checkbox" id="hmGroupSector" checked style="cursor:pointer">
+      </div>
+      <div id="heatmapGrid"></div>
+    </div>
+  </div><!-- /heatmapView -->
 
   <!-- HISTORY VIEW -->
   <div id="historyView" class="history-view">
@@ -825,8 +825,7 @@ const COMPANY_NAMES = {
   // Other / Mixed
   DVA:"DaVita Inc",CNC:"Centene Corporation",VTRS:"Viatris Inc",
   ADM:"Archer-Daniels-Midland",WST:"West Pharmaceutical",BWA:"BorgWarner",
-  GLW:"Corning Inc",ELV:"Elevance Health",HWM:"Howmet Aerospace",
-  WBD:"Warner Bros Discovery",
+  GLW:"Corning Inc",ELV:"Elevance Health",
 };
 
 const SC = {
@@ -842,7 +841,7 @@ function saveHistory(h){try{localStorage.setItem("miq_history",JSON.stringify(h)
 
 // ── UTILS ─────────────────────────────────────────────────────────────────
 const fmt=v=>v>=1000?v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):v.toFixed(2);
-const ret=v=>`<span class="${v>0?"pos":"neg"}">${v>0?"+":""}${v.toFixed(2)}%</span>`;
+const ret=v=>v==null?`<span class="neu">—</span>`:`<span class="${v>0?"pos":"neg"}">${v>0?"+":""}${v.toFixed(2)}%</span>`;
 const rsiC=v=>v>70?"var(--red)":v<30?"var(--green)":"var(--muted)";
 const adxC=v=>v>40?"var(--green)":v>25?"var(--cyan)":"var(--muted)";
 
@@ -858,7 +857,7 @@ function sbadge(sector){
 }
 
 function sparkSVG(pts){
-  if(!pts||!pts.length)return"";
+  if(!pts||pts.length<2)return"";
   const W=80,H=24,min=Math.min(...pts),max=Math.max(...pts),range=max-min||1;
   const xs=pts.map((_,i)=>i/(pts.length-1)*W);
   const ys=pts.map(v=>H-(v-min)/range*(H-4)-2);
@@ -994,7 +993,7 @@ function drawTable(){
     <td style="color:${rsiC(s.rsi)}">${s.rsi}</td>
     <td style="color:${adxC(s.adx)}">${s.adx}</td>
     <td>${s.stoch_k}</td>
-    <td>${s.bb_pct.toFixed(0)}%</td>
+    <td>${s.bb_pct!=null?s.bb_pct.toFixed(0)+"%":"-"}</td>
     <td class="${s.macd_signal==="BUY"?"mbuy":"msell"}">${s.macd_signal}</td>
     <td>${s.vol_ratio}x</td>
     <td class="${(s.pct_from_high ?? -999)>-5?"pos":"neu"}">
@@ -1200,7 +1199,7 @@ function openModal(ticker){
     ["6M Return",(s.ret_6m>0?"+":"")+s.ret_6m.toFixed(2)+"%",s.ret_6m>0?"var(--green)":"var(--red)"],
     ["RSI (14)",s.rsi,rsiC(s.rsi)],["ADX",s.adx,adxC(s.adx)],
     ["Stoch %K/%D",s.stoch_k+"/"+s.stoch_d,"var(--text)"],
-    ["Bollinger %",s.bb_pct.toFixed(0)+"%","var(--text)"],
+    ["Bollinger %",s.bb_pct!=null?s.bb_pct.toFixed(0)+"%":"—","var(--text)"],
     ["ATR %",s.atr_pct+"%","var(--muted)"],
     ["ROC 10d",(s.roc10>0?"+":"")+s.roc10+"%",s.roc10>0?"var(--green)":"var(--red)"],
     ["MACD",s.macd_signal,s.macd_signal==="BUY"?"var(--green)":"var(--red)"],
@@ -1414,6 +1413,7 @@ async function loadData() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 async function load(){
+  try {
   RAW = await loadData();
   ALL = RAW.stocks || [];
   
@@ -1470,6 +1470,11 @@ async function load(){
       else openCmdPalette();
     }
   });
+  } catch(err) {
+    log && log.error ? log.error(err) : console.error(err);
+    document.getElementById("tbody").innerHTML=
+      `<tr><td colspan="27"><div class="empty-state">⚠️ Failed to load data.json. Run the pipeline first, then refresh.<br><small style="color:var(--muted)">${err.message}</small></div></td></tr>`;
+  }
 }
 
 load();
