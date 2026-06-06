@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,8 +81,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .vtab:hover:not(.active){background:var(--surface2);color:var(--text)}
 
 /* LAYOUT */
-.layout{display:grid;grid-template-columns:1fr 270px;gap:16px;align-items:start}
-@media(max-width:1080px){.layout{grid-template-columns:1fr}}
+.layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+.desc-cell{max-width:280px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;white-space:normal;line-height:1.5;color:var(--muted);font-family:var(--font);font-size:11px;cursor:default}
+.ssb{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap;background:rgba(168,85,247,.12);color:#c084fc}
+.co-box{background:var(--surface2);border-radius:var(--radius);padding:14px;margin-bottom:16px;border-left:2px solid var(--border2)}
+.co-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:600}
+.co-text{font-size:13px;color:var(--text);line-height:1.65}
+.mfullname{font-size:12px;color:var(--muted);margin-top:1px;font-family:var(--font)}
 
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .tbl-scroll{overflow-x:auto}
@@ -92,16 +97,55 @@ thead th{background:var(--surface2);padding:10px 11px;text-align:left;font-size:
   white-space:nowrap;cursor:pointer;user-select:none;transition:color .12s;position:sticky;top:0;z-index:2}
 thead th:hover{color:var(--text)}
 thead th.sorted{color:var(--primary)}
+/* Returns group header row */
+.th-group-row th{background:var(--surface2);border-bottom:none;padding:5px 11px 2px;cursor:default;pointer-events:none;position:sticky;top:0;z-index:2;font-weight:400}
+.th-group-row th:hover{color:var(--muted)}
+/* Group header cell that spans the returns band */
+.th-returns-label{
+  background:rgba(59,130,246,.055);
+  border-left:1px solid rgba(59,130,246,.28);
+  border-right:1px solid rgba(59,130,246,.28);
+  text-align:center;
+}
+.th-returns-label .ret-pill{
+  display:inline-block;
+  background:rgba(59,130,246,.12);
+  border:1px solid rgba(59,130,246,.22);
+  border-radius:3px;
+  padding:1px 9px;
+  font-size:9px;
+  letter-spacing:1.2px;
+  color:rgba(59,130,246,.85);
+  font-weight:700;
+  text-transform:uppercase;
+}
+/* Second header row sits below the group row */
+.th-col-row th{top:27px}
+/* Return column band — background + center alignment */
+th.ret-col,td.ret-col{text-align:center;min-width:52px;background:rgba(59,130,246,.055)}
+/* Bracket: left edge on first return col, right edge on last */
+th.ret-first,td.ret-first{border-left:1px solid rgba(59,130,246,.28)!important}
+th.ret-last, td.ret-last {border-right:1px solid rgba(59,130,246,.28)!important}
+/* Sub-group dividers within the band */
+th.ret-gap-l,td.ret-gap-l{padding-left:18px}
+th.ret-gap-l{border-left:1px solid rgba(59,130,246,.18)!important}
+td.ret-gap-l{border-left:1px solid rgba(59,130,246,.18)}
+/* Column-label row: bolder + blue-tinted text for returns headers */
+.th-col-row th.ret-col{font-weight:600;color:rgba(59,130,246,.75);letter-spacing:.5px}
+.th-col-row th.ret-col.sorted{color:var(--primary)}
+/* Hover/select state keeps the band visible */
+tbody tr:hover td.ret-col{background:rgba(59,130,246,.10)}
+tbody tr.sel-row td.ret-col{background:rgba(59,130,246,.13)!important}
 .arr{margin-left:3px;opacity:.4;font-size:10px}
 .sorted .arr{opacity:1}
 tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--surface2)}
 tbody tr.sel-row{background:rgba(59,130,246,.08)!important}
-td{padding:9px 11px;vertical-align:middle;white-space:nowrap;font-family:var(--mono);font-size:12px}
+td{padding:9px 11px;vertical-align:top;white-space:nowrap;font-family:var(--mono);font-size:12px}
 td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
 .tkr{font-weight:600;color:var(--text);letter-spacing:.4px;font-size:13px}
-.cname{font-size:10px;color:var(--muted);font-family:var(--font);margin-top:1px;letter-spacing:0;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.cname{font-size:10px;color:var(--muted);font-family:var(--font);margin-top:1px;letter-spacing:0;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
 .sbadge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap}
 .bar-wrap{display:flex;align-items:center;gap:7px;min-width:90px}
 .bar-bg{height:4px;border-radius:2px;background:var(--faint);flex:1;overflow:hidden}
@@ -304,7 +348,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
       <span>Search</span>
       <kbd>Ctrl+K</kbd>
     </button>
-    <button class="btn-icon" id="btnTheme" title="Toggle theme">🌙</button>
+    <button class="btn-icon" id="btnTheme" title="Toggle theme">☀️</button>
   </div>
 </header>
 
@@ -346,6 +390,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     <div class="rank-toggle-wrap">
       <label>Rank by:</label>
       <button class="rtab active" id="rt-score" onclick="setRankMode('momentum_score')">🏆 Score</button>
+      <button class="rtab" id="rt-1w"   onclick="setRankMode('ret_1w')">1W</button>
       <button class="rtab" id="rt-mtd"  onclick="setRankMode('ret_mtd')">MTD</button>
       <button class="rtab" id="rt-1m"   onclick="setRankMode('ret_1m')">1M</button>
       <button class="rtab" id="rt-3m"   onclick="setRankMode('ret_3m')">3M</button>
@@ -360,6 +405,9 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     <button class="vtab active" data-view="table">📋 Table</button>
     <button class="vtab" data-view="heatmap">🔥 Sector Heatmap</button>
     <button class="vtab" data-view="history">📈 Historical Tracker</button>
+    <button class="vtab" id="btnSectorBreakdown" onclick="openSectorModal();event.stopPropagation()">📊 Sector Breakdown</button>
+    <button class="vtab" id="btnGradeDist" onclick="openGradeModal();event.stopPropagation()">🏅 Grade Distribution</button>
+    <button class="vtab" id="btnLearnIndicators" onclick="openLearnModal();event.stopPropagation()">📚 Learn Indicators</button>
   </div>
 
   <!-- Segmented Toggle -->
@@ -377,20 +425,30 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
         <div class="tbl-scroll">
           <table>
             <thead>
-              <tr>
+              <!-- Group header row -->
+              <tr class="th-group-row">
+                <th colspan="9"></th>
+                <th colspan="7" class="th-returns-label"><span class="ret-pill">Returns</span></th>
+                <th colspan="12"></th>
+              </tr>
+              <!-- Column header row -->
+              <tr class="th-col-row">
                 <th data-col="rank">#<span class="arr">↕</span></th>
                 <th>Ticker / Company</th>
+                <th style="min-width:280px">Description</th>
                 <th data-col="sector">Sector<span class="arr">↕</span></th>
+                <th>Sub-Sector</th>
                 <th data-col="exchange">Exchange<span class="arr">↕</span></th>
                 <th data-col="price">Price<span class="arr">↕</span></th>
                 <th data-col="momentum_score">Score<span class="arr">↕</span></th>
                 <th data-col="grade">Grade<span class="arr">↕</span></th>
-                <th data-col="ret_mtd">MTD<span class="arr">↕</span></th>
-                <th data-col="ret_ytd">YTD<span class="arr">↕</span></th>
-                <th data-col="ret_1y">1Y<span class="arr">↕</span></th>
-                <th data-col="ret_1m">1M<span class="arr">↕</span></th>
-                <th data-col="ret_3m">3M<span class="arr">↕</span></th>
-                <th data-col="ret_6m">6M<span class="arr">↕</span></th>
+                <th data-col="ret_1w" class="ret-col ret-first">1W<span class="arr">↕</span></th>
+                <th data-col="ret_mtd" class="ret-col">MTD<span class="arr">↕</span></th>
+                <th data-col="ret_1m" class="ret-col">1M<span class="arr">↕</span></th>
+                <th data-col="ret_3m" class="ret-col ret-gap-l">3M<span class="arr">↕</span></th>
+                <th data-col="ret_6m" class="ret-col">6M<span class="arr">↕</span></th>
+                <th data-col="ret_ytd" class="ret-col ret-gap-l">YTD<span class="arr">↕</span></th>
+                <th data-col="ret_1y" class="ret-col ret-last">1Y<span class="arr">↕</span></th>
                 <th data-col="rsi">RSI<span class="arr">↕</span></th>
                 <th data-col="adx">ADX<span class="arr">↕</span></th>
                 <th data-col="stoch_k">Stoch%K<span class="arr">↕</span></th>
@@ -407,25 +465,15 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 <th>Spark</th>
               </tr>
             </thead>
-            <tbody id="tbody"><tr><td colspan="27"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
+            <tbody id="tbody"><tr><td colspan="31"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
           </table>
         </div>
       </div>
-      <div class="side">
-        <div class="panel">
-          <div class="ptitle">Sector Breakdown</div>
-          <div id="sectorChart"></div>
-        </div>
-        <div class="panel">
-          <div class="ptitle">Grade Distribution</div>
-          <div class="gdist" id="gradeDist"></div>
-        </div>
-        <div class="panel" id="indicatorGuidePanel">
-          <div class="ptitle" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleGuide()">
-            <span>📖 Indicator Guide</span>
-            <span id="guideChevron" style="font-size:10px;color:var(--muted)">▲</span>
-          </div>
-          <div id="guideBody">
+      <!-- Hidden sidebar data containers (used by modals) -->
+      <div id="sectorChart" style="display:none"></div>
+      <div class="gdist" id="gradeDist" style="display:none"></div>
+      <!-- Learn Indicators modal content (hidden) -->
+      <div id="learnIndicatorsContent" style="display:none">
             <div class="ig-tabs">
               <button class="ig-tab active" onclick="showGuideTab('momentum',this)">Momentum</button>
               <button class="ig-tab" onclick="showGuideTab('trend',this)">Trend</button>
@@ -594,11 +642,8 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      </div><!-- /learnIndicatorsContent -->
+    </div><!-- /layout -->
 
     </div><!-- /stock-section -->
 
@@ -609,14 +654,25 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
           <div class="tbl-scroll">
             <table>
               <thead>
-                <tr>
+                <tr class="th-group-row">
+                  <th colspan="6"></th>
+                  <th colspan="7" class="th-returns-label"><span class="ret-pill">Returns</span></th>
+                  <th colspan="10"></th>
+                </tr>
+                <tr class="th-col-row">
                   <th>#</th>
                   <th>Ticker</th>
                   <th>Category</th>
                   <th>Price</th>
                   <th>Score</th>
                   <th>Grade</th>
-                  <th>MTD</th><th>YTD</th><th>1Y</th><th>1M</th><th>3M</th><th>6M</th>
+                  <th class="ret-col ret-first">1W</th>
+                  <th class="ret-col">MTD</th>
+                  <th class="ret-col">1M</th>
+                  <th class="ret-col ret-gap-l">3M</th>
+                  <th class="ret-col">6M</th>
+                  <th class="ret-col ret-gap-l">YTD</th>
+                  <th class="ret-col ret-last">1Y</th>
                   <th>RSI</th><th>ADX</th>
                   <th>MACD</th>
                   <th>Vol</th>
@@ -629,22 +685,14 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 </tr>
               </thead>
               <tbody id="etf-tbody">
-                <tr><td colspan="22"><div class="loading"><div class="spinner"></div><span style="margin-left:10px">Loading ETFs…</span></div></td></tr>
+                <tr><td colspan="23"><div class="loading"><div class="spinner"></div><span style="margin-left:10px">Loading ETFs…</span></div></td></tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="side">
-          <div class="panel">
-            <div class="ptitle">Category Breakdown</div>
-            <div id="etfCategoryChart"></div>
-          </div>
-          <div class="panel">
-            <div class="ptitle">Grade Distribution</div>
-            <div class="gdist" id="etfGradeDist"></div>
-          </div>
-        </div>
       </div>
+      <div id="etfCategoryChart" style="display:none"></div>
+      <div class="gdist" id="etfGradeDist" style="display:none"></div>
     </div><!-- /etf-section -->
 
   </div><!-- /tableView -->
@@ -692,16 +740,57 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
     <button class="mclose" id="mclose">✕</button>
     <div class="mticker" id="mTicker"></div>
     <div class="mcompany" id="mCompany"></div>
+    <div class="mfullname" id="mFullName"></div>
     <div class="mmeta" id="mMeta"></div>
     <div class="ai-box" id="aiBox" style="display:none">
       <div class="ai-lbl">AI Summary</div>
       <div id="aiText"></div>
+    </div>
+    <div class="co-box" id="coBox" style="display:none">
+      <div class="co-lbl">Company Overview</div>
+      <div class="co-text" id="coText"></div>
     </div>
     <div class="chart-box">
       <div class="chart-lbl">30-Day Price Trajectory (normalized)</div>
       <canvas id="sparkCanvas" width="600" height="120"></canvas>
     </div>
     <div class="mgrid" id="mgrid"></div>
+  </div>
+</div>
+
+<!-- SECTOR BREAKDOWN MODAL -->
+<div class="overlay" id="sectorOverlay">
+  <div class="modal" style="width:min(500px,95vw)">
+    <button class="mclose" onclick="document.getElementById('sectorOverlay').classList.remove('open')">✕</button>
+    <div style="font-size:18px;font-weight:700;margin-bottom:4px">📊 Sector Breakdown</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:18px">Current distribution across sectors</div>
+    <div id="sectorModalChart"></div>
+  </div>
+</div>
+
+<!-- GRADE DISTRIBUTION MODAL -->
+<div class="overlay" id="gradeOverlay">
+  <div class="modal" style="width:min(420px,95vw)">
+    <button class="mclose" onclick="document.getElementById('gradeOverlay').classList.remove('open')">✕</button>
+    <div style="font-size:18px;font-weight:700;margin-bottom:4px">🏅 Grade Distribution</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:18px">Score breakdown across grade tiers</div>
+    <div class="gdist" id="gradeModalDist" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);line-height:1.8">
+      <div><span style="color:var(--green);font-weight:600">Grade A</span> — Score 80–100 · Highest conviction</div>
+      <div><span style="color:var(--primary);font-weight:600">Grade B</span> — Score 65–80 · Strong momentum</div>
+      <div><span style="color:var(--yellow);font-weight:600">Grade C</span> — Score 50–65 · Moderate signal</div>
+      <div><span style="color:var(--red);font-weight:600">Grade D</span> — Score &lt;50 · Weak momentum</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEARN INDICATORS MODAL -->
+<div class="overlay" id="learnOverlay">
+  <div class="modal" style="width:min(680px,95vw)">
+    <button class="mclose" onclick="document.getElementById('learnOverlay').classList.remove('open')">✕</button>
+    <div style="font-size:18px;font-weight:700;margin-bottom:4px">📚 Learn Indicators</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:18px">Definitions, thresholds, and interpretation guide</div>
+    <div id="learnModalContent"></div>
   </div>
 </div>
 
@@ -715,14 +804,13 @@ let ALL = [];
 let filtered = [...ALL];
 let sortCol = "rank", sortDir = 1;
 let selTicker = null;
-let isDark = true;
+let isDark = false;
 let currentView = "table";
 
-// Company name map
+// Company name map (short display names)
 const COMPANY_NAMES = {
-  // Technology
-  AAPL:"Apple Inc",MSFT:"Microsoft",NVDA:"Nvidia",AMD:"Advanced Micro Devices",
-  INTC:"Intel Corporation",ADBE:"Adobe Inc",CRM:"Salesforce",ORCL:"Oracle",
+  AAPL:"Apple",MSFT:"Microsoft",NVDA:"Nvidia",AMD:"Advanced Micro Devices",
+  INTC:"Intel",ADBE:"Adobe",CRM:"Salesforce",ORCL:"Oracle",
   CSCO:"Cisco Systems",AMAT:"Applied Materials",LRCX:"Lam Research",
   KLAC:"KLA Corporation",SNPS:"Synopsys",CDNS:"Cadence Design",MCHP:"Microchip Technology",
   NXPI:"NXP Semiconductors",TXN:"Texas Instruments",QCOM:"Qualcomm",ADI:"Analog Devices",
@@ -734,18 +822,15 @@ const COMPANY_NAMES = {
   OKTA:"Okta",ZM:"Zoom Video",ILMN:"Illumina",ON:"ON Semiconductor",JBL:"Jabil Inc",
   MPWR:"Monolithic Power",ANET:"Arista Networks",KEYS:"Keysight Technologies",
   CDW:"CDW Corporation",INTU:"Intuit",ISRG:"Intuitive Surgical",
-  // Consumer Discretionary
   AMZN:"Amazon",TSLA:"Tesla",HD:"Home Depot",MCD:"McDonald's",NKE:"Nike",
   SBUX:"Starbucks",LOW:"Lowe's",TJX:"TJX Companies",ROST:"Ross Stores",
   BKNG:"Booking Holdings",ABNB:"Airbnb",MAR:"Marriott",HLT:"Hilton",
-  LVS:"Las Vegas Sands",WYNN:"Wynn Resorts",LULU:"Lululemon",EBAY:"eBay Inc",
+  LVS:"Las Vegas Sands",WYNN:"Wynn Resorts",LULU:"Lululemon",EBAY:"eBay",
   ETSY:"Etsy",ALGN:"Align Technology",BBY:"Best Buy",KMX:"CarMax",
-  // Communication Services
   GOOGL:"Alphabet (Class A)",GOOG:"Alphabet (Class C)",META:"Meta Platforms",
   NFLX:"Netflix",DIS:"Walt Disney",CMCSA:"Comcast",T:"AT&T",VZ:"Verizon",
   CHTR:"Charter Communications",WBD:"Warner Bros Discovery",TTWO:"Take-Two Interactive",
   EA:"Electronic Arts",MTCH:"Match Group",
-  // Health Care
   LLY:"Eli Lilly",UNH:"UnitedHealth Group",JNJ:"Johnson & Johnson",ABBV:"AbbVie",
   MRK:"Merck",ABT:"Abbott Labs",TMO:"Thermo Fisher",DHR:"Danaher",
   BMY:"Bristol-Myers Squibb",AMGN:"Amgen",GILD:"Gilead Sciences",
@@ -756,7 +841,6 @@ const COMPANY_NAMES = {
   HOLX:"Hologic",INCY:"Incyte",NBIX:"Neurocrine Bio",PODD:"Insulet",
   IQV:"IQVIA Holdings",RVTY:"Revvity",A:"Agilent Technologies",
   BIO:"Bio-Rad",TECH:"Bio-Techne",GEHC:"GE HealthCare",ZBH:"Zimmer Biomet",ZTS:"Zoetis",
-  // Financials
   JPM:"JPMorgan Chase",BAC:"Bank of America",WFC:"Wells Fargo",GS:"Goldman Sachs",
   MS:"Morgan Stanley",BLK:"BlackRock",SCHW:"Charles Schwab",AXP:"American Express",
   V:"Visa",MA:"Mastercard",PYPL:"PayPal",COF:"Capital One",BK:"BNY Mellon",
@@ -771,19 +855,16 @@ const COMPANY_NAMES = {
   MMC:"Marsh McLennan",AON:"Aon",WTW:"Willis Towers Watson",AIZ:"Assurant",
   BR:"Broadridge Financial",IVZ:"Invesco",BEN:"Franklin Resources",
   TROW:"T. Rowe Price",RJF:"Raymond James",ACGL:"Arch Capital",EG:"Everest Group",WRB:"W.R. Berkley",
-  // Energy
   XOM:"ExxonMobil",CVX:"Chevron",COP:"ConocoPhillips",EOG:"EOG Resources",
   SLB:"SLB",OXY:"Occidental Petroleum",MPC:"Marathon Petroleum",
   PSX:"Phillips 66",VLO:"Valero Energy",FANG:"Diamondback Energy",
   HAL:"Halliburton",BKR:"Baker Hughes",APA:"APA Corporation",
-  // Utilities
   NEE:"NextEra Energy",DUK:"Duke Energy",SO:"Southern Company",D:"Dominion Energy",
   AEP:"American Electric Power",EXC:"Exelon",XEL:"Xcel Energy",CEG:"Constellation Energy",
   EVRG:"Evergy",ES:"Eversource Energy",PEG:"PSEG",ETR:"Entergy",
   AEE:"Ameren",LNT:"Alliant Energy",NI:"NiSource",AES:"AES Corporation",
   PCG:"PG&E",EIX:"Edison International",ED:"Consolidated Edison",
   WEC:"WEC Energy",AWK:"American Water Works",NRG:"NRG Energy",VST:"Vistra",
-  // Consumer Staples
   COST:"Costco",WMT:"Walmart",PG:"Procter & Gamble",KO:"Coca-Cola",
   PEP:"PepsiCo",PM:"Philip Morris",MO:"Altria",MDLZ:"Mondelez",
   KHC:"Kraft Heinz",GIS:"General Mills",KMB:"Kimberly-Clark",SYY:"Sysco",
@@ -791,11 +872,10 @@ const COMPANY_NAMES = {
   STZ:"Constellation Brands",TAP:"Molson Coors",CPB:"Campbell Soup",
   CAG:"Conagra Brands",SJM:"J.M. Smucker",MKC:"McCormick",
   HSY:"Hershey",KVUE:"Kenvue",CHD:"Church & Dwight",CLX:"Clorox",HRL:"Hormel",
-  // Industrials
-  CAT:"Caterpillar Inc",HON:"Honeywell",GE:"GE Aerospace",UPS:"UPS",
+  CAT:"Caterpillar",HON:"Honeywell",GE:"GE Aerospace",UPS:"UPS",
   RTX:"RTX Corporation",LMT:"Lockheed Martin",BA:"Boeing",GD:"General Dynamics",
   NOC:"Northrop Grumman",DE:"Deere & Company",MMM:"3M",EMR:"Emerson Electric",
-  ETN:"Eaton",ITW:"Illinois Tool Works",CMI:"Cummins Inc",PCAR:"PACCAR",
+  ETN:"Eaton",ITW:"Illinois Tool Works",CMI:"Cummins",PCAR:"PACCAR",
   FAST:"Fastenal",CTAS:"Cintas",NSC:"Norfolk Southern",CSX:"CSX Corporation",
   UNP:"Union Pacific",FDX:"FedEx",ODFL:"Old Dominion Freight",EXPD:"Expeditors",
   JBHT:"J.B. Hunt Transport",PWR:"Quanta Services",URI:"United Rentals",
@@ -807,14 +887,12 @@ const COMPANY_NAMES = {
   TRMB:"Trimble",GWW:"W.W. Grainger",WAB:"Wabtec",FTV:"Fortive",
   AXON:"Axon Enterprise",RSG:"Republic Services",WM:"Waste Management",
   ROL:"Rollins",ROP:"Roper Technologies",CPRT:"Copart",HWM:"Howmet Aerospace",
-  // Materials
   LIN:"Linde",APD:"Air Products",SHW:"Sherwin-Williams",FCX:"Freeport-McMoRan",
   NEM:"Newmont",ALB:"Albemarle",DD:"DuPont",EMN:"Eastman Chemical",
-  NUE:"Nucor Corporation",STLD:"Steel Dynamics",MLM:"Martin Marietta",
+  NUE:"Nucor",STLD:"Steel Dynamics",MLM:"Martin Marietta",
   PKG:"Packaging Corp",IP:"International Paper",CE:"Celanese",
   MOS:"Mosaic",CF:"CF Industries",FMC:"FMC Corporation",BG:"Bunge",
   LYB:"LyondellBasell",AMCR:"Amcor",
-  // Real Estate
   AMT:"American Tower",PLD:"Prologis",EQIX:"Equinix",CCI:"Crown Castle",
   SBAC:"SBA Communications",DLR:"Digital Realty",PSA:"Public Storage",
   O:"Realty Income",AVB:"AvalonBay",EQR:"Equity Residential",
@@ -822,10 +900,329 @@ const COMPANY_NAMES = {
   INVH:"Invitation Homes",IRM:"Iron Mountain",VICI:"VICI Properties",
   REG:"Regency Centers",FRT:"Federal Realty",UDR:"UDR Inc",
   HST:"Host Hotels & Resorts",DOC:"Healthpeak Properties",WELL:"Welltower",VTR:"Ventas",
-  // Other / Mixed
-  DVA:"DaVita Inc",CNC:"Centene Corporation",VTRS:"Viatris Inc",
+  DVA:"DaVita",CNC:"Centene Corporation",VTRS:"Viatris",
   ADM:"Archer-Daniels-Midland",WST:"West Pharmaceutical",BWA:"BorgWarner",
-  GLW:"Corning Inc",ELV:"Elevance Health",
+  GLW:"Corning",ELV:"Elevance Health",
+  // supplemental
+  MGM:"MGM Resorts",NTAP:"NetApp",FSLR:"First Solar",ESS:"Essex Property Trust",
+  STT:"State Street",CZR:"Caesars Entertainment",
+};
+
+// Full official company names
+const FULL_COMPANY_NAMES = {
+  AAPL:"Apple Inc.",MSFT:"Microsoft Corporation",NVDA:"NVIDIA Corporation",
+  AMD:"Advanced Micro Devices, Inc.",INTC:"Intel Corporation",ADBE:"Adobe Inc.",
+  CRM:"Salesforce, Inc.",ORCL:"Oracle Corporation",CSCO:"Cisco Systems, Inc.",
+  AMAT:"Applied Materials, Inc.",LRCX:"Lam Research Corporation",KLAC:"KLA Corporation",
+  SNPS:"Synopsys, Inc.",CDNS:"Cadence Design Systems, Inc.",MCHP:"Microchip Technology Incorporated",
+  NXPI:"NXP Semiconductors N.V.",TXN:"Texas Instruments Incorporated",QCOM:"QUALCOMM Incorporated",
+  ADI:"Analog Devices, Inc.",MU:"Micron Technology, Inc.",AVGO:"Broadcom Inc.",
+  IBM:"International Business Machines Corporation",HPE:"Hewlett Packard Enterprise Company",
+  HPQ:"HP Inc.",STX:"Seagate Technology Holdings plc",WDC:"Western Digital Corporation",
+  SMCI:"Super Micro Computer, Inc.",FTNT:"Fortinet, Inc.",PANW:"Palo Alto Networks, Inc.",
+  CRWD:"CrowdStrike Holdings, Inc.",ZBRA:"Zebra Technologies Corporation",FFIV:"F5, Inc.",
+  MRVL:"Marvell Technology, Inc.",ARM:"Arm Holdings plc",APP:"AppLovin Corporation",
+  DDOG:"Datadog, Inc.",WDAY:"Workday, Inc.",TEAM:"Atlassian Corporation",
+  TTD:"The Trade Desk, Inc.",OKTA:"Okta, Inc.",ZM:"Zoom Video Communications, Inc.",
+  ILMN:"Illumina, Inc.",ON:"ON Semiconductor Corporation",JBL:"Jabil Inc.",
+  MPWR:"Monolithic Power Systems, Inc.",ANET:"Arista Networks, Inc.",
+  KEYS:"Keysight Technologies, Inc.",CDW:"CDW Corporation",INTU:"Intuit Inc.",
+  ISRG:"Intuitive Surgical, Inc.",
+  AMZN:"Amazon.com, Inc.",TSLA:"Tesla, Inc.",HD:"The Home Depot, Inc.",
+  MCD:"McDonald's Corporation",NKE:"NIKE, Inc.",SBUX:"Starbucks Corporation",
+  LOW:"Lowe's Companies, Inc.",TJX:"The TJX Companies, Inc.",ROST:"Ross Stores, Inc.",
+  BKNG:"Booking Holdings Inc.",ABNB:"Airbnb, Inc.",MAR:"Marriott International, Inc.",
+  HLT:"Hilton Worldwide Holdings Inc.",LVS:"Las Vegas Sands Corp.",WYNN:"Wynn Resorts, Limited",
+  LULU:"Lululemon Athletica Inc.",EBAY:"eBay Inc.",ETSY:"Etsy, Inc.",
+  ALGN:"Align Technology, Inc.",BBY:"Best Buy Co., Inc.",KMX:"CarMax, Inc.",
+  GOOGL:"Alphabet Inc. (Class A)",GOOG:"Alphabet Inc. (Class C)",META:"Meta Platforms, Inc.",
+  NFLX:"Netflix, Inc.",DIS:"The Walt Disney Company",CMCSA:"Comcast Corporation",
+  T:"AT&T Inc.",VZ:"Verizon Communications Inc.",CHTR:"Charter Communications, Inc.",
+  WBD:"Warner Bros. Discovery, Inc.",TTWO:"Take-Two Interactive Software, Inc.",
+  EA:"Electronic Arts Inc.",MTCH:"Match Group, Inc.",
+  LLY:"Eli Lilly and Company",UNH:"UnitedHealth Group Incorporated",
+  JNJ:"Johnson & Johnson",ABBV:"AbbVie Inc.",MRK:"Merck & Co., Inc.",
+  ABT:"Abbott Laboratories",TMO:"Thermo Fisher Scientific Inc.",DHR:"Danaher Corporation",
+  BMY:"Bristol-Myers Squibb Company",AMGN:"Amgen Inc.",GILD:"Gilead Sciences, Inc.",
+  REGN:"Regeneron Pharmaceuticals, Inc.",VRTX:"Vertex Pharmaceuticals Incorporated",
+  DXCM:"DexCom, Inc.",IDXX:"IDEXX Laboratories, Inc.",BIIB:"Biogen Inc.",
+  MRNA:"Moderna, Inc.",BSX:"Boston Scientific Corporation",SYK:"Stryker Corporation",
+  BDX:"Becton, Dickinson and Company",EW:"Edwards Lifesciences Corporation",
+  MDT:"Medtronic plc",CVS:"CVS Health Corporation",HUM:"Humana Inc.",CI:"The Cigna Group",
+  MOH:"Molina Healthcare, Inc.",HOLX:"Hologic, Inc.",INCY:"Incyte Corporation",
+  NBIX:"Neurocrine Biosciences, Inc.",PODD:"Insulet Corporation",IQV:"IQVIA Holdings Inc.",
+  RVTY:"Revvity, Inc.",A:"Agilent Technologies, Inc.",BIO:"Bio-Rad Laboratories, Inc.",
+  TECH:"Bio-Techne Corporation",GEHC:"GE HealthCare Technologies Inc.",
+  ZBH:"Zimmer Biomet Holdings, Inc.",ZTS:"Zoetis Inc.",
+  JPM:"JPMorgan Chase & Co.",BAC:"Bank of America Corporation",WFC:"Wells Fargo & Company",
+  GS:"The Goldman Sachs Group, Inc.",MS:"Morgan Stanley",BLK:"BlackRock, Inc.",
+  SCHW:"The Charles Schwab Corporation",AXP:"American Express Company",
+  V:"Visa Inc.",MA:"Mastercard Incorporated",PYPL:"PayPal Holdings, Inc.",
+  COF:"Capital One Financial Corporation",BK:"The Bank of New York Mellon Corporation",
+  C:"Citigroup Inc.",USB:"U.S. Bancorp",PNC:"The PNC Financial Services Group, Inc.",
+  TFC:"Truist Financial Corporation",ICE:"Intercontinental Exchange, Inc.",
+  CME:"CME Group Inc.",CBOE:"Cboe Global Markets, Inc.",NDAQ:"Nasdaq, Inc.",
+  SPGI:"S&P Global Inc.",MCO:"Moody's Corporation",MSCI:"MSCI Inc.",
+  BX:"Blackstone Inc.",AMP:"Ameriprise Financial, Inc.",PRU:"Prudential Financial, Inc.",
+  MET:"MetLife, Inc.",AFL:"Aflac Incorporated",ALL:"The Allstate Corporation",
+  AIG:"American International Group, Inc.",CB:"Chubb Limited",PGR:"The Progressive Corporation",
+  TRV:"The Travelers Companies, Inc.",MMC:"Marsh & McLennan Companies, Inc.",AON:"Aon plc",
+  XOM:"Exxon Mobil Corporation",CVX:"Chevron Corporation",COP:"ConocoPhillips",
+  EOG:"EOG Resources, Inc.",SLB:"SLB",OXY:"Occidental Petroleum Corporation",
+  MPC:"Marathon Petroleum Corporation",PSX:"Phillips 66",VLO:"Valero Energy Corporation",
+  FANG:"Diamondback Energy, Inc.",HAL:"Halliburton Company",BKR:"Baker Hughes Company",
+  NEE:"NextEra Energy, Inc.",DUK:"Duke Energy Corporation",SO:"The Southern Company",
+  CEG:"Constellation Energy Corporation",VST:"Vistra Corp.",
+  COST:"Costco Wholesale Corporation",WMT:"Walmart Inc.",PG:"The Procter & Gamble Company",
+  KO:"The Coca-Cola Company",PEP:"PepsiCo, Inc.",PM:"Philip Morris International Inc.",
+  MO:"Altria Group, Inc.",MDLZ:"Mondelez International, Inc.",KHC:"The Kraft Heinz Company",
+  CAT:"Caterpillar Inc.",HON:"Honeywell International Inc.",GE:"GE Aerospace",
+  UPS:"United Parcel Service, Inc.",RTX:"RTX Corporation",LMT:"Lockheed Martin Corporation",
+  BA:"The Boeing Company",GD:"General Dynamics Corporation",NOC:"Northrop Grumman Corporation",
+  DE:"Deere & Company",ETN:"Eaton Corporation plc",CTAS:"Cintas Corporation",
+  NSC:"Norfolk Southern Corporation",CSX:"CSX Corporation",UNP:"Union Pacific Corporation",
+  FDX:"FedEx Corporation",PWR:"Quanta Services, Inc.",URI:"United Rentals, Inc.",
+  LHX:"L3Harris Technologies, Inc.",TDG:"TransDigm Group Incorporated",
+  TT:"Trane Technologies plc",CARR:"Carrier Global Corporation",OTIS:"Otis Worldwide Corporation",
+  AXON:"Axon Enterprise, Inc.",RSG:"Republic Services, Inc.",WM:"Waste Management, Inc.",
+  ROP:"Roper Technologies, Inc.",CPRT:"Copart, Inc.",HWM:"Howmet Aerospace Inc.",
+  LIN:"Linde plc",SHW:"The Sherwin-Williams Company",FCX:"Freeport-McMoRan Inc.",
+  NEM:"Newmont Corporation",ALB:"Albemarle Corporation",
+  AMT:"American Tower Corporation",PLD:"Prologis, Inc.",EQIX:"Equinix, Inc.",
+  CCI:"Crown Castle Inc.",DLR:"Digital Realty Trust, Inc.",PSA:"Public Storage",
+  WELL:"Welltower Inc.",ELV:"Elevance Health, Inc.",GLW:"Corning Incorporated",
+  // supplemental
+  HST:"Host Hotels & Resorts, Inc.",MGM:"MGM Resorts International",
+  NTAP:"NetApp, Inc.",ODFL:"Old Dominion Freight Line, Inc.",
+  BWA:"BorgWarner Inc.",NUE:"Nucor Corporation",CNC:"Centene Corporation",
+  STLD:"Steel Dynamics, Inc.",JBHT:"J.B. Hunt Transport Services, Inc.",
+  GWW:"W.W. Grainger, Inc.",MNST:"Monster Beverage Corporation",
+  FSLR:"First Solar, Inc.",ESS:"Essex Property Trust",
+  AIZ:"Assurant, Inc.",STT:"State Street Corporation",
+  KDP:"Keurig Dr Pepper Inc.",FRT:"Federal Realty Investment Trust",
+  CZR:"Caesars Entertainment, Inc.",FDS:"FactSet Research Systems Inc.",
+};
+
+// Company descriptions
+const COMPANY_DESCRIPTIONS = {
+  AAPL:"Apple designs and sells consumer electronics, software and services, including the iPhone, Mac, iPad and Apple Watch.",
+  MSFT:"Microsoft develops cloud computing, productivity software, and enterprise platforms including Azure, Windows, and Office 365.",
+  NVDA:"NVIDIA designs GPUs and AI computing platforms powering data centers, gaming, autonomous vehicles, and robotics.",
+  AMD:"Advanced Micro Devices designs high-performance CPUs, GPUs, and AI accelerators for cloud, gaming, and enterprise markets.",
+  INTC:"Intel designs and manufactures semiconductors, including PC processors, data center chips, and network infrastructure solutions.",
+  ADBE:"Adobe provides creative cloud software, digital marketing platforms, and document management tools for professionals and enterprises.",
+  CRM:"Salesforce delivers cloud-based CRM, sales automation, and enterprise AI software to businesses worldwide.",
+  ORCL:"Oracle provides enterprise database software, cloud infrastructure, and business applications to organizations globally.",
+  CSCO:"Cisco Systems designs networking hardware, software, cybersecurity, and collaboration solutions for enterprise and cloud customers.",
+  AMAT:"Applied Materials supplies semiconductor manufacturing equipment, services, and software used in chip fabrication worldwide.",
+  LRCX:"Lam Research develops wafer fabrication equipment used in the production of memory and logic semiconductors.",
+  KLAC:"KLA Corporation provides process control and inspection equipment critical to semiconductor manufacturing yield improvement.",
+  SNPS:"Synopsys offers electronic design automation software and IP products used by chip designers globally.",
+  CDNS:"Cadence Design Systems delivers EDA software, IP, and hardware for semiconductor and electronics design.",
+  MCHP:"Microchip Technology develops microcontrollers, analog semiconductors, and microprocessors for embedded control applications.",
+  NXPI:"NXP Semiconductors provides chips for automotive, industrial, mobile, and IoT applications.",
+  TXN:"Texas Instruments designs and manufactures analog semiconductors and embedded processors used across diverse industries.",
+  QCOM:"Qualcomm develops wireless technology, modem chips, and mobile platforms powering smartphones and connected devices.",
+  ADI:"Analog Devices designs high-performance analog, mixed-signal, and DSP semiconductors for industrial and communications applications.",
+  MU:"Micron Technology manufactures DRAM and NAND flash memory chips for data centers, PCs, and mobile devices.",
+  AVGO:"Broadcom designs semiconductors and infrastructure software for data centers, networking, broadband, and wireless applications.",
+  IBM:"IBM provides hybrid cloud, AI, and consulting services, with platforms including watsonx and Red Hat OpenShift.",
+  HPE:"Hewlett Packard Enterprise delivers enterprise networking, servers, storage, and hybrid cloud solutions to businesses worldwide.",
+  HPQ:"HP Inc. designs and sells personal computers, printers, and related supplies for consumers and businesses.",
+  STX:"Seagate Technology manufactures hard disk drives and storage solutions for cloud, enterprise, and consumer markets.",
+  WDC:"Western Digital produces hard drives, flash storage devices, and enterprise data storage infrastructure.",
+  SMCI:"Super Micro Computer builds high-performance server and storage systems optimized for AI, cloud, and enterprise workloads.",
+  FTNT:"Fortinet provides network security appliances and cloud-based cybersecurity solutions for enterprises and service providers.",
+  PANW:"Palo Alto Networks delivers next-generation cybersecurity platforms including firewalls, cloud security, and AI-driven threat detection.",
+  CRWD:"CrowdStrike provides cloud-native endpoint protection, threat intelligence, and identity security for enterprises.",
+  MRVL:"Marvell Technology designs data infrastructure semiconductors for cloud, 5G, automotive, and enterprise networking applications.",
+  ARM:"Arm Holdings licenses processor architectures and IP used in billions of chips powering smartphones, servers, and IoT devices.",
+  APP:"AppLovin operates an AI-powered advertising platform and mobile gaming portfolio serving app developers and marketers.",
+  DDOG:"Datadog provides cloud monitoring, observability, and security platforms for DevOps and engineering teams.",
+  WDAY:"Workday delivers cloud-based human capital management and financial management software for enterprises.",
+  TEAM:"Atlassian provides collaboration and project management tools including Jira, Confluence, and Trello.",
+  TTD:"The Trade Desk operates a programmatic advertising platform enabling data-driven digital media buying.",
+  OKTA:"Okta provides identity and access management solutions securing authentication for enterprises and developers.",
+  ZM:"Zoom Video Communications offers video conferencing, phone, and collaboration software for businesses and individuals.",
+  ANET:"Arista Networks designs cloud networking switches and software for hyperscale data centers and enterprise cloud.",
+  INTU:"Intuit provides financial software including TurboTax, QuickBooks, and Credit Karma for consumers and small businesses.",
+  ISRG:"Intuitive Surgical develops the da Vinci robotic surgical system enabling minimally invasive surgery worldwide.",
+  AMZN:"Amazon operates e-commerce, cloud computing (AWS), advertising, streaming, and logistics businesses globally.",
+  TSLA:"Tesla designs and manufactures electric vehicles, energy storage systems, and solar products with full self-driving capabilities.",
+  HD:"The Home Depot is the largest home improvement retailer, serving DIY customers and professional contractors.",
+  MCD:"McDonald's is the world's largest fast-food restaurant chain operating and franchising globally.",
+  NKE:"Nike designs, manufactures, and sells athletic footwear, apparel, and equipment worldwide.",
+  SBUX:"Starbucks operates a global coffeehouse chain with retail stores, licensed operations, and consumer packaged goods.",
+  BKNG:"Booking Holdings operates online travel platforms including Booking.com, Priceline, and Kayak.",
+  ABNB:"Airbnb operates an online marketplace for short-term rentals and travel experiences worldwide.",
+  GOOGL:"Alphabet operates Google Search, YouTube, Google Cloud, Android, and a portfolio of AI and moonshot ventures.",
+  META:"Meta Platforms operates Facebook, Instagram, WhatsApp, and develops augmented and virtual reality technologies.",
+  NFLX:"Netflix is a global streaming service offering on-demand TV shows, movies, and original content.",
+  DIS:"Walt Disney operates theme parks, studios, streaming (Disney+), and media networks including ESPN.",
+  LLY:"Eli Lilly develops pharmaceuticals in diabetes, obesity, oncology, and immunology including tirzepatide.",
+  UNH:"UnitedHealth Group provides health insurance, pharmacy benefits, and healthcare services through UnitedHealthcare and Optum.",
+  JNJ:"Johnson & Johnson develops pharmaceuticals, MedTech devices, and over-the-counter consumer health products.",
+  ABBV:"AbbVie is a biopharmaceutical company with leading drugs in immunology, oncology, and neuroscience.",
+  MRK:"Merck develops vaccines, oncology therapies, and animal health products, including Keytruda and Gardasil.",
+  AMGN:"Amgen develops biologics and biosimilars focused on oncology, cardiovascular, and inflammation conditions.",
+  GILD:"Gilead Sciences is a biopharmaceutical company with leading HIV antivirals, hepatitis treatments, and oncology drugs.",
+  REGN:"Regeneron develops monoclonal antibodies in oncology, eye disease, and allergic conditions including Dupixent.",
+  VRTX:"Vertex Pharmaceuticals develops transformative medicines for cystic fibrosis and other serious diseases.",
+  BSX:"Boston Scientific designs minimally invasive medical devices for cardiology, endoscopy, urology, and neuromodulation.",
+  SYK:"Stryker develops orthopedic implants, surgical equipment, neurovascular devices, and hospital medical products.",
+  JPM:"JPMorgan Chase is the largest U.S. bank providing investment banking, commercial banking, and asset management.",
+  BAC:"Bank of America offers consumer banking, corporate and investment banking, and wealth management services.",
+  GS:"Goldman Sachs is a leading global investment bank providing M&A advisory, trading, and asset management.",
+  MS:"Morgan Stanley provides investment banking, equity trading, wealth management, and investment management globally.",
+  BLK:"BlackRock is the world's largest asset manager with over $10 trillion in AUM across index and active strategies.",
+  V:"Visa operates a global digital payment network processing transactions across 200+ countries.",
+  MA:"Mastercard runs a global payments network enabling secure digital transactions between consumers and merchants.",
+  PYPL:"PayPal operates a digital payments platform including PayPal, Venmo, and Braintree for consumers and merchants.",
+  XOM:"ExxonMobil is a major integrated oil and gas company with upstream exploration, refining, and chemicals operations.",
+  CVX:"Chevron is a global energy company engaged in oil and gas exploration, production, refining, and petrochemicals.",
+  COP:"ConocoPhillips is an independent oil and gas exploration and production company operating globally.",
+  NEE:"NextEra Energy is the world's largest generator of renewable energy from wind and solar, plus regulated utilities.",
+  CEG:"Constellation Energy is the largest nuclear power operator in the U.S., supplying clean baseload electricity.",
+  VST:"Vistra is a leading competitive power company with nuclear, natural gas, solar, and battery storage assets.",
+  COST:"Costco Wholesale operates a global chain of membership-based warehouse clubs selling bulk goods at low prices.",
+  WMT:"Walmart operates the world's largest retail chain, including Sam's Club, with growing e-commerce and advertising businesses.",
+  PG:"Procter & Gamble makes consumer goods including Tide, Pampers, Gillette, and Oral-B sold in 180+ countries.",
+  KO:"The Coca-Cola Company produces and distributes beverages including Coke, Sprite, Fanta, and Dasani globally.",
+  PEP:"PepsiCo manufactures and distributes beverages and snack foods including Pepsi, Lay's, Gatorade, and Quaker.",
+  CAT:"Caterpillar manufactures heavy construction equipment, mining machinery, diesel engines, and financial products.",
+  HON:"Honeywell provides industrial automation, aerospace components, performance materials, and building technologies.",
+  GE:"GE Aerospace manufactures commercial and military jet engines, propulsion systems, and aviation services.",
+  RTX:"RTX Corporation makes Pratt & Whitney jet engines, Raytheon defense missiles, and Collins aerospace systems.",
+  LMT:"Lockheed Martin is the world's largest defense contractor, producing the F-35, missiles, and space systems.",
+  BA:"Boeing designs and manufactures commercial jetliners, military aircraft, satellites, and space launch vehicles.",
+  GD:"General Dynamics produces Gulfstream business jets, submarines, combat systems, and IT services for defense.",
+  AXON:"Axon Enterprise develops Taser devices, body cameras, cloud software, and digital evidence management for law enforcement.",
+  LIN:"Linde is the world's largest industrial gases company, supplying oxygen, nitrogen, hydrogen, and specialty gases.",
+  SHW:"Sherwin-Williams manufactures and sells paints, coatings, and related products through a global retail network.",
+  FCX:"Freeport-McMoRan is a leading copper and gold mining company operating large-scale mines in the Americas and Indonesia.",
+  NEM:"Newmont Corporation is the world's leading gold and silver mining company with operations across six continents.",
+  ALB:"Albemarle is the global leader in lithium production for electric vehicle batteries and specialty chemicals.",
+  AMT:"American Tower owns and operates wireless communication towers and data centers globally.",
+  PLD:"Prologis owns and develops industrial logistics real estate including warehouses and distribution centers globally.",
+  EQIX:"Equinix operates a global network of data centers and digital infrastructure connecting enterprises and cloud providers.",
+  WELL:"Welltower invests in senior housing, post-acute care communities, and outpatient medical properties.",
+  ELV:"Elevance Health provides health insurance through Anthem-branded plans plus Carelon health services.",
+  GLW:"Corning Incorporated develops optical fiber, specialty glass, ceramics, and advanced materials for technology applications.",
+  // Missing entries added
+  HST:"Host Hotels & Resorts is the largest lodging REIT, owning luxury and upper-upscale hotels across major markets.",
+  MGM:"MGM Resorts International operates casino resorts, hotels, and entertainment venues in Las Vegas and globally.",
+  HUM:"Humana is a leading Medicare Advantage insurer offering health plans, pharmacy benefits, and wellness services.",
+  URI:"United Rentals is the world's largest equipment rental company serving construction, industrial, and infrastructure customers.",
+  NTAP:"NetApp provides hybrid cloud data management, storage systems, and cloud data services for enterprises.",
+  ODFL:"Old Dominion Freight Line is a leading less-than-truckload carrier providing regional and national freight services.",
+  BWA:"BorgWarner designs and manufactures propulsion systems and components for combustion, hybrid, and electric vehicles.",
+  NUE:"Nucor Corporation is the largest U.S. steel producer, manufacturing steel and steel products using electric arc furnaces.",
+  CNC:"Centene Corporation is a managed care organization providing government-sponsored health insurance programs including Medicaid and Medicare.",
+  STLD:"Steel Dynamics is one of the largest U.S. steel producers making flat-rolled, long steel, and steel fabrication products.",
+  JBHT:"J.B. Hunt Transport Services provides intermodal, dedicated contract, truckload, and final-mile logistics across North America.",
+  KMX:"CarMax is the largest used-vehicle retailer in the U.S., operating hundreds of stores with an omnichannel buying experience.",
+  GWW:"W.W. Grainger is a broad-line industrial distribution company supplying maintenance, repair, and operating products to businesses.",
+  MNST:"Monster Beverage Corporation develops, markets, and distributes energy drinks and alternative beverages globally.",
+  FSLR:"First Solar manufactures thin-film photovoltaic solar panels and develops utility-scale solar energy projects in the U.S. and globally.",
+  ILMN:"Illumina develops DNA sequencing and array-based technologies enabling genomic research, clinical diagnostics, and life sciences.",
+  ESS:"Essex Property Trust owns and operates apartment communities in the West Coast markets of California and the Pacific Northwest.",
+  MAR:"Marriott International is the world's largest hotel company, operating and franchising properties across 30+ brands globally.",
+  NBIX:"Neurocrine Biosciences develops treatments for neurological and endocrine diseases including tardive dyskinesia and congenital adrenal hyperplasia.",
+  FFIV:"F5, Inc. provides multi-cloud application security and delivery solutions that protect and optimize applications across any infrastructure.",
+  AIZ:"Assurant provides specialty insurance and risk management products for mobile devices, housing, automotive, and credit markets.",
+  STT:"State Street Corporation provides investment management, custody banking, and financial data services to institutional investors globally.",
+  KDP:"Keurig Dr Pepper is a beverage company owning brands including Dr Pepper, Keurig, Snapple, and 7UP.",
+  ON:"ON Semiconductor designs power management, analog, and sensing semiconductors for automotive, industrial, and IoT applications.",
+  FRT:"Federal Realty Investment Trust owns and redevelops mixed-use retail real estate in high-density coastal markets.",
+  BK:"The Bank of New York Mellon provides custody banking, clearing, investment management, and financial data services globally.",
+  CVS:"CVS Health operates pharmacy retail chains, pharmacy benefit management (Caremark), and Aetna health insurance.",
+  HLT:"Hilton Worldwide Holdings franchises and manages hotels across 18 brands including Hilton, Hampton, and DoubleTree.",
+  CZR:"Caesars Entertainment operates and owns casino resorts across the U.S. including Caesars Palace, Harrah's, and Horseshoe.",
+  FDS:"FactSet Research Systems provides financial data, analytics, and portfolio analysis software to investment professionals.",
+  FDX:"FedEx Corporation provides express delivery, freight transportation, logistics, and supply chain management services worldwide.",
+};
+
+// Sub-sector classifications
+const SUB_SECTORS = {
+  NVDA:"Semiconductors",AMD:"Semiconductors",INTC:"Semiconductors",AVGO:"Semiconductors",
+  QCOM:"Semiconductors",TXN:"Semiconductors",ADI:"Semiconductors",MU:"Semiconductors",
+  AMAT:"Semiconductor Equipment",LRCX:"Semiconductor Equipment",KLAC:"Semiconductor Equipment",
+  SNPS:"EDA Software",CDNS:"EDA Software",MCHP:"Microcontrollers",NXPI:"Automotive Chips",
+  MRVL:"Data Infrastructure Chips",ARM:"Chip IP & Architecture",ON:"Power Semiconductors",
+  STX:"Data Storage",WDC:"Data Storage",SMCI:"AI Servers",IBM:"Hybrid Cloud & AI",
+  HPE:"Enterprise Networking",HPQ:"PCs & Printers",
+  FTNT:"Network Security",PANW:"Cybersecurity Platform",CRWD:"Endpoint Security",OKTA:"Identity Security",
+  MSFT:"Cloud & Enterprise Software",AAPL:"Consumer Electronics",CRM:"CRM & Cloud Apps",
+  ORCL:"Enterprise Database",CSCO:"Networking",ADBE:"Creative & Marketing Software",
+  INTU:"Financial Software",WDAY:"HR & Finance Cloud",TEAM:"Dev & Collab Tools",
+  APP:"Ad Tech",TTD:"Programmatic Ad Tech",DDOG:"Cloud Observability",ZM:"Video Conferencing",
+  ANET:"Cloud Networking",KEYS:"Electronic Test & Measurement",CDW:"IT Distribution",
+  ZBRA:"Enterprise Mobility",FFIV:"Application Delivery",ILMN:"Genomics",
+  MPWR:"Power Management ICs",JBL:"Electronics Manufacturing",
+  AMZN:"E-commerce & Cloud",TSLA:"Electric Vehicles",HD:"Home Improvement Retail",
+  MCD:"Quick Service Restaurants",NKE:"Athletic Apparel",SBUX:"Coffee & QSR",
+  LOW:"Home Improvement Retail",TJX:"Off-Price Retail",ROST:"Off-Price Retail",
+  BKNG:"Online Travel",ABNB:"Short-Term Rental Platform",MAR:"Hotels & Lodging",
+  HLT:"Hotels & Lodging",LVS:"Casinos & Gaming",WYNN:"Casinos & Gaming",
+  LULU:"Athletic Apparel",EBAY:"E-commerce Marketplace",ETSY:"Artisan E-commerce",
+  ALGN:"Medical Devices",BBY:"Consumer Electronics Retail",KMX:"Used Auto Retail",
+  GOOGL:"Internet Search & Cloud",GOOG:"Internet Search & Cloud",META:"Social Media",
+  NFLX:"Streaming Media",DIS:"Diversified Media & Parks",CMCSA:"Cable & Streaming",
+  T:"Telecom",VZ:"Telecom",CHTR:"Cable & Broadband",WBD:"Streaming & Studios",
+  TTWO:"Video Games",EA:"Video Games",MTCH:"Social & Dating Apps",
+  LLY:"Large-Cap Pharma",UNH:"Managed Care",JNJ:"Diversified Pharma & MedTech",
+  ABBV:"Immunology & Oncology",MRK:"Large-Cap Pharma",ABT:"Diagnostics & Medical Devices",
+  TMO:"Life Science Tools",DHR:"Life Science Tools",BMY:"Oncology & Immunology",
+  AMGN:"Biologics",GILD:"Antiviral & Oncology",REGN:"Biologics & Ophthalmology",
+  VRTX:"Rare Disease Therapeutics",DXCM:"Continuous Glucose Monitoring",
+  IDXX:"Veterinary Diagnostics",BIIB:"Neurology Therapeutics",MRNA:"mRNA Therapeutics",
+  BSX:"Cardiology Devices",SYK:"Orthopedics & Surgical Robots",BDX:"Diagnostics & Medical Supplies",
+  EW:"Heart Valves",MDT:"Medical Devices",CVS:"Pharmacy & Health Services",
+  HUM:"Medicare Managed Care",CI:"Health Insurance & PBM",
+  ISRG:"Robotic Surgery",IQV:"Clinical Research & Data Analytics",GEHC:"Medical Imaging",
+  ZTS:"Animal Health",A:"Analytical Instruments",PODD:"Insulin Delivery",
+  JPM:"Investment Banking & Retail",BAC:"Retail & Commercial Banking",WFC:"Retail Banking",
+  GS:"Investment Banking",MS:"Wealth & Investment Banking",BLK:"Asset Management",
+  SCHW:"Discount Brokerage",AXP:"Payment Networks & Credit",
+  V:"Payment Networks",MA:"Payment Networks",PYPL:"Digital Payments",COF:"Consumer Credit",
+  BK:"Custody Banking",C:"Global Banking",ICE:"Exchange Operator",CME:"Exchange Operator",
+  CBOE:"Options Exchange",NDAQ:"Exchange & Data",SPGI:"Credit Ratings & Data",
+  MCO:"Credit Ratings",MSCI:"Index & Analytics",BX:"Alternative Asset Management",
+  AMP:"Wealth Management",PRU:"Life Insurance",MET:"Life Insurance",
+  AFL:"Supplemental Insurance",ALL:"P&C Insurance",AIG:"P&C Insurance",CB:"P&C Insurance",
+  PGR:"Auto Insurance",TRV:"P&C Insurance",MMC:"Insurance Brokerage",AON:"Insurance Brokerage",
+  XOM:"Integrated Oil & Gas",CVX:"Integrated Oil & Gas",COP:"E&P Oil & Gas",
+  EOG:"E&P Oil & Gas",SLB:"Oil Field Services",OXY:"E&P Oil & Gas",
+  MPC:"Oil Refining",PSX:"Oil Refining",VLO:"Oil Refining",FANG:"E&P Oil & Gas",
+  HAL:"Oil Field Services",BKR:"Oil Field Services",
+  NEE:"Renewable Energy",DUK:"Regulated Utilities",SO:"Regulated Utilities",
+  CEG:"Nuclear Power",VST:"Competitive Power",EXC:"Regulated Utilities",
+  COST:"Warehouse Club Retail",WMT:"Mass Merchandise Retail",PG:"Household Products",
+  KO:"Non-Alcoholic Beverages",PEP:"Beverages & Snacks",PM:"Tobacco",MO:"Tobacco",
+  CAT:"Construction & Mining Equipment",HON:"Industrial Conglomerate",GE:"Aerospace Engines",
+  UPS:"Package Delivery",RTX:"Aerospace & Defense",LMT:"Defense Systems",
+  BA:"Commercial & Defense Aircraft",GD:"Defense & Aerospace",NOC:"Defense Systems",
+  DE:"Agricultural Equipment",ETN:"Electrical Components",CTAS:"Uniform Services",
+  NSC:"Rail Freight",CSX:"Rail Freight",UNP:"Rail Freight",FDX:"Logistics & Delivery",
+  AXON:"Public Safety Technology",RSG:"Waste Management",WM:"Waste Management",
+  ROP:"Industrial Software",CPRT:"Online Auto Auction",HWM:"Aerospace Components",
+  LIN:"Industrial Gases",SHW:"Paints & Coatings",FCX:"Copper Mining",
+  NEM:"Gold Mining",ALB:"Lithium Production",
+  AMT:"Cell Tower REIT",PLD:"Industrial REIT",EQIX:"Data Center REIT",
+  CCI:"Cell Tower REIT",DLR:"Data Center REIT",PSA:"Self-Storage REIT",
+  WELL:"Senior Housing REIT",INVH:"Single-Family Rental REIT",
+  ELV:"Managed Care",GLW:"Specialty Glass & Fiber",
+  // Missing entries added
+  HST:"Hotel REIT",MGM:"Casinos & Gaming",HUM:"Medicare Managed Care",
+  URI:"Equipment Rental",NTAP:"Enterprise Storage",ODFL:"LTL Freight",
+  BWA:"Auto Components",NUE:"Steel Production",CNC:"Medicaid Managed Care",
+  STLD:"Steel Production",JBHT:"Intermodal Logistics",KMX:"Used Auto Retail",
+  GWW:"Industrial Distribution",MNST:"Energy Beverages",FSLR:"Solar Energy",
+  ILMN:"Genomic Sequencing",ESS:"Apartment REIT",
+  NBIX:"Neurology Therapeutics",FFIV:"App Delivery & Security",
+  AIZ:"Specialty Insurance",STT:"Custody Banking",KDP:"Beverages & Coffee Systems",
+  FRT:"Retail REIT",CZR:"Casinos & Gaming",FDS:"Financial Data & Analytics",
+  FDX:"Express Delivery & Logistics",
 };
 
 const SC = {
@@ -901,8 +1298,11 @@ function applyFilters(){
   const ma200=document.getElementById("fMa200").value;
   filtered=ALL.filter(s=>{
     if(q){
-      const name=(COMPANY_NAMES[s.ticker]||"").toLowerCase();
-      if(!s.ticker.toLowerCase().includes(q)&&!name.includes(q)&&!s.sector.toLowerCase().includes(q))return false;
+      const name=(COMPANY_NAMES[s.ticker]||s.full_name||"").toLowerCase();
+      const fullName=getFullName(s).toLowerCase();
+      const desc=getDesc(s).toLowerCase();
+      const sub=getSub(s).toLowerCase();
+      if(!s.ticker.toLowerCase().includes(q)&&!name.includes(q)&&!fullName.includes(q)&&!s.sector.toLowerCase().includes(q)&&!desc.includes(q)&&!sub.includes(q))return false;
     }
     if(exch&&s.exchange!==exch)return false;
     if(sector&&s.sector!==sector)return false;
@@ -920,7 +1320,7 @@ function applyFilters(){
 
 function setSort(col){
   if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=1;}
-  document.querySelectorAll("thead th").forEach(th=>{
+  document.querySelectorAll("thead .th-col-row th").forEach(th=>{
     th.classList.toggle("sorted",th.dataset.col===col);
     if(th.dataset.col===col)th.querySelector(".arr").textContent=sortDir===1?"↓":"↑";
   });
@@ -972,33 +1372,43 @@ function divIcon(score){
   return'<span style="color:var(--border2)">○</span>';
 }
 
+// Resolve enrichment fields: data.json fields take priority, static maps are fallback
+function getFullName(s){ return s.full_name||FULL_COMPANY_NAMES[s.ticker]||COMPANY_NAMES[s.ticker]||""; }
+function getDesc(s)    { return s.description||COMPANY_DESCRIPTIONS[s.ticker]||""; }
+function getSub(s)     { return s.sub_sector||SUB_SECTORS[s.ticker]||""; }
+
 // ── TABLE ─────────────────────────────────────────────────────────────────
 function drawTable(){
   const tb=document.getElementById("tbody");
-  if(!filtered.length){tb.innerHTML=`<tr><td colspan="27"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
-  tb.innerHTML=filtered.map(s=>`<tr class="${selTicker===s.ticker?"sel-row":""}" data-ticker="${s.ticker}">
+  if(!filtered.length){tb.innerHTML=`<tr><td colspan="31"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
+  tb.innerHTML=filtered.map(s=>{
+    const desc=getDesc(s);
+    const sub=getSub(s);
+    const fullName=getFullName(s);
+    return`<tr class="${selTicker===s.ticker?"sel-row":""}" data-ticker="${s.ticker}">
     <td>${s.rank}</td>
-    <td><div class="tkr">${s.ticker}</div><div class="cname">${COMPANY_NAMES[s.ticker]||""}</div></td>
+    <td><div class="tkr">${s.ticker}</div><div class="cname" title="${fullName}">${fullName}</div></td>
+    <td><div class="desc-cell" title="${desc}">${desc||"—"}</div></td>
     <td>${sbadge(s.sector)}</td>
+    <td>${sub?`<span class="ssb">${sub}</span>`:"—"}</td>
     <td style="color:var(--muted);font-size:11px">${s.exchange||""}</td>
     <td>$${fmt(s.price)}</td>
     <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${s.momentum_score}%"></div></div><span class="bar-val">${s.momentum_score}</span></div></td>
     <td><span class="gpill g${s.grade}">${s.grade}</span></td>
-    <td>${ret(s.ret_mtd)}</td>
-    <td>${ret(s.ret_ytd)}</td>
-    <td>${ret(s.ret_1y)}</td>
-    <td>${ret(s.ret_1m)}</td>
-    <td>${ret(s.ret_3m)}</td>
-    <td>${ret(s.ret_6m)}</td>
+    <td class="ret-col ret-first">${ret(s.ret_1w)}</td>
+    <td class="ret-col">${ret(s.ret_mtd)}</td>
+    <td class="ret-col">${ret(s.ret_1m)}</td>
+    <td class="ret-col ret-gap-l">${ret(s.ret_3m)}</td>
+    <td class="ret-col">${ret(s.ret_6m)}</td>
+    <td class="ret-col ret-gap-l">${ret(s.ret_ytd)}</td>
+    <td class="ret-col ret-last">${ret(s.ret_1y)}</td>
     <td style="color:${rsiC(s.rsi)}">${s.rsi}</td>
     <td style="color:${adxC(s.adx)}">${s.adx}</td>
     <td>${s.stoch_k}</td>
     <td>${s.bb_pct!=null?s.bb_pct.toFixed(0)+"%":"-"}</td>
     <td class="${s.macd_signal==="BUY"?"mbuy":"msell"}">${s.macd_signal}</td>
     <td>${s.vol_ratio}x</td>
-    <td class="${(s.pct_from_high ?? -999)>-5?"pos":"neu"}">
-      ${s.pct_from_high != null ? s.pct_from_high.toFixed(1) + "%" : "-"}
-    </td> 
+    <td class="${(s.pct_from_high ?? -999)>-5?"pos":"neu"}">${s.pct_from_high != null ? s.pct_from_high.toFixed(1) + "%" : "-"}</td>
     <td><span class="dot ${s.above_ma50?"don":"doff"}" title="MA50"></span><span class="dot ${s.above_ma200?"don":"doff"}" title="MA200" style="margin-left:3px"></span></td>
     <td style="color:${brkqC(s.breakout_quality)}">${s.breakout_quality??"-"}</td>
     <td class="${(s.vwap_pct??0)>=0?"pos":"neg"}">${s.vwap_pct!=null?(s.vwap_pct>=0?"+":"")+s.vwap_pct.toFixed(1)+"%":"-"}</td>
@@ -1006,7 +1416,7 @@ function drawTable(){
     <td style="color:${obvC(s.obv_trend)}">${s.obv_trend??"-"}</td>
     <td style="color:${divC(s.div_score)}" title="${s.div_label||""}">${divIcon(s.div_score)}</td>
     <td>${sparkSVG(s.sparkline)}</td>
-  </tr>`).join("");
+  </tr>`;}).join("");
 }
 
 // ── SIDEBAR ───────────────────────────────────────────────────────────────
@@ -1025,6 +1435,59 @@ function setSide(d){
   document.getElementById("gradeDist").innerHTML=["A","B","C","D"].map(g=>
     `<div class="gbox" style="background:${gbg[g]}"><div class="gl" style="color:${gc[g]}">${g}</div><div class="gc">${gb[g]||0} stocks</div></div>`
   ).join("");
+}
+
+// ── INSIGHTS MODALS ──────────────────────────────────────────────────────
+function openSectorModal(){
+  const secs=RAW.sector_breakdown||{};
+  const maxV=Math.max(...Object.values(secs),1);
+  const total=Object.values(secs).reduce((a,b)=>a+b,0)||1;
+  document.getElementById("sectorModalChart").innerHTML=Object.entries(secs).sort((a,b)=>b[1]-a[1]).map(([n,c])=>{
+    const col=SC[n]||"#94a3b8";
+    const pct=((c/total)*100).toFixed(1);
+    return`<div class="sector-row" style="margin-bottom:10px">
+      <span class="sname" style="color:${col};width:140px" title="${n}">${n}</span>
+      <div class="sbar-bg"><div class="sbar-fill" style="width:${(c/maxV*100).toFixed(0)}%;background:${col}"></div></div>
+      <span class="scnt" style="min-width:50px;text-align:right">${c} <span style="color:var(--border2)">(${pct}%)</span></span>
+    </div>`;
+  }).join("");
+  document.getElementById("sectorOverlay").classList.add("open");
+}
+
+function openGradeModal(){
+  const gb=RAW.grade_breakdown||{};
+  const gc={A:"var(--green)",B:"var(--primary)",C:"var(--yellow)",D:"var(--red)"};
+  const gbg={A:"rgba(34,197,94,.1)",B:"rgba(59,130,246,.1)",C:"rgba(234,179,8,.1)",D:"rgba(239,68,68,.1)"};
+  document.getElementById("gradeModalDist").innerHTML=["A","B","C","D"].map(g=>
+    `<div class="gbox" style="background:${gbg[g]};padding:16px;border-radius:8px;text-align:center">
+      <div class="gl" style="color:${gc[g]};font-size:28px;font-weight:700">${g}</div>
+      <div class="gc" style="font-size:14px;color:var(--muted);margin-top:4px">${gb[g]||0} stocks</div>
+    </div>`
+  ).join("");
+  document.getElementById("gradeOverlay").classList.add("open");
+}
+
+function openLearnModal(){
+  const src=document.getElementById("learnIndicatorsContent");
+  const dest=document.getElementById("learnModalContent");
+  dest.innerHTML=src.innerHTML;
+  // Fix tab IDs to avoid collision with hidden source
+  dest.querySelectorAll(".ig-section").forEach(sec=>{
+    sec.id="modal-"+sec.id;
+  });
+  dest.querySelectorAll(".ig-tab").forEach(btn=>{
+    const origOnclick=btn.getAttribute("onclick")||"";
+    const tabMatch=origOnclick.match(/'([^']+)'/);
+    const tabId=tabMatch?tabMatch[1]:null;
+    btn.removeAttribute("onclick");
+    btn.addEventListener("click",function(){
+      dest.querySelectorAll(".ig-section").forEach(s=>s.classList.remove("active"));
+      dest.querySelectorAll(".ig-tab").forEach(b=>b.classList.remove("active"));
+      if(tabId){const sec=dest.querySelector("#modal-ig-"+tabId);if(sec)sec.classList.add("active");}
+      this.classList.add("active");
+    });
+  });
+  document.getElementById("learnOverlay").classList.add("open");
 }
 
 // ── SECTOR HEATMAP ────────────────────────────────────────────────────────
@@ -1182,9 +1645,14 @@ function openModal(ticker){
   const s=ALL.find(x=>x.ticker===ticker);if(!s)return;
   selTicker=ticker;drawTable();
   document.getElementById("mTicker").textContent=s.ticker;
-  document.getElementById("mCompany").textContent=COMPANY_NAMES[s.ticker]||"";
+  document.getElementById("mCompany").textContent=COMPANY_NAMES[s.ticker]||s.full_name||"";
+  const fullName=getFullName(s);
+  const fnEl=document.getElementById("mFullName");
+  fnEl.textContent=fullName&&fullName!==(COMPANY_NAMES[s.ticker]||"")?fullName:"";
+  fnEl.style.display=fnEl.textContent?"":"none";
   document.getElementById("mMeta").innerHTML=
     `${sbadge(s.sector)}<span style="color:var(--muted);font-size:12px">${s.exchange||""}</span>
+     ${getSub(s)?`<span class="ssb">${getSub(s)}</span>`:""}
      <span class="gpill g${s.grade}">${s.grade}</span>
      <span style="font-size:13px;font-family:var(--mono)">$${fmt(s.price)}</span>
      <span style="background:rgba(59,130,246,.12);color:var(--primary);padding:2px 8px;border-radius:4px;font-size:12px">Score ${s.momentum_score}</span>`;
@@ -1192,6 +1660,11 @@ function openModal(ticker){
     document.getElementById("aiBox").style.display="block";
     document.getElementById("aiText").textContent=s.ai_summary;
   } else document.getElementById("aiBox").style.display="none";
+  const desc=getDesc(s);
+  if(desc){
+    document.getElementById("coBox").style.display="block";
+    document.getElementById("coText").textContent=desc;
+  } else document.getElementById("coBox").style.display="none";
   drawCanvas(s.sparkline||[]);
   const stats=[
     ["1M Return",(s.ret_1m>0?"+":"")+s.ret_1m.toFixed(2)+"%",s.ret_1m>0?"var(--green)":"var(--red)"],
@@ -1368,7 +1841,7 @@ document.getElementById("cmdHint").addEventListener("click",openCmdPalette);
 // ── VIEW SWITCHER ─────────────────────────────────────────────────────────
 function switchView(v){
   currentView=v;
-  document.querySelectorAll(".vtab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
+  document.querySelectorAll(".vtab[data-view]").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
   document.getElementById("tableView").style.display=v==="table"?"":"none";
   document.getElementById("heatmapView").classList.toggle("active",v==="heatmap");
   document.getElementById("historyView").classList.toggle("active",v==="history");
@@ -1451,18 +1924,27 @@ async function load(){
   document.getElementById("overlay").addEventListener("click",e=>{if(e.target===document.getElementById("overlay"))closeModal();});
   document.getElementById("btnSaveWeek").addEventListener("click",saveCurrentWeek);
 
-  document.querySelectorAll("thead th[data-col]").forEach(th=>th.addEventListener("click",()=>setSort(th.dataset.col)));
+  document.querySelectorAll("thead .th-col-row th[data-col]").forEach(th=>th.addEventListener("click",()=>setSort(th.dataset.col)));
   document.getElementById("tbody").addEventListener("click",e=>{
     const row=e.target.closest("tr[data-ticker]");if(row)openModal(row.dataset.ticker);
   });
-  document.querySelectorAll(".vtab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
+  document.querySelectorAll(".vtab[data-view]").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
   document.getElementById("hmColorBy").addEventListener("change",drawHeatmap);
   document.getElementById("hmSizeBy").addEventListener("change",drawHeatmap);
   document.getElementById("hmGroupSector").addEventListener("change",drawHeatmap);
 
+  // Click-outside to close new modals
+  ["sectorOverlay","gradeOverlay","learnOverlay"].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener("click",e=>{if(e.target===el)el.classList.remove("open");});
+  });
+
   // Keyboard shortcuts
   document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){closeModal();closeCmdPalette();}
+    if(e.key==="Escape"){
+      closeModal();closeCmdPalette();
+      ["sectorOverlay","gradeOverlay","learnOverlay"].forEach(id=>document.getElementById(id).classList.remove("open"));
+    }
     // Ctrl+K (Windows/Linux) or Cmd+K (Mac)
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){
       e.preventDefault();
@@ -1525,12 +2007,13 @@ function renderEtfs(data) {
       <td>$${fmt(e.price)}</td>
       <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${e.momentum_score}%"></div></div><span class="bar-val">${e.momentum_score}</span></div></td>
       <td><span class="gpill g${e.grade}">${e.grade}</span></td>
-      <td>${ret(e.ret_mtd)}</td>
-      <td>${ret(e.ret_ytd)}</td>
-      <td>${ret(e.ret_1y)}</td>
-      <td>${ret(e.ret_1m)}</td>
-      <td>${ret(e.ret_3m)}</td>
-      <td>${ret(e.ret_6m)}</td>
+      <td class="ret-col ret-first">${ret(e.ret_1w)}</td>
+      <td class="ret-col">${ret(e.ret_mtd)}</td>
+      <td class="ret-col">${ret(e.ret_1m)}</td>
+      <td class="ret-col ret-gap-l">${ret(e.ret_3m)}</td>
+      <td class="ret-col">${ret(e.ret_6m)}</td>
+      <td class="ret-col ret-gap-l">${ret(e.ret_ytd)}</td>
+      <td class="ret-col ret-last">${ret(e.ret_1y)}</td>
       <td style="color:${rsiC(e.rsi)}">${e.rsi}</td>
       <td style="color:${adxC(e.adx)}">${e.adx}</td>
       <td class="${e.macd_signal === 'BUY' ? 'mbuy' : 'msell'}">${e.macd_signal}</td>
@@ -1570,7 +2053,7 @@ function renderEtfs(data) {
 // ── Rank-mode toggle ─────────────────────────────────────────────────────────
 let rankMode = 'momentum_score';
 const RANK_BTN_MAP = {
-  'momentum_score':'rt-score','ret_mtd':'rt-mtd','ret_1m':'rt-1m',
+  'momentum_score':'rt-score','ret_1w':'rt-1w','ret_mtd':'rt-mtd','ret_1m':'rt-1m',
   'ret_3m':'rt-3m','ret_6m':'rt-6m','ret_ytd':'rt-ytd','ret_1y':'rt-1y'
 };
 
@@ -1592,7 +2075,7 @@ function setRankMode(field) {
 
   sortCol = 'rank';
   sortDir = 1;
-  document.querySelectorAll("thead th").forEach(th => {
+  document.querySelectorAll("thead .th-col-row th").forEach(th => {
     th.classList.toggle("sorted", th.dataset.col === 'rank');
     const arr = th.querySelector(".arr");
     if (arr) arr.textContent = th.dataset.col === 'rank' ? "↓" : "↕";
