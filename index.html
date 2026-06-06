@@ -82,8 +82,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 
 /* LAYOUT */
 .layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
-.desc-cell{max-width:280px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;white-space:normal;line-height:1.5;color:var(--muted);font-family:var(--font);font-size:11px;cursor:default}
-.ssb{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap;background:rgba(168,85,247,.12);color:#c084fc}
+.desc-cell{max-width:180px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;white-space:normal;line-height:1.5;color:var(--muted);font-family:var(--font);font-size:11px;cursor:default}
+.ssb{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:normal;word-wrap:break-word;background:rgba(168,85,247,.12);color:#c084fc}
 .co-box{background:var(--surface2);border-radius:var(--radius);padding:14px;margin-bottom:16px;border-left:2px solid var(--border2)}
 .co-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:600}
 .co-text{font-size:13px;color:var(--text);line-height:1.65}
@@ -92,7 +92,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .tbl-scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead th{background:var(--surface2);padding:10px 11px;text-align:left;font-size:11px;color:var(--muted);
+thead th{background:var(--surface2);padding:10px 8px;text-align:left;font-size:11px;color:var(--muted);
   text-transform:uppercase;letter-spacing:.5px;font-weight:500;border-bottom:1px solid var(--border);
   white-space:nowrap;cursor:pointer;user-select:none;transition:color .12s;position:sticky;top:0;z-index:2}
 thead th:hover{color:var(--text)}
@@ -122,7 +122,7 @@ thead th.sorted{color:var(--primary)}
 /* Second header row sits below the group row */
 .th-col-row th{top:27px}
 /* Return column band — background + center alignment */
-th.ret-col,td.ret-col{text-align:center;min-width:52px;background:rgba(59,130,246,.055)}
+th.ret-col,td.ret-col{text-align:center;min-width:48px;background:rgba(59,130,246,.055)}
 /* Bracket: left edge on first return col, right edge on last */
 th.ret-first,td.ret-first{border-left:1px solid rgba(59,130,246,.28)!important}
 th.ret-last, td.ret-last {border-right:1px solid rgba(59,130,246,.28)!important}
@@ -142,12 +142,12 @@ tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:backgro
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--surface2)}
 tbody tr.sel-row{background:rgba(59,130,246,.08)!important}
-td{padding:9px 11px;vertical-align:top;white-space:nowrap;font-family:var(--mono);font-size:12px}
-td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
+td{padding:9px 8px;vertical-align:top;white-space:nowrap;font-family:var(--mono);font-size:12px}
+td:first-child,th:first-child{width:28px;text-align:center;color:var(--muted)}
 .tkr{font-weight:600;color:var(--text);letter-spacing:.4px;font-size:13px}
 .cname{font-size:10px;color:var(--muted);font-family:var(--font);margin-top:1px;letter-spacing:0;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
-.sbadge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap}
-.bar-wrap{display:flex;align-items:center;gap:7px;min-width:90px}
+.sbadge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-family:var(--font);font-weight:500;white-space:nowrap;max-width:76px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+.bar-wrap{display:flex;align-items:center;gap:5px;min-width:0}
 .bar-bg{height:4px;border-radius:2px;background:var(--faint);flex:1;overflow:hidden}
 .bar-fill{height:100%;border-radius:2px;background:var(--primary);transition:width .3s}
 .bar-val{min-width:30px;text-align:right}
@@ -427,21 +427,20 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
             <thead>
               <!-- Group header row -->
               <tr class="th-group-row">
-                <th colspan="9"></th>
+                <th colspan="8"></th>
                 <th colspan="7" class="th-returns-label"><span class="ret-pill">Returns</span></th>
                 <th colspan="12"></th>
               </tr>
               <!-- Column header row -->
               <tr class="th-col-row">
                 <th data-col="rank">#<span class="arr">↕</span></th>
-                <th>Ticker / Company</th>
-                <th style="min-width:280px">Description</th>
-                <th data-col="sector">Sector<span class="arr">↕</span></th>
-                <th>Sub-Sector</th>
-                <th data-col="exchange">Exchange<span class="arr">↕</span></th>
-                <th data-col="price">Price<span class="arr">↕</span></th>
-                <th data-col="momentum_score">Score<span class="arr">↕</span></th>
-                <th data-col="grade">Grade<span class="arr">↕</span></th>
+                <th style="min-width:120px">Ticker / Company</th>
+                <th style="min-width:180px;max-width:180px">Description</th>
+                <th data-col="sector" style="min-width:80px;max-width:80px">Sector<span class="arr">↕</span></th>
+                <th style="min-width:80px;max-width:80px">Sub-Sector</th>
+                <th data-col="exchange" style="min-width:55px;max-width:55px">Exch<span class="arr">↕</span></th>
+                <th data-col="price" style="min-width:65px;max-width:65px">Price<span class="arr">↕</span></th>
+                <th data-col="momentum_score" style="min-width:55px;max-width:55px">Score<span class="arr">↕</span></th>
                 <th data-col="ret_1w" class="ret-col ret-first">1W<span class="arr">↕</span></th>
                 <th data-col="ret_mtd" class="ret-col">MTD<span class="arr">↕</span></th>
                 <th data-col="ret_1m" class="ret-col">1M<span class="arr">↕</span></th>
@@ -465,7 +464,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 <th>Spark</th>
               </tr>
             </thead>
-            <tbody id="tbody"><tr><td colspan="31"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
+            <tbody id="tbody"><tr><td colspan="30"><div class="loading"><div class="spinner"></div><span style="color:var(--muted);font-size:13px">Loading…</span></div></td></tr></tbody>
           </table>
         </div>
       </div>
@@ -655,7 +654,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
             <table>
               <thead>
                 <tr class="th-group-row">
-                  <th colspan="6"></th>
+                  <th colspan="5"></th>
                   <th colspan="7" class="th-returns-label"><span class="ret-pill">Returns</span></th>
                   <th colspan="10"></th>
                 </tr>
@@ -665,7 +664,6 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                   <th>Category</th>
                   <th>Price</th>
                   <th>Score</th>
-                  <th>Grade</th>
                   <th class="ret-col ret-first">1W</th>
                   <th class="ret-col">MTD</th>
                   <th class="ret-col">1M</th>
@@ -685,7 +683,7 @@ td:first-child,th:first-child{width:32px;text-align:center;color:var(--muted)}
                 </tr>
               </thead>
               <tbody id="etf-tbody">
-                <tr><td colspan="23"><div class="loading"><div class="spinner"></div><span style="margin-left:10px">Loading ETFs…</span></div></td></tr>
+                <tr><td colspan="22"><div class="loading"><div class="spinner"></div><span style="margin-left:10px">Loading ETFs…</span></div></td></tr>
               </tbody>
             </table>
           </div>
@@ -1380,7 +1378,7 @@ function getSub(s)     { return s.sub_sector||SUB_SECTORS[s.ticker]||""; }
 // ── TABLE ─────────────────────────────────────────────────────────────────
 function drawTable(){
   const tb=document.getElementById("tbody");
-  if(!filtered.length){tb.innerHTML=`<tr><td colspan="31"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
+  if(!filtered.length){tb.innerHTML=`<tr><td colspan="30"><div class="empty-state">No stocks match your filters.</div></td></tr>`;return;}
   tb.innerHTML=filtered.map(s=>{
     const desc=getDesc(s);
     const sub=getSub(s);
@@ -1390,11 +1388,10 @@ function drawTable(){
     <td><div class="tkr">${s.ticker}</div><div class="cname" title="${fullName}">${fullName}</div></td>
     <td><div class="desc-cell" title="${desc}">${desc||"—"}</div></td>
     <td>${sbadge(s.sector)}</td>
-    <td>${sub?`<span class="ssb">${sub}</span>`:"—"}</td>
+    <td style="white-space:normal">${sub?`<span class="ssb">${sub}</span>`:"—"}</td>
     <td style="color:var(--muted);font-size:11px">${s.exchange||""}</td>
     <td>$${fmt(s.price)}</td>
     <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${s.momentum_score}%"></div></div><span class="bar-val">${s.momentum_score}</span></div></td>
-    <td><span class="gpill g${s.grade}">${s.grade}</span></td>
     <td class="ret-col ret-first">${ret(s.ret_1w)}</td>
     <td class="ret-col">${ret(s.ret_mtd)}</td>
     <td class="ret-col">${ret(s.ret_1m)}</td>
@@ -1955,7 +1952,7 @@ async function load(){
   } catch(err) {
     log && log.error ? log.error(err) : console.error(err);
     document.getElementById("tbody").innerHTML=
-      `<tr><td colspan="27"><div class="empty-state">⚠️ Failed to load data.json. Run the pipeline first, then refresh.<br><small style="color:var(--muted)">${err.message}</small></div></td></tr>`;
+      `<tr><td colspan="30"><div class="empty-state">⚠️ Failed to load data.json. Run the pipeline first, then refresh.<br><small style="color:var(--muted)">${err.message}</small></div></td></tr>`;
   }
 }
 
@@ -2006,7 +2003,6 @@ function renderEtfs(data) {
       <td><span class="cat-badge">${e.sector || '—'}</span></td>
       <td>$${fmt(e.price)}</td>
       <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${e.momentum_score}%"></div></div><span class="bar-val">${e.momentum_score}</span></div></td>
-      <td><span class="gpill g${e.grade}">${e.grade}</span></td>
       <td class="ret-col ret-first">${ret(e.ret_1w)}</td>
       <td class="ret-col">${ret(e.ret_mtd)}</td>
       <td class="ret-col">${ret(e.ret_1m)}</td>
