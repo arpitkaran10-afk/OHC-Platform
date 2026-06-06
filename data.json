@@ -103,7 +103,11 @@
       "momentum_score": 92.2,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 15.5,
+      "full_name": "Hewlett Packard Enterprise Company",
+      "description": "Hewlett Packard Enterprise delivers enterprise networking, servers, storage, and hybrid cloud solutions to businesses worldwide.",
+      "sub_sector": "Enterprise Networking"
     },
     {
       "rank": 2,
@@ -185,7 +189,11 @@
       "momentum_score": 91.8,
       "grade": "A",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 13.26,
+      "full_name": "Marvell Technology, Inc.",
+      "description": "Marvell Technology designs data infrastructure semiconductors for cloud, 5G, automotive, and enterprise networking applications.",
+      "sub_sector": "Data Infrastructure Chips"
     },
     {
       "rank": 3,
@@ -267,7 +275,11 @@
       "momentum_score": 90.2,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 15.21,
+      "full_name": "Fortinet, Inc.",
+      "description": "Fortinet provides network security appliances and cloud-based cybersecurity solutions for enterprises and service providers.",
+      "sub_sector": "Network Security"
     },
     {
       "rank": 4,
@@ -349,7 +361,11 @@
       "momentum_score": 88.8,
       "grade": "A",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 11.13,
+      "full_name": "Arm Holdings plc",
+      "description": "Arm Holdings licenses processor architectures and IP used in billions of chips powering smartphones, servers, and IoT devices.",
+      "sub_sector": "Chip IP & Architecture"
     },
     {
       "rank": 5,
@@ -431,7 +447,11 @@
       "momentum_score": 88.6,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 3.39,
+      "full_name": "Host Hotels & Resorts, Inc.",
+      "description": "Host Hotels & Resorts is the largest lodging REIT, owning luxury and upper-upscale hotels across major markets.",
+      "sub_sector": "Hotel REIT"
     },
     {
       "rank": 6,
@@ -513,7 +533,11 @@
       "momentum_score": 88.4,
       "grade": "A",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 13.33,
+      "full_name": "Okta, Inc.",
+      "description": "Okta provides identity and access management solutions securing authentication for enterprises and developers.",
+      "sub_sector": "Identity Security"
     },
     {
       "rank": 7,
@@ -595,7 +619,11 @@
       "momentum_score": 88.4,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 6.08,
+      "full_name": "MGM Resorts International",
+      "description": "MGM Resorts International operates casino resorts, hotels, and entertainment venues in Las Vegas and globally.",
+      "sub_sector": "Casinos & Gaming"
     },
     {
       "rank": 8,
@@ -677,7 +705,11 @@
       "momentum_score": 87.8,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.72,
+      "full_name": "Elevance Health, Inc.",
+      "description": "Elevance Health provides health insurance through Anthem-branded plans plus Carelon health services.",
+      "sub_sector": "Managed Care"
     },
     {
       "rank": 9,
@@ -759,7 +791,11 @@
       "momentum_score": 87.6,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 10.53,
+      "full_name": "Humana Inc.",
+      "description": "Humana is a leading Medicare Advantage insurer offering health plans, pharmacy benefits, and wellness services.",
+      "sub_sector": "Medicare Managed Care"
     },
     {
       "rank": 10,
@@ -841,7 +877,11 @@
       "momentum_score": 87.5,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 12.03,
+      "full_name": "Palo Alto Networks, Inc.",
+      "description": "Palo Alto Networks delivers next-generation cybersecurity platforms including firewalls, cloud security, and AI-driven threat detection.",
+      "sub_sector": "Cybersecurity Platform"
     },
     {
       "rank": 11,
@@ -923,7 +963,11 @@
       "momentum_score": 87.2,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.73,
+      "full_name": "United Rentals, Inc.",
+      "description": "United Rentals is the world's largest equipment rental company serving construction, industrial, and infrastructure customers.",
+      "sub_sector": "Equipment Rental"
     },
     {
       "rank": 12,
@@ -1005,7 +1049,11 @@
       "momentum_score": 87.2,
       "grade": "A",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 15.72,
+      "full_name": "Datadog, Inc.",
+      "description": "Datadog provides cloud monitoring, observability, and security platforms for DevOps and engineering teams.",
+      "sub_sector": "Cloud Observability"
     },
     {
       "rank": 13,
@@ -1087,7 +1135,11 @@
       "momentum_score": 86.7,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 12.37,
+      "full_name": "NetApp, Inc.",
+      "description": "NetApp provides hybrid cloud data management, storage systems, and cloud data services for enterprises.",
+      "sub_sector": "Enterprise Storage"
     },
     {
       "rank": 14,
@@ -1169,7 +1221,11 @@
       "momentum_score": 85.6,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 5.26,
+      "full_name": "Old Dominion Freight Line, Inc.",
+      "description": "Old Dominion Freight Line is a leading less-than-truckload carrier providing regional and national freight services.",
+      "sub_sector": "LTL Freight"
     },
     {
       "rank": 15,
@@ -1251,7 +1307,11 @@
       "momentum_score": 85.3,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 5.63,
+      "full_name": "BorgWarner Inc.",
+      "description": "BorgWarner designs and manufactures propulsion systems and components for combustion, hybrid, and electric vehicles.",
+      "sub_sector": "Auto Components"
     },
     {
       "rank": 16,
@@ -1333,7 +1393,11 @@
       "momentum_score": 84.2,
       "grade": "A",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 10.84,
+      "full_name": "CrowdStrike Holdings, Inc.",
+      "description": "CrowdStrike provides cloud-native endpoint protection, threat intelligence, and identity security for enterprises.",
+      "sub_sector": "Endpoint Security"
     },
     {
       "rank": 17,
@@ -1415,7 +1479,11 @@
       "momentum_score": 84.1,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.15,
+      "full_name": "Nucor Corporation",
+      "description": "Nucor Corporation is the largest U.S. steel producer, manufacturing steel and steel products using electric arc furnaces.",
+      "sub_sector": "Steel Production"
     },
     {
       "rank": 18,
@@ -1497,7 +1565,11 @@
       "momentum_score": 83.5,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 3.16,
+      "full_name": "Centene Corporation",
+      "description": "Centene Corporation is a managed care organization providing government-sponsored health insurance programs including Medicaid and Medicare.",
+      "sub_sector": "Medicaid Managed Care"
     },
     {
       "rank": 19,
@@ -1579,7 +1651,11 @@
       "momentum_score": 83.2,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.75,
+      "full_name": "Steel Dynamics, Inc.",
+      "description": "Steel Dynamics is one of the largest U.S. steel producers making flat-rolled, long steel, and steel fabrication products.",
+      "sub_sector": "Steel Production"
     },
     {
       "rank": 20,
@@ -1661,7 +1737,11 @@
       "momentum_score": 82.7,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 4.01,
+      "full_name": "J.B. Hunt Transport Services, Inc.",
+      "description": "J.B. Hunt Transport Services provides intermodal, dedicated contract, truckload, and final-mile logistics across North America.",
+      "sub_sector": "Intermodal Logistics"
     },
     {
       "rank": 21,
@@ -1743,7 +1823,11 @@
       "momentum_score": 82.4,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 4.89,
+      "full_name": "CarMax, Inc.",
+      "description": "CarMax is the largest used-vehicle retailer in the U.S., operating hundreds of stores with an omnichannel buying experience.",
+      "sub_sector": "Used Auto Retail"
     },
     {
       "rank": 22,
@@ -1825,7 +1909,11 @@
       "momentum_score": 82.2,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.4,
+      "full_name": "Morgan Stanley",
+      "description": "Morgan Stanley provides investment banking, equity trading, wealth management, and investment management globally.",
+      "sub_sector": "Wealth & Investment Banking"
     },
     {
       "rank": 23,
@@ -1907,7 +1995,11 @@
       "momentum_score": 81.3,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 7.41,
+      "full_name": "Micron Technology, Inc.",
+      "description": "Micron Technology manufactures DRAM and NAND flash memory chips for data centers, PCs, and mobile devices.",
+      "sub_sector": "Semiconductors"
     },
     {
       "rank": 24,
@@ -1989,7 +2081,11 @@
       "momentum_score": 80.8,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.84,
+      "full_name": "W.W. Grainger, Inc.",
+      "description": "W.W. Grainger is a broad-line industrial distribution company supplying maintenance, repair, and operating products to businesses.",
+      "sub_sector": "Industrial Distribution"
     },
     {
       "rank": 25,
@@ -2071,7 +2167,11 @@
       "momentum_score": 80.7,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 8.19,
+      "full_name": "Cisco Systems, Inc.",
+      "description": "Cisco Systems designs networking hardware, software, cybersecurity, and collaboration solutions for enterprise and cloud customers.",
+      "sub_sector": "Networking"
     },
     {
       "rank": 26,
@@ -2153,7 +2253,11 @@
       "momentum_score": 80.7,
       "grade": "A",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 4.0,
+      "full_name": "Monster Beverage Corporation",
+      "description": "Monster Beverage Corporation develops, markets, and distributes energy drinks and alternative beverages globally.",
+      "sub_sector": "Energy Beverages"
     },
     {
       "rank": 27,
@@ -2235,7 +2339,11 @@
       "momentum_score": 80.6,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.19,
+      "full_name": "UnitedHealth Group Incorporated",
+      "description": "UnitedHealth Group provides health insurance, pharmacy benefits, and healthcare services through UnitedHealthcare and Optum.",
+      "sub_sector": "Managed Care"
     },
     {
       "rank": 28,
@@ -2317,7 +2425,11 @@
       "momentum_score": 80.3,
       "grade": "A",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 7.0,
+      "full_name": "First Solar, Inc.",
+      "description": "First Solar manufactures thin-film photovoltaic solar panels and develops utility-scale solar energy projects in the U.S. and globally.",
+      "sub_sector": "Solar Energy"
     },
     {
       "rank": 29,
@@ -2399,7 +2511,11 @@
       "momentum_score": 79.9,
       "grade": "B",
       "exchange": "Nasdaq-100",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 3.46,
+      "full_name": "Illumina, Inc.",
+      "description": "Illumina develops DNA sequencing and array-based technologies enabling genomic research, clinical diagnostics, and life sciences.",
+      "sub_sector": "Genomic Sequencing"
     },
     {
       "rank": 30,
@@ -2481,7 +2597,11 @@
       "momentum_score": 79.8,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.7,
+      "full_name": "Essex Property Trust",
+      "description": "Essex Property Trust owns and operates apartment communities in the West Coast markets of California and the Pacific Northwest.",
+      "sub_sector": "Apartment REIT"
     },
     {
       "rank": 31,
@@ -2563,7 +2683,11 @@
       "momentum_score": 79.8,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 5.04,
+      "full_name": "Super Micro Computer, Inc.",
+      "description": "Super Micro Computer builds high-performance server and storage systems optimized for AI, cloud, and enterprise workloads.",
+      "sub_sector": "AI Servers"
     },
     {
       "rank": 32,
@@ -2645,7 +2769,11 @@
       "momentum_score": 79.6,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.83,
+      "full_name": "The Goldman Sachs Group, Inc.",
+      "description": "Goldman Sachs is a leading global investment bank providing M&A advisory, trading, and asset management.",
+      "sub_sector": "Investment Banking"
     },
     {
       "rank": 33,
@@ -2727,7 +2855,11 @@
       "momentum_score": 79.6,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.38,
+      "full_name": "Marriott International, Inc.",
+      "description": "Marriott International is the world's largest hotel company, operating and franchising properties across 30+ brands globally.",
+      "sub_sector": "Hotels & Lodging"
     },
     {
       "rank": 34,
@@ -2809,7 +2941,11 @@
       "momentum_score": 79.1,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.87,
+      "full_name": "Neurocrine Biosciences, Inc.",
+      "description": "Neurocrine Biosciences develops treatments for neurological and endocrine diseases including tardive dyskinesia and congenital adrenal hyperplasia.",
+      "sub_sector": "Neurology Therapeutics"
     },
     {
       "rank": 35,
@@ -2891,7 +3027,11 @@
       "momentum_score": 78.5,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 3.84,
+      "full_name": "F5, Inc.",
+      "description": "F5, Inc. provides multi-cloud application security and delivery solutions that protect and optimize applications across any infrastructure.",
+      "sub_sector": "App Delivery & Security"
     },
     {
       "rank": 36,
@@ -2973,7 +3113,11 @@
       "momentum_score": 77.8,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 3.71,
+      "full_name": "Eli Lilly and Company",
+      "description": "Eli Lilly develops pharmaceuticals in diabetes, obesity, oncology, and immunology including tirzepatide.",
+      "sub_sector": "Large-Cap Pharma"
     },
     {
       "rank": 37,
@@ -3055,7 +3199,11 @@
       "momentum_score": 77.3,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.19,
+      "full_name": "Assurant, Inc.",
+      "description": "Assurant provides specialty insurance and risk management products for mobile devices, housing, automotive, and credit markets.",
+      "sub_sector": "Specialty Insurance"
     },
     {
       "rank": 38,
@@ -3137,7 +3285,11 @@
       "momentum_score": 77.1,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.74,
+      "full_name": "State Street Corporation",
+      "description": "State Street Corporation provides investment management, custody banking, and financial data services to institutional investors globally.",
+      "sub_sector": "Custody Banking"
     },
     {
       "rank": 39,
@@ -3219,7 +3371,11 @@
       "momentum_score": 77.0,
       "grade": "B",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.73,
+      "full_name": "Keurig Dr Pepper Inc.",
+      "description": "Keurig Dr Pepper is a beverage company owning brands including Dr Pepper, Keurig, Snapple, and 7UP.",
+      "sub_sector": "Beverages & Coffee Systems"
     },
     {
       "rank": 40,
@@ -3301,7 +3457,11 @@
       "momentum_score": 77.0,
       "grade": "B",
       "exchange": "S&P500+NDX",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.71,
+      "full_name": "ON Semiconductor Corporation",
+      "description": "ON Semiconductor designs power management, analog, and sensing semiconductors for automotive, industrial, and IoT applications.",
+      "sub_sector": "Power Semiconductors"
     },
     {
       "rank": 41,
@@ -3383,7 +3543,11 @@
       "momentum_score": 77.0,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.24,
+      "full_name": "Federal Realty Investment Trust",
+      "description": "Federal Realty Investment Trust owns and redevelops mixed-use retail real estate in high-density coastal markets.",
+      "sub_sector": "Retail REIT"
     },
     {
       "rank": 42,
@@ -3465,7 +3629,11 @@
       "momentum_score": 77.0,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.64,
+      "full_name": "The Bank of New York Mellon Corporation",
+      "description": "The Bank of New York Mellon provides custody banking, clearing, investment management, and financial data services globally.",
+      "sub_sector": "Custody Banking"
     },
     {
       "rank": 43,
@@ -3547,7 +3715,11 @@
       "momentum_score": 76.9,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.61,
+      "full_name": "CVS Health Corporation",
+      "description": "CVS Health operates pharmacy retail chains, pharmacy benefit management (Caremark), and Aetna health insurance.",
+      "sub_sector": "Pharmacy & Health Services"
     },
     {
       "rank": 44,
@@ -3629,7 +3801,11 @@
       "momentum_score": 76.7,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.94,
+      "full_name": "Seagate Technology Holdings plc",
+      "description": "Seagate Technology manufactures hard disk drives and storage solutions for cloud, enterprise, and consumer markets.",
+      "sub_sector": "Data Storage"
     },
     {
       "rank": 45,
@@ -3711,7 +3887,11 @@
       "momentum_score": 76.6,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.53,
+      "full_name": "Oracle Corporation",
+      "description": "Oracle provides enterprise database software, cloud infrastructure, and business applications to organizations globally.",
+      "sub_sector": "Enterprise Database"
     },
     {
       "rank": 46,
@@ -3793,7 +3973,11 @@
       "momentum_score": 76.5,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.69,
+      "full_name": "Hilton Worldwide Holdings Inc.",
+      "description": "Hilton Worldwide Holdings franchises and manages hotels across 18 brands including Hilton, Hampton, and DoubleTree.",
+      "sub_sector": "Hotels & Lodging"
     },
     {
       "rank": 47,
@@ -3875,7 +4059,11 @@
       "momentum_score": 76.4,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.3,
+      "full_name": "Caesars Entertainment, Inc.",
+      "description": "Caesars Entertainment operates and owns casino resorts across the U.S. including Caesars Palace, Harrah's, and Horseshoe.",
+      "sub_sector": "Casinos & Gaming"
     },
     {
       "rank": 48,
@@ -3957,7 +4145,11 @@
       "momentum_score": 76.3,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 5.32,
+      "full_name": "FactSet Research Systems Inc.",
+      "description": "FactSet Research Systems provides financial data, analytics, and portfolio analysis software to investment professionals.",
+      "sub_sector": "Financial Data & Analytics"
     },
     {
       "rank": 49,
@@ -4039,7 +4231,11 @@
       "momentum_score": 76.0,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 2.23,
+      "full_name": "FedEx Corporation",
+      "description": "FedEx Corporation provides express delivery, freight transportation, logistics, and supply chain management services worldwide.",
+      "sub_sector": "Express Delivery & Logistics"
     },
     {
       "rank": 50,
@@ -4121,7 +4317,11 @@
       "momentum_score": 76.0,
       "grade": "B",
       "exchange": "S&P500",
-      "ai_summary": ""
+      "ai_summary": "",
+      "ret_1w": 1.49,
+      "full_name": "Western Digital Corporation",
+      "description": "Western Digital produces hard drives, flash storage devices, and enterprise data storage infrastructure.",
+      "sub_sector": "Data Storage"
     }
   ],
   "etfs": [
@@ -4203,7 +4403,11 @@
       "s_rs": 93.76114082,
       "s_div": 25,
       "momentum_score": 83.5,
-      "grade": "A"
+      "grade": "A",
+      "ret_1w": 5.89,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 2,
@@ -4283,7 +4487,11 @@
       "s_rs": 90.7308377897,
       "s_div": 25,
       "momentum_score": 81.7,
-      "grade": "A"
+      "grade": "A",
+      "ret_1w": 4.26,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 3,
@@ -4363,7 +4571,11 @@
       "s_rs": 91.265597148,
       "s_div": 50,
       "momentum_score": 75.2,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 3.77,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 4,
@@ -4443,7 +4655,11 @@
       "s_rs": 97.504456328,
       "s_div": 50,
       "momentum_score": 75.0,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 1.62,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 5,
@@ -4523,7 +4739,11 @@
       "s_rs": 75.935828877,
       "s_div": 50,
       "momentum_score": 73.7,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 1.89,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 6,
@@ -4603,7 +4823,11 @@
       "s_rs": 99.8217468806,
       "s_div": 50,
       "momentum_score": 71.5,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 2.52,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 7,
@@ -4683,7 +4907,11 @@
       "s_rs": 93.9393939394,
       "s_div": 25,
       "momentum_score": 70.2,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 1.51,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 8,
@@ -4763,7 +4991,11 @@
       "s_rs": 95.5436720143,
       "s_div": 50,
       "momentum_score": 67.8,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 0.91,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 9,
@@ -4843,7 +5075,11 @@
       "s_rs": 72.192513369,
       "s_div": 50,
       "momentum_score": 67.8,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 2.29,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 10,
@@ -4923,7 +5159,11 @@
       "s_rs": 40.6417112299,
       "s_div": 50,
       "momentum_score": 67.4,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 0.49,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 11,
@@ -5003,7 +5243,11 @@
       "s_rs": 84.8484848485,
       "s_div": 50,
       "momentum_score": 66.8,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 0.61,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 12,
@@ -5083,7 +5327,11 @@
       "s_rs": 44.5632798574,
       "s_div": 50,
       "momentum_score": 66.0,
-      "grade": "B"
+      "grade": "B",
+      "ret_1w": 1.31,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 13,
@@ -5163,7 +5411,11 @@
       "s_rs": 37.4331550802,
       "s_div": 25,
       "momentum_score": 64.7,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.51,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 14,
@@ -5243,7 +5495,11 @@
       "s_rs": 37.2549019608,
       "s_div": 50,
       "momentum_score": 64.5,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.55,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 15,
@@ -5323,7 +5579,11 @@
       "s_rs": 52.0499108734,
       "s_div": 50,
       "momentum_score": 62.3,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.21,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 16,
@@ -5403,7 +5663,11 @@
       "s_rs": 64.7058823529,
       "s_div": 75,
       "momentum_score": 61.8,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": -0.02,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 17,
@@ -5483,7 +5747,11 @@
       "s_rs": 74.1532976827,
       "s_div": 25,
       "momentum_score": 60.9,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.34,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 18,
@@ -5563,7 +5831,11 @@
       "s_rs": 81.4616755793,
       "s_div": 50,
       "momentum_score": 60.9,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 1.48,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 19,
@@ -5643,7 +5915,11 @@
       "s_rs": 31.550802139,
       "s_div": 50,
       "momentum_score": 59.9,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.36,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 20,
@@ -5723,7 +5999,11 @@
       "s_rs": 50.0,
       "s_div": 50,
       "momentum_score": 59.6,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.1,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 21,
@@ -5803,7 +6083,11 @@
       "s_rs": 51.871657754,
       "s_div": 50,
       "momentum_score": 58.3,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.12,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 22,
@@ -5883,7 +6167,11 @@
       "s_rs": 50.0,
       "s_div": 50,
       "momentum_score": 57.6,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": -0.19,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 23,
@@ -5963,7 +6251,11 @@
       "s_rs": 52.3172905526,
       "s_div": 50,
       "momentum_score": 57.5,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.13,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 24,
@@ -6043,7 +6335,11 @@
       "s_rs": 38.1461675579,
       "s_div": 75,
       "momentum_score": 57.0,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": -0.18,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 25,
@@ -6123,7 +6419,11 @@
       "s_rs": 62.2994652406,
       "s_div": 25,
       "momentum_score": 56.9,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.22,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 26,
@@ -6203,7 +6503,11 @@
       "s_rs": 40.8199643494,
       "s_div": 75,
       "momentum_score": 55.7,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": -0.08,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 27,
@@ -6283,7 +6587,11 @@
       "s_rs": 4.0998217469,
       "s_div": 25,
       "momentum_score": 55.6,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.52,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 28,
@@ -6363,7 +6671,11 @@
       "s_rs": 44.1176470588,
       "s_div": 50,
       "momentum_score": 54.9,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.37,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 29,
@@ -6443,7 +6755,11 @@
       "s_rs": 72.9055258467,
       "s_div": 50,
       "momentum_score": 54.8,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 2.92,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 30,
@@ -6523,7 +6839,11 @@
       "s_rs": 67.3796791444,
       "s_div": 25,
       "momentum_score": 54.8,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.01,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 31,
@@ -6603,7 +6923,11 @@
       "s_rs": 59.1800356506,
       "s_div": 50,
       "momentum_score": 54.6,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.05,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 32,
@@ -6683,7 +7007,11 @@
       "s_rs": 0.3565062389,
       "s_div": 50,
       "momentum_score": 53.6,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": 0.04,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 33,
@@ -6763,7 +7091,11 @@
       "s_rs": 48.3957219251,
       "s_div": 50,
       "momentum_score": 50.1,
-      "grade": "C"
+      "grade": "C",
+      "ret_1w": -0.39,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 34,
@@ -6843,7 +7175,11 @@
       "s_rs": 52.9411764706,
       "s_div": 50,
       "momentum_score": 49.7,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.38,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 35,
@@ -6923,7 +7259,11 @@
       "s_rs": 65.2406417112,
       "s_div": 50,
       "momentum_score": 48.5,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": 0.29,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 36,
@@ -7003,7 +7343,11 @@
       "s_rs": 50.0,
       "s_div": 50,
       "momentum_score": 47.9,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.45,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 37,
@@ -7083,7 +7427,11 @@
       "s_rs": 97.6827094474,
       "s_div": 50,
       "momentum_score": 47.6,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.17,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 38,
@@ -7163,7 +7511,11 @@
       "s_rs": 53.743315508,
       "s_div": 50,
       "momentum_score": 47.5,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.12,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 39,
@@ -7243,7 +7595,11 @@
       "s_rs": 54.7237076649,
       "s_div": 50,
       "momentum_score": 46.7,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.26,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 40,
@@ -7323,7 +7679,11 @@
       "s_rs": 38.3244206774,
       "s_div": 50,
       "momentum_score": 46.1,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.2,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 41,
@@ -7403,7 +7763,11 @@
       "s_rs": 45.0980392157,
       "s_div": 50,
       "momentum_score": 44.6,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.85,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 42,
@@ -7483,7 +7847,11 @@
       "s_rs": 42.8698752228,
       "s_div": 50,
       "momentum_score": 44.1,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.28,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 43,
@@ -7563,7 +7931,11 @@
       "s_rs": 17.6470588235,
       "s_div": 50,
       "momentum_score": 43.8,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.53,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 44,
@@ -7643,7 +8015,11 @@
       "s_rs": 46.3458110517,
       "s_div": 50,
       "momentum_score": 43.4,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.14,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 45,
@@ -7723,7 +8099,11 @@
       "s_rs": 73.6185383244,
       "s_div": 50,
       "momentum_score": 43.3,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -1.07,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 46,
@@ -7803,7 +8183,11 @@
       "s_rs": 6.9518716578,
       "s_div": 75,
       "momentum_score": 43.0,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": 0.18,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 47,
@@ -7883,7 +8267,11 @@
       "s_rs": 39.0374331551,
       "s_div": 50,
       "momentum_score": 42.8,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.24,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 48,
@@ -7963,7 +8351,11 @@
       "s_rs": 55.8823529412,
       "s_div": 50,
       "momentum_score": 42.1,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.1,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 49,
@@ -8043,7 +8435,11 @@
       "s_rs": 47.0588235294,
       "s_div": 50,
       "momentum_score": 41.8,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.16,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     },
     {
       "rank": 50,
@@ -8123,7 +8519,11 @@
       "s_rs": 33.1550802139,
       "s_div": 75,
       "momentum_score": 41.7,
-      "grade": "D"
+      "grade": "D",
+      "ret_1w": -0.74,
+      "full_name": "",
+      "description": "",
+      "sub_sector": ""
     }
   ],
   "etf_avg_score": 56.9,
