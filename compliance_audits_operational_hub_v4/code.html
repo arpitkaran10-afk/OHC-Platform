@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compliance &amp; Audits | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#0EA5E9",
+                        "surface": "#f6faff",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#0ea5e9",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#de8712",
+                        "secondary": "#3c627d",
+                        "on-surface-variant": "#3e4850",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#c9e6ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-tertiary-container": "#4d2b00",
+                        "on-secondary-container": "#3d637d",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface-container-low": "#f0f4fa",
+                        "outline-variant": "#bec8d2",
+                        "on-primary-container": "#003751",
+                        "background": "#F3F4F6",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001e2f",
+                        "outline": "#6e7881",
+                        "inverse-surface": "#2c3135",
+                        "surface-container": "#eaeef4",
+                        "surface-container-highest": "#dee3e9",
+                        "primary": "#0EA5E9",
+                        "on-background": "#171c20",
+                        "surface-dim": "#d6dae0",
+                        "surface-bright": "#f6faff",
+                        "inverse-on-surface": "#edf1f7",
+                        "surface-container-high": "#e4e8ee",
+                        "secondary-container": "#b8dffe",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#001e2f",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#171c20",
+                        "inverse-primary": "#89ceff",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "tertiary": "#8a5100",
+                        "secondary-fixed": "#c9e6ff",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "surface-variant": "#dee3e9",
+                        "tertiary-fixed-dim": "#ffb86e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header_height": "56px",
+                        "sidebar_width": "240px",
+                        "container_gap": "16px",
+                        "stack_gap": "8px",
+                        "base": "4px",
+                        "content_padding": "24px"
+                    },
+                    "fontFamily": {
+                        "page-title": ["Inter"],
+                        "body": ["Inter"],
+                        "section-heading": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Custom UI States */
+        .tab-active { border-bottom: 2px solid #0EA5E9; color: #0EA5E9; font-weight: 600; }
+        .compliance-table th { background: #FAFAFA; border-bottom: 1px solid #E5E7EB; }
+        .overdue-row { background-color: #FEF2F2 !important; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- OHC Header -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Compliance &amp; Audits</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+
+<!-- OHC Sidebar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="ohc-main">
+<!-- Page Header -->
+<div class="flex items-start justify-between mb-6">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface">Compliance &amp; Audits</h1>
+<p class="text-body text-on-surface-variant">Compliance matrix, corrective actions, and document repository</p>
+</div>
+<button class="bg-[#0EA5E9] hover:bg-[#0284c7] text-white px-4 h-[36px] rounded flex items-center gap-2 font-semibold text-body transition-all">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+                Upload Document
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex border-b border-outline-variant mb-6 overflow-x-auto hide-scroll">
+<button class="px-6 py-3 text-body tab-active transition-all whitespace-nowrap" id="tab-matrix" onclick="switchTab('matrix')">Compliance Matrix</button>
+<button class="px-6 py-3 text-body text-on-surface-variant hover:text-primary transition-all whitespace-nowrap" id="tab-actions" onclick="switchTab('actions')">Corrective Actions</button>
+<button class="px-6 py-3 text-body text-on-surface-variant hover:text-primary transition-all whitespace-nowrap" id="tab-repository" onclick="switchTab('repository')">Document Repository</button>
+</div>
+<!-- Content Container -->
+<div class="block" id="tab-content-matrix">
+<!-- Filter Bar Matrix -->
+<div class="flex items-center gap-4 mb-6">
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Report Year</label>
+<select class="h-9 border-outline-variant rounded text-body w-32 focus:ring-primary-container">
+<option>2024</option>
+<option>2023</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Building / Site</label>
+<select class="h-9 border-outline-variant rounded text-body w-48 focus:ring-primary-container">
+<option>Building A - Main Campus</option>
+<option>Building B - R&amp;D Center</option>
+<option>Building C - Logistics</option>
+</select>
+</div>
+<div class="ml-auto self-end flex gap-2">
+<button class="h-9 px-4 border border-outline-variant rounded text-body font-semibold text-on-surface-variant hover:bg-surface-container transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Export Matrix
+                    </button>
+</div>
+</div>
+<!-- Compliance Matrix Card -->
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h2 class="font-section-heading text-section-heading">Compliance Matrix</h2>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+<span class="text-[11px] font-semibold text-on-surface-variant">Compliant</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<span class="text-[11px] font-semibold text-on-surface-variant">Non-Compliant</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-amber-500"></div>
+<span class="text-[11px] font-semibold text-on-surface-variant">Pending</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left compliance-table border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-3 text-label-sm text-on-surface-variant border-r">Compliance Area</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">JAN</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">FEB</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">MAR</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">APR</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">MAY</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">JUN</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">JUL</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">AUG</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">SEP</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">OCT</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">NOV</th>
+<th class="p-3 text-label-sm text-on-surface-variant text-center">DEC</th>
+</tr>
+</thead>
+<tbody class="text-body divide-y divide-outline-variant">
+<!-- Area: BMW -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">BMW Tracking</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500" title="Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500" title="Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500" title="Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-red-500" title="Non-Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500" title="Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500" title="Compliant"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-amber-500" title="Pending"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+<!-- Area: Staff Licensing -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">Staff Licensing</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+<!-- Area: PCC Completion -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">PCC Completion</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-red-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-amber-500"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+<!-- Area: OHC Hygiene -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">OHC Hygiene Audit</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-red-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+<!-- Area: Equipment -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">Equipment Calibration</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-red-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+<!-- Area: Fire Safety -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-lowest transition-colors">
+<td class="p-3 font-semibold text-on-surface border-r bg-surface-container-lowest">Fire Safety Compliance</td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-red-500"></span></td>
+<td class="p-3 text-center"><span class="inline-block w-4 h-4 rounded-full bg-emerald-500"></span></td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+<td class="p-3 text-center text-on-surface-variant/30 text-[10px]">N/A</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Corrective Actions Tab -->
+<div class="hidden" id="tab-content-actions">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">filter_list</span>
+<select class="pl-10 h-9 border-outline-variant rounded text-body w-40 focus:ring-primary-container">
+<option>All Statuses</option>
+<option>Open</option>
+<option>In Progress</option>
+<option>Closed</option>
+</select>
+</div>
+<select class="h-9 border-outline-variant rounded text-body w-48 focus:ring-primary-container">
+<option>All Owners</option>
+<option>Dr. Aditi Sharma</option>
+<option>Rajiv Mehta</option>
+</select>
+</div>
+<button class="bg-[#0EA5E9] hover:bg-[#0284c7] text-white px-4 h-[36px] rounded flex items-center gap-2 font-semibold text-body transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Add Action Item
+                </button>
+</div>
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Action Item</th>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Identified On</th>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Owner</th>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Due Date</th>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Status</th>
+<th class="p-3 text-label-sm text-on-surface-variant font-bold">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body divide-y divide-outline-variant">
+<!-- Row 1: Overdue -->
+<tr class="overdue-row transition-colors">
+<td class="p-3 font-semibold">Fire Extinguisher Recertification - Zone C</td>
+<td class="p-3 text-on-surface-variant">May 15, 2024</td>
+<td class="p-3">Safety Officer Rajiv</td>
+<td class="p-3 font-bold text-error">Jun 01, 2024</td>
+<td class="p-3">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container font-semibold text-[11px]">Open (Overdue)</span>
+</td>
+<td class="p-3">
+<div class="flex gap-3 text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:opacity-70" data-icon="edit">edit</span>
+<span class="material-symbols-outlined cursor-pointer hover:opacity-70" data-icon="check_circle">check_circle</span>
+</div>
+</td>
+</tr>
+<!-- Row 2: In Progress -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-semibold">Staff Vaccination Records Audit</td>
+<td class="p-3 text-on-surface-variant">Jun 10, 2024</td>
+<td class="p-3">HR Dept</td>
+<td class="p-3">Jun 30, 2024</td>
+<td class="p-3">
+<span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-semibold text-[11px]">In Progress</span>
+</td>
+<td class="p-3">
+<div class="flex gap-3 text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:opacity-70" data-icon="edit">edit</span>
+<span class="material-symbols-outlined cursor-pointer hover:opacity-70" data-icon="check_circle">check_circle</span>
+</div>
+</td>
+</tr>
+<!-- Row 3: Closed -->
+<tr class="hover:bg-surface-container-low transition-colors bg-white">
+<td class="p-3 font-semibold">BMW Waste Segregation Training</td>
+<td class="p-3 text-on-surface-variant">May 02, 2024</td>
+<td class="p-3">Dr. Aditi</td>
+<td class="p-3">May 20, 2024</td>
+<td class="p-3">
+<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold text-[11px]">Closed</span>
+</td>
+<td class="p-3">
+<div class="flex gap-3 text-on-surface-variant/40">
+<span class="material-symbols-outlined cursor-not-allowed" data-icon="edit">edit</span>
+<span class="material-symbols-outlined cursor-not-allowed" data-icon="check_circle">check_circle</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Document Repository Tab -->
+<div class="hidden" id="tab-content-repository">
+<!-- Repo Filter -->
+<div class="flex items-center gap-4 mb-6">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 h-10 w-full border-outline-variant rounded text-body focus:ring-primary-container" placeholder="Search documents by name or keyword..." type="text"/>
+</div>
+<select class="h-10 border-outline-variant rounded text-body w-48 focus:ring-primary-container">
+<option>All Document Types</option>
+<option>Licenses</option>
+<option>Audits</option>
+<option>Certifications</option>
+</select>
+<select class="h-10 border-outline-variant rounded text-body w-40 focus:ring-primary-container">
+<option>Status</option>
+<option>Active</option>
+<option>Expiring Soon</option>
+<option>Expired</option>
+</select>
+</div>
+<!-- Repository Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Doc Card 1: Expiring -->
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex flex-col hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-wider">License</span>
+</div>
+<h3 class="text-[14px] font-semibold text-on-surface mb-1 group-hover:text-primary transition-colors">Pharmacy License 2024</h3>
+<p class="text-label-sm text-on-surface-variant mb-4">Uploaded by: Rajiv Mehta</p>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Uploaded Date:</span>
+<span class="font-semibold">12 Jan 2024</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Expiry Date:</span>
+<span class="font-bold text-amber-600">30 Jun 2024</span>
+</div>
+<div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/30">
+<button class="text-primary hover:underline text-[12px] font-semibold">Edit</button>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="download">download</span>
+</div>
+</div>
+</div>
+<!-- Doc Card 2: Valid -->
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex flex-col hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Audit</span>
+</div>
+<h3 class="text-[14px] font-semibold text-on-surface mb-1 group-hover:text-primary transition-colors">BMW Site Audit Q1</h3>
+<p class="text-label-sm text-on-surface-variant mb-4">Uploaded by: Dr. Aditi</p>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Uploaded Date:</span>
+<span class="font-semibold">15 Apr 2024</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Expiry Date:</span>
+<span class="font-semibold text-on-surface">31 Mar 2025</span>
+</div>
+<div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/30">
+<button class="text-primary hover:underline text-[12px] font-semibold">Edit</button>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="download">download</span>
+</div>
+</div>
+</div>
+<!-- Doc Card 3: Expired -->
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex flex-col hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-red-50 text-error">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-red-100 text-error text-[10px] font-bold uppercase tracking-wider">Certification</span>
+</div>
+<h3 class="text-[14px] font-semibold text-on-surface mb-1 group-hover:text-primary transition-colors">Fire Safety Clearance</h3>
+<p class="text-label-sm text-on-surface-variant mb-4">Uploaded by: Dr. Sunil</p>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Uploaded Date:</span>
+<span class="font-semibold">01 Jun 2023</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Expiry Date:</span>
+<span class="font-bold text-error">31 May 2024</span>
+</div>
+<div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/30">
+<button class="text-primary hover:underline text-[12px] font-semibold">Replace</button>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="download">download</span>
+</div>
+</div>
+</div>
+<!-- Doc Card 4: Valid -->
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex flex-col hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Staff</span>
+</div>
+<h3 class="text-[14px] font-semibold text-on-surface mb-1 group-hover:text-primary transition-colors">Dr. Aditi Medical License</h3>
+<p class="text-label-sm text-on-surface-variant mb-4">Uploaded by: Admin</p>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex flex-col gap-2">
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Uploaded Date:</span>
+<span class="font-semibold">05 Feb 2024</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-on-surface-variant">Expiry Date:</span>
+<span class="font-semibold text-on-surface">04 Feb 2026</span>
+</div>
+<div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/30">
+<button class="text-primary hover:underline text-[12px] font-semibold">Edit</button>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="download">download</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            // Hide all contents
+            document.getElementById('tab-content-matrix').classList.add('hidden');
+            document.getElementById('tab-content-actions').classList.add('hidden');
+            document.getElementById('tab-content-repository').classList.add('hidden');
+
+            // Remove active styles from all buttons
+            document.getElementById('tab-matrix').classList.remove('tab-active');
+            document.getElementById('tab-matrix').classList.add('text-on-surface-variant');
+            document.getElementById('tab-actions').classList.remove('tab-active');
+            document.getElementById('tab-actions').classList.add('text-on-surface-variant');
+            document.getElementById('tab-repository').classList.remove('tab-active');
+            document.getElementById('tab-repository').classList.add('text-on-surface-variant');
+
+            // Show selected content and set active style
+            document.getElementById('tab-content-' + tab).classList.remove('hidden');
+            document.getElementById('tab-' + tab).classList.add('tab-active');
+            document.getElementById('tab-' + tab).classList.remove('text-on-surface-variant');
+        }
+    </script>
+</body></html>

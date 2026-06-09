@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patients — OPD Visit Entry | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#89ceff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f0f4fa",
+                    "surface-container-highest": "#dee3e9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#693c00",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#de8712",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-dim": "#d6dae0",
+                    "inverse-surface": "#2c3135",
+                    "inverse-on-surface": "#edf1f7",
+                    "background": "#f6faff",
+                    "surface-variant": "#dee3e9",
+                    "secondary-container": "#b8dffe",
+                    "surface-container-high": "#e4e8ee",
+                    "secondary-fixed": "#c9e6ff",
+                    "on-surface": "#171c20",
+                    "surface": "#f6faff",
+                    "primary-fixed": "#c9e6ff",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#eaeef4",
+                    "on-secondary-container": "#3d637d",
+                    "surface-bright": "#f6faff",
+                    "on-primary-fixed": "#001e2f",
+                    "tertiary-fixed-dim": "#ffb86e",
+                    "on-surface-variant": "#3e4850",
+                    "on-secondary-fixed-variant": "#234b64",
+                    "on-primary-container": "#003751",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#3c627d",
+                    "surface-tint": "#0EA5E9",
+                    "on-secondary-fixed": "#001e2f",
+                    "on-tertiary-fixed": "#2c1600",
+                    "outline-variant": "#bec8d2",
+                    "on-background": "#171c20",
+                    "outline": "#6e7881",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-tertiary-container": "#4d2b00",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#8a5100",
+                    "primary-container": "#0ea5e9",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#a5cbe9",
+                    "inverse-primary": "#89ceff",
+                    "primary": "#0EA5E9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "header_height": "56px",
+                    "sidebar_width": "240px",
+                    "content_padding": "24px",
+                    "base": "4px",
+                    "container_gap": "16px",
+                    "stack_gap": "8px"
+            },
+            "fontFamily": {
+                    "body": ["Inter"],
+                    "page-title": ["Inter"],
+                    "section-heading": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom UI transitions */
+        .form-section-hidden { display: none; }
+        .form-section-visible { display: block; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[#F3F4F6] text-on-surface overflow-hidden">
+<!-- TopNavBar -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; OPD Visit</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SideNavBar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- Content Area -->
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<header class="flex items-center justify-between mb-6">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface">Patients — OPD Visit</h1>
+<p class="text-body text-on-surface-variant">Log a new occupational health visit for on-site clinic record keeping.</p>
+</div>
+<button class="h-9 px-4 bg-primary text-white font-bold rounded shadow-sm flex items-center gap-2 hover:bg-[#004c6e] transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> New Visit
+            </button>
+</header>
+<!-- Search Bar -->
+<div class="mb-6 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-11 pl-12 pr-4 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-body shadow-sm" placeholder="Search by Employee ID or Name to load returning patient profile…" type="text"/>
+</div>
+<div class="space-y-6 max-w-6xl">
+<!-- Form Card 1: Employee Profile -->
+<section class="bg-white rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-3 bg-surface-container-low border-b border-outline-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<h2 class="font-section-heading text-section-heading text-on-surface">Employee Profile</h2>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5">
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Employee ID*</label>
+<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" placeholder="e.g. EMP-9921" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Full Name*</label>
+<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" placeholder="Enter patient's full name" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Gender*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Non-binary</option>
+<option>Prefer not to say</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Department*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Department</option>
+<option>IT &amp; Engineering</option>
+<option>Operations</option>
+<option>Human Resources</option>
+<option>Finance</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Staff Type*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Type</option>
+<option>Permanent</option>
+<option>Contractual</option>
+<option>Vendor Staff</option>
+<option>Visitor</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Building*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Building</option>
+<option>Tower A - Tech Plaza</option>
+<option>Tower B - Tech Plaza</option>
+<option>Main Warehouse</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Shift</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Shift</option>
+<option>General Shift (09:00 - 18:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option>Evening Shift (14:00 - 22:00)</option>
+<option>Night Shift (22:00 - 06:00)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Form Card 2: Visit Details -->
+<section class="bg-white rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-3 bg-surface-container-low border-b border-outline-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">medical_information</span>
+<h2 class="font-section-heading text-section-heading text-on-surface">Visit Details</h2>
+</div>
+<div class="p-6 space-y-6">
+<!-- Row 1 & 2: Type, Date, Time -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Visit Type*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>OPD</option>
+<option>Rest</option>
+<option>Incident</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Date*</label>
+<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" type="date" value="2024-05-20"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Time*</label>
+<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" type="time" value="14:30"/>
+</div>
+</div>
+<!-- Row 3: Shift, Floor -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Visit Shift*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Morning</option>
+<option selected="">General</option>
+<option>Night</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Floor / Wing</label>
+<div class="flex items-center gap-2">
+<select class="flex-1 h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Floor</option>
+<option>Floor 4 - North Wing</option>
+<option>Floor 5 - Tech Lab</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Row 4: Ailments -->
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant">Ailments*</label>
+<div class="flex flex-wrap gap-2">
+<span class="flex items-center gap-1 bg-surface-container-high border border-outline-variant px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-surface-variant">
+                                Fever <span class="material-symbols-outlined text-[14px]">close</span>
+</span>
+<span class="flex items-center gap-1 bg-surface-container-high border border-outline-variant px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-surface-variant">
+                                Headache <span class="material-symbols-outlined text-[14px]">close</span>
+</span>
+<span class="flex items-center gap-1 bg-error-container text-on-error-container border border-error px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-opacity-80" onclick="toggleInjurySection()">
+                                Cut Wound <span class="material-symbols-outlined text-[14px]">add_circle</span>
+</span>
+<button class="flex items-center gap-1 border border-dashed border-outline-variant px-3 py-1 rounded-full text-label-sm text-primary hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span> Add More
+                            </button>
+</div>
+</div>
+<!-- Hidden Cut Wound Section -->
+<div class="form-section-hidden p-4 bg-error-container/20 rounded-lg border border-error/30" id="injurySection">
+<div class="flex items-start gap-3 mb-4">
+<span class="material-symbols-outlined text-error">info</span>
+<div class="text-body text-on-error-container">
+<strong>Injury Management:</strong> Detailed logging is required for Cut Wounds as per OSHA standards. Please specify the severity and location.
+                            </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-label-sm">Depth/Severity</label>
+<select class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body">
+<option>Superficial</option>
+<option>Deep</option>
+<option>Laceration</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm">Location</label>
+<input class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body" placeholder="e.g. Right Forefinger" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm">Tetanus Status</label>
+<select class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body">
+<option>Up to date</option>
+<option>Expired</option>
+<option>Unknown</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Row 5: Treatment -->
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Type of Treatment*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Select Treatment</option>
+<option>First Aid</option>
+<option>Medication Provided</option>
+<option>Referred to Hospital</option>
+<option>Injection / IV</option>
+</select>
+</div>
+<!-- Row 6: Vitals (High density) -->
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant">Vitals</label>
+<div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Sys" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mmHg</span>
+</div>
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Dia" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mmHg</span>
+</div>
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Pulse" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">BPM</span>
+</div>
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="SpO2" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">%</span>
+</div>
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Sugar" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mg/dL</span>
+</div>
+<div class="relative">
+<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Temp" type="text"/>
+<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">°F</span>
+</div>
+</div>
+</div>
+<!-- Row 7: Medicines -->
+<div class="space-y-2">
+<label class="text-label-sm text-on-surface-variant">Medicines Given</label>
+<div class="flex flex-wrap gap-2">
+<span class="flex items-center gap-1 bg-secondary-container text-on-secondary-container border border-secondary px-3 py-1 rounded-full text-label-sm">
+                                Paracetamol (500mg) <span class="material-symbols-outlined text-[14px]">close</span>
+</span>
+<span class="flex items-center gap-1 bg-secondary-container text-on-secondary-container border border-secondary px-3 py-1 rounded-full text-label-sm">
+                                Cetirizine <span class="material-symbols-outlined text-[14px]">close</span>
+</span>
+<button class="flex items-center gap-1 border border-dashed border-outline-variant px-3 py-1 rounded-full text-label-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">add</span> Select Medicine
+                            </button>
+</div>
+</div>
+<!-- Row 8: Provider and Outcome -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Treated By*</label>
+<div class="flex items-center gap-4 h-9">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="provider" type="radio"/>
+<span class="text-body">Nurse</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary" name="provider" type="radio"/>
+<span class="text-body">Doctor</span>
+</label>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Post-Visit Outcome*</label>
+<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
+<option>Returned to Work</option>
+<option>Sent Home (Medical Leave)</option>
+<option>Sent to Hospital</option>
+<option>Observation Ward</option>
+</select>
+</div>
+</div>
+<!-- Row 9: Signatures -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Staff Sign*</label>
+<div class="w-full h-24 border border-dashed border-outline-variant rounded-lg bg-surface flex items-center justify-center flex-col gap-1 cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-outline">draw</span>
+<p class="text-[10px] text-on-surface-variant">Click to capture digital signature</p>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Patient / Employee Sign*</label>
+<div class="w-full h-24 border border-dashed border-outline-variant rounded-lg bg-surface flex items-center justify-center flex-col gap-1 cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-outline">fingerprint</span>
+<p class="text-[10px] text-on-surface-variant">Biometric or Manual Touch Sign</p>
+</div>
+</div>
+</div>
+<!-- Row 10: Remarks -->
+<div class="space-y-1">
+<label class="text-label-sm text-on-surface-variant">Remarks</label>
+<textarea class="w-full h-24 border border-outline-variant rounded p-3 text-body focus:ring-1 focus:ring-primary outline-none border resize-none" placeholder="Enter detailed observations or clinical notes..."></textarea>
+</div>
+</div>
+</section>
+<!-- Final Form Actions -->
+<div class="flex items-center justify-end gap-3 pb-12">
+<button class="h-9 px-8 border border-outline-variant text-on-surface font-bold rounded hover:bg-surface-container transition-colors">
+                    Cancel
+                </button>
+<button class="h-9 px-10 bg-primary text-white font-bold rounded shadow-md hover:bg-[#004c6e] transition-all transform active:scale-95">
+                    Save Visit
+                </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleInjurySection() {
+            const section = document.getElementById('injurySection');
+            if (section.classList.contains('form-section-hidden')) {
+                section.classList.remove('form-section-hidden');
+                section.classList.add('form-section-visible');
+            } else {
+                section.classList.add('form-section-hidden');
+                section.classList.remove('form-section-visible');
+            }
+        }
+    </script>
+</body></html>

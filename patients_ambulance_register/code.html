@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ambulance Register | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#c9e6ff",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-tertiary-container": "#4d2b00",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "on-background": "#171c20",
+                        "on-secondary-container": "#3d637d",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "primary-fixed": "#c9e6ff",
+                        "surface-container": "#eaeef4",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-surface": "#171c20",
+                        "on-secondary-fixed": "#001e2f",
+                        "tertiary": "#8a5100",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0EA5E9",
+                        "inverse-on-surface": "#edf1f7",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-container": "#0ea5e9",
+                        "primary": "#0EA5E9",
+                        "surface-bright": "#f6faff",
+                        "outline-variant": "#bec8d2",
+                        "background": "#f6faff",
+                        "surface-variant": "#dee3e9",
+                        "surface-container-high": "#e4e8ee",
+                        "on-surface-variant": "#3e4850",
+                        "secondary-container": "#b8dffe",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#003751",
+                        "surface-container-low": "#f0f4fa",
+                        "on-primary-fixed": "#001e2f",
+                        "error-container": "#ffdad6",
+                        "surface": "#f6faff",
+                        "surface-container-highest": "#dee3e9",
+                        "outline": "#6e7881",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "inverse-primary": "#89ceff",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#de8712",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d6dae0",
+                        "secondary": "#3c627d",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2c3135"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack_gap": "8px",
+                        "sidebar_width": "240px",
+                        "header_height": "56px",
+                        "container_gap": "16px",
+                        "base": "4px",
+                        "content_padding": "24px"
+                    },
+                    "fontFamily": {
+                        "section-heading": ["Inter"],
+                        "page-title": ["Inter"],
+                        "body": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        .active-tab {
+            border-bottom: 2px solid #0EA5E9;
+            color: #0EA5E9;
+            font-weight: 600;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #0EA5E9 !important;
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1);
+        }
+    </style>
+</head>
+<body class="text-on-surface" style="background:#F3F4F6">
+<!-- TopNavBar -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; Ambulance Register</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SideNavBar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- Main Content Area -->
+<main class="ohc-main">
+<div class="ohc-content">
+
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface">Ambulance Register</h1>
+<p class="font-body text-body text-on-surface-variant">Log all ambulance trips with odometer readings</p>
+</div>
+<button class="h-9 px-4 bg-primary-container text-white font-semibold rounded-lg flex items-center gap-2 hover:bg-[#0284c7] transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Log New Trip
+            </button>
+</div>
+<!-- Form Card: Trip Details -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 mb-8">
+<h3 class="font-section-heading text-section-heading mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+                Trip Details
+            </h3>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+<!-- Row 1 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Date</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" type="date"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Shift</label>
+<select class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body">
+<option>A (Morning)</option>
+<option>B (Evening)</option>
+<option>C (Night)</option>
+</select>
+</div>
+<!-- Row 2 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Patient Name</label>
+<div class="relative">
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body pr-10" placeholder="Search patient..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer" data-icon="link">link</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Age</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" type="number"/>
+</div>
+<!-- Row 3 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Gender</label>
+<select class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+<div></div>
+<!-- Row 4 -->
+<div class="md:col-span-2 space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Reason for Trip</label>
+<textarea class="w-full border border-outline-variant rounded bg-white p-3 font-body text-body" placeholder="Describe clinical urgency or referral reason..." rows="2"></textarea>
+</div>
+<!-- Row 5 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Linked Incident</label>
+<div class="relative">
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body pr-10" placeholder="ID or Type..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Destination / Hospital</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" type="text"/>
+</div>
+<!-- Row 6 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Out Time</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" type="time"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">In Time / Return (Optional)</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" type="time"/>
+</div>
+<!-- Row 7 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Starting KM</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" id="startKm" type="number" value="45280"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Reaching KM</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body" id="endKm" type="number"/>
+</div>
+<!-- Row 8 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant flex items-center justify-between">
+                        Total KM Covered
+                        <span class="px-1.5 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[9px] uppercase tracking-tighter">Auto</span>
+</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-surface-container-low px-3 font-body text-body font-semibold text-primary" readonly="" type="text" value="0"/>
+</div>
+<div></div>
+<!-- Row 9 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Driver Name</label>
+<select class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body">
+<option>Robert Wilson</option>
+<option>David Miller</option>
+<option>James Carter</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Driver Signature</label>
+<input class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body italic text-outline" placeholder="Digital sign code..." type="text"/>
+</div>
+<!-- Row 10 -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Accompanied By Staff</label>
+<select class="w-full h-9 border border-outline-variant rounded bg-white px-3 font-body text-body">
+<option>Nurse Maria S.</option>
+<option>Paramedic Tom H.</option>
+<option>Dr. Sarah L.</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-on-surface-variant">Remarks</label>
+<textarea class="w-full border border-outline-variant rounded bg-white p-2 font-body text-body" placeholder="Any delays or issues..." rows="1"></textarea>
+</div>
+<div class="md:col-span-2 pt-4 flex justify-end gap-3">
+<button class="h-9 px-6 border border-outline-variant text-primary font-semibold rounded-lg hover:bg-surface-container transition-colors" type="reset">Clear</button>
+<button class="h-9 px-8 bg-primary text-white font-semibold rounded-lg hover:opacity-90 transition-opacity" type="submit">Submit Entry</button>
+</div>
+</form>
+</div>
+<!-- Filter Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 mb-6 flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="calendar_today">calendar_today</span>
+<input class="h-9 border border-outline-variant rounded px-3 font-body text-body w-48" placeholder="Date Range" type="text" value="Oct 20 - Oct 27, 2023"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="apartment">apartment</span>
+<select class="h-9 border border-outline-variant rounded px-3 font-body text-body w-40">
+<option>All Buildings</option>
+<option>Building A</option>
+<option>Building B</option>
+</select>
+</div>
+<div class="flex-grow flex items-center gap-2">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-9 pl-10 border border-outline-variant rounded px-3 font-body text-body" placeholder="Search by patient name" type="text"/>
+</div>
+</div>
+<button class="h-9 px-4 border border-outline-variant rounded-lg flex items-center gap-2 font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                More Filters
+            </button>
+</div>
+<!-- Section Card: Trip Log -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-section-heading text-section-heading">Trip Log</h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Showing 48 recent records</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
+<th class="px-6 py-3">Date</th>
+<th class="px-6 py-3">Shift</th>
+<th class="px-6 py-3">Patient</th>
+<th class="px-6 py-3">Destination</th>
+<th class="px-6 py-3">KM Covered</th>
+<th class="px-6 py-3">Driver</th>
+<th class="px-6 py-3">Accompanied By</th>
+<th class="px-6 py-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body font-body">
+<tr class="bg-white border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-3">24 Oct 2023</td>
+<td class="px-6 py-3"><span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold">SHIFT A</span></td>
+<td class="px-6 py-3 font-semibold text-primary">Arjun Mehta</td>
+<td class="px-6 py-3">City General Hospital</td>
+<td class="px-6 py-3">12.5 km</td>
+<td class="px-6 py-3 text-on-surface-variant">Robert Wilson</td>
+<td class="px-6 py-3 text-on-surface-variant">Nurse Maria S.</td>
+<td class="px-6 py-3 text-right">
+<a class="text-primary font-semibold hover:underline" href="#">View</a>
+</td>
+</tr>
+<tr class="bg-neutral-50 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-3">24 Oct 2023</td>
+<td class="px-6 py-3"><span class="px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-[10px] font-bold">SHIFT B</span></td>
+<td class="px-6 py-3 font-semibold text-primary">Sarah Jenkins</td>
+<td class="px-6 py-3">Ortho Trauma Center</td>
+<td class="px-6 py-3">8.2 km</td>
+<td class="px-6 py-3 text-on-surface-variant">David Miller</td>
+<td class="px-6 py-3 text-on-surface-variant">Paramedic Tom H.</td>
+<td class="px-6 py-3 text-right">
+<a class="text-primary font-semibold hover:underline" href="#">View</a>
+</td>
+</tr>
+<tr class="bg-white border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-3">23 Oct 2023</td>
+<td class="px-6 py-3"><span class="px-2 py-0.5 bg-orange-100 text-orange-800 rounded-full text-[10px] font-bold">SHIFT C</span></td>
+<td class="px-6 py-3 font-semibold text-primary">Kevin Spacey</td>
+<td class="px-6 py-3">Metropolitan Cardiac</td>
+<td class="px-6 py-3">18.0 km</td>
+<td class="px-6 py-3 text-on-surface-variant">James Carter</td>
+<td class="px-6 py-3 text-on-surface-variant">Dr. Sarah L.</td>
+<td class="px-6 py-3 text-right">
+<a class="text-primary font-semibold hover:underline" href="#">View</a>
+</td>
+</tr>
+<tr class="bg-neutral-50 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-3">23 Oct 2023</td>
+<td class="px-6 py-3"><span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold">SHIFT A</span></td>
+<td class="px-6 py-3 font-semibold text-primary">Anita Desai</td>
+<td class="px-6 py-3">Apollo Diagnostics</td>
+<td class="px-6 py-3">5.5 km</td>
+<td class="px-6 py-3 text-on-surface-variant">Robert Wilson</td>
+<td class="px-6 py-3 text-on-surface-variant">Nurse Maria S.</td>
+<td class="px-6 py-3 text-right">
+<a class="text-primary font-semibold hover:underline" href="#">View</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-6 py-4 bg-surface-container-low flex justify-between items-center border-t border-outline-variant">
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant">
+<span>Rows per page:</span>
+<select class="bg-transparent border-none focus:ring-0 text-on-surface cursor-pointer">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+<span>1-10 of 48</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Auto-calculation logic for KM
+        const startKmInput = document.getElementById('startKm');
+        const endKmInput = document.getElementById('endKm');
+        const totalKmInput = document.querySelector('input[readonly]');
+
+        function calculateKm() {
+            const start = parseFloat(startKmInput.value) || 0;
+            const end = parseFloat(endKmInput.value) || 0;
+            if (end > start) {
+                totalKmInput.value = (end - start).toFixed(1);
+            } else {
+                totalKmInput.value = '0';
+            }
+        }
+
+        startKmInput.addEventListener('input', calculateKm);
+        endKmInput.addEventListener('input', calculateKm);
+    </script>
+</body></html>

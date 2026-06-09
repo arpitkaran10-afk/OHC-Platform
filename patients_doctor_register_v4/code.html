@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Register | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#171c20",
+                        "secondary-container": "#b8dffe",
+                        "on-surface-variant": "#3e4850",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#3c627d",
+                        "primary-fixed-dim": "#89ceff",
+                        "inverse-surface": "#2c3135",
+                        "background": "#f3f4f6",
+                        "surface-container-high": "#e4e8ee",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bec8d2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#c9e6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dee3e9",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline": "#6e7881",
+                        "on-background": "#171c20",
+                        "on-secondary-fixed": "#001e2f",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-tertiary-container": "#4d2b00",
+                        "surface-container": "#eaeef4",
+                        "inverse-primary": "#89ceff",
+                        "tertiary-container": "#de8712",
+                        "on-secondary-container": "#3d637d",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d6dae0",
+                        "primary": "#0EA5E9",
+                        "inverse-on-surface": "#edf1f7",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "tertiary": "#8a5100",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "surface-container-low": "#f0f4fa",
+                        "surface": "#f6faff",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "surface-tint": "#0EA5E9",
+                        "surface-container-highest": "#dee3e9",
+                        "primary-fixed": "#c9e6ff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#0ea5e9",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface-bright": "#f6faff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#001e2f",
+                        "on-primary-container": "#003751"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container_gap": "16px",
+                        "header_height": "56px",
+                        "content_padding": "24px",
+                        "base": "4px",
+                        "sidebar_width": "240px",
+                        "stack_gap": "8px"
+                    },
+                    "fontFamily": {
+                        "body": ["Inter"],
+                        "section-heading": ["Inter"],
+                        "page-title": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .material-symbols-outlined { font-size: 20px; vertical-align: middle; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+        .form-input { height: 36px; border: 1px solid #D1D5DB; border-radius: 4px; padding: 0 12px; font-size: 13px; width: 100%; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: #0ea5e9; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1); }
+        .form-label { display: block; font-size: 11px; font-weight: 600; color: #3e4850; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.025em; }
+        .card-container { background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .btn-primary { height: 36px; padding: 0 16px; background-color: #0EA5E9; color: white; font-weight: 600; border-radius: 4px; display: inline-flex; items-center; gap: 8px; font-size: 13px; transition: opacity 0.2s; cursor: pointer; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { height: 36px; padding: 0 16px; border: 1px solid #E5E7EB; color: #171c20; font-weight: 600; border-radius: 4px; font-size: 13px; transition: background 0.2s; cursor: pointer; }
+        .btn-secondary:hover { background-color: #f9fafb; }
+    </style>
+</head>
+<body class="text-on-surface antialiased overflow-hidden">
+<!-- TOP NAV BAR -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; Doctor Register</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SIDE NAV BAR -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- PAGE HEADER -->
+<header class="flex items-center justify-between mb-8">
+<div>
+<div class="flex items-center gap-3">
+<h1 class="font-page-title text-page-title text-on-surface">Doctor Register</h1>
+<span class="bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">New</span>
+</div>
+<p class="text-body text-on-surface-variant mt-1">On-call and visiting doctor consultation log for ongoing management.</p>
+</div>
+<button class="btn-primary">
+<span class="material-symbols-outlined">add</span>
+                New Consultation
+            </button>
+</header>
+<div class="grid grid-cols-12 gap-6">
+<!-- FORM COLUMN -->
+<div class="col-span-8 space-y-6">
+<!-- CARD 1: Patient & Visit Identity -->
+<section class="card-container">
+<div class="flex items-center gap-2 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">id_card</span>
+<h2 class="font-section-heading text-section-heading">Patient &amp; Visit Identity</h2>
+</div>
+<div class="grid grid-cols-2 gap-x-6 gap-y-4">
+<div>
+<label class="form-label">Serial No.</label>
+<input class="form-input bg-surface-container-low border-dashed cursor-not-allowed font-mono text-primary font-bold" readonly="" type="text" value="OHC-DR-2023-4492"/>
+</div>
+<div>
+<label class="form-label">Date <span class="text-error">*</span></label>
+<input class="form-input" type="date" value="2023-10-27"/>
+</div>
+<div>
+<label class="form-label">Time <span class="text-error">*</span></label>
+<input class="form-input" type="time" value="10:30"/>
+</div>
+<div class="relative">
+<label class="form-label">Patient Name <span class="text-error">*</span></label>
+<div class="relative">
+<input class="form-input pr-10" placeholder="Search by name or ID..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-outline">search</span>
+</div>
+</div>
+<div>
+<label class="form-label">Employee ID</label>
+<input class="form-input bg-surface-container-low border-dashed" readonly="" type="text" value="EMP-8829"/>
+</div>
+<div>
+<label class="form-label">Age <span class="text-error">*</span></label>
+<input class="form-input" placeholder="Enter age" type="number"/>
+</div>
+<div>
+<label class="form-label">Gender</label>
+<select class="form-input">
+<option>Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+<div>
+<label class="form-label">Building</label>
+<select class="form-input">
+<option>Select Location</option>
+<option>Block A - Main Tech</option>
+<option>Block B - Operations</option>
+<option>Block C - Support</option>
+</select>
+</div>
+<div>
+<label class="form-label">Shift</label>
+<select class="form-input">
+<option>Select Shift</option>
+<option>Shift A (06:00 - 14:00)</option>
+<option>Shift B (14:00 - 22:00)</option>
+<option>Shift C (22:00 - 06:00)</option>
+<option>Morning</option>
+<option>Evening</option>
+<option>Night</option>
+</select>
+</div>
+<div>
+<label class="form-label">Doctor Name</label>
+<select class="form-input">
+<option>Select Professional</option>
+<option>Dr. Sarah Jenkins</option>
+<option>Dr. Michael Chen</option>
+<option>Dr. Anita Verma</option>
+</select>
+</div>
+</div>
+</section>
+<!-- CARD 2: Clinical Details -->
+<section class="card-container">
+<div class="flex items-center gap-2 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">stethoscope</span>
+<h2 class="font-section-heading text-section-heading">Clinical Details</h2>
+</div>
+<div class="space-y-6">
+<div>
+<label class="form-label">Complaints / Ailments</label>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
+                                    Fever <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
+                                    Headache <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
+</span>
+<button class="text-primary text-[10px] font-bold border border-primary px-2 py-1 rounded hover:bg-primary-container transition-colors">+ ADD CHIP</button>
+</div>
+<textarea class="form-input h-24 py-2 resize-none" placeholder="Describe patient complaints in detail..."></textarea>
+</div>
+<div>
+<label class="form-label">Diagnosis <span class="text-error">*</span></label>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="Final clinical diagnosis..."></textarea>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-[10px] font-bold text-outline uppercase tracking-widest mb-4">Patient Vitals</p>
+<div class="grid grid-cols-5 gap-4">
+<div>
+<label class="form-label !text-[10px]">BP Systolic</label>
+<input class="form-input !bg-white" placeholder="mmHg" type="text"/>
+</div>
+<div>
+<label class="form-label !text-[10px]">BP Diastolic</label>
+<input class="form-input !bg-white" placeholder="mmHg" type="text"/>
+</div>
+<div>
+<label class="form-label !text-[10px]">Pulse</label>
+<input class="form-input !bg-white" placeholder="bpm" type="text"/>
+</div>
+<div>
+<label class="form-label !text-[10px]">SpO2</label>
+<input class="form-input !bg-white" placeholder="%" type="text"/>
+</div>
+<div>
+<label class="form-label !text-[10px]">Temperature</label>
+<input class="form-input !bg-white" placeholder="°F" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CARD 3: Treatment / Rx -->
+<section class="card-container">
+<div class="flex items-center gap-2 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">pill</span>
+<h2 class="font-section-heading text-section-heading">Treatment / Medicines Given</h2>
+</div>
+<div class="space-y-6">
+<div>
+<label class="form-label">Medicines Given</label>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface-variant px-2 py-1 rounded text-xs font-semibold">
+                                    Paracetamol 500mg <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
+</span>
+</div>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="Enter dosage details or other treatments..."></textarea>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="form-label">Dosage / Instructions</label>
+<input class="form-input" placeholder="e.g. Twice a day after meals" type="text"/>
+</div>
+<div class="flex items-end gap-4">
+<div class="flex-1">
+<label class="form-label">Prescription Linked</label>
+<div class="flex items-center h-[36px] gap-6">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary w-4 h-4" name="rx_linked" type="radio"/>
+<span class="text-body">Yes</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary w-4 h-4" name="rx_linked" type="radio"/>
+<span class="text-body">No</span>
+</label>
+</div>
+</div>
+<a class="text-primary font-semibold text-xs flex items-center gap-1 mb-2 hover:underline" href="#">
+<span class="material-symbols-outlined text-sm">link</span>
+                                    View Digital Rx
+                                </a>
+</div>
+</div>
+</div>
+</section>
+<!-- CARD 4: Outcome & Follow-up -->
+<section class="card-container">
+<div class="flex items-center gap-2 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">clinical_notes</span>
+<h2 class="font-section-heading text-section-heading">Outcome &amp; Follow-up</h2>
+</div>
+<div class="grid grid-cols-2 gap-x-6 gap-y-4">
+<div>
+<label class="form-label">Post-Visit Outcome</label>
+<select class="form-input">
+<option>Observation</option>
+<option>Returned to Work</option>
+<option>Sent Home</option>
+<option>Emergency Transfer</option>
+</select>
+</div>
+<div>
+<label class="form-label">Work Related</label>
+<select class="form-input">
+<option>No</option>
+<option>Yes - Incident</option>
+<option>Yes - Ergonomic</option>
+<option>Pending Investigation</option>
+</select>
+</div>
+<div>
+<label class="form-label">Referred to Hospital</label>
+<select class="form-input" id="referral_select" onchange="toggleHospital(this.value)">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select>
+</div>
+<div class="hidden" id="hospital_field">
+<label class="form-label">Hospital Name</label>
+<input class="form-input" placeholder="Specify facility" type="text"/>
+</div>
+<div>
+<label class="form-label">Follow-up Required</label>
+<select class="form-input" id="followup_select" onchange="toggleFollowup(this.value)">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select>
+</div>
+<div class="hidden" id="followup_date_field">
+<label class="form-label">Follow-up Date</label>
+<input class="form-input" type="date"/>
+</div>
+<div class="col-span-2">
+<label class="form-label">Remarks</label>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="Additional notes, clinician observations..."></textarea>
+</div>
+</div>
+</section>
+<!-- CARD 5: Signatures -->
+<section class="card-container">
+<div class="flex items-center gap-2 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">draw</span>
+<h2 class="font-section-heading text-section-heading">Signatures</h2>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="form-label">Doctor Signature</label>
+<input class="form-input border-b-2 border-t-0 border-x-0 rounded-none bg-surface-container-low px-0" placeholder="Dr. Full Name / Digital ID" type="text"/>
+</div>
+<div>
+<label class="form-label">Nurse / OHC Staff Sign</label>
+<input class="form-input border-b-2 border-t-0 border-x-0 rounded-none bg-surface-container-low px-0" placeholder="Staff Full Name" type="text"/>
+</div>
+</div>
+</section>
+<!-- FORM ACTIONS -->
+<div class="flex justify-end gap-3 pb-12">
+<button class="btn-secondary">Cancel</button>
+<button class="btn-primary px-8">Save Consultation</button>
+</div>
+</div>
+<!-- SUMMARY COLUMN -->
+<div class="col-span-4 space-y-6">
+<!-- KPI CARDS -->
+<section class="grid grid-cols-2 gap-4">
+<div class="card-container p-4 !py-6 flex flex-col items-center justify-center text-center">
+<span class="text-label-sm text-on-surface-variant font-bold uppercase tracking-wider mb-2">Total Logged</span>
+<div class="text-[32px] font-extrabold text-primary leading-none">1,248</div>
+<div class="text-[10px] text-teal-600 font-bold mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +12% this month
+                        </div>
+</div>
+<div class="card-container p-4 !py-6 flex flex-col items-center justify-center text-center">
+<span class="text-label-sm text-on-surface-variant font-bold uppercase tracking-wider mb-2">Male Count</span>
+<div class="text-[32px] font-extrabold text-on-surface leading-none">842</div>
+<div class="text-[10px] text-on-surface-variant mt-2">67% of total</div>
+</div>
+<div class="card-container p-4 !py-6 flex flex-col items-center justify-center text-center">
+<span class="text-label-sm text-on-surface-variant font-bold uppercase tracking-wider mb-2">Female Count</span>
+<div class="text-[32px] font-extrabold text-on-surface leading-none">406</div>
+<div class="text-[10px] text-on-surface-variant mt-2">33% of total</div>
+</div>
+<div class="card-container p-4 !py-6 flex flex-col items-center justify-center text-center border-l-4 border-l-tertiary">
+<span class="text-label-sm text-on-surface-variant font-bold uppercase tracking-wider mb-2">Work Related</span>
+<div class="text-[32px] font-extrabold text-tertiary leading-none">124</div>
+<div class="text-[10px] text-error font-bold mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span> High priority
+                        </div>
+</div>
+</section>
+<!-- CHART CARD -->
+<section class="card-container">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-section-heading text-section-heading">Top Complaints</h2>
+<p class="text-[11px] text-on-surface-variant">Current monthly analytics</p>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer">more_vert</span>
+</div>
+<div class="space-y-5">
+<div class="space-y-1">
+<div class="flex justify-between text-body mb-1">
+<span class="font-medium">Fever &amp; Flu</span>
+<span class="font-bold">428</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body mb-1">
+<span class="font-medium">Headache / Migraine</span>
+<span class="font-bold">312</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body mb-1">
+<span class="font-medium">Ergonomic Pain</span>
+<span class="font-bold">185</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body mb-1">
+<span class="font-medium">Eye Strain</span>
+<span class="font-bold">124</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body mb-1">
+<span class="font-medium">Allergies</span>
+<span class="font-bold">92</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 22%"></div>
+</div>
+</div>
+</div>
+<div class="mt-10 pt-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">summarize</span>
+</div>
+<div>
+<p class="text-label-sm font-bold">Monthly Report</p>
+<p class="text-[11px] text-on-surface-variant">Last updated 10m ago</p>
+</div>
+<button class="ml-auto text-primary font-bold text-[11px] hover:underline">DOWNLOAD</button>
+</div>
+</div>
+</section>
+<!-- ILLU / ADS CARD -->
+<section class="card-container bg-gradient-to-br from-primary-fixed to-secondary-fixed border-none relative overflow-hidden h-[240px]">
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="bg-white/30 backdrop-blur-md self-start px-2 py-1 rounded text-[10px] font-bold text-on-primary-fixed-variant mb-4">INSIGHT</div>
+<h3 class="text-on-primary-fixed font-bold text-lg leading-tight mb-2">Flu Season Warning</h3>
+<p class="text-on-primary-fixed-variant text-body">There's been a 20% spike in viral symptoms in Block A. Recommend sanitization drive.</p>
+<div class="mt-auto">
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg">VIEW HEATMAP</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleHospital(val) {
+            const field = document.getElementById('hospital_field');
+            if(val === 'Yes') {
+                field.classList.remove('hidden');
+            } else {
+                field.classList.add('hidden');
+            }
+        }
+
+        function toggleFollowup(val) {
+            const field = document.getElementById('followup_date_field');
+            if(val === 'Yes') {
+                field.classList.remove('hidden');
+            } else {
+                field.classList.add('hidden');
+            }
+        }
+
+        // Initialize state
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleHospital(document.getElementById('referral_select').value);
+            toggleFollowup(document.getElementById('followup_select').value);
+        });
+    </script>
+</body></html>

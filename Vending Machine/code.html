@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vending Machine Register | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c9e6ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-background": "#141b2b",
+                    "surface-dim": "#d3daef",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-on-surface": "#edf0ff",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9ff",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#d88a00",
+                    "primary-container": "#0ea5e9",
+                    "on-primary-container": "#003751",
+                    "inverse-primary": "#89ceff",
+                    "surface-variant": "#dce2f7",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#6e7881",
+                    "primary-fixed-dim": "#89ceff",
+                    "tertiary": "#855300",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#dce2f7",
+                    "secondary": "#006c49",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-high": "#e1e8fd",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-tint": "#0EA5E9",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f9f9ff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#4a2c00",
+                    "primary": "#0EA5E9",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#e9edff",
+                    "on-secondary-fixed": "#002113",
+                    "surface-bright": "#f9f9ff",
+                    "inverse-surface": "#293040",
+                    "secondary-container": "#6cf8bb",
+                    "surface-container-low": "#f1f3ff",
+                    "on-surface-variant": "#3e4850",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-primary-fixed": "#001e2f",
+                    "outline-variant": "#bec8d2",
+                    "on-surface": "#141b2b",
+                    "on-secondary-container": "#00714d",
+                    "ohc-primary-accent": "#0EA5E9",
+                    "ohc-primary-light": "#E0F2FE"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gap-xs": "4px",
+                    "container-padding": "24px",
+                    "gap-md": "16px",
+                    "gap-sm": "8px",
+                    "sidebar-width": "240px",
+                    "base-unit": "4px",
+                    "header-height": "56px",
+                    "gap-lg": "24px"
+            },
+            "fontFamily": {
+                    "section-heading": ["Inter"],
+                    "body": ["Inter"],
+                    "metadata": ["Inter"],
+                    "page-title-mobile": ["Inter"],
+                    "page-title": ["Inter"],
+                    "label": ["Inter"]
+            },
+            "fontSize": {
+                    "section-heading": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "body": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "metadata": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                    "page-title-mobile": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "page-title": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "label": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+        .itc-button { background-color: #0EA5E9; }
+        .itc-button:hover { background-color: #0284c7; }
+        .itc-border-accent { border-left: 4px solid #0EA5E9; }
+    </style>
+</head>
+<body class="font-body text-on-surface" style="background-color:#F3F4F6;">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Pharmacy &gt; Vending Machine</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Breadcrumb & Page Header -->
+<div class="mb-gap-lg flex flex-col md:flex-row md:items-center md:justify-between gap-md">
+<div>
+<nav class="flex items-center gap-xs text-metadata text-on-surface-variant mb-1">
+<span>OHC Platform</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-secondary font-medium">Vending Machine</span>
+</nav>
+<h1 class="text-page-title font-page-title text-on-surface">Vending Machine Register</h1>
+<p class="text-body text-on-surface-variant">Sanitary product vending machine stock log per shift</p>
+</div>
+<button class="itc-button text-white px-lg py-2 rounded-xl text-label font-bold flex items-center gap-sm shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                Log Entry
+            </button>
+</div>
+<!-- Machine Status Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-gap-lg">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md itc-border-accent shadow-sm">
+<div class="flex justify-between items-start mb-gap-sm">
+<div class="flex flex-col">
+<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+<span class="text-section-heading font-section-heading">Floor 1 - VM01</span>
+</div>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-bold rounded-full border border-secondary/20 uppercase">OK</span>
+</div>
+<div class="grid grid-cols-2 gap-md mt-4">
+<div>
+<p class="text-metadata text-on-surface-variant">Current Stock</p>
+<p class="text-page-title font-page-title text-secondary">42 units</p>
+</div>
+<div class="text-right">
+<p class="text-metadata text-on-surface-variant">Last Check</p>
+<p class="text-body font-medium">24 Oct 2023</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-tertiary shadow-sm">
+<div class="flex justify-between items-start mb-gap-sm">
+<div class="flex flex-col">
+<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+<span class="text-section-heading font-section-heading">Floor 2 - VM02</span>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded-full border border-tertiary/20 uppercase">Low Stock</span>
+</div>
+<div class="grid grid-cols-2 gap-md mt-4">
+<div>
+<p class="text-metadata text-on-surface-variant">Current Stock</p>
+<p class="text-page-title font-page-title text-tertiary">12 units</p>
+</div>
+<div class="text-right">
+<p class="text-metadata text-on-surface-variant">Last Check</p>
+<p class="text-body font-medium">24 Oct 2023</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-error shadow-sm">
+<div class="flex justify-between items-start mb-gap-sm">
+<div class="flex flex-col">
+<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+<span class="text-section-heading font-section-heading">Floor 3 - VM03</span>
+</div>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[11px] font-bold rounded-full border border-error/20 uppercase">Empty</span>
+</div>
+<div class="grid grid-cols-2 gap-md mt-4">
+<div>
+<p class="text-metadata text-on-surface-variant">Current Stock</p>
+<p class="text-page-title font-page-title text-error">0 units</p>
+</div>
+<div class="text-right">
+<p class="text-metadata text-on-surface-variant">Last Check</p>
+<p class="text-body font-medium">23 Oct 2023</p>
+</div>
+</div>
+</div>
+</section>
+<!-- New Log Entry Form -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm mb-gap-lg overflow-hidden">
+<div class="px-container-padding py-gap-md border-b border-outline-variant bg-surface-container-low flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">edit_note</span>
+<h2 class="text-section-heading font-section-heading">Log Vending Machine Stock</h2>
+</div>
+<form class="p-container-padding space-y-gap-lg" onsubmit="event.preventDefault();">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Row 1 -->
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Date <span class="text-error">*</span></label>
+<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" type="date" value="2023-10-25"/>
+</div>
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Machine ID / Location <span class="text-error">*</span></label>
+<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
+<option>Floor 1 - VM01</option>
+<option>Floor 2 - VM02</option>
+<option>Floor 3 - VM03</option>
+</select>
+</div>
+<!-- Row 2 -->
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Item Type <span class="text-error">*</span></label>
+<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
+<option>Sanitary Pad</option>
+<option>Other</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Opening Machine Stock <span class="text-error">*</span></label>
+<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" id="opening-stock" placeholder="Enter amount" type="number"/>
+</div>
+<!-- Row 3 -->
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Stock Used / Dispensed <span class="text-error">*</span></label>
+<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" id="used-stock" placeholder="Enter amount" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant">Closing Machine Stock (Auto-calc)</label>
+<input class="w-full rounded border-outline-variant bg-surface-container-low text-on-surface-variant text-body p-2 cursor-not-allowed" placeholder="Calculated value" readonly="" type="number"/>
+</div>
+<!-- Row 4 -->
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant">Restocked Quantity (Optional)</label>
+<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" placeholder="Enter amount" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Floor OHC Staff Name <span class="text-error">*</span></label>
+<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
+<option>Sarah M.</option>
+<option>James W.</option>
+<option>Rahul S.</option>
+</select>
+</div>
+<!-- Row 5 -->
+<div class="space-y-1">
+<label class="text-label font-bold text-on-surface-variant">Security Sign</label>
+<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" placeholder="Security officer initials" type="text"/>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="text-label font-bold text-on-surface-variant">Remarks</label>
+<textarea class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 h-20" placeholder="Additional notes..."></textarea>
+</div>
+</div>
+<div class="flex justify-end gap-md pt-4 border-t border-outline-variant">
+<button class="px-lg py-2 border border-outline-variant text-on-surface-variant rounded-xl text-label font-bold hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+<button class="itc-button text-white px-lg py-2 rounded-xl text-label font-bold shadow-md active:scale-95 transition-all" type="submit">Save Entry</button>
+</div>
+</form>
+</section>
+<!-- Log History Table -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="px-container-padding py-gap-md border-b border-outline-variant bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-md">
+<h2 class="text-section-heading font-section-heading">Log History</h2>
+<div class="flex flex-wrap gap-sm">
+<div class="relative">
+<select class="pl-8 pr-4 py-1.5 rounded-lg border-outline-variant text-metadata bg-white focus:ring-primary">
+<option>All Machines</option>
+<option>Floor 1</option>
+<option>Floor 2</option>
+</select>
+<span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">filter_list</span>
+</div>
+<div class="relative">
+<input class="pl-8 pr-4 py-1.5 rounded-lg border-outline-variant text-metadata bg-white focus:ring-primary w-44" placeholder="Select Date Range" type="text"/>
+<span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">calendar_today</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant">
+<th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider">Date</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Machine</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Item Type</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Opening</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Used</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Closing</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Restocked</th>
+<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Staff Name</th>
+<th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-container-padding py-3 whitespace-nowrap">24 Oct 2023</td>
+<td class="px-4 py-3 font-medium">Floor 1 - VM01</td>
+<td class="px-4 py-3">Sanitary Pad</td>
+<td class="px-4 py-3">45</td>
+<td class="px-4 py-3 text-error font-medium">3</td>
+<td class="px-4 py-3 font-bold">42</td>
+<td class="px-4 py-3">0</td>
+<td class="px-4 py-3">Sarah M.</td>
+<td class="px-container-padding py-3 text-right">
+<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="px-container-padding py-3 whitespace-nowrap">24 Oct 2023</td>
+<td class="px-4 py-3 font-medium">Floor 2 - VM02</td>
+<td class="px-4 py-3">Sanitary Pad</td>
+<td class="px-4 py-3">15</td>
+<td class="px-4 py-3 text-error font-medium">3</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5 font-bold">
+                                    12
+                                    <span class="px-1.5 py-0.5 bg-tertiary-fixed text-[10px] rounded uppercase font-bold text-on-tertiary-fixed">Low</span>
+</div>
+</td>
+<td class="px-4 py-3">0</td>
+<td class="px-4 py-3">James W.</td>
+<td class="px-container-padding py-3 text-right">
+<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-container-padding py-3 whitespace-nowrap">23 Oct 2023</td>
+<td class="px-4 py-3 font-medium">Floor 3 - VM03</td>
+<td class="px-4 py-3">Sanitary Pad</td>
+<td class="px-4 py-3">5</td>
+<td class="px-4 py-3 text-error font-medium">5</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5 font-bold text-error">
+                                    0
+                                    <span class="px-1.5 py-0.5 bg-error-container text-[10px] rounded uppercase font-bold text-on-error-container">Empty</span>
+</div>
+</td>
+<td class="px-4 py-3 text-secondary font-bold">+20</td>
+<td class="px-4 py-3">Rahul S.</td>
+<td class="px-container-padding py-3 text-right">
+<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-container-padding py-3 border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<span class="text-metadata text-on-surface-variant">Showing 3 of 124 logs</span>
+<div class="flex gap-1">
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-1 px-3 rounded bg-secondary text-white text-metadata font-bold">1</button>
+<button class="p-1 px-3 rounded hover:bg-surface-variant text-on-surface-variant text-metadata">2</button>
+<button class="p-1 px-3 rounded hover:bg-surface-variant text-on-surface-variant text-metadata">3</button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</section>
+<!-- Interactive Section: Data Trends (Bento Style) -->
+<section class="mt-gap-lg grid grid-cols-1 md:grid-cols-4 gap-lg">
+<div class="md:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md shadow-sm">
+<h3 class="text-section-heading font-section-heading mb-gap-md">Dispensation Trends (7 Days)</h3>
+<div class="h-40 flex items-end justify-between gap-4 px-4 pb-2">
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 65%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">12</div>
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">MON</div>
+</div>
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 45%;">
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">TUE</div>
+</div>
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 85%;">
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">WED</div>
+</div>
+<div class="w-full bg-ohc-primary-accent rounded-t relative group" style="height: 95%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">18</div>
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">THU</div>
+</div>
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 55%;">
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">FRI</div>
+</div>
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 30%;">
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SAT</div>
+</div>
+<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 20%;">
+<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SUN</div>
+</div>
+</div>
+</div>
+<div class="bg-[#0EA5E9] text-white rounded-xl p-gap-md shadow-sm flex flex-col justify-between">
+<div>
+<h3 class="text-label font-bold uppercase tracking-wider opacity-80">Total Usage (Oct)</h3>
+<p class="text-[32px] font-extrabold leading-none mt-2">1,248</p>
+<p class="text-metadata mt-1 opacity-90">+12% vs last month</p>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-surface-variant flex items-center justify-center text-on-surface text-[10px] font-bold">SM</div>
+<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-primary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">JW</div>
+<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-tertiary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">RS</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Micro-interaction for auto-calculation
+        const openingStock = document.getElementById('opening-stock');
+        const usedStock = document.getElementById('used-stock');
+        const closingStock = document.querySelector('input[readonly]');
+
+        function updateClosingStock() {
+            const openVal = parseInt(openingStock.value) || 0;
+            const usedVal = parseInt(usedStock.value) || 0;
+            const result = openVal - usedVal;
+            closingStock.value = result >= 0 ? result : 0;
+            
+            if(result < 0) {
+                closingStock.classList.add('text-error');
+            } else {
+                closingStock.classList.remove('text-error');
+            }
+        }
+
+        openingStock.addEventListener('input', updateClosingStock);
+        usedStock.addEventListener('input', updateClosingStock);
+    </script>
+</body></html>

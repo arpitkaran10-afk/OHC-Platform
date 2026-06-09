@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Invoice Tracker | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "ohc-accent": "#0EA5E9",
+                        "on-primary-fixed": "#001e2f",
+                        "secondary-fixed": "#c9e6ff",
+                        "outline": "#6e7881",
+                        "surface": "#f6faff",
+                        "background": "#f6faff",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "inverse-primary": "#89ceff",
+                        "outline-variant": "#bec8d2",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e4e8ee",
+                        "secondary-container": "#b8dffe",
+                        "on-tertiary-container": "#4d2b00",
+                        "surface-container-low": "#f0f4fa",
+                        "surface-container-highest": "#dee3e9",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "surface-bright": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-secondary-fixed": "#001e2f",
+                        "on-primary-container": "#003751",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#edf1f7",
+                        "primary-fixed": "#c9e6ff",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#dee3e9",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-secondary-container": "#3d637d",
+                        "on-background": "#171c20",
+                        "surface-container": "#eaeef4",
+                        "primary-fixed-dim": "#89ceff",
+                        "secondary": "#3c627d",
+                        "primary-container": "#0ea5e9",
+                        "primary": "#0EA5E9",
+                        "inverse-surface": "#2c3135",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "tertiary": "#8a5100",
+                        "surface-dim": "#d6dae0",
+                        "tertiary-container": "#de8712",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-tint": "#0EA5E9",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#171c20",
+                        "on-surface-variant": "#3e4850"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "content_padding": "24px",
+                        "header_height": "56px",
+                        "stack_gap": "8px",
+                        "container_gap": "16px",
+                        "sidebar_width": "240px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "page-title": ["Inter"],
+                        "body": ["Inter"],
+                        "section-heading": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+        .invoice-overdue-row { background-color: #FEF2F2 !important; }
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Invoice Tracker</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-container_gap">
+<div>
+<h2 class="font-page-title text-page-title text-on-surface">Invoice Tracker</h2>
+<p class="font-body text-body text-on-surface-variant mt-1">Finance role. Log and track OHC-related invoices and payment status.</p>
+</div>
+<button class="h-[36px] px-6 bg-ohc-accent text-white rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity font-semibold shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                Add Invoice
+            </button>
+</div>
+<!-- KPI Summary Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-container_gap mb-8">
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-cyan-500 flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Invoices (Month)</span>
+<span class="text-3xl font-bold text-on-surface">142</span>
+<span class="text-xs text-green-600 font-medium flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-xs">trending_up</span> +12% vs last month
+                </span>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-ohc-accent flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Amount (₹)</span>
+<span class="text-3xl font-bold text-on-surface">12,45,200</span>
+<span class="text-xs text-on-surface-variant font-medium mt-1">Current Billing Cycle</span>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-green-500 flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Paid Amount (₹)</span>
+<span class="text-3xl font-bold text-on-surface">9,80,000</span>
+<span class="text-xs text-on-surface-variant font-medium mt-1">78% Collection Efficiency</span>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-error flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Pending / Overdue</span>
+<span class="text-3xl font-bold text-error">2,65,200</span>
+<span class="text-xs text-error font-medium flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-xs">warning</span> 14 Invoices Overdue
+                </span>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-container_gap">
+<!-- Form Card: New Invoice Entry -->
+<section class="xl:col-span-1 bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<div class="px-5 py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<h3 class="font-section-heading text-section-heading">New Invoice Entry</h3>
+<span class="material-symbols-outlined text-ohc-accent">description</span>
+</div>
+<div class="p-5">
+<form class="flex flex-col gap-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Number</label>
+<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="e.g. INV-9902" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Category</label>
+<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white">
+<option>OHC Service Charge</option>
+<option>BMW Charges</option>
+<option>Equipment Lease</option>
+<option>Medicine Procurement</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Vendor / Party</label>
+<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="Search Vendor..." type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Building / Site</label>
+<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white">
+<option>Allianz HQ (Trivandrum)</option>
+<option>Phase 2 Office (Pune)</option>
+<option>Global Center (Gurgaon)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Date</label>
+<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Amount (₹)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">₹</span>
+<input class="pl-7 h-[36px] w-full border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Due Date</label>
+<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Payment Status</label>
+<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white" id="payment-status-select">
+<option value="Pending">Pending</option>
+<option value="Paid">Paid</option>
+<option value="Overdue">Overdue</option>
+</select>
+</div>
+<!-- Conditional Field -->
+<div class="hidden flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1" id="payment-date-field">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Payment Date</label>
+<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Document (Upload)</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-3xl text-outline">upload_file</span>
+<span class="text-xs text-on-surface-variant text-center">Click to upload or drag and drop PDF, PNG, JPG (Max 5MB)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Remarks</label>
+<textarea class="border border-outline-variant rounded p-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="Enter any specific notes..." rows="3"></textarea>
+</div>
+<div class="flex gap-3 pt-2">
+<button class="flex-1 h-[36px] border border-outline-variant rounded text-on-surface-variant font-semibold hover:bg-surface-container-low transition-colors" type="button">Discard</button>
+<button class="flex-1 h-[36px] bg-ohc-accent text-white rounded font-semibold hover:opacity-90 transition-opacity" type="submit">Submit Invoice</button>
+</div>
+</form>
+</div>
+</section>
+<!-- Section Card: Invoice List -->
+<section class="xl:col-span-2 bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden flex flex-col">
+<div class="px-5 py-4 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-container-low gap-3">
+<h3 class="font-section-heading text-section-heading">Invoice List</h3>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
+<select class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[100px]">
+<option>All Status</option>
+<option>Paid</option>
+<option>Pending</option>
+<option>Overdue</option>
+</select>
+<select class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[100px]">
+<option>All Categories</option>
+<option>Service Charge</option>
+<option>Medicine</option>
+</select>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant">search</span>
+<input class="pl-7 h-[32px] text-[12px] border border-outline-variant rounded px-2 outline-none w-[140px]" placeholder="Search..." type="text"/>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Invoice No.</th>
+<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Category</th>
+<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
+<th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Amount (₹)</th>
+<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Due Date</th>
+<th class="px-4 py-3 text-center font-label-sm text-label-sm text-on-surface-variant">Status</th>
+<th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Overdue Row -->
+<tr class="invoice-overdue-row hover:brightness-95 transition-all">
+<td class="px-4 py-3 font-body text-body font-bold">INV-9821</td>
+<td class="px-4 py-3 font-body text-body">BMW Charges</td>
+<td class="px-4 py-3 font-body text-body">CleanWave Ltd.</td>
+<td class="px-4 py-3 font-body text-body text-right">45,000</td>
+<td class="px-4 py-3 font-body text-body">12 Oct 2023</td>
+<td class="px-4 py-3 text-center">
+<div class="flex flex-col items-center gap-1">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container rounded text-[10px] font-bold uppercase tracking-tight">Overdue</span>
+<span class="text-[9px] text-error font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]">priority_high</span> 32 Days Past
+                                        </span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 hover:bg-white rounded transition-colors text-on-surface-variant" title="View"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors text-ohc-accent" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+</div>
+</td>
+</tr>
+<tr class="bg-white hover:bg-surface-container transition-all">
+<td class="px-4 py-3 font-body text-body font-bold">INV-9901</td>
+<td class="px-4 py-3 font-body text-body">OHC Service</td>
+<td class="px-4 py-3 font-body text-body">MediCore Solutions</td>
+<td class="px-4 py-3 font-body text-body text-right">2,10,000</td>
+<td class="px-4 py-3 font-body text-body">25 Nov 2023</td>
+<td class="px-4 py-3 text-center">
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase tracking-tight">Paid</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container transition-all">
+<td class="px-4 py-3 font-body text-body font-bold">INV-9912</td>
+<td class="px-4 py-3 font-body text-body">Equipment Lease</td>
+<td class="px-4 py-3 font-body text-body">Precision Medical</td>
+<td class="px-4 py-3 font-body text-body text-right">82,400</td>
+<td class="px-4 py-3 font-body text-body">05 Dec 2023</td>
+<td class="px-4 py-3 text-center">
+<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
+</div>
+</td>
+</tr>
+<tr class="bg-white hover:bg-surface-container transition-all">
+<td class="px-4 py-3 font-body text-body font-bold">INV-9915</td>
+<td class="px-4 py-3 font-body text-body">OHC Service</td>
+<td class="px-4 py-3 font-body text-body">MediCore Solutions</td>
+<td class="px-4 py-3 font-body text-body text-right">1,45,000</td>
+<td class="px-4 py-3 font-body text-body">15 Dec 2023</td>
+<td class="px-4 py-3 text-center">
+<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container transition-all">
+<td class="px-4 py-3 font-body text-body font-bold">INV-9920</td>
+<td class="px-4 py-3 font-body text-body">Medicine Proc.</td>
+<td class="px-4 py-3 font-body text-body">PharmaLink Dist.</td>
+<td class="px-4 py-3 font-body text-body text-right">12,500</td>
+<td class="px-4 py-3 font-body text-body">20 Dec 2023</td>
+<td class="px-4 py-3 text-center">
+<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-auto px-5 py-3 border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+<span class="text-label-sm text-on-surface-variant">Showing 1-5 of 142 invoices</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded hover:bg-surface-container-highest transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="px-3 py-1 bg-ohc-accent text-white rounded text-xs font-bold">1</span>
+<button class="px-3 py-1 hover:bg-surface-container-highest rounded text-xs font-medium">2</button>
+<button class="px-3 py-1 hover:bg-surface-container-highest rounded text-xs font-medium">3</button>
+<button class="p-1 rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Atmospheric Script for Micro-interactions -->
+<script>
+            // Conditional Logic for Payment Date Field
+            const statusSelect = document.getElementById('payment-status-select');
+            const paymentDateField = document.getElementById('payment-date-field');
+
+            statusSelect.addEventListener('change', (e) => {
+                if (e.target.value === 'Paid') {
+                    paymentDateField.classList.remove('hidden');
+                } else {
+                    paymentDateField.classList.add('hidden');
+                }
+            });
+
+            // Smooth Hover Effects for Rows
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.transform = 'translateX(2px)';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.transform = 'translateX(0px)';
+                });
+                row.style.transition = 'all 0.15s ease-out';
+            });
+        </script>
+</div>
+</main>
+</body></html>
