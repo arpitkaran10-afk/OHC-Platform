@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinicians Module - OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Tab transitions */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#693c00",
+                      "surface": "#f6faff",
+                      "secondary-fixed": "#c9e6ff",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d6dae0",
+                      "primary": "#0EA5E9",
+                      "on-background": "#171c20",
+                      "surface-container-high": "#e4e8ee",
+                      "outline": "#6e7881",
+                      "error": "#ba1a1a",
+                      "tertiary": "#8a5100",
+                      "surface-bright": "#f6faff",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#0ea5e9",
+                      "on-primary-container": "#003751",
+                      "primary-fixed": "#c9e6ff",
+                      "outline-variant": "#bec8d2",
+                      "tertiary-fixed": "#ffdcbd",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#001e2f",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#dee3e9",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#2c1600",
+                      "on-secondary-container": "#3d637d",
+                      "inverse-on-surface": "#edf1f7",
+                      "on-surface-variant": "#3e4850",
+                      "on-secondary-fixed": "#001e2f",
+                      "secondary": "#3c627d",
+                      "tertiary-fixed-dim": "#ffb86e",
+                      "inverse-surface": "#2c3135",
+                      "surface-tint": "#0EA5E9",
+                      "surface-container-low": "#f0f4fa",
+                      "surface-container": "#eaeef4",
+                      "tertiary-container": "#de8712",
+                      "secondary-container": "#b8dffe",
+                      "on-secondary-fixed-variant": "#234b64",
+                      "on-tertiary-container": "#4d2b00",
+                      "primary-fixed-dim": "#89ceff",
+                      "surface-container-highest": "#dee3e9",
+                      "background": "#f6faff",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#89ceff",
+                      "on-primary-fixed-variant": "#004c6e",
+                      "secondary-fixed-dim": "#a5cbe9",
+                      "on-surface": "#171c20"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "content_padding": "24px",
+                      "container_gap": "16px",
+                      "header_height": "56px",
+                      "base": "4px",
+                      "sidebar_width": "240px",
+                      "stack_gap": "8px"
+              },
+              "fontFamily": {
+                      "section-heading": ["Inter"],
+                      "page-title": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body": ["Inter"]
+              },
+              "fontSize": {
+                      "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="text-on-surface" style="background-color:#F3F4F6;">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Clinicians</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+<div>
+<h1 class="text-page-title font-page-title text-on-surface">Clinicians</h1>
+<p class="text-body font-body text-on-surface-variant">Staff roster, attendance, reliever deployment, and shift handover</p>
+</div>
+<button class="h-[36px] bg-primary-container text-on-primary-container px-4 rounded font-semibold text-body flex items-center gap-2 hover:opacity-90 transition-opacity" onclick="openModal()">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Add Staff
+            </button>
+</div>
+<!-- Tab System -->
+<div class="mb-6 border-b border-outline-variant">
+<div class="flex gap-8 overflow-x-auto hide-scrollbar">
+<button class="tab-btn px-1 py-3 border-b-2 border-primary text-primary font-bold text-label-sm whitespace-nowrap" id="tab-staff-master" onclick="switchTab('staff-master')">Staff Master</button>
+<button class="tab-btn px-1 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-semibold text-label-sm whitespace-nowrap" id="tab-attendance" onclick="switchTab('attendance')">Daily Attendance</button>
+<button class="tab-btn px-1 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-semibold text-label-sm whitespace-nowrap" id="tab-deployment" onclick="switchTab('deployment')">Reliever Deployment</button>
+<button class="tab-btn px-1 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-semibold text-label-sm whitespace-nowrap" id="tab-handover" onclick="switchTab('handover')">Duty Handover</button>
+</div>
+</div>
+<!-- Tab 1: Staff Master -->
+<section class="tab-content active space-y-4" id="content-staff-master">
+<!-- Filter Bar -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase">Search Staff</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[18px]">search</span>
+<input class="w-full h-[36px] pl-9 pr-3 rounded border border-outline-variant text-body focus:border-primary focus:ring-0" placeholder="By name or ID" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase">Designation</label>
+<select class="w-full h-[36px] px-3 rounded border border-outline-variant text-body focus:border-primary focus:ring-0">
+<option>All Designations</option>
+<option>Nursing Team Lead</option>
+<option>Staff Nurse</option>
+<option>Reliever</option>
+<option>Doctor</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase">Building</label>
+<select class="w-full h-[36px] px-3 rounded border border-outline-variant text-body focus:border-primary focus:ring-0">
+<option>All Buildings</option>
+<option>Block A</option>
+<option>Block B</option>
+<option>Main OHC</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase">Status</label>
+<select class="w-full h-[36px] px-3 rounded border border-outline-variant text-body focus:border-primary focus:ring-0">
+<option>Active</option>
+<option>Not Active</option>
+</select>
+</div>
+</div>
+<!-- Table Card -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant">Staff Name</th>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant">Designation</th>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant">Type</th>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant">Building Assignment</th>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant">Status</th>
+<th class="p-3 text-label-sm font-label-sm uppercase text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="p-3 text-body font-semibold">Sarah Jenkins</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold">Nursing Team Lead</span>
+</td>
+<td class="p-3 text-body">Permanent</td>
+<td class="p-3 text-body">Main OHC, Block A</td>
+<td class="p-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="p-3 text-body font-semibold">Mark Thompson</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">Reliever</span>
+</td>
+<td class="p-3 text-body">Contractual</td>
+<td class="p-3 text-body">Block B</td>
+<td class="p-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-3 text-body font-semibold">Dr. Amelia Vance</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">Doctor</span>
+</td>
+<td class="p-3 text-body">Consultant</td>
+<td class="p-3 text-body">All Buildings</td>
+<td class="p-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="p-3 text-body font-semibold">Robert Chen</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 text-[10px] font-bold">Staff Nurse</span>
+</td>
+<td class="p-3 text-body">Permanent</td>
+<td class="p-3 text-body">Block A</td>
+<td class="p-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-bold uppercase border border-slate-200">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                        Not Active
+                                    </span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Tab 2: Daily Attendance -->
+<section class="tab-content space-y-6" id="content-attendance">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Attendance Form -->
+<div class="lg:col-span-1 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant">
+<h3 class="text-section-heading font-section-heading mb-4 text-primary">Log Attendance</h3>
+<form class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Date</label>
+<input class="h-[36px] rounded border border-outline-variant text-body focus:ring-0" type="date" value="2023-10-27"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Shift</label>
+<select class="h-[36px] rounded border border-outline-variant text-body">
+<option>Morning (06:00-14:00)</option>
+<option>General (09:00-18:00)</option>
+<option>Night (22:00-06:00)</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Staff Member</label>
+<select class="h-[36px] rounded border border-outline-variant text-body">
+<option>Select Staff...</option>
+<option>Sarah Jenkins</option>
+<option>Mark Thompson</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">In Time</label>
+<input class="h-[36px] rounded border border-outline-variant text-body focus:ring-0" type="time"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Out Time</label>
+<input class="h-[36px] rounded border border-outline-variant text-body focus:ring-0" type="time"/>
+</div>
+</div>
+<button class="w-full bg-primary text-white h-[36px] rounded font-semibold text-body hover:bg-on-primary-fixed-variant transition-colors mt-2">
+                            Record Attendance
+                        </button>
+</form>
+</div>
+<!-- Today's Log -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<div class="p-4 bg-surface-container-low flex justify-between items-center border-b border-outline-variant">
+<h3 class="text-section-heading font-section-heading">Today's Attendance Log</h3>
+<span class="text-label-sm text-on-surface-variant">Oct 27, 2023</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="p-3 text-label-sm uppercase text-on-surface-variant">Staff Name</th>
+<th class="p-3 text-label-sm uppercase text-on-surface-variant">Shift</th>
+<th class="p-3 text-label-sm uppercase text-on-surface-variant">In/Out</th>
+<th class="p-3 text-label-sm uppercase text-on-surface-variant">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="p-3 text-body">Sarah Jenkins</td>
+<td class="p-3 text-body">Morning</td>
+<td class="p-3 text-body">05:55 / 14:05</td>
+<td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">ON TIME</span></td>
+</tr>
+<tr class="bg-surface-container-low/20">
+<td class="p-3 text-body">Robert Chen</td>
+<td class="p-3 text-body">General</td>
+<td class="p-3 text-body">09:15 / --</td>
+<td class="p-3"><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold uppercase">Late (15m)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Tab 3: Reliever Deployment -->
+<section class="tab-content space-y-6" id="content-deployment">
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant">
+<h3 class="text-section-heading font-section-heading mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shuffle</span>
+                    New Reliever Assignment
+                </h3>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Shift Date</label>
+<input class="h-[36px] rounded border border-outline-variant text-body" type="date"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Regular Staff Absent</label>
+<select class="h-[36px] rounded border border-outline-variant text-body">
+<option>Search staff...</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Reliever Deployed</label>
+<select class="h-[36px] rounded border border-outline-variant text-body">
+<option>Search relievers...</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Building Covered</label>
+<select class="h-[36px] rounded border border-outline-variant text-body">
+<option>Select Building</option>
+</select>
+</div>
+<button class="bg-primary text-white h-[36px] rounded font-semibold text-body hover:bg-on-primary-fixed-variant transition-colors">
+                        Deploy Reliever
+                    </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low font-bold text-on-surface-variant text-label-sm uppercase">Recent Deployment Logs</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low/30">
+<tr>
+<th class="p-3 text-label-sm text-on-surface-variant">Date</th>
+<th class="p-3 text-label-sm text-on-surface-variant">Absent Staff</th>
+<th class="p-3 text-label-sm text-on-surface-variant">Reliever</th>
+<th class="p-3 text-label-sm text-on-surface-variant">Building</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="p-3 text-body">Oct 26, 2023</td>
+<td class="p-3 text-body font-semibold">Sarah Jenkins</td>
+<td class="p-3 text-body text-primary font-semibold">Mark Thompson</td>
+<td class="p-3 text-body">Main OHC</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Tab 4: Duty Handover -->
+<section class="tab-content space-y-6" id="content-handover">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- Handover Form -->
+<div class="bg-surface-container-lowest p-8 rounded-lg border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-8 pb-4 border-b border-outline-variant">
+<div>
+<h2 class="text-page-title font-page-title text-primary">Shift Handover Record</h2>
+<p class="text-body text-on-surface-variant">Standard Operating Procedure Check</p>
+</div>
+<div class="text-right">
+<span class="px-3 py-1 bg-amber-100 text-amber-800 text-[10px] font-extrabold rounded-full uppercase border border-amber-200">Open Status</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Handover Date</label>
+<input class="h-[40px] rounded border-outline-variant focus:ring-primary focus:border-primary" type="date" value="2023-10-27"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Outgoing Shift</label>
+<select class="h-[40px] rounded border-outline-variant">
+<option>Morning (06:00-14:00)</option>
+<option>General (09:00-18:00)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Outgoing Staff</label>
+<input class="h-[40px] rounded border-outline-variant bg-surface-container-low font-semibold" readonly="" type="text" value="Sarah Jenkins"/>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="text-section-heading font-section-heading mb-4 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">fact_check</span>
+                            Operational Checklist
+                        </h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 p-6 bg-surface-container-low/30 rounded-lg border border-outline-variant">
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">TBT Training Completed</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">OHC Cleaned &amp; Sanitized</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">Production Area Rounding</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">First Aid Box Inventory</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">All Registers Checked</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">Medicine Stock Verified</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-body group-hover:text-primary transition-colors">Oxygen Cylinder Pressure</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Total Patient Count (Today)</label>
+<input class="h-[40px] rounded border-outline-variant" placeholder="0" type="number"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Incoming Staff Acknowledgment</label>
+<select class="h-[40px] rounded border-outline-variant">
+<option>Select Acknowledging Staff...</option>
+<option>Mark Thompson</option>
+<option>Robert Chen</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1 mb-8">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase tracking-tighter">Handover Notes / Critical Events</label>
+<textarea class="rounded border-outline-variant p-3 text-body" placeholder="Detail any critical patient cases or equipment issues encountered during shift..." rows="4"></textarea>
+</div>
+<div class="flex justify-end gap-3">
+<button class="px-6 py-2 rounded text-body font-semibold border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">Save as Draft</button>
+<button class="px-8 py-2 rounded text-body font-semibold bg-primary text-white hover:bg-on-primary-fixed-variant transition-all shadow-md">Complete Handover</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Modal: Add Staff -->
+<div class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" id="addStaffModal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-2xl border border-outline-variant transform transition-all">
+<div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant">
+<h3 class="text-section-heading font-section-heading text-primary">Register New Staff</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6">
+<form class="space-y-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Full Name</label>
+<input class="h-[40px] rounded border border-outline-variant px-3 text-body focus:border-primary focus:ring-0" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Designation</label>
+<select class="h-[40px] rounded border border-outline-variant px-2 text-body">
+<option>Nursing Team Lead</option>
+<option>Staff Nurse</option>
+<option>Reliever</option>
+<option>Doctor</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Employment Type</label>
+<select class="h-[40px] rounded border border-outline-variant px-2 text-body">
+<option>Permanent</option>
+<option>Contractual</option>
+<option>Consultant</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Building Assignment (Multi-select)</label>
+<div class="flex flex-wrap gap-2 p-2 border border-outline-variant rounded min-h-[40px]">
+<label class="flex items-center gap-2 bg-surface-container-low px-2 py-1 rounded text-[12px] cursor-pointer">
+<input class="w-3.5 h-3.5 text-primary rounded" type="checkbox"/> Main OHC
+                            </label>
+<label class="flex items-center gap-2 bg-surface-container-low px-2 py-1 rounded text-[12px] cursor-pointer">
+<input class="w-3.5 h-3.5 text-primary rounded" type="checkbox"/> Block A
+                            </label>
+<label class="flex items-center gap-2 bg-surface-container-low px-2 py-1 rounded text-[12px] cursor-pointer">
+<input class="w-3.5 h-3.5 text-primary rounded" type="checkbox"/> Block B
+                            </label>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Date of Joining</label>
+<input class="h-[40px] rounded border border-outline-variant px-3 text-body" type="date"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant font-bold uppercase">Remarks</label>
+<textarea class="rounded border border-outline-variant p-3 text-body focus:border-primary focus:ring-0" placeholder="Optional notes..." rows="2"></textarea>
+</div>
+<div class="flex justify-end gap-3 pt-4">
+<button class="px-6 h-[40px] rounded border border-outline-variant font-semibold text-body hover:bg-surface-container-low" onclick="closeModal()" type="button">Cancel</button>
+<button class="px-6 h-[40px] bg-primary text-white rounded font-semibold text-body hover:opacity-90" type="submit">Create Staff Record</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+        function switchTab(tabId) {
+            // Update Tab UI
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-primary', 'text-primary', 'font-bold');
+                btn.classList.add('border-transparent', 'text-on-surface-variant', 'font-semibold');
+            });
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.remove('border-transparent', 'text-on-surface-variant', 'font-semibold');
+            activeBtn.classList.add('border-primary', 'text-primary', 'font-bold');
+
+            // Update Content UI
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('content-' + tabId).classList.add('active');
+        }
+
+        function openModal() {
+            const modal = document.getElementById('addStaffModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('.transform').classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('addStaffModal');
+            modal.querySelector('.transform').classList.remove('scale-100', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Close modal on outside click
+        document.getElementById('addStaffModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body></html>

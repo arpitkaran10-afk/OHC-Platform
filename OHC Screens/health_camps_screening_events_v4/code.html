@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Health Camps | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dee3e9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bec8d2;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#0EA5E9",
+                        "primary-fixed-dim": "#89ceff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#4d2b00",
+                        "surface-container-high": "#e4e8ee",
+                        "on-surface": "#171c20",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "on-secondary-container": "#3d637d",
+                        "surface-variant": "#dee3e9",
+                        "surface-container-low": "#f0f4fa",
+                        "inverse-surface": "#2c3135",
+                        "secondary-container": "#b8dffe",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-dim": "#d6dae0",
+                        "on-secondary-fixed": "#001e2f",
+                        "surface-container-highest": "#dee3e9",
+                        "surface-bright": "#f6faff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "inverse-on-surface": "#edf1f7",
+                        "on-surface-variant": "#3e4850",
+                        "primary-container": "#0ea5e9",
+                        "surface": "#f6faff",
+                        "outline-variant": "#bec8d2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eaeef4",
+                        "on-primary-fixed": "#001e2f",
+                        "error-container": "#ffdad6",
+                        "background": "#F3F4F6",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#c9e6ff",
+                        "tertiary-container": "#de8712",
+                        "on-background": "#171c20",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "inverse-primary": "#89ceff",
+                        "tertiary": "#8a5100",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "primary": "#0EA5E9",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "secondary": "#3c627d",
+                        "outline": "#6e7881",
+                        "on-primary-container": "#003751",
+                        "secondary-fixed": "#c9e6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "content_padding": "24px",
+                        "stack_gap": "8px",
+                        "container_gap": "16px",
+                        "sidebar_width": "240px",
+                        "header_height": "56px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "section-heading": ["Inter"],
+                        "page-title": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background font-body text-on-surface overflow-hidden h-screen flex">
+
+<!-- OHC Header -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Health Camps</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+
+<!-- OHC Sidebar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+
+<!-- Main Viewport -->
+<main class="ohc-main" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+<div class="ohc-content" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+<!-- Page Header -->
+<div class="px-content_padding py-4 flex justify-between items-end shrink-0 bg-surface-container-lowest border-b border-outline-variant">
+<div>
+<h2 class="text-page-title font-page-title text-on-surface">Health Camps</h2>
+<p class="text-body text-on-surface-variant">Manage workforce screening events — Annual Health Check, PCC, Periodic, Specialist</p>
+</div>
+<button class="h-[36px] bg-primary text-white px-4 rounded-lg flex items-center gap-2 hover:opacity-90 transition-all font-semibold text-body">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    Create Camp
+                </button>
+</div>
+<!-- Two-Panel Layout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Panel (Camp List) -->
+<aside class="w-[35%] border-r border-outline-variant bg-surface-container-low flex flex-col">
+<div class="p-4 border-b border-outline-variant space-y-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-white border border-outline-variant rounded-lg pl-9 pr-4 py-2 text-body focus:border-primary-container h-[36px]" placeholder="Search camps by name or date..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-container_gap">
+<!-- Card 1 -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm ring-2 ring-primary">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-body">Annual Screening 2024</h3>
+<span class="bg-primary-container/10 text-primary px-3 py-0.5 rounded-full text-label-sm font-semibold">Annual</span>
+</div>
+<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 12, 2024
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">domain</span> Block A, HQ
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">groups</span> 450 / 500
+                                </div>
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> In Progress
+                                </div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-body">PCC Compliance Q4</h3>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-0.5 rounded-full text-label-sm font-semibold">PCC</span>
+</div>
+<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Nov 05, 2024
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">domain</span> South Wing
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">groups</span> 0 / 120
+                                </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Upcoming
+                                </div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-semibold text-body">Specialist Hearing Camp</h3>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-0.5 rounded-full text-label-sm font-semibold">Specialist</span>
+</div>
+<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Sep 28, 2024
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">domain</span> Plant 02
+                                </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">groups</span> 88 / 90
+                                </div>
+<div class="flex items-center gap-1.5 text-error">
+<span class="material-symbols-outlined text-[16px]">archive</span> Completed
+                                </div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Panel (Camp Setup, Upload, Results) -->
+<div class="w-[65%] flex flex-col overflow-y-auto p-content_padding bg-surface gap-container_gap">
+<!-- Camp Setup Section -->
+<section class="bg-white border border-outline-variant rounded-lg p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">settings_applications</span>
+<h3 class="font-section-heading text-section-heading">Camp Setup</h3>
+</div>
+<div class="grid grid-cols-2 gap-x-6 gap-y-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Camp Title</label>
+<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Annual Screening 2024"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Camp Type</label>
+<select class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary">
+<option>Annual Health Check</option>
+<option>PCC Compliance</option>
+<option>Periodic Screening</option>
+<option>Specialist</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Schedule Date</label>
+<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="date" value="2024-10-12"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Building / Site</label>
+<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Block A, Corporate HQ"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Conducted By</label>
+<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Metro Diagnostics Team"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-on-surface-variant">Target Headcount</label>
+<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="number" value="500"/>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="h-[36px] bg-primary-container text-white px-6 rounded-lg font-semibold hover:opacity-90 transition-all text-body">Save Setup</button>
+</div>
+</section>
+<!-- Bulk Employee Upload Section -->
+<section class="bg-white border border-outline-variant rounded-lg p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+<h3 class="font-section-heading text-section-heading">Bulk Employee Upload</h3>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors mb-6">
+<span class="material-symbols-outlined text-[48px] text-on-surface-variant mb-2">cloud_upload</span>
+<p class="text-body font-semibold">Drop .xlsx file here or click to upload</p>
+<p class="text-label-sm text-on-surface-variant">Max file size: 10MB | Mandatory columns: EmpID, Name, Gender, Dept</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<p class="text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Mapping Preview</p>
+<div class="flex items-center gap-2">
+<label class="text-label-sm">Duplicates:</label>
+<select class="h-[30px] border border-outline-variant rounded-lg px-2 text-label-sm focus:ring-1 focus:ring-primary">
+<option>Skip Record</option>
+<option>Overwrite Existing</option>
+<option>Flag for Review</option>
+</select>
+</div>
+</div>
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<table class="w-full text-left text-body">
+<thead class="bg-surface-container text-label-sm uppercase text-on-surface-variant">
+<tr>
+<th class="px-4 py-2 border-b border-outline-variant">Source Column</th>
+<th class="px-4 py-2 border-b border-outline-variant">System Field</th>
+<th class="px-4 py-2 border-b border-outline-variant">Match Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="px-4 py-2">employee_id</td>
+<td class="px-4 py-2">Emp ID</td>
+<td class="px-4 py-2"><span class="text-primary flex items-center gap-1 text-label-sm"><span class="material-symbols-outlined text-[14px]">check_circle</span> Auto-mapped</span></td>
+</tr>
+<tr>
+<td class="px-4 py-2">full_name</td>
+<td class="px-4 py-2">Name</td>
+<td class="px-4 py-2"><span class="text-primary flex items-center gap-1 text-label-sm"><span class="material-symbols-outlined text-[14px]">check_circle</span> Auto-mapped</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Camp Results Section -->
+<section class="bg-white border border-outline-variant rounded-lg p-6">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="font-section-heading text-section-heading">Camp Results</h3>
+</div>
+<div class="flex items-center gap-container_gap">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+<input class="h-[32px] w-[200px] border border-outline-variant rounded-lg pl-8 text-label-sm focus:ring-1 focus:ring-primary" placeholder="Search result..." type="text"/>
+</div>
+<select class="h-[32px] border border-outline-variant rounded-lg px-2 text-label-sm focus:ring-1 focus:ring-primary">
+<option>All Outcomes</option>
+<option>Fit</option>
+<option>Unfit</option>
+<option>Referral</option>
+</select>
+<button class="h-[32px] border border-outline-variant px-3 rounded-lg text-label-sm flex items-center gap-1 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span> Export
+                                </button>
+</div>
+</div>
+<div class="overflow-x-auto border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-label-sm font-bold border-b border-outline-variant">
+<tr>
+<th class="p-3">Emp ID</th>
+<th class="p-3">Name</th>
+<th class="p-3">Gender</th>
+<th class="p-3">Dept</th>
+<th class="p-3">Screened On</th>
+<th class="p-3">Params</th>
+<th class="p-3">Outcome</th>
+<th class="p-3">Status</th>
+</tr>
+</thead>
+<tbody class="text-body divide-y divide-outline-variant">
+<tr class="hover:bg-surface transition-colors">
+<td class="p-3 font-semibold">EMP-4402</td>
+<td class="p-3">Sarah J. Miller</td>
+<td class="p-3">Female</td>
+<td class="p-3">Logistics</td>
+<td class="p-3">12/10/24</td>
+<td class="p-3">BP, BMI, CBC</td>
+<td class="p-3">
+<span class="bg-green-100 text-green-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Fit</span>
+</td>
+<td class="p-3 flex gap-2">
+<span class="bg-primary-container text-white px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">PCC Completed</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface transition-colors">
+<td class="p-3 font-semibold">EMP-4481</td>
+<td class="p-3">Robert Chen</td>
+<td class="p-3">Male</td>
+<td class="p-3">Operations</td>
+<td class="p-3">12/10/24</td>
+<td class="p-3">Vision, BP</td>
+<td class="p-3">
+<span class="bg-orange-100 text-orange-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Referred</span>
+</td>
+<td class="p-3 flex gap-2">
+<span class="bg-error-container text-on-error-container px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Pending PCC</span>
+</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="p-3 font-semibold">EMP-4512</td>
+<td class="p-3">Elena Gilbert</td>
+<td class="p-3">Female</td>
+<td class="p-3">Finance</td>
+<td class="p-3">12/10/24</td>
+<td class="p-3">All Standard</td>
+<td class="p-3">
+<span class="bg-green-100 text-green-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Fit</span>
+</td>
+<td class="p-3">
+<span class="bg-primary-container text-white px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">PCC Completed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Spacer for flow -->
+<div class="h-8"></div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+        // Simple micro-interaction for camp list cards
+        document.querySelectorAll('aside .bg-white').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('aside .bg-white').forEach(c => c.classList.remove('ring-2', 'ring-primary'));
+                card.classList.add('ring-2', 'ring-primary');
+            });
+        });
+    </script>
+</body></html>

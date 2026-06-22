@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patients — Rest Case | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d6dae0",
+                    "secondary-container": "#b8dffe",
+                    "primary-fixed-dim": "#89ceff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#3d637d",
+                    "background": "#f6faff",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#0EA5E9",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#bec8d2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-secondary-fixed": "#001e2f",
+                    "outline": "#6e7881",
+                    "inverse-primary": "#89ceff",
+                    "surface-container": "#eaeef4",
+                    "surface-container-low": "#f0f4fa",
+                    "on-tertiary-container": "#4d2b00",
+                    "on-primary-fixed": "#001e2f",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#003751",
+                    "on-surface-variant": "#3e4850",
+                    "on-tertiary-fixed-variant": "#693c00",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#dee3e9",
+                    "surface-bright": "#f6faff",
+                    "secondary-fixed-dim": "#a5cbe9",
+                    "primary-fixed": "#c9e6ff",
+                    "primary-container": "#0ea5e9",
+                    "primary": "#0EA5E9",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e4e8ee",
+                    "secondary-fixed": "#c9e6ff",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb86e",
+                    "inverse-surface": "#2c3135",
+                    "secondary": "#3c627d",
+                    "inverse-on-surface": "#edf1f7",
+                    "surface-variant": "#dee3e9",
+                    "on-background": "#171c20",
+                    "on-secondary-fixed-variant": "#234b64",
+                    "tertiary-container": "#de8712",
+                    "on-surface": "#171c20",
+                    "tertiary": "#8a5100",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f6faff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.8px",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar_width": "240px",
+                    "stack_gap": "8px",
+                    "container_gap": "16px",
+                    "header_height": "56px",
+                    "content_padding": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "section-heading": ["Inter"],
+                    "page-title": ["Inter"],
+                    "body": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6e7881; }
+        .ohc-btn-primary { background-color: #0EA5E9 !important; color: white !important; }
+        .ohc-border-primary { border-color: #0EA5E9 !important; }
+        .ohc-text-primary { color: #0EA5E9 !important; }
+    </style>
+</head>
+<body class="font-body text-body text-on-surface" style="background:#F3F4F6">
+<!-- TopNavBar -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; Rest Case</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SideNavBar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- Main Content Area -->
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<div class="flex items-center justify-between mb-container_gap">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface">Patients — Rest Case</h1>
+<p class="text-on-surface-variant font-body text-body">Log a rest room visit</p>
+</div>
+<button class="ohc-btn-primary h-[36px] px-4 rounded-lg font-label-sm text-label-sm flex items-center gap-2 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Rest Entry
+            </button>
+</div>
+<!-- Info Banner -->
+<div class="bg-primary-container/10 border border-primary-container text-on-primary-container p-3 rounded-lg flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">info</span>
+<span class="font-body text-body">This form appears when <strong>Visit Type = Rest</strong> is selected on the OPD form.</span>
+</div>
+<div class="grid grid-cols-12 gap-container_gap">
+<!-- Form Card 1 - Rest Case Details -->
+<div class="col-span-12 lg:col-span-7">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col h-full shadow-sm">
+<div class="px-5 py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<h3 class="font-section-heading text-section-heading flex items-center gap-2">
+                            Rest Case Details
+                        </h3>
+<div class="h-6 px-3 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center justify-center border border-outline-variant uppercase tracking-wider">
+                            REST CASE
+                        </div>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<!-- Row 1: Reason -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                                Reason for Rest <span class="text-error">*</span>
+</label>
+<textarea class="w-full border border-outline rounded-lg p-3 font-body text-body min-h-[80px] focus:ring-2 focus:ring-[#0EA5E9] focus:border-[#0EA5E9] outline-none transition-all" placeholder="Specify the clinical reason for mandatory rest..."></textarea>
+</div>
+<!-- Row 2: In/Out Time -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                                    In Time <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-[36px] border border-outline rounded-lg px-3 font-body text-body focus:ring-2 focus:ring-[#0EA5E9] outline-none" type="time"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                                    Out Time <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-[36px] border border-outline rounded-lg px-3 font-body text-body focus:ring-2 focus:ring-[#0EA5E9] outline-none" type="time"/>
+</div>
+</div>
+</div>
+<!-- Row 3: Duration -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Duration</label>
+<div class="relative flex items-center">
+<input class="w-full h-[36px] bg-surface-container-low border border-outline-variant rounded-lg px-3 font-body text-body text-on-surface-variant cursor-not-allowed" readonly="" type="text" value="02 hours 15 minutes"/>
+<span class="absolute right-3 px-2 py-0.5 bg-outline-variant text-on-surface-variant rounded text-[10px] font-bold">AUTO</span>
+</div>
+</div>
+<!-- Row 4: Monitoring Notes -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Monitoring Notes (Optional)</label>
+<textarea class="w-full border border-outline rounded-lg p-3 font-body text-body min-h-[60px] focus:ring-2 focus:ring-[#0EA5E9] outline-none" placeholder="Observe and record patient vitals during rest..."></textarea>
+</div>
+<!-- Row 5: Outcome -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                                Outcome <span class="text-error">*</span>
+</label>
+<select class="w-full h-[36px] border border-outline rounded-lg px-3 font-body text-body focus:ring-2 focus:ring-[#0EA5E9] outline-none bg-surface-container-lowest">
+<option disabled="" selected="" value="">Select patient disposition...</option>
+<option>Returned to Work</option>
+<option>Escalated</option>
+<option>Sent Home</option>
+</select>
+</div>
+<div class="flex items-center justify-end gap-3 pt-4 mt-2 border-t border-outline-variant">
+<button class="h-[36px] px-6 rounded-lg font-label-sm text-label-sm border border-outline text-on-surface hover:bg-surface-container-low transition-colors">Cancel</button>
+<button class="ohc-btn-primary h-[36px] px-6 rounded-lg font-label-sm text-label-sm shadow-md hover:opacity-90 transition-opacity">Save Rest Case</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Card - Patient Context Info -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-container_gap">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 shadow-sm">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant text-primary overflow-hidden">
+<img alt="Patient Avatar" data-alt="A macro photograph of an official corporate ID card belonging to a male employee, featuring a small portrait photo. The setting is a brightly lit, high-end office environment with a professional atmosphere. The design is sleek and modern, utilizing a clean light-mode aesthetic with institutional blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB0iDQMs5FUfPEcJgmuhC0L0n-VutmsYzZfCawmBrCFl_Ju72Oz-wS7DU39PW8wIeUr_AWcw0CPeIxUy_oWPDVZTgo3ySsz6T_AnzSeiVHSRRUpx3O0uicWzc4tp0kjL8kHDLlfIl1tqIg6eWZHKMtOrtgZuCXP6dgmhjIsDIi0t41E1eD8Pzcbbr8H02_6BHICfaA5uPpHsCzzxipKYM5flKVTQ6IrIargb-raO9_RNQB7rX1ALsY07MriOQRg_SK7WpsjvmASVcc"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">PATIENT REF: ALZ-9921</p>
+<h4 class="font-section-heading text-section-heading">Julian Daschle</h4>
+<p class="text-body font-body text-on-surface-variant italic">Department: IT Infrastructure</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 border-t border-outline-variant pt-4">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Blood Group</span>
+<p class="font-section-heading text-on-surface">A+ Positive</p>
+</div>
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Last BP</span>
+<p class="font-section-heading text-on-surface">120/80 mmHg</p>
+</div>
+</div>
+</div>
+<div class="bg-[#0EA5E9] text-white rounded-lg p-5 flex flex-col justify-between h-full relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-section-heading text-section-heading opacity-90">OHC Compliance</h4>
+<p class="font-body text-body mt-2 opacity-80">Rest cases exceeding 4 hours require mandatory clinician review and HR notification via the safety portal.</p>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-widest">Protocol v4.2</span>
+<span class="material-symbols-outlined scale-150">security</span>
+</div>
+<!-- Subtle pattern -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-12 -mb-12 blur-2xl"></div>
+</div>
+</div>
+<!-- Section Card - Ailment Tally Register -->
+<div class="col-span-12">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="px-5 py-4 border-b border-outline-variant">
+<h3 class="font-section-heading text-section-heading">Ailment Register — Monthly Tally</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Auto-generated based on confirmed rest case diagnoses. No manual entry permitted.</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap sticky left-0 bg-surface-container-low z-20 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">Ailment Name</th>
+<!-- Dynamic Days Generation -->
+<script>
+                                        for(let i=1; i<=31; i++) {
+                                            document.write(`<th class="px-2 py-3 font-label-sm text-label-sm text-on-surface-variant text-center border-l border-outline-variant/30 min-w-[32px]">D${i}</th>`);
+                                        }
+                                    </script>
+<th class="px-4 py-3 font-label-sm text-label-sm text-primary text-center border-l border-outline-variant">TOTAL</th>
+</tr>
+</thead>
+<tbody class="font-body text-body">
+<tr class="bg-white hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/30">
+<td class="px-4 py-3 font-semibold sticky left-0 bg-white z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">Fever</td>
+<script>
+                                        let counts = [0,1,0,0,2,0,1,0,0,0,0,3,1,0,0,0,2,1,0,0,0,0,0,1,2,0,0,0,0,0,1];
+                                        counts.forEach(c => document.write(`<td class="px-2 py-3 text-center border-l border-outline-variant/30 ${c > 0 ? 'text-[#0EA5E9] font-bold' : 'text-on-surface-variant/40'}">${c}</td>`));
+                                        document.write(`<td class="px-4 py-3 text-center border-l border-outline-variant bg-surface-container-low font-bold">15</td>`);
+                                    </script>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/30">
+<td class="px-4 py-3 font-semibold sticky left-0 bg-[#f9fafb] z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">Headache</td>
+<script>
+                                        let counts2 = [2,0,1,4,0,0,0,1,2,0,0,0,5,1,0,0,0,0,2,1,1,0,0,3,0,0,0,2,0,0,1];
+                                        counts2.forEach(c => document.write(`<td class="px-2 py-3 text-center border-l border-outline-variant/30 ${c > 0 ? 'text-[#0EA5E9] font-bold' : 'text-on-surface-variant/40'}">${c}</td>`));
+                                        document.write(`<td class="px-4 py-3 text-center border-l border-outline-variant bg-surface-container-low font-bold">26</td>`);
+                                    </script>
+</tr>
+<tr class="bg-white hover:bg-surface-container-low/50 transition-colors">
+<td class="px-4 py-3 font-semibold sticky left-0 bg-white z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">Muscle Strain</td>
+<script>
+                                        let counts3 = [0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,4,0,0,1,0,0,0,2,0];
+                                        counts3.forEach(c => document.write(`<td class="px-2 py-3 text-center border-l border-outline-variant/30 ${c > 0 ? 'text-[#0EA5E9] font-bold' : 'text-on-surface-variant/40'}">${c}</td>`));
+                                        document.write(`<td class="px-4 py-3 text-center border-l border-outline-variant bg-surface-container-low font-bold">11</td>`);
+                                    </script>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-5 py-3 border-t border-outline-variant bg-surface-container-low/50 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">Data sync: Real-time via OHC Engine</span>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1 text-primary font-label-sm text-label-sm hover:underline">
+<span class="material-symbols-outlined text-[16px]">download</span> Export CSV
+                            </button>
+<button class="flex items-center gap-1 text-primary font-label-sm text-label-sm hover:underline">
+<span class="material-symbols-outlined text-[16px]">print</span> Print Register
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and auto-calculation logic simulation
+        document.querySelectorAll('input[type="time"]').forEach(input => {
+            input.addEventListener('change', () => {
+                const start = document.querySelector('input[type="time"]:first-of-type').value;
+                const end = document.querySelector('input[type="time"]:last-of-type').value;
+                
+                if(start && end) {
+                    const [h1, m1] = start.split(':').map(Number);
+                    const [h2, m2] = end.split(':').map(Number);
+                    let diff = (h2 * 60 + m2) - (h1 * 60 + m1);
+                    if(diff < 0) diff += 24 * 60; // Next day
+                    
+                    const h = Math.floor(diff / 60);
+                    const m = diff % 60;
+                    document.querySelector('input[readonly]').value = `${h.toString().padStart(2, '0')} hours ${m.toString().padStart(2, '0')} minutes`;
+                }
+            });
+        });
+    </script>
+</body></html>

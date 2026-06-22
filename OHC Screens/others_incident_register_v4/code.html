@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Register - OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#8a5100",
+                        "surface-container-highest": "#dee3e9",
+                        "surface-container-high": "#e4e8ee",
+                        "secondary": "#3c627d",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f0f4fa",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#de8712",
+                        "on-surface": "#171c20",
+                        "on-secondary-fixed": "#001e2f",
+                        "inverse-primary": "#89ceff",
+                        "secondary-container": "#b8dffe",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "on-secondary-container": "#3d637d",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "primary": "#0EA5E9",
+                        "on-background": "#171c20",
+                        "surface-bright": "#f6faff",
+                        "primary-container": "#0ea5e9",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6e7881",
+                        "surface-variant": "#dee3e9",
+                        "background": "#f6faff",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "inverse-on-surface": "#edf1f7",
+                        "outline-variant": "#bec8d2",
+                        "on-primary-container": "#003751",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "surface-tint": "#0EA5E9",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#3e4850",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#c9e6ff",
+                        "surface-dim": "#d6dae0",
+                        "surface-container": "#eaeef4",
+                        "inverse-surface": "#2c3135",
+                        "on-tertiary-container": "#4d2b00",
+                        "secondary-fixed": "#c9e6ff",
+                        "on-primary-fixed": "#001e2f",
+                        "surface": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header_height": "56px",
+                        "base": "4px",
+                        "container_gap": "16px",
+                        "stack_gap": "8px",
+                        "content_padding": "24px",
+                        "sidebar_width": "240px"
+                    },
+                    "fontFamily": {
+                        "page-title": ["Inter"],
+                        "section-heading": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body": ["Inter"]
+                    },
+                    "fontSize": {
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Incident Register</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- PAGE HEADER -->
+<div class="flex items-start justify-between mb-6">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface font-bold">Incident Register</h1>
+<p class="text-on-surface-variant text-body mt-1">Legally critical — all workplace incidents must be logged immediately</p>
+</div>
+<button class="bg-[#EF4444] text-white px-4 h-9 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#DC2626] transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Log New Incident
+            </button>
+</div>
+<!-- CRITICAL BANNER -->
+<div class="mb-8 p-4 bg-error-container text-on-error-container border-l-4 border-error rounded-r-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<p class="font-body font-semibold">Incident reports are legally mandated. All fields marked required must be completed before submission.</p>
+</div>
+<div class="grid grid-cols-12 gap-6">
+<!-- FORM CARD — INCIDENT REPORT -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="border-l-[4px] border-[#EF4444] px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+<h2 class="font-section-heading text-section-heading text-[#991B1B]">Incident Report</h2>
+<span class="text-label-sm font-label-sm text-outline">ID: INC-2023-0892 (Auto-Generated)</span>
+</div>
+<form class="p-6 space-y-6">
+<!-- Row 1 -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Visit Type</label>
+<div class="h-9 px-3 bg-error-container text-error rounded flex items-center w-fit font-semibold text-[12px]">
+                                    Incident
+                                </div>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Date <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" type="date" value="2023-10-27"/>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Time of Incident <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" type="time"/>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Patient / Employee <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full h-9 pl-3 pr-10 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" placeholder="Search by name or ID..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Building <span class="text-error">*</span></label>
+<select class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body">
+<option>Select Building</option>
+<option>Main Assembly Block</option>
+<option>R&amp;D Center</option>
+<option>Logistics Warehouse</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Work Related <span class="text-error">*</span></label>
+<div class="flex gap-4 items-center h-9">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="work_related" type="radio"/>
+<span class="text-body">Yes</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="work_related" type="radio"/>
+<span class="text-body">No</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Row 4 (Vitals) -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<p class="text-label-sm font-bold text-primary mb-3 uppercase tracking-wider">Baseline Vitals</p>
+<div class="grid grid-cols-4 gap-4">
+<div>
+<label class="block text-[10px] text-on-surface-variant mb-1">BP SYSTOLIC <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="mmHg" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] text-on-surface-variant mb-1">BP DIASTOLIC <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="mmHg" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] text-on-surface-variant mb-1">PULSE <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="bpm" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] text-on-surface-variant mb-1">SPO2 <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="%" type="text"/>
+</div>
+</div>
+</div>
+<!-- Full Width Textareas -->
+<div class="space-y-4">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Nature of Incident <span class="text-error">*</span></label>
+<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="3"></textarea>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Root Cause (Optional)</label>
+<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="2"></textarea>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">First Aid / Care Given <span class="text-error">*</span></label>
+<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="3"></textarea>
+</div>
+</div>
+<!-- Row 8 & 9 -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div class="flex items-center gap-3">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-body">Ambulance Used</span>
+</label>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Referred to Hospital <span class="text-error">*</span></label>
+<div class="flex gap-4 items-center h-9">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="referred" type="radio" value="yes"/>
+<span class="text-body">Yes</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="referred" type="radio" value="no"/>
+<span class="text-body">No</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Conditional Hospital Row -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Hospital Name</label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="Enter hospital name" type="text"/>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Accompanied By</label>
+<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
+<option>None</option>
+<option>Staff Nurse</option>
+<option>Paramedic</option>
+<option>Co-worker</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Escalation (Optional)</label>
+<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="2"></textarea>
+</div>
+<!-- Row 11 -->
+<div class="grid grid-cols-2 gap-container_gap">
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Follow-up Status <span class="text-error">*</span></label>
+<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
+<option>Stable</option>
+<option>Under Observation</option>
+<option>Hospitalised</option>
+<option>Closed</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm text-on-surface-variant mb-1">Reported By Staff <span class="text-error">*</span></label>
+<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
+<option>Select Staff Member</option>
+<option>Dr. Sarah Chen</option>
+<option>Nurse Rajesh Kumar</option>
+</select>
+</div>
+</div>
+<!-- Row 12 -->
+<div class="w-1/2">
+<label class="block text-label-sm text-on-surface-variant mb-1">Sign (Type Name) <span class="text-error">*</span></label>
+<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body italic font-serif" placeholder="Digital acknowledgement" type="text"/>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant">
+<button class="bg-[#EF4444] text-white px-6 h-9 rounded font-semibold hover:bg-[#DC2626] transition-all" type="button">Submit Incident Report</button>
+<button class="bg-white border border-outline-variant text-on-surface-variant px-6 h-9 rounded font-semibold hover:bg-surface-container-low transition-all" type="button">Cancel</button>
+</div>
+</form>
+</div>
+</div>
+<!-- SIDEBAR INFO / METRICS -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h3 class="font-section-heading text-section-heading text-on-surface mb-4">Incident Visualizer</h3>
+<div class="aspect-square w-full rounded-lg bg-surface-container flex items-center justify-center relative overflow-hidden">
+
+<div class="relative z-10 text-center p-6 bg-white/80 backdrop-blur rounded-lg">
+<p class="font-bold text-3xl text-[#991B1B]">12</p>
+<p class="text-[10px] font-bold uppercase tracking-widest text-outline">Open Incidents</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h3 class="font-section-heading text-section-heading text-on-surface mb-4">Quick Stats</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-body text-on-surface-variant">Last 30 Days</span>
+<span class="font-bold text-primary">08</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body text-on-surface-variant">High Severity</span>
+<span class="font-bold text-error">02</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION CARD — INCIDENT HISTORY -->
+<div class="col-span-12">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+<h2 class="font-section-heading text-section-heading text-on-surface">Incident History</h2>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 border border-outline-variant rounded-md px-3 h-8 text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Last 90 Days</span>
+</div>
+<div class="flex items-center gap-2 border border-outline-variant rounded-md px-3 h-8 text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+<span>Filters</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Incident ID</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Patient</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Building</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nature</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Work Related</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Reported By</th>
+<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0889</td>
+<td class="px-6 py-4 text-body">24 Oct 2023</td>
+<td class="px-6 py-4 text-body">John Doe (EMP-442)</td>
+<td class="px-6 py-4 text-body">Main Block</td>
+<td class="px-6 py-4 text-body truncate max-w-[150px]">Laceration on right forearm...</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant text-[11px] font-semibold rounded">CLOSED</span>
+</td>
+<td class="px-6 py-4 text-body">S. Chen</td>
+<td class="px-6 py-4">
+<button class="text-primary hover:underline font-semibold text-body">View</button>
+</td>
+</tr>
+<tr class="bg-[#FEF2F2] hover:bg-[#FEE2E2] transition-colors border-l-4 border-error">
+<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0885</td>
+<td class="px-6 py-4 text-body">22 Oct 2023</td>
+<td class="px-6 py-4 text-body">Alice Smith (EMP-091)</td>
+<td class="px-6 py-4 text-body">Logistics</td>
+<td class="px-6 py-4 text-body truncate max-w-[150px]">Fall from height, possible head injury</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-error text-white text-[11px] font-semibold rounded">HOSPITALISED</span>
+</td>
+<td class="px-6 py-4 text-body">R. Kumar</td>
+<td class="px-6 py-4">
+<button class="text-primary hover:underline font-semibold text-body">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0881</td>
+<td class="px-6 py-4 text-body">19 Oct 2023</td>
+<td class="px-6 py-4 text-body">Sam Wilson (CONT-12)</td>
+<td class="px-6 py-4 text-body">R&amp;D Center</td>
+<td class="px-6 py-4 text-body truncate max-w-[150px]">Chemical splash in eye...</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-tertiary-container text-on-tertiary-container text-[11px] font-semibold rounded">OBSERVATION</span>
+</td>
+<td class="px-6 py-4 text-body">S. Chen</td>
+<td class="px-6 py-4">
+<button class="text-primary hover:underline font-semibold text-body">View</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple logic for toggle states
+        document.querySelectorAll('input[name="referred"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const hospitalInput = document.querySelector('input[placeholder="Enter hospital name"]');
+                const accompaniedSelect = document.querySelector('select:has(option:contains("None"))');
+                if(e.target.value === 'no') {
+                    hospitalInput.disabled = true;
+                    hospitalInput.parentElement.classList.add('opacity-50');
+                } else {
+                    hospitalInput.disabled = false;
+                    hospitalInput.parentElement.classList.remove('opacity-50');
+                }
+            });
+        });
+    </script>
+</body></html>
