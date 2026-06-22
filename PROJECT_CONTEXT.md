@@ -3,7 +3,7 @@
 ## What Is This?
 **TGHC OHC Platform** (TGH Clinic · Occupational Health Centre Platform) is a web-based clinical management system for occupational health centres. It is a pure front-end application — HTML, CSS, and vanilla JavaScript only — with no backend framework or build toolchain. All screens are static HTML files that simulate a multi-module SPA.
 
-The platform is currently at **v4.0** and is used across multiple sites (Trivandrum, Pune, Khordha).
+The platform is currently at **v4.1** and is used across multiple sites (Trivandrum, Pune, Khordha).
 
 ---
 
@@ -12,7 +12,7 @@ The platform is currently at **v4.0** and is used across multiple sites (Trivand
 ### Shell + Iframe Model
 - `index.html` is the **permanent shell**: fixed header, fixed sidebar, and a central `<iframe id="content-frame">` that swaps in module screens.
 - A JavaScript `NAV` tree drives navigation: each node is either a **leaf** (has `file`) or a **group** (has `children`). A flat `LEAF_MAP` is derived from the tree for O(1) lookups.
-- The sidebar renders a collapsible accordion from the `NAV` tree. There is **no horizontal tab bar** — all sub-navigation lives in the sidebar.
+- The sidebar renders a collapsible accordion from the `NAV` tree. **The horizontal tab bar that previously appeared above the iframe has been removed** — all navigation now lives exclusively in the sidebar accordion.
 - A loading spinner overlay (`#loading-overlay`) hides the iframe during transitions.
 - After each iframe load, the shell injects a small override `<style>` block into the iframe document that hides the iframe page's own `.ohc-header` and `.ohc-sidebar` (so module screens don't double-render shell chrome).
 
@@ -160,7 +160,7 @@ settings_platform_configuration_v4/
 
 - **Header** (56px fixed): Logo "TGHC" (left) | Global search input (center) | Notifications bell + user name + avatar (right). Current user: *Kiran Prasad (KP)*.
 - **Sidebar** (240px fixed): Site selector dropdown at top, accordion nav, help + version footer.
-- **Content area**: Starts at `top: 56px; left: 240px`. The iframe fills the entire remaining space — there is no tab bar above it.
+- **Content area**: Starts at `top: 56px; left: 240px`. The iframe fills the entire remaining space directly — the tab bar (`#tab-bar-wrapper`) that previously appeared between the breadcrumb and iframe has been removed.
 - **Icons**: Material Symbols Outlined from Google Fonts.
 - **Iframe sandbox**: `allow-scripts allow-same-origin allow-forms allow-modals allow-popups`.
 
@@ -182,7 +182,7 @@ settings_platform_configuration_v4/
 1. **No framework** — every screen is self-contained HTML. Shared state lives only in the shell's JS.
 2. **Iframe isolation** — each module screen runs independently; cross-module communication goes through the parent shell if needed.
 3. **Design system first** — all new screens must import `ohc-design-system.css` and use `--ohc-*` tokens. Do not hardcode colours.
-4. **No horizontal tab bar** — sub-module navigation belongs in the sidebar accordion, not above the iframe.
+4. **No horizontal tab bar** — the tab bar (`#tab-bar-wrapper`, `.shell-tab`) was removed in v4.1. Sub-module navigation belongs exclusively in the sidebar accordion. Do not re-add a tab bar.
 5. **Naming convention** — folders use snake_case, descriptive names (`module_feature_version`). Screen HTML file is always `code.html`. Exception: some older folders use Title Case with spaces (e.g. `Oxygen Supply/`, `Toolbox Training/`).
 6. **Sites** — the platform is multi-site; the sidebar site selector is a global context switcher (currently UI-only).
 7. **NAV tree shape** — when adding a new screen, add a leaf node (`{ key, label, icon, file }`) to the `NAV` array in `index.html`. If it belongs to an existing group, nest it under that group's `children`. `LEAF_MAP` is built automatically.
