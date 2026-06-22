@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#c9e6ff",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "tertiary": "#8a5100",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eaeef4",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-surface": "#171c20",
+                        "on-secondary-fixed": "#001e2f",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#c9e6ff",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-tertiary-container": "#4d2b00",
+                        "on-secondary-container": "#3d637d",
+                        "on-background": "#171c20",
+                        "surface-bright": "#f6faff",
+                        "primary": "#0EA5E9",
+                        "surface-variant": "#dee3e9",
+                        "surface-container-high": "#e4e8ee",
+                        "on-surface-variant": "#3e4850",
+                        "secondary-container": "#b8dffe",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bec8d2",
+                        "background": "#f6faff",
+                        "surface-tint": "#0EA5E9",
+                        "inverse-on-surface": "#edf1f7",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-container": "#0ea5e9",
+                        "surface": "#f6faff",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#6e7881",
+                        "on-primary-container": "#003751",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f0f4fa",
+                        "on-primary-fixed": "#001e2f",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d6dae0",
+                        "secondary": "#3c627d",
+                        "inverse-surface": "#2c3135",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#de8712",
+                        "inverse-primary": "#89ceff",
+                        "surface-container-highest": "#dee3e9",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack_gap": "8px",
+                        "sidebar_width": "240px",
+                        "header_height": "56px",
+                        "container_gap": "16px",
+                        "base": "4px",
+                        "content_padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "section-heading": ["Inter"],
+                        "page-title": ["Inter"],
+                        "body": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .active-subnav {
+            @apply bg-primary-container/10 text-primary border-l-4 border-primary;
+        }
+        
+        input, select {
+            height: 36px;
+            @apply border border-outline-variant px-3 py-2 text-body focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all;
+        }
+
+        .btn-primary {
+            height: 36px;
+            @apply bg-primary-container text-on-secondary px-4 py-1.5 rounded flex items-center gap-2 font-medium hover:bg-primary-container/90 active:opacity-80 transition-all;
+        }
+        
+        .btn-secondary {
+            height: 36px;
+            @apply border border-outline-variant bg-surface-container-lowest text-on-surface-variant px-4 py-1.5 rounded flex items-center gap-2 font-medium hover:bg-surface-container-low active:opacity-80 transition-all;
+        }
+
+        .card {
+            @apply bg-surface-container-lowest border border-outline-variant rounded-lg p-content_padding;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #0EA5E9;
+            color: #0EA5E9;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Settings</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content" style="display:flex;flex-direction:column;gap:1.5rem;">
+<!-- Breadcrumb & Page Header -->
+<div class="flex flex-col gap-1">
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>OHC Platform</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Settings</span>
+</nav>
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-page-title text-page-title font-bold text-on-surface">Settings</h1>
+<p class="font-body text-body text-on-surface-variant">Platform configuration — org hierarchy, shifts, master lists, users, operational defaults</p>
+</div>
+<button class="btn-primary" onclick="alert('Config Saved')">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Config
+                </button>
+</div>
+</div>
+<!-- Settings Layout Grid -->
+<div class="flex gap-content_padding flex-1">
+<!-- Sub-navigation Panel -->
+<div class="w-[220px] shrink-0">
+<div class="flex flex-col border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
+<button class="flex items-center gap-3 px-4 py-3 text-left font-label-sm text-label-sm active-subnav transition-all">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+                        Org Hierarchy
+                    </button>
+<button class="flex items-center gap-3 px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                        Shift Configuration
+                    </button>
+<button class="flex items-center gap-3 px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">list_alt</span>
+                        Master Lists
+                    </button>
+<button class="flex items-center gap-3 px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                        User Management
+                    </button>
+<button class="flex items-center gap-3 px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                        Operational Config
+                    </button>
+</div>
+</div>
+<!-- Content Area: Scrolling -->
+<div class="flex-1 flex flex-col gap-6 max-w-5xl">
+<!-- Section 1: Organisation Hierarchy -->
+<section class="card">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-section-heading text-section-heading">Organisation Hierarchy</h2>
+<button class="btn-primary">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                            Add Building
+                        </button>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant rounded flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">domain</span>
+<span class="font-semibold text-body">Client: Apollo Enterprise Solutions</span>
+</div>
+<div class="ml-6 border-l-2 border-outline-variant pl-6 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<span class="font-medium text-body">Site: Mumbai North Hub</span>
+</div>
+<div class="ml-6 border-l-2 border-outline-variant pl-6 flex flex-col gap-4">
+<div class="flex items-center justify-between group p-2 hover:bg-surface-container rounded transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">apartment</span>
+<span class="text-body">Building A - Production Tower</span>
+</div>
+<div class="flex gap-4 ml-6 border-l border-outline-variant pl-6">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">medical_services</span>
+<span class="text-[12px]">OHC Unit 01</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between group p-2 hover:bg-surface-container rounded transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">apartment</span>
+<span class="text-body">Building B - Logistics Wing</span>
+</div>
+<div class="flex gap-4 ml-6 border-l border-outline-variant pl-6">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">medical_services</span>
+<span class="text-[12px]">OHC Unit 02</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Shift Configuration -->
+<section class="card">
+<h2 class="font-section-heading text-section-heading mb-6">Shift Configuration</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Shift Structure</label>
+<select class="rounded">
+<option>1 Shift</option>
+<option>2 Shifts</option>
+<option selected="">3 Shifts (24x7)</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Shift A</label>
+<div class="flex gap-2">
+<input class="w-full rounded" type="time" value="06:00"/>
+<input class="w-full rounded" type="time" value="14:00"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Shift B</label>
+<div class="flex gap-2">
+<input class="w-full rounded" type="time" value="14:00"/>
+<input class="w-full rounded" type="time" value="22:00"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Shift C</label>
+<div class="flex gap-2">
+<input class="w-full rounded" type="time" value="22:00"/>
+<input class="w-full rounded" type="time" value="06:00"/>
+</div>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-3">Visual 24-Hour Timeline</p>
+<div class="h-10 w-full bg-surface-container-high rounded flex overflow-hidden border border-outline-variant">
+<div class="h-full bg-primary/20 border-r border-primary/40 flex items-center justify-center text-[11px] font-semibold text-primary" style="width: 33.33%;">SHIFT A (06-14)</div>
+<div class="h-full bg-tertiary-container/20 border-r border-tertiary-container/40 flex items-center justify-center text-[11px] font-semibold text-tertiary" style="width: 33.33%;">SHIFT B (14-22)</div>
+<div class="h-full bg-secondary-container/20 flex items-center justify-center text-[11px] font-semibold text-secondary" style="width: 33.33%;">SHIFT C (22-06)</div>
+</div>
+<div class="flex justify-between mt-2 px-1 text-[10px] text-outline font-medium">
+<span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>23:59</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Master Lists -->
+<section class="card">
+<h2 class="font-section-heading text-section-heading mb-6">Master Lists</h2>
+<div class="border-b border-outline-variant flex gap-6 mb-6 overflow-x-auto hide-scrollbar">
+<button class="pb-3 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Ailment Master</button>
+<button class="pb-3 font-label-sm text-label-sm tab-active whitespace-nowrap">Medicine Master</button>
+<button class="pb-3 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Staff Type Labels</button>
+<button class="pb-3 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">BMW Vendor</button>
+<button class="pb-3 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">TBT Topics</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="text-left font-label-sm text-label-sm p-3">Name</th>
+<th class="text-left font-label-sm text-label-sm p-3">Category</th>
+<th class="text-center font-label-sm text-label-sm p-3">Schedule K</th>
+<th class="text-right font-label-sm text-label-sm p-3">Threshold</th>
+<th class="p-3"></th>
+</tr>
+</thead>
+<tbody class="text-body">
+<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-medium">Paracetamol 500mg</td>
+<td class="p-3 text-on-surface-variant">Analgesics</td>
+<td class="p-3">
+<div class="flex justify-center">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20">YES</span>
+</div>
+</td>
+<td class="p-3 text-right font-semibold">100 Units</td>
+<td class="p-3 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary">edit</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-medium">Amoxicillin 250mg</td>
+<td class="p-3 text-on-surface-variant">Antibiotics</td>
+<td class="p-3">
+<div class="flex justify-center">
+<span class="bg-on-surface-variant/10 text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded border border-outline-variant">NO</span>
+</div>
+</td>
+<td class="p-3 text-right font-semibold">50 Units</td>
+<td class="p-3 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary">edit</button>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-medium">Cetirizine 10mg</td>
+<td class="p-3 text-on-surface-variant">Antihistamines</td>
+<td class="p-3">
+<div class="flex justify-center">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20">YES</span>
+</div>
+</td>
+<td class="p-3 text-right font-semibold">200 Units</td>
+<td class="p-3 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary">edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 4: User Management -->
+<section class="card">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-section-heading text-section-heading">User Management</h2>
+<button class="btn-primary">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                            Invite User
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="text-left font-label-sm text-label-sm p-3">Name</th>
+<th class="text-left font-label-sm text-label-sm p-3">Role</th>
+<th class="text-left font-label-sm text-label-sm p-3">Building Access</th>
+<th class="text-left font-label-sm text-label-sm p-3">Email</th>
+<th class="text-left font-label-sm text-label-sm p-3">Status</th>
+</tr>
+</thead>
+<tbody class="text-body">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-[10px]">JD</div>
+<span class="font-medium">John Doe</span>
+</div>
+</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-semibold border border-primary/20">ADMIN</span>
+</td>
+<td class="p-3">
+<div class="flex flex-wrap gap-1">
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-[10px] border border-outline-variant">Bld A</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-[10px] border border-outline-variant">Bld B</span>
+</div>
+</td>
+<td class="p-3 text-on-surface-variant">john.doe@company.com</td>
+<td class="p-3">
+<span class="flex items-center gap-1 text-green-600 font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span> Active
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-[10px]">AS</div>
+<span class="font-medium">Anita Sharma</span>
+</div>
+</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-secondary text-[10px] font-semibold border border-secondary/20">OHC CLINICIAN</span>
+</td>
+<td class="p-3">
+<div class="flex flex-wrap gap-1">
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-[10px] border border-outline-variant">Bld A</span>
+</div>
+</td>
+<td class="p-3 text-on-surface-variant">anita.s@company.com</td>
+<td class="p-3">
+<span class="flex items-center gap-1 text-green-600 font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span> Active
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 5: Operational Config -->
+<section class="card">
+<h2 class="font-section-heading text-section-heading mb-6">Operational Config</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+<!-- Left Column: Settings -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Frequent Visitor Threshold (Days)</label>
+<div class="flex items-center gap-4">
+<input class="w-full rounded" type="number" value="30"/>
+<span class="text-body text-on-surface-variant whitespace-nowrap">Days rolling window</span>
+</div>
+<p class="text-[11px] text-outline italic">Triggers alert if employee visits OHC more than 3 times in this period.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Low Stock Threshold (%)</label>
+<input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="20"/>
+<div class="flex justify-between text-[11px] font-bold text-primary">
+<span>0%</span>
+<span>Current: 20%</span>
+<span>100%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">BMW Frequency (Hrs)</label>
+<input class="rounded" type="number" value="48"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">O2 Level Alert (%)</label>
+<input class="rounded" type="number" value="94"/>
+</div>
+</div>
+</div>
+<!-- Right Column: Logo Upload & Branding -->
+<div class="flex flex-col gap-4">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Report Branding Logo</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-outline">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="font-medium text-body">Click to upload or drag and drop</p>
+<p class="text-[11px] text-outline">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded border border-outline-variant">
+<img class="w-10 h-10 rounded bg-white" data-alt="A clean, geometric corporate logo presented as an identicon. It features blue and white structural shapes against a white background, suggesting technological precision and corporate stability in a modern healthcare infrastructure environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ6Sk9tSs-YUBh2fIxZrGuIVROgEshl1l79LmscI7VNJVyjYXOlB1fT_1jO6hka46_kbUL6I7Yow3_fA6GCx-Z0JbYuvOdDbFi7ycRLoH10zDVCBBXvCg1fY-X2R-7Y4nTJc2JymPxUxa-iEkFQRO2vdd5p5nBpSDIzpfB3ZboVBh9-MWY_aKNJoFbOuVeSABrPfXFKoNolY4S0zW06_BgTbhJ17dZGVpD4QuTOVMKdZ0SUpOhhvSC2KPGi7REv7nm38xVBtzj8hW6"/>
+<div>
+<p class="font-label-sm text-label-sm">current_branding_v2.png</p>
+<p class="text-[11px] text-outline">120kb • Added 12 Dec 2023</p>
+</div>
+<button class="ml-auto material-symbols-outlined text-error hover:bg-error/10 p-1.5 rounded-full">delete</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Spacer -->
+<div class="h-12"></div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for Sub-navigation
+        document.querySelectorAll('button[class*="flex items-center gap-3"]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all
+                document.querySelectorAll('button[class*="flex items-center gap-3"]').forEach(b => {
+                    b.classList.remove('active-subnav');
+                    b.classList.add('text-on-surface-variant');
+                });
+                // Add to current
+                this.classList.add('active-subnav');
+                this.classList.remove('text-on-surface-variant');
+            });
+        });
+
+        // Tab switcher simulation
+        document.querySelectorAll('button[class*="pb-3 font-label-sm"]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('button[class*="pb-3 font-label-sm"]').forEach(t => {
+                    t.classList.remove('tab-active');
+                    t.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('tab-active');
+                this.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

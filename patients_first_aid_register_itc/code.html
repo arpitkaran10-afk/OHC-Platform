@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>First Aid Register | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#edf1f7",
+                        "surface-dim": "#d6dae0",
+                        "on-tertiary-container": "#4d2b00",
+                        "on-primary-fixed": "#001e2f",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-primary-container": "#003751",
+                        "on-surface-variant": "#3e4850",
+                        "inverse-primary": "#89ceff",
+                        "surface-tint": "#0EA5E9",
+                        "primary-fixed": "#c9e6ff",
+                        "surface-bright": "#f6faff",
+                        "inverse-surface": "#2c3135",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#f6faff",
+                        "outline": "#6e7881",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee3e9",
+                        "on-secondary-fixed": "#001e2f",
+                        "background": "#f6faff",
+                        "on-background": "#171c20",
+                        "surface-container": "#eaeef4",
+                        "on-surface": "#171c20",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f0f4fa",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-container": "#0ea5e9",
+                        "secondary-fixed": "#c9e6ff",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "surface-container-highest": "#dee3e9",
+                        "secondary-container": "#b8dffe",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e4e8ee",
+                        "secondary": "#3c627d",
+                        "on-secondary-container": "#3d637d",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "tertiary": "#8a5100",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "primary": "#0EA5E9",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#de8712",
+                        "outline-variant": "#bec8d2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar_width": "240px",
+                        "content_padding": "24px",
+                        "header_height": "56px",
+                        "container_gap": "16px",
+                        "stack_gap": "8px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "section-heading": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body": ["Inter"],
+                        "page-title": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab-border {
+            border-bottom: 2px solid #0EA5E9;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dee3e9; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-[#F3F4F6] text-on-surface">
+<!-- TopNavBar Shell -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; First Aid Register</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header Section -->
+<div class="flex justify-between items-start mb-6">
+<div>
+<h1 class="text-page-title font-page-title text-on-surface">First Aid Register</h1>
+<p class="text-body font-body text-on-surface-variant">First aid box checks and item dispensing log</p>
+</div>
+<button class="bg-[#0EA5E9] text-white h-9 px-4 rounded-lg flex items-center gap-2 font-label-sm text-label-sm transition-opacity hover:opacity-90 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Entry
+            </button>
+</div>
+<!-- Tab System -->
+<div class="flex items-center gap-8 mb-6 border-b border-outline-variant">
+<button class="pb-3 text-label-sm font-label-sm text-[#0EA5E9] active-tab-border font-bold">
+                Box Check Log
+            </button>
+<button class="pb-3 text-label-sm font-label-sm text-on-surface-variant hover:text-[#0EA5E9] transition-colors">
+                Item Dispensing Log
+            </button>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- New Box Check Entry Card -->
+<div class="bg-white rounded-lg border border-outline-variant p-6 shadow-sm">
+<div class="flex items-center gap-2 mb-6 text-[#0EA5E9]">
+<span class="material-symbols-outlined">fact_check</span>
+<h2 class="text-section-heading font-section-heading">New Box Check Entry</h2>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Date</label>
+<input class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" type="date"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Shift</label>
+<div class="flex gap-2">
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input checked="" class="hidden" name="shift" type="radio" value="A"/> A
+                            </label>
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input class="hidden" name="shift" type="radio" value="B"/> B
+                            </label>
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input class="hidden" name="shift" type="radio" value="C"/> C
+                            </label>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">First Aid Box No.</label>
+<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
+<option>FAB-ITC-001 (Production)</option>
+<option>FAB-ITC-002 (Admin Block)</option>
+<option>FAB-ITC-003 (Warehouse)</option>
+<option>FAB-ITC-004 (Canteen)</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Box Status</label>
+<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
+<option>OK / Ready</option>
+<option>Needs Restocking</option>
+<option>Items Missing</option>
+<option>Lock Broken</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">OHC Staff Sign-off</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">badge</span>
+<input class="w-full border border-outline-variant rounded-lg h-9 pl-10 pr-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" placeholder="Enter Staff ID or Name" type="text"/>
+</div>
+</div>
+<div class="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-outline-variant mt-2">
+<button class="px-6 h-9 border border-outline-variant text-on-surface hover:bg-surface-container rounded-lg font-label-sm text-label-sm transition-all" type="button">Cancel</button>
+<button class="px-6 h-9 bg-[#0EA5E9] text-white hover:opacity-90 rounded-lg font-label-sm text-label-sm shadow-sm transition-all" type="submit">Save Entry</button>
+</div>
+</form>
+</div>
+<!-- Recent Box Check Entries Section Card -->
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#0EA5E9]">history</span>
+<h2 class="text-section-heading font-section-heading">Recent Box Check Entries</h2>
+</div>
+<button class="text-[#0EA5E9] flex items-center gap-1 text-label-sm font-label-sm hover:underline">
+                        View Detailed Report
+                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-label-sm font-label-sm">
+<tr>
+<th class="p-3 pl-6 border-b border-outline-variant">Date</th>
+<th class="p-3 border-b border-outline-variant">Shift</th>
+<th class="p-3 border-b border-outline-variant">Box No.</th>
+<th class="p-3 border-b border-outline-variant">Status</th>
+<th class="p-3 border-b border-outline-variant">Staff Sign</th>
+<th class="p-3 pr-6 border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body font-body divide-y divide-outline-variant">
+<!-- Row 1: Success -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-white">
+<td class="p-3 pl-6">24 Oct 2023</td>
+<td class="p-3">A</td>
+<td class="p-3">FAB-ITC-001</td>
+<td class="p-3">
+<span class="inline-flex items-center px-3 h-6 bg-green-100 text-green-800 rounded-full text-[11px] font-semibold">
+                                        OK
+                                    </span>
+</td>
+<td class="p-3">Dr. Arun Kumar</td>
+<td class="p-3 pr-6 text-right">
+<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+<!-- Row 2: Warning -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low">
+<td class="p-3 pl-6">24 Oct 2023</td>
+<td class="p-3">A</td>
+<td class="p-3">FAB-ITC-004</td>
+<td class="p-3">
+<span class="inline-flex items-center px-3 h-6 bg-amber-100 text-amber-800 rounded-full text-[11px] font-semibold">
+                                        Needs Restocking
+                                    </span>
+</td>
+<td class="p-3">Nurse Sheela</td>
+<td class="p-3 pr-6 text-right">
+<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+<!-- Row 3: Error -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-white">
+<td class="p-3 pl-6">23 Oct 2023</td>
+<td class="p-3">C</td>
+<td class="p-3">FAB-ITC-002</td>
+<td class="p-3">
+<span class="inline-flex items-center px-3 h-6 bg-red-100 text-red-800 rounded-full text-[11px] font-semibold">
+                                        Items Missing
+                                    </span>
+</td>
+<td class="p-3">Suresh Mani</td>
+<td class="p-3 pr-6 text-right">
+<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low">
+<td class="p-3 pl-6">23 Oct 2023</td>
+<td class="p-3">B</td>
+<td class="p-3">FAB-ITC-003</td>
+<td class="p-3">
+<span class="inline-flex items-center px-3 h-6 bg-green-100 text-green-800 rounded-full text-[11px] font-semibold">
+                                        OK
+                                    </span>
+</td>
+<td class="p-3">Nurse Sheela</td>
+<td class="p-3 pr-6 text-right">
+<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Showing 4 of 128 entries</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="w-8 h-8 rounded border border-[#0EA5E9] bg-[#0EA5E9] text-white flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low">2</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low">3</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Dashboard Snapshot Widget -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center text-[#0EA5E9]">
+<span class="material-symbols-outlined text-[28px]">medical_information</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Total Boxes Managed</p>
+<p class="text-page-title font-page-title text-[#0EA5E9]">14</p>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
+<span class="material-symbols-outlined text-[28px]">warning</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Pending Restock</p>
+<p class="text-page-title font-page-title text-amber-600">03</p>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-[28px]">schedule</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Next Audit Cycle</p>
+<p class="text-page-title font-page-title text-blue-600">06 Days</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) logic -->
+<div class="fixed bottom-8 right-8 z-50 md:hidden">
+<button class="w-14 h-14 bg-[#0EA5E9] text-white rounded-full shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+</div>
+<script>
+        // Simple interactivity for demo
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Background colors are handled by Tailwind's "has-[:checked]" pseudo-class
+                console.log('Shift Selected:', e.target.value);
+            });
+        });
+
+        // Form Submission handling
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Entry saved successfully into the OHC Secure Database.');
+        });
+    </script>
+</body></html>

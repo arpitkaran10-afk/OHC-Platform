@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OHC Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="ohc-design-system.css"/>
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #F3F4F6; overflow: hidden; }
+
+    /* ── Content shell (right of sidebar, below header) ───── */
+    #content-shell {
+      position: fixed;
+      top: 56px;
+      left: 240px;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      background: #F3F4F6;
+    }
+
+    /* ── Tab bar (conditional) ──────────────────────────────── */
+    #tab-bar-wrapper {
+      background: #ffffff;
+      border-bottom: 1px solid #E5E7EB;
+      flex-shrink: 0;
+      display: none;
+    }
+    #tab-bar {
+      display: flex;
+      overflow-x: auto;
+      padding: 0 8px;
+    }
+    #tab-bar::-webkit-scrollbar { display: none; }
+
+    .shell-tab {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #6B7280;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Inter', system-ui, sans-serif;
+      transition: color 0.12s, background 0.12s;
+    }
+    .shell-tab:hover { background: #F9FAFB; color: #374151; }
+    .shell-tab.active {
+      font-weight: 500;
+      color: #0EA5E9;
+      border-bottom-color: #0EA5E9;
+    }
+
+    /* ── Content iframe ─────────────────────────────────────── */
+    #content-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      background: #F3F4F6;
+      display: block;
+    }
+
+    /* ── Loading overlay ────────────────────────────────────── */
+    #loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: #F3F4F6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+    #loading-overlay.hidden { display: none; }
+
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid #E5E7EB;
+      border-top-color: #0EA5E9;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Material icon baseline fix ─────────────────────────── */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     PERMANENT HEADER
+     ══════════════════════════════════════════════════════════ -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">TGHC</span>
+    <span class="ohc-breadcrumb" id="breadcrumb">OHC Platform &gt; Dashboard</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…" id="global-search"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     PERMANENT SIDEBAR
+     ══════════════════════════════════════════════════════════ -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A — Trivandrum</option>
+    <option>Site B — Pune</option>
+    <option>Site C — Khordha</option>
+  </select>
+  <nav class="ohc-nav" id="main-nav">
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="dashboard"
+       onclick="navigateTo('dashboard')">
+      <span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="patients"
+       onclick="navigateTo('patients')">
+      <span class="material-symbols-outlined mat-icon">person</span>Patients
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="clinicians"
+       onclick="navigateTo('clinicians')">
+      <span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="prescriptions"
+       onclick="navigateTo('prescriptions')">
+      <span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="pharmacy"
+       onclick="navigateTo('pharmacy')">
+      <span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="health_camps"
+       onclick="navigateTo('health_camps')">
+      <span class="material-symbols-outlined mat-icon">campaign</span>Health Camps
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="toolbox"
+       onclick="navigateTo('toolbox')">
+      <span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="wellness"
+       onclick="navigateTo('wellness')">
+      <span class="material-symbols-outlined mat-icon">favorite</span>Wellness
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="compliance"
+       onclick="navigateTo('compliance')">
+      <span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="bmw"
+       onclick="navigateTo('bmw')">
+      <span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="analytics"
+       onclick="navigateTo('analytics')">
+      <span class="material-symbols-outlined mat-icon">analytics</span>Analytics
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="others"
+       onclick="navigateTo('others')">
+      <span class="material-symbols-outlined mat-icon">more_horiz</span>Others
+    </a>
+    <a class="ohc-nav-item" href="javascript:void(0)" data-module="settings"
+       onclick="navigateTo('settings')">
+      <span class="material-symbols-outlined mat-icon">settings</span>Settings
+    </a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="javascript:void(0)">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTENT SHELL
+     ══════════════════════════════════════════════════════════ -->
+<div id="content-shell">
+
+  <!-- Tab bar — shown only for tabbed modules -->
+  <div id="tab-bar-wrapper">
+    <div id="tab-bar"></div>
+  </div>
+
+  <!-- Loading indicator -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- The iframe that renders each module's content area -->
+  <iframe
+    id="content-frame"
+    title="OHC Module Content"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups"
+  ></iframe>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVIGATION ENGINE
+     ══════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── Navigation map ────────────────────────────────────────────
+const MODULES = [
+  {
+    key: 'dashboard',
+    label: 'Dashboard',
+    icon: 'dashboard',
+    file: 'ohc_dashboard_operational_control/code.html'
+  },
+  {
+    key: 'patients',
+    label: 'Patients',
+    icon: 'person',
+    tabs: [
+      { label: 'OPD Visits',          file: 'patients_opd_visit_entry/code.html' },
+      { label: 'First Aid Register',   file: 'patients_first_aid_register_itc/code.html' },
+      { label: 'Doctor Register',      file: 'patients_doctor_register_v4/code.html' },
+      { label: 'Ambulance Register',   file: 'patients_ambulance_register/code.html' },
+      { label: 'Rest Case',            file: 'patients_rest_case_allianz/code.html' }
+    ]
+  },
+  {
+    key: 'clinicians',
+    label: 'Clinicians',
+    icon: 'medical_services',
+    file: 'clinicians_staff_master_roster/code.html'
+  },
+  {
+    key: 'prescriptions',
+    label: 'Prescriptions',
+    icon: 'prescriptions',
+    file: 'prescriptions_digital_rx_log/code.html'
+  },
+  {
+    key: 'pharmacy',
+    label: 'Pharmacy',
+    icon: 'local_pharmacy',
+    tabs: [
+      { label: 'Stock Management',  file: 'pharmacy_stock_management_v4_1/code.html' },
+      { label: 'Oxygen Supply',     file: 'Oxygen Supply/code.html' },
+      { label: 'Vending Machine',   file: 'Vending Machine/code.html' }
+    ]
+  },
+  {
+    key: 'health_camps',
+    label: 'Health Camps',
+    icon: 'campaign',
+    file: 'health_camps_screening_events_v4/code.html'
+  },
+  {
+    key: 'toolbox',
+    label: 'Toolbox Trainings',
+    icon: 'construction',
+    file: 'Toolbox Training/code.html'
+  },
+  {
+    key: 'wellness',
+    label: 'Wellness',
+    icon: 'favorite',
+    file: 'wellness_campaigns_calendar_v4/code.html'
+  },
+  {
+    key: 'compliance',
+    label: 'Compliance & Audits',
+    icon: 'fact_check',
+    // Files found with "compliance" in name, mapped to tab labels:
+    //   compliance_audits_operational_hub_v4/code.html   → Compliance Matrix
+    //   general_inventory_register_allianz/code.html     → General Inventory
+    //   OSHWC Compliance/hse-medical-dashboard-v2.html   → OSHWC Compliance
+    //   laundry_register_allianz_compliance_v4/code.html → kept under Others (Laundry Register)
+    tabs: [
+      { label: 'Compliance Matrix',  file: 'compliance_audits_operational_hub_v4/code.html' },
+      { label: 'General Inventory',  file: 'general_inventory_register_allianz/code.html' },
+      { label: 'OSHWC Compliance',   file: 'OSHWC Compliance/hse-medical-dashboard-v2.html' }
+    ]
+  },
+  {
+    key: 'bmw',
+    label: 'Bio Medical Waste Tracking',
+    icon: 'delete_sweep',
+    file: 'bmw_tracking_collection_log_v4/code.html'
+  },
+  {
+    key: 'analytics',
+    label: 'Analytics',
+    icon: 'analytics',
+    file: 'analytics_reports_operational_insights_v4/code.html'
+  },
+  {
+    key: 'others',
+    label: 'Others',
+    icon: 'more_horiz',
+    tabs: [
+      { label: 'Incident Register',  file: 'others_incident_register_v4/code.html' },
+      { label: 'Invoice Tracker',    file: 'invoice_tracker_allianz_finance_v4/code.html' },
+      { label: 'Laundry Register',   file: 'laundry_register_allianz_compliance_v4/code.html' }
+    ]
+  },
+  {
+    key: 'settings',
+    label: 'Settings',
+    icon: 'settings',
+    file: 'settings_platform_configuration_v4/code.html'
+  }
+];
+
+const MODULE_MAP = Object.fromEntries(MODULES.map(m => [m.key, m]));
+
+// ── DOM refs ──────────────────────────────────────────────────
+const iframe          = document.getElementById('content-frame');
+const breadcrumbEl    = document.getElementById('breadcrumb');
+const tabBarWrapper   = document.getElementById('tab-bar-wrapper');
+const tabBarEl        = document.getElementById('tab-bar');
+const loadingOverlay  = document.getElementById('loading-overlay');
+
+// ── State ─────────────────────────────────────────────────────
+let activeModule   = null;
+let activeTabIndex = 0;
+let pendingFile    = null;   // track what we most recently requested
+
+// ── Shell-hide CSS injected into each iframe after load ───────
+const OVERRIDE_CSS = `
+  .ohc-header  { display: none !important; }
+  .ohc-sidebar { display: none !important; }
+  .ohc-main    { margin-left: 0 !important; padding-top: 0 !important;
+                 min-height: 100vh; background: #F3F4F6; }
+  body         { overflow-y: auto !important; background: #F3F4F6 !important; }
+`;
+
+// ── File loader (iframe.src + same-origin DOM injection) ──────
+function loadFile(file) {
+  pendingFile = file;
+  loadingOverlay.classList.remove('hidden');
+  iframe.src = file;
+}
+
+// After iframe loads, inject override CSS into its document
+iframe.addEventListener('load', () => {
+  // Guard: if a newer navigate call fired, this load event is stale
+  // (pendingFile === null means we haven't navigated yet — shouldn't happen)
+
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    if (!doc) return;
+
+    // Remove any previous override
+    const old = doc.getElementById('__ohc-override');
+    if (old) old.remove();
+
+    const style = doc.createElement('style');
+    style.id = '__ohc-override';
+    style.textContent = OVERRIDE_CSS;
+    (doc.head || doc.documentElement).appendChild(style);
+  } catch (e) {
+    // Cross-origin guard — shouldn't happen for local files
+    console.warn('Could not inject override CSS:', e);
+  }
+
+  loadingOverlay.classList.add('hidden');
+});
+
+// ── Main navigation function ──────────────────────────────────
+function navigateTo(moduleKey, tabIndex) {
+  if (tabIndex === undefined) {
+    // If re-clicking the same module, preserve the current tab
+    tabIndex = (activeModule === moduleKey) ? activeTabIndex : 0;
+  }
+
+  const mod = MODULE_MAP[moduleKey];
+  if (!mod) return;
+
+  activeModule   = moduleKey;
+  activeTabIndex = tabIndex;
+
+  // 1. Update sidebar active state
+  document.querySelectorAll('#main-nav .ohc-nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.module === moduleKey);
+  });
+
+  // 2. Update tab bar
+  if (mod.tabs && mod.tabs.length > 0) {
+    tabBarWrapper.style.display = 'block';
+    tabBarEl.innerHTML = mod.tabs.map((tab, i) => {
+      const isActive = i === tabIndex;
+      return `<button class="shell-tab${isActive ? ' active' : ''}"
+                      onclick="navigateTo('${moduleKey}', ${i})">${tab.label}</button>`;
+    }).join('');
+  } else {
+    tabBarWrapper.style.display = 'none';
+    tabBarEl.innerHTML = '';
+  }
+
+  // 3. Update breadcrumb
+  const file = mod.tabs ? mod.tabs[tabIndex].file : mod.file;
+  const tabLabel = mod.tabs ? mod.tabs[tabIndex].label : null;
+  breadcrumbEl.textContent = tabLabel
+    ? `OHC Platform › ${mod.label} › ${tabLabel}`
+    : `OHC Platform › ${mod.label}`;
+
+  // 4. Load the file
+  loadFile(file);
+}
+
+// ── Boot: load Dashboard ──────────────────────────────────────
+navigateTo('dashboard');
+</script>
+
+</body>
+</html>

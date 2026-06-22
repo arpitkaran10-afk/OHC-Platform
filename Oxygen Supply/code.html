@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oxygen Supply Register | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary-fixed": "#002113",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#0ea5e9",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e9edff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9ff",
+                        "secondary": "#006c49",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface": "#f9f9ff",
+                        "surface-variant": "#dce2f7",
+                        "on-secondary-container": "#00714d",
+                        "surface-container-high": "#e1e8fd",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-low": "#f1f3ff",
+                        "tertiary": "#855300",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "secondary-container": "#6cf8bb",
+                        "primary-fixed-dim": "#89ceff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-primary": "#89ceff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#d88a00",
+                        "primary": "#0EA5E9",
+                        "on-surface": "#141b2b",
+                        "inverse-on-surface": "#edf0ff",
+                        "surface-tint": "#0EA5E9",
+                        "primary-fixed": "#c9e6ff",
+                        "on-surface-variant": "#3e4850",
+                        "on-primary-fixed": "#001e2f",
+                        "on-background": "#141b2b",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline-variant": "#bec8d2",
+                        "surface-dim": "#d3daef",
+                        "inverse-surface": "#293040",
+                        "background": "#f9f9ff",
+                        "surface-container-highest": "#dce2f7",
+                        "outline": "#6e7881",
+                        "on-tertiary-container": "#4a2c00",
+                        "on-primary-container": "#003751"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "240px",
+                        "gap-xs": "4px",
+                        "container-padding": "24px",
+                        "base-unit": "4px",
+                        "gap-lg": "24px",
+                        "gap-sm": "8px",
+                        "gap-md": "16px",
+                        "header-height": "56px"
+                    },
+                    "fontFamily": {
+                        "body": ["Inter", "sans-serif"],
+                        "page-title": ["Inter", "sans-serif"],
+                        "section-heading": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "metadata": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "metadata": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        .nav-active {
+            background-color: #e0f2fe;
+            color: #0EA5E9;
+            border-left: 3px solid #0EA5E9;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body style="background-color:#F3F4F6;">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Pharmacy &gt; Oxygen Supply</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<div class="flex justify-between items-start mb-gap-lg">
+<div>
+<h1 class="font-page-title text-page-title text-[#111827]">Oxygen Supply Register</h1>
+<p class="font-label text-label text-[#6B7280]">O₂ cylinder level tracking across Ambulance, OHC-1, OHC-2</p>
+</div>
+<button class="bg-[#0EA5E9] hover:bg-[#0284c7] text-white px-md py-2 rounded-lg flex items-center gap-sm font-label transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Log Entry
+            </button>
+</div>
+<!-- KPI Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md mb-gap-lg">
+<!-- Card 1 -->
+<div class="bg-white border border-[#E5E7EB] rounded-xl p-gap-md border-l-[4px] border-l-[#0EA5E9] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-metadata text-metadata text-outline uppercase tracking-wider">Ambulance</span>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded-full">OK</span>
+</div>
+<div class="mb-4">
+<h2 class="text-[28px] font-bold text-on-surface">162 kg</h2>
+<p class="text-metadata text-outline">Last Check: 24 Oct 2023</p>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-green-500 w-[85%] rounded-full"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white border border-[#E5E7EB] rounded-xl p-gap-md border-l-[4px] border-l-[#0EA5E9] shadow-sm relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-metadata text-metadata text-outline uppercase tracking-wider">OHC-1</span>
+<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded-full">LOW</span>
+</div>
+<div class="mb-4">
+<h2 class="text-[28px] font-bold text-on-surface">85 kg</h2>
+<p class="text-metadata text-outline">Last Check: 24 Oct 2023</p>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-red-500 w-[35%] rounded-full"></div>
+</div>
+<!-- Warning Overlay Pulse -->
+<div class="absolute inset-0 bg-red-500/5 pointer-events-none animate-pulse"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white border border-[#E5E7EB] rounded-xl p-gap-md border-l-[4px] border-l-[#0EA5E9] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-metadata text-metadata text-outline uppercase tracking-wider">OHC-2</span>
+<span class="px-2 py-0.5 bg-yellow-100 text-yellow-700 text-[10px] font-bold rounded-full uppercase">Refill Due</span>
+</div>
+<div class="mb-4">
+<h2 class="text-[28px] font-bold text-on-surface">140 kg</h2>
+<p class="text-metadata text-outline">Last Check: 23 Oct 2023</p>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-yellow-400 w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Two Column Layout: Form & History -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gap-lg">
+<!-- Log Entry Form (Left) -->
+<div class="lg:col-span-4 space-y-gap-md">
+<div class="bg-white border border-[#E5E7EB] rounded-xl p-gap-md shadow-sm">
+<div class="flex items-center gap-sm mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+<h2 class="font-section-heading text-[14px]">Log Entry</h2>
+</div>
+<form class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">Date</label>
+<input class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" type="date" value="2023-10-25"/>
+</div>
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">Location</label>
+<select class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" id="locSelect">
+<option>Ambulance</option>
+<option selected="">OHC-1</option>
+<option>OHC-2</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">O₂ Level (kg)</label>
+<input class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" id="levelInput" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">Entry Type</label>
+<select class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" id="entryType">
+<option>Routine Check</option>
+<option>Refill</option>
+<option>Post-Use</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4" id="refillDetails">
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">Vendor / Refilled By</label>
+<input class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" placeholder="e.g. Linde O2" type="text"/>
+</div>
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">OHC Staff Sign</label>
+<select class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5">
+<option>Dr. Sarah Miller</option>
+<option>Nurse James Wilson</option>
+<option>Admin Kartik P.</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-metadata text-outline-variant mb-1 uppercase font-bold text-[10px]">Remarks</label>
+<textarea class="w-full text-body border-[#E5E7EB] rounded focus:ring-primary focus:border-primary px-2 py-1.5" placeholder="Enter notes here..." rows="3"></textarea>
+</div>
+<!-- Alert Banner -->
+<div class="flex items-center gap-sm bg-red-50 border border-red-200 p-3 rounded-lg text-red-700" id="lowAlert">
+<span class="material-symbols-outlined text-[18px]" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+<p class="text-metadata leading-tight"><strong>LOW O₂ ALERT</strong> — Level below threshold. Arrange refill immediately.</p>
+</div>
+<div class="flex gap-gap-sm pt-2">
+<button class="flex-1 bg-[#0EA5E9] text-white py-2 rounded-lg font-label shadow-sm hover:opacity-90 transition-all" type="button">Save Entry</button>
+<button class="px-4 py-2 border border-[#E5E7EB] text-[#6B7280] rounded-lg font-label hover:bg-slate-50 transition-all" type="button">Cancel</button>
+</div>
+</form>
+</div>
+<!-- Auxiliary Image Section -->
+<div class="bg-white border border-[#E5E7EB] rounded-xl overflow-hidden shadow-sm">
+<img alt="Medical Oxygen Cylinders" class="w-full h-40 object-cover" data-alt="A macro photograph of high-grade medical oxygen cylinders stored in a clean, clinical facility. The lighting is crisp and cool, highlighting the industrial teal and silver surfaces of the equipment. The composition is professional and clean, fitting a high-end corporate medical dashboard. The atmosphere suggests safety, precision, and systematic maintenance in a modern healthcare environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn1wtBaeyWIg_dJotUsAqUfcgWDXuETRvupwvSANAqabeSMsZH7udYg0XQ7R_jvhgY28Ozw1ejEIpy-9n3OqgFhUZ3ZacUJF__AbhZMeqxKMrog7dBNMtN2MozPK_tygI-3tY_vD0fHdRsz6fpr_HrxBTqu3T8p6bBKefpBB-7dUlCMX7DwInPjevmRXXDloCbPdmSMgVQk_KkoDYuzfXUXoQmFESHQLzwILKBLSq9q_44K3tsLzKESTVgGZpa2LtK66gmUZXVsu4"/>
+<div class="p-3">
+<p class="text-metadata text-outline leading-tight italic">Proper cylinder handling protocols must be followed at all times. Check valves and pressure gauges daily.</p>
+</div>
+</div>
+</div>
+<!-- Log History (Right) -->
+<div class="lg:col-span-8">
+<div class="bg-white border border-[#E5E7EB] rounded-xl shadow-sm overflow-hidden">
+<!-- Filter Bar -->
+<div class="p-gap-md border-b border-[#E5E7EB] bg-slate-50 flex flex-wrap items-center gap-4">
+<h3 class="font-section-heading text-[14px] mr-auto">Recent History</h3>
+<div class="flex items-center gap-2">
+<select class="text-metadata border-[#E5E7EB] rounded-lg py-1 px-3 bg-white">
+<option>All Locations</option>
+<option>Ambulance</option>
+<option>OHC-1</option>
+</select>
+<input class="text-metadata border-[#E5E7EB] rounded-lg py-1 px-3 bg-white" type="date"/>
+<select class="text-metadata border-[#E5E7EB] rounded-lg py-1 px-3 bg-white">
+<option>All Types</option>
+<option>Routine</option>
+<option>Refill</option>
+</select>
+<button class="p-1.5 hover:bg-white hover:shadow-sm rounded transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- History Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 border-b border-[#E5E7EB]">
+<tr>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">Date</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">Location</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">O₂ Level</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">Type</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">Vendor/Sign</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase text-outline-variant tracking-wider">Status</th>
+<th class="px-4 py-3"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F3F4F6] text-body">
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-4 py-3 whitespace-nowrap">24 Oct, 09:15</td>
+<td class="px-4 py-3 font-medium">Ambulance</td>
+<td class="px-4 py-3">162 kg</td>
+<td class="px-4 py-3">
+<span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase">Routine</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-[11px] leading-tight">
+<div class="text-on-surface font-medium">Self Check</div>
+<div class="text-outline">Staff: Sarah M.</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-[11px] font-medium text-green-700 uppercase">Optimal</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline-variant hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="bg-slate-50/30 hover:bg-slate-50 transition-colors">
+<td class="px-4 py-3 whitespace-nowrap">24 Oct, 08:30</td>
+<td class="px-4 py-3 font-medium text-red-600">OHC-1</td>
+<td class="px-4 py-3">85 kg</td>
+<td class="px-4 py-3">
+<span class="px-2 py-0.5 bg-red-50 text-red-600 text-[10px] font-bold rounded uppercase">Post-Use</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-[11px] leading-tight">
+<div class="text-on-surface font-medium">Emergency Dept</div>
+<div class="text-outline">Staff: James W.</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<span class="text-[11px] font-medium text-red-700 uppercase">Critical</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline-variant hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-4 py-3 whitespace-nowrap">23 Oct, 16:45</td>
+<td class="px-4 py-3 font-medium">OHC-2</td>
+<td class="px-4 py-3">140 kg</td>
+<td class="px-4 py-3">
+<span class="px-2 py-0.5 bg-yellow-50 text-yellow-600 text-[10px] font-bold rounded uppercase">Routine</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-[11px] leading-tight">
+<div class="text-on-surface font-medium">Self Check</div>
+<div class="text-outline">Staff: Sarah M.</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+<span class="text-[11px] font-medium text-yellow-700 uppercase">Warning</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline-variant hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="bg-slate-50/30 hover:bg-slate-50 transition-colors">
+<td class="px-4 py-3 whitespace-nowrap">22 Oct, 10:00</td>
+<td class="px-4 py-3 font-medium">Ambulance</td>
+<td class="px-4 py-3">185 kg</td>
+<td class="px-4 py-3">
+<span class="px-2 py-0.5 bg-green-50 text-green-600 text-[10px] font-bold rounded uppercase">Refill</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-[11px] leading-tight">
+<div class="text-on-surface font-medium">Linde Services</div>
+<div class="text-outline">Staff: Admin KP.</div>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-[11px] font-medium text-green-700 uppercase">Full</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-outline-variant hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Placeholder -->
+<div class="p-4 bg-slate-50 flex justify-between items-center text-metadata text-outline border-t border-[#E5E7EB]">
+<span>Showing 1-4 of 124 entries</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 border border-[#E5E7EB] bg-white rounded hover:bg-slate-50 transition-all">Previous</button>
+<button class="px-2 py-1 border border-[#E5E7EB] bg-white rounded hover:bg-slate-50 transition-all">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and interactive logic
+        const levelInput = document.getElementById('levelInput');
+        const alertBanner = document.getElementById('lowAlert');
+        const entryType = document.getElementById('entryType');
+        const refillDetails = document.getElementById('refillDetails');
+
+        // Toggle low level alert based on input
+        levelInput.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            if(val < 90) {
+                alertBanner.classList.remove('hidden');
+                alertBanner.classList.add('flex');
+            } else {
+                alertBanner.classList.add('hidden');
+                alertBanner.classList.remove('flex');
+            }
+        });
+
+        // Toggle visibility of refill info (simulating conditional logic)
+        entryType.addEventListener('change', (e) => {
+            if(e.target.value !== 'Refill') {
+                // Change label to Vendor/Reference for others
+                refillDetails.querySelector('label').innerText = 'Reference / Dept';
+            } else {
+                refillDetails.querySelector('label').innerText = 'Vendor / Refilled By';
+            }
+        });
+
+        // Initialize state
+        alertBanner.classList.add('hidden');
+    </script>
+</body></html>

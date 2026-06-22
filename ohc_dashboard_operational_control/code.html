@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OHC Platform - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#ffdcbd",
+                "primary-fixed-dim": "#89ceff",
+                "primary": "#0EA5E9",
+                "surface-container-low": "#f0f4fa",
+                "tertiary-fixed-dim": "#ffb86e",
+                "on-primary": "#ffffff",
+                "primary-container": "#0ea5e9",
+                "error-container": "#ffdad6",
+                "surface-container-highest": "#dee3e9",
+                "tertiary-container": "#de8712",
+                "surface-tint": "#0EA5E9",
+                "on-primary-container": "#003751",
+                "secondary": "#3c627d",
+                "inverse-on-surface": "#edf1f7",
+                "secondary-fixed": "#c9e6ff",
+                "on-tertiary-fixed": "#2c1600",
+                "on-secondary-fixed-variant": "#234b64",
+                "surface-dim": "#d6dae0",
+                "primary-fixed": "#c9e6ff",
+                "secondary-fixed-dim": "#a5cbe9",
+                "surface": "#f6faff",
+                "on-secondary": "#ffffff",
+                "on-surface-variant": "#3e4850",
+                "on-error": "#ffffff",
+                "on-surface": "#171c20",
+                "inverse-surface": "#2c3135",
+                "on-error-container": "#93000a",
+                "inverse-primary": "#89ceff",
+                "background": "#f6faff",
+                "on-background": "#171c20",
+                "surface-container-high": "#e4e8ee",
+                "surface-variant": "#dee3e9",
+                "tertiary": "#8a5100",
+                "on-primary-fixed": "#001e2f",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-container": "#4d2b00",
+                "secondary-container": "#b8dffe",
+                "on-primary-fixed-variant": "#004c6e",
+                "on-secondary-fixed": "#001e2f",
+                "surface-container": "#eaeef4",
+                "on-secondary-container": "#3d637d",
+                "outline-variant": "#bec8d2",
+                "outline": "#6e7881",
+                "on-tertiary-fixed-variant": "#693c00",
+                "surface-bright": "#f6faff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "header_height": "56px",
+                "container_gap": "16px",
+                "stack_gap": "8px",
+                "content_padding": "24px",
+                "base": "4px",
+                "sidebar_width": "240px"
+            },
+            "fontFamily": {
+                "label-sm": ["Inter"],
+                "section-heading": ["Inter"],
+                "page-title": ["Inter"],
+                "body": ["Inter"]
+            },
+            "fontSize": {
+                "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; color: #171c20; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .sidebar-active { background-color: #EFF6FF; border-left: 4px solid #0EA5E9; color: #0EA5E9; font-weight: 700; }
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Dashboard</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<!-- SideNavBar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#">
+      <span class="material-symbols-outlined mat-icon">help</span>
+      Help &amp; Support
+    </a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<!-- Main Content -->
+<main class="ohc-main">
+<div class="ohc-content">
+<div class="space-y-6">
+<!-- Content Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-page-title font-page-title text-on-surface">Dashboard</h1>
+<p class="text-body font-body text-on-surface-variant">Live operational snapshot — updated in real time</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">domain</span>
+<span class="text-body font-medium">Building: All Buildings</span>
+<span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+</div>
+<button class="h-9 px-4 bg-primary text-white rounded-lg font-bold text-body flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- KPI Cards Grid (4x2) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Row 1 -->
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Consultations Today</p>
+<h3 class="text-[32px] font-bold text-on-surface">42</h3>
+<div class="mt-2 flex items-center text-[11px] text-green-600 font-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                        12% increase from yesterday
+                    </div>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Rest Cases Today</p>
+<h3 class="text-[32px] font-bold text-on-surface">12</h3>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Active Clinicians</p>
+<div class="flex items-end justify-between">
+<h3 class="text-[32px] font-bold text-on-surface">08</h3>
+<div class="flex -space-x-2 pb-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-slate-300"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-slate-400"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-slate-500"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-green-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Low Stock Alerts</p>
+<div class="flex items-center gap-2">
+<h3 class="text-[32px] font-bold text-green-600">0</h3>
+<span class="bg-green-100 text-green-700 text-[10px] px-2 py-1 rounded-full font-bold">Healthy</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">BMW Pickup Pending</p>
+<h3 class="text-[32px] font-bold text-on-surface">No</h3>
+<p class="text-[11px] text-on-surface-variant/70 mt-2 italic">Next scheduled: 09:00 AM Tomorrow</p>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Incidents This Month</p>
+<h3 class="text-[32px] font-bold text-on-surface">0</h3>
+<div class="mt-2 flex items-center text-[11px] text-primary font-bold">
+                        Maintain workplace safety standards
+                    </div>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Training Sessions</p>
+<h3 class="text-[32px] font-bold text-on-surface">05</h3>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-orange-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Pending Follow-ups</p>
+<div class="flex items-center gap-2">
+<h3 class="text-[32px] font-bold text-orange-600">14</h3>
+<span class="bg-orange-100 text-orange-700 text-[10px] px-2 py-1 rounded-full font-bold animate-pulse">Action Required</span>
+</div>
+</div>
+</div>
+<!-- Widgets Grid (2 columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- R1L: Footfall Chart -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-section-heading font-section-heading text-on-surface">Footfall by Staff Type</h4>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="h-64 flex items-end gap-6 px-4">
+<!-- Simulated Bar Chart -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex flex-col-reverse gap-0.5">
+<div class="h-32 bg-primary rounded-t-sm" title="Teal: 45"></div>
+<div class="h-16 bg-green-500 rounded-b-sm" title="Green: 20"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Bld A</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex flex-col-reverse gap-0.5">
+<div class="h-24 bg-primary rounded-t-sm" title="Teal: 30"></div>
+<div class="h-24 bg-green-500 rounded-b-sm" title="Green: 30"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Bld B</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex flex-col-reverse gap-0.5">
+<div class="h-40 bg-primary rounded-t-sm" title="Teal: 60"></div>
+<div class="h-12 bg-green-500 rounded-b-sm" title="Green: 15"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Bld C</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex flex-col-reverse gap-0.5">
+<div class="h-20 bg-primary rounded-t-sm" title="Teal: 25"></div>
+<div class="h-20 bg-green-500 rounded-b-sm" title="Green: 25"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Bld D</span>
+</div>
+</div>
+<div class="mt-6 flex justify-center gap-8">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-label-sm text-on-surface-variant">Direct Employees</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+<span class="text-label-sm text-on-surface-variant">Contract Staff</span>
+</div>
+</div>
+</div>
+<!-- R1R: OPD vs Rest Split -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h4 class="text-section-heading font-section-heading text-on-surface">OPD vs Rest Split</h4>
+<p class="text-label-sm font-medium text-primary uppercase tracking-tighter">Current Session</p>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer">donut_large</span>
+</div>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Custom SVG Donut -->
+<svg class="w-48 h-48 transform -rotate-90">
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#f0f4fa" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#0EA5E9" stroke-dasharray="440" stroke-dashoffset="110" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#0ea5e9" stroke-dasharray="440" stroke-dashoffset="330" stroke-width="24"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[28px] font-bold text-on-surface">54</span>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Total Cases</span>
+</div>
+</div>
+<div class="mt-4 grid grid-cols-2 gap-4">
+<div class="p-3 bg-surface-container-low rounded-lg text-center">
+<p class="text-label-sm text-on-surface-variant">OPD Consultations</p>
+<p class="text-lg font-bold text-primary">42 (78%)</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg text-center">
+<p class="text-label-sm text-on-surface-variant">Rest Cases</p>
+<p class="text-lg font-bold text-primary-container">12 (22%)</p>
+</div>
+</div>
+</div>
+<!-- R2L: Top 5 Ailments -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h4 class="text-section-heading font-section-heading text-on-surface mb-6">Top 5 Ailments This Month</h4>
+<div class="space-y-5">
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-bold text-on-surface">
+<span>Upper Respiratory Infection</span>
+<span>124</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-bold text-on-surface">
+<span>Muscle Strain / Ergonomics</span>
+<span>88</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 62%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-bold text-on-surface">
+<span>Gastritis / GI Distress</span>
+<span>56</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-bold text-on-surface">
+<span>Fever / Viral</span>
+<span>42</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 32%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-bold text-on-surface">
+<span>Migraine / Stress Headache</span>
+<span>31</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 24%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- R2R: Frequent Visitor Alerts -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col">
+<div class="p-6 pb-2">
+<h4 class="text-section-heading font-section-heading text-on-surface">Frequent Visitor Alerts</h4>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-y border-outline-variant/30">
+<th class="text-left py-3 px-6 text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">ID</th>
+<th class="text-left py-3 px-6 text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">Name</th>
+<th class="text-left py-3 px-6 text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">Dept</th>
+<th class="text-center py-3 px-6 text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">Visits</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-6 text-body font-medium">EMP-2104</td>
+<td class="py-4 px-6 text-body">Rahul Sharma</td>
+<td class="py-4 px-6 text-body">Operations</td>
+<td class="py-4 px-6 text-center">
+<span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-label-sm font-bold">12 / mo</span>
+</td>
+</tr>
+<tr class="bg-surface/50 hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-6 text-body font-medium">EMP-0982</td>
+<td class="py-4 px-6 text-body">Anjali Menon</td>
+<td class="py-4 px-6 text-body">IT Infrastructure</td>
+<td class="py-4 px-6 text-center">
+<span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-label-sm font-bold">09 / mo</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-6 text-body font-medium">EMP-3341</td>
+<td class="py-4 px-6 text-body">Suresh Iyer</td>
+<td class="py-4 px-6 text-body">Logistics</td>
+<td class="py-4 px-6 text-center">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-bold">06 / mo</span>
+</td>
+</tr>
+<tr class="bg-surface/50 hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-6 text-body font-medium">EMP-1123</td>
+<td class="py-4 px-6 text-body">Priya Verma</td>
+<td class="py-4 px-6 text-body">HR Admin</td>
+<td class="py-4 px-6 text-center">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-bold">05 / mo</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- R3L: Medicine Stock Alerts -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+<h4 class="text-section-heading font-section-heading text-on-surface">Medicine Stock Alerts</h4>
+<button class="text-primary font-bold text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">shopping_cart</span>
+                            Order Stock
+                        </button>
+</div>
+<div class="p-0">
+<table class="w-full">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30 text-left">
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">Medicine</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">Building</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase text-right">Stock</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase text-right">Threshold</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-body">
+<tr>
+<td class="py-4 px-6 font-medium">Paracetamol 500mg</td>
+<td class="py-4 px-6">Building A</td>
+<td class="py-4 px-6 text-right">
+<span class="text-error font-bold px-2 py-0.5 bg-error-container rounded">12</span>
+</td>
+<td class="py-4 px-6 text-right font-bold text-outline">50</td>
+</tr>
+<tr class="bg-surface/50">
+<td class="py-4 px-6 font-medium">Cetirizine 10mg</td>
+<td class="py-4 px-6">Building B</td>
+<td class="py-4 px-6 text-right">
+<span class="text-error font-bold px-2 py-0.5 bg-error-container rounded">05</span>
+</td>
+<td class="py-4 px-6 text-right font-bold text-outline">25</td>
+</tr>
+<tr>
+<td class="py-4 px-6 font-medium">ORS Sachets</td>
+<td class="py-4 px-6">All Buildings</td>
+<td class="py-4 px-6 text-right">
+<span class="text-orange-600 font-bold px-2 py-0.5 bg-orange-100 rounded">110</span>
+</td>
+<td class="py-4 px-6 text-right font-bold text-outline">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- R3R: MoM Action Items -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h4 class="text-section-heading font-section-heading text-on-surface mb-6">MoM Action Items</h4>
+<div class="space-y-4">
+<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">assignment</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="text-body font-bold text-on-surface truncate">BMW Audit Remediation</p>
+<span class="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded font-bold uppercase shrink-0">In Progress</span>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-label-sm text-on-surface-variant">Owner: Dr. Samuel</span>
+<span class="text-label-sm font-bold text-outline">Due: 24 Oct</span>
+</div>
+</div>
+</div>
+<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="text-body font-bold text-on-surface truncate">Ergonomics Workshop Q4</p>
+<span class="bg-orange-100 text-orange-700 text-[10px] px-2 py-0.5 rounded font-bold uppercase shrink-0">Pending</span>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-label-sm text-on-surface-variant">Owner: HR Team</span>
+<span class="text-label-sm font-bold text-outline">Due: 18 Oct</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- R4L: Staff Attendance -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm">
+<div class="p-6 pb-2">
+<h4 class="text-section-heading font-section-heading text-on-surface">Staff Attendance — Today</h4>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-body">
+<thead>
+<tr class="bg-surface-container-low border-y border-outline-variant/30 text-left">
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">Staff</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">Shift</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">In Time</th>
+<th class="py-3 px-6 text-label-sm font-bold text-on-surface-variant uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr>
+<td class="py-3 px-6 font-bold">Dr. Arjun Reddy</td>
+<td class="py-3 px-6">Morning (08:00 - 16:00)</td>
+<td class="py-3 px-6 font-medium">07:55 AM</td>
+<td class="py-3 px-6"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[11px] font-bold">On Duty</span></td>
+</tr>
+<tr class="bg-surface/50">
+<td class="py-3 px-6 font-bold">Nurse Meera K.</td>
+<td class="py-3 px-6">Morning (08:00 - 16:00)</td>
+<td class="py-3 px-6 font-medium">08:02 AM</td>
+<td class="py-3 px-6"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[11px] font-bold">On Duty</span></td>
+</tr>
+<tr>
+<td class="py-3 px-6 font-bold">Tech. Vikash J.</td>
+<td class="py-3 px-6">General (10:00 - 18:00)</td>
+<td class="py-3 px-6 font-medium">--:--</td>
+<td class="py-3 px-6"><span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded text-[11px] font-bold">Expected</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- R4R: MoM Footfall Trend -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h4 class="text-section-heading font-section-heading text-on-surface">MoM Footfall Trend</h4>
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-0.5 bg-primary"></div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Oct 2023</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-0.5 bg-outline-variant"></div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Sep 2023</span>
+</div>
+</div>
+</div>
+<!-- Area Line Chart Placeholder -->
+<div class="h-48 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none">
+<!-- Prev Month Path -->
+<path d="M0 80 Q 40 100 80 70 T 160 90 T 240 60 T 320 85 T 400 75" fill="none" stroke="#bec8d2" stroke-dasharray="4" stroke-width="2"></path>
+<!-- Current Month Area & Path -->
+<path d="M0 120 L0 100 Q 40 80 80 90 T 160 50 T 240 70 T 320 40 T 400 20 L400 120 Z" fill="url(#grad1)"></path>
+<path d="M0 100 Q 40 80 80 90 T 160 50 T 240 70 T 320 40 T 400 20" fill="none" stroke="#0EA5E9" stroke-width="3"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#0EA5E9;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute bottom-0 w-full flex justify-between text-[10px] font-bold text-outline pt-4">
+<span>WK 01</span>
+<span>WK 02</span>
+<span>WK 03</span>
+<span>WK 04</span>
+<span>WK 05</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on context: Dashboard usually has them, but here we prioritize focus) -->
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-md');
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.2s ease-out';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-md');
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

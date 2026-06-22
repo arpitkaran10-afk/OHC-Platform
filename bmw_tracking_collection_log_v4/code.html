@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BMW Tracking - OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bec8d2;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-fixed": "#c9e6ff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#c9e6ff",
+                        "surface-tint": "#0EA5E9",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#0ea5e9",
+                        "primary-fixed-dim": "#89ceff",
+                        "secondary": "#3c627d",
+                        "background": "#f6faff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-background": "#171c20",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#b8dffe",
+                        "surface-container-high": "#e4e8ee",
+                        "primary": "#0EA5E9",
+                        "tertiary": "#8a5100",
+                        "on-primary-fixed": "#001e2f",
+                        "inverse-surface": "#2c3135",
+                        "surface-bright": "#f6faff",
+                        "surface-container-highest": "#dee3e9",
+                        "surface-dim": "#d6dae0",
+                        "on-secondary-fixed": "#001e2f",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface": "#f6faff",
+                        "on-secondary-fixed-variant": "#234b64",
+                        "outline": "#6e7881",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f0f4fa",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#edf1f7",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#3d637d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4850",
+                        "on-primary-container": "#003751",
+                        "secondary-fixed-dim": "#a5cbe9",
+                        "on-tertiary-container": "#4d2b00",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bec8d2",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "surface-container": "#eaeef4",
+                        "tertiary-container": "#de8712",
+                        "on-surface": "#171c20",
+                        "surface-variant": "#dee3e9",
+                        "inverse-primary": "#89ceff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack_gap": "8px",
+                        "header_height": "56px",
+                        "container_gap": "16px",
+                        "base": "4px",
+                        "sidebar_width": "240px",
+                        "content_padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "section-heading": ["Inter"],
+                        "body": ["Inter"],
+                        "page-title": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Bio Medical Waste Tracking</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main">
+<div class="ohc-content">
+<!-- Page Header -->
+<div class="flex items-center justify-between mb-6">
+<div>
+<h1 class="font-page-title text-page-title text-on-surface">BMW Tracking</h1>
+<p class="font-body text-body text-on-surface-variant mt-1">Biomedical waste collection log — vendor pre-configured per site (IMAGE / PASSCO)</p>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white h-[36px] px-4 rounded font-label-sm text-label-sm flex items-center gap-2 transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span> Log BMW Collection
+            </button>
+</div>
+<!-- Compliance Banner -->
+<div class="mb-container_gap bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center gap-3 animate-fade-in">
+<span class="material-symbols-outlined text-emerald-600">check_circle</span>
+<span class="font-body text-body text-emerald-900">BMW collected on schedule for this month.</span>
+</div>
+<!-- Layout Grid: Form and Info -->
+<div class="grid grid-cols-12 gap-container_gap">
+<!-- Section 1: Form Card -->
+<div class="col-span-12 lg:col-span-5">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col h-full">
+<div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low">
+<h2 class="font-section-heading text-section-heading text-on-surface">New Collection Entry</h2>
+</div>
+<div class="p-6">
+<form class="grid grid-cols-2 gap-4">
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Date</label>
+<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" type="date" value="2023-10-24"/>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Time</label>
+<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" type="time" value="10:30"/>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Building</label>
+<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+<option>Block A - Main Clinic</option>
+<option>Block B - Diagnostics</option>
+<option>Block C - Staff Quarters</option>
+</select>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Waste Category</label>
+<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+<option>Yellow Bag</option>
+<option>Red Bag</option>
+<option>Blue Bag</option>
+</select>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Quantity</label>
+<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="0.0" step="0.1" type="number"/>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Unit</label>
+<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+<option>kg</option>
+<option>grams</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Vendor / Agency</label>
+<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+<option>IMAGE - Indian Medical Association</option>
+<option>PASSCO Environmental Solutions</option>
+</select>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Staff Sign</label>
+<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Employee Code / Name" type="text"/>
+</div>
+<div class="col-span-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Security Sign</label>
+<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Gate Pass / ID" type="text"/>
+</div>
+<div class="col-span-2 pt-2">
+<div class="flex items-center justify-between p-3 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Collection Compliance Flag</span>
+<span class="text-[10px] text-on-surface-variant italic">Auto-calculated based on schedule</span>
+</div>
+<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-label-sm text-label-sm">Compliant</span>
+</div>
+</div>
+<div class="col-span-2 pt-4">
+<button class="w-full bg-primary text-on-primary font-bold py-3 rounded-lg hover:shadow-lg transition-all active:scale-95" type="submit">Save Collection Entry</button>
+</div>
+</form>
+</div>
+</section>
+</div>
+<!-- Section 2: Log Table & Visual Overview -->
+<div class="col-span-12 lg:col-span-7 space-y-container_gap">
+<!-- Bento Info Card -->
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Waste (Month)</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="text-2xl font-bold text-primary">124.5</span>
+<span class="text-sm font-semibold text-on-surface-variant">kg</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vendor Visits</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="text-2xl font-bold text-primary">18</span>
+<span class="text-sm font-semibold text-on-surface-variant">Collections</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Next Scheduled</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="text-lg font-bold text-secondary">Tomorrow</span>
+<span class="text-xs font-normal text-on-surface-variant">09:00 AM</span>
+</div>
+</div>
+</div>
+<!-- BMW Log Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
+<h2 class="font-section-heading text-section-heading text-on-surface">BMW LOG</h2>
+<div class="flex gap-2">
+<select class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
+<option>All Buildings</option>
+</select>
+<select class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
+<option>Waste Category</option>
+</select>
+<button class="h-8 w-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Date / Time</th>
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Building</th>
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Category</th>
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant text-right">Qty</th>
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
+<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Compliance</th>
+</tr>
+</thead>
+<tbody class="font-body text-body">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3">24 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">10:30 AM</span></td>
+<td class="px-4 py-3">Block A</td>
+<td class="px-4 py-3">
+<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-200 uppercase tracking-tighter">Yellow Bag</span>
+</td>
+<td class="px-4 py-3 text-right font-semibold">4.2 kg</td>
+<td class="px-4 py-3">IMAGE</td>
+<td class="px-4 py-3">
+<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3">23 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">09:15 AM</span></td>
+<td class="px-4 py-3">Block B</td>
+<td class="px-4 py-3">
+<span class="bg-red-100 text-red-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-red-200 uppercase tracking-tighter">Red Bag</span>
+</td>
+<td class="px-4 py-3 text-right font-semibold">2.8 kg</td>
+<td class="px-4 py-3">PASSCO</td>
+<td class="px-4 py-3">
+<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3">22 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">11:00 AM</span></td>
+<td class="px-4 py-3">Block A</td>
+<td class="px-4 py-3">
+<span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-blue-200 uppercase tracking-tighter">Blue Bag</span>
+</td>
+<td class="px-4 py-3 text-right font-semibold">1.5 kg</td>
+<td class="px-4 py-3">IMAGE</td>
+<td class="px-4 py-3">
+<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3">20 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">10:45 AM</span></td>
+<td class="px-4 py-3">Block C</td>
+<td class="px-4 py-3">
+<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-200 uppercase tracking-tighter">Yellow Bag</span>
+</td>
+<td class="px-4 py-3 text-right font-semibold">5.0 kg</td>
+<td class="px-4 py-3">PASSCO</td>
+<td class="px-4 py-3">
+<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="bg-surface-container-high font-bold">
+<td class="px-4 py-4 font-label-sm text-label-sm" colspan="3">Monthly Summary (Oct)</td>
+<td class="px-4 py-4 text-right font-label-sm text-label-sm text-primary">13.5 kg</td>
+<td class="px-4 py-4 text-right font-label-sm text-label-sm text-on-surface-variant" colspan="2">100% On-Time Collection</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</section>
+<!-- Status Legend / Quick Visual -->
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute inset-0 opacity-5 pointer-events-none transition-transform group-hover:scale-110">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<pattern height="10" id="grid" patternunits="userSpaceOnUse" width="10">
+<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+</pattern>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="z-10 text-center">
+<h4 class="font-section-heading text-section-heading text-on-surface mb-2">Facility Waste Distribution</h4>
+<div class="flex items-center gap-6 mt-4">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full border-4 border-amber-400 border-t-transparent animate-spin-slow"></div>
+<span class="font-label-sm text-label-sm mt-2">Yellow (45%)</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full border-4 border-red-500 border-r-transparent border-b-transparent"></div>
+<span class="font-label-sm text-label-sm mt-2">Red (30%)</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full border-4 border-blue-500 border-l-transparent border-b-transparent border-t-transparent"></div>
+<span class="font-label-sm text-label-sm mt-2">Blue (25%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Help (Contextual) -->
+<div class="fixed bottom-6 right-6">
+<button class="bg-surface-container-highest text-primary w-12 h-12 rounded-full shadow-lg border border-outline hover:bg-primary hover:text-white transition-all flex items-center justify-center group">
+<span class="material-symbols-outlined transition-transform group-hover:rotate-12">help_outline</span>
+</button>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for form button
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.innerText = 'Processing...';
+            btn.classList.add('opacity-50', 'pointer-events-none');
+            
+            setTimeout(() => {
+                btn.innerText = 'Entry Saved Successfully!';
+                btn.classList.remove('bg-primary');
+                btn.classList.add('bg-emerald-600');
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('bg-emerald-600', 'opacity-50', 'pointer-events-none');
+                    btn.classList.add('bg-primary');
+                    form.reset();
+                }, 2000);
+            }, 1000);
+        });
+
+        // Dashboard numeric animation simulation
+        function animateNumbers() {
+            const numElements = document.querySelectorAll('.text-2xl');
+            numElements.forEach(el => {
+                const finalValue = parseFloat(el.innerText);
+                let startValue = 0;
+                const duration = 1500;
+                const step = finalValue / (duration / 16);
+                
+                const timer = setInterval(() => {
+                    startValue += step;
+                    if (startValue >= finalValue) {
+                        el.innerText = finalValue.toFixed(el.innerText.includes('.') ? 1 : 0);
+                        clearInterval(timer);
+                    } else {
+                        el.innerText = startValue.toFixed(el.innerText.includes('.') ? 1 : 0);
+                    }
+                }, 16);
+            });
+        }
+        window.onload = animateNumbers;
+    </script>
+</body></html>

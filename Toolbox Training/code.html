@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Toolbox Training | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#e9edff",
+                      "on-primary-fixed": "#001e2f",
+                      "outline": "#6e7881",
+                      "inverse-surface": "#293040",
+                      "surface-container-highest": "#dce2f7",
+                      "primary": "#0EA5E9",
+                      "on-background": "#141b2b",
+                      "surface-dim": "#d3daef",
+                      "surface-container-high": "#e1e8fd",
+                      "secondary-container": "#6cf8bb",
+                      "surface-bright": "#f9f9ff",
+                      "inverse-on-surface": "#edf0ff",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#002113",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#141b2b",
+                      "inverse-primary": "#89ceff",
+                      "tertiary": "#855300",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-secondary-fixed-variant": "#005236",
+                      "secondary-fixed-dim": "#4edea3",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-variant": "#dce2f7",
+                      "surface-tint": "#0EA5E9",
+                      "surface": "#f9f9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#0ea5e9",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#d88a00",
+                      "secondary": "#006c49",
+                      "on-surface-variant": "#3e4850",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#c9e6ff",
+                      "primary-fixed-dim": "#89ceff",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f1f3ff",
+                      "outline-variant": "#bec8d2",
+                      "on-primary-container": "#003751",
+                      "background": "#F3F4F6",
+                      "on-tertiary-container": "#4a2c00",
+                      "on-secondary-container": "#00714d",
+                      "on-primary-fixed-variant": "#004c6e",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "header-height": "56px",
+                      "gap-sm": "8px",
+                      "container-padding": "24px",
+                      "gap-xs": "4px",
+                      "sidebar-width": "240px",
+                      "gap-md": "16px",
+                      "gap-lg": "24px",
+                      "base-unit": "4px"
+              },
+              "fontFamily": {
+                      "metadata": ["Inter"],
+                      "section-heading": ["Inter"],
+                      "page-title-mobile": ["Inter"],
+                      "label": ["Inter"],
+                      "page-title": ["Inter"],
+                      "body": ["Inter"]
+              },
+              "fontSize": {
+                      "metadata": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "page-title-mobile": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-[#F3F4F6] text-on-surface">
+
+<!-- OHC Header -->
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Toolbox Trainings</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+
+<!-- OHC Sidebar -->
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector">
+    <option>Select Site</option>
+    <option>Site A</option>
+    <option>Site B</option>
+  </select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="ohc-main">
+<div class="p-gap-lg">
+<!-- Page Header -->
+<header class="mb-gap-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h1 class="font-page-title text-page-title text-on-background">Toolbox Training (TBT)</h1>
+<p class="text-on-surface-variant text-body mt-1 max-w-2xl">
+                        3 sessions/day, one per shift. Log sessions, track compliance, manage topic library.
+                    </p>
+</div>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg flex items-center gap-sm font-label text-label hover:brightness-110 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                    Log Session
+                </button>
+</header>
+<!-- Tab System -->
+<div class="border-b border-outline-variant mb-gap-lg">
+<nav class="flex gap-lg">
+<button class="pb-3 border-b-2 border-primary text-primary font-semibold text-label" id="tab-log" onclick="switchTab('log')">Session Log</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label" id="tab-library" onclick="switchTab('library')">Topic Library</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label flex items-center gap-sm" id="tab-compliance" onclick="switchTab('compliance')">
+                        Compliance View
+                        <span class="bg-secondary-container text-on-secondary-container text-[10px] px-1.5 py-0.5 rounded-full font-bold">TBT</span>
+</button>
+</nav>
+</div>
+<!-- Content Panels -->
+<div class="grid grid-cols-12 gap-gap-lg" id="panel-log">
+<!-- Left Panel: Form -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-white rounded-xl border border-outline-variant p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-section-heading text-section-heading flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">edit_square</span>
+                                New Training Session
+                            </h2>
+<span class="text-metadata text-on-surface-variant">Session ID: #TBT-2023-1104</span>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Date</label>
+<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="date" value="2023-11-20"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Shift</label>
+<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2">
+<option>Shift A (06:00 - 14:00)</option>
+<option>Shift B (14:00 - 22:00)</option>
+<option>Shift C (22:00 - 06:00)</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Training Type</label>
+<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2">
+<option>Routine Safety</option>
+<option>Specialized Task</option>
+<option>Post-Incident Briefing</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Topic</label>
+<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" list="topics" placeholder="Select or type topic..." type="text"/>
+<datalist id="topics">
+<option value="Manual Handling Hazards">
+</option><option value="Working at Heights">
+</option><option value="Chemical Safety &amp; MSDS">
+</option><option value="Emergency Evacuation Procedure">
+</option></datalist>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Conducted By</label>
+<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" placeholder="Instructor name..." type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Session Time</label>
+<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="time"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-label text-on-surface-variant">Expected Count</label>
+<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="number" value="12"/>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label text-label text-on-surface font-semibold">Attendee List</h3>
+<button class="text-primary hover:underline text-label flex items-center gap-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">group_add</span>
+                                        Import from Shift Roster
+                                    </button>
+</div>
+<div class="space-y-3">
+<div class="grid grid-cols-12 gap-sm items-center">
+<div class="col-span-5"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" placeholder="Employee Name" type="text"/></div>
+<div class="col-span-3"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" placeholder="ID No" type="text"/></div>
+<div class="col-span-3">
+<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5">
+<option>Present</option>
+<option>Absent</option>
+</select>
+</div>
+<div class="col-span-1 text-center"><button class="text-error/60 hover:text-error"><span class="material-symbols-outlined">delete</span></button></div>
+</div>
+<div class="grid grid-cols-12 gap-sm items-center">
+<div class="col-span-5"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" type="text" value="Rajesh Kumar"/></div>
+<div class="col-span-3"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" type="text" value="OHC-8821"/></div>
+<div class="col-span-3">
+<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5">
+<option>Present</option>
+<option>Absent</option>
+</select>
+</div>
+<div class="col-span-1 text-center"><button class="text-error/60 hover:text-error"><span class="material-symbols-outlined">delete</span></button></div>
+</div>
+</div>
+<button class="mt-4 border border-dashed border-primary text-primary w-full py-2 rounded-lg font-label text-label hover:bg-primary/5 transition-colors" type="button">
+                                    + Add Attendee
+                                </button>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant border-dashed">
+<div class="flex flex-col items-center justify-center gap-sm py-4">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant">upload_file</span>
+<p class="text-metadata text-on-surface-variant">Drop attendance sheet or photos here (Max 5MB)</p>
+<button class="bg-white border border-outline-variant px-4 py-1.5 rounded text-metadata font-semibold hover:bg-surface-bright" type="button">Browse Files</button>
+</div>
+</div>
+<div class="flex items-center justify-end gap-md pt-4">
+<button class="text-on-surface-variant font-label text-label px-6 py-2 hover:bg-surface-container-low rounded-lg transition-colors" type="button">Cancel</button>
+<button class="bg-secondary text-on-secondary px-8 py-2 rounded-lg font-label text-label hover:brightness-110 shadow-sm transition-all" type="submit">Save Session</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Right Panel: Compliance -->
+<div class="col-span-12 lg:col-span-4 space-y-gap-lg">
+<div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
+<h3 class="font-section-heading text-section-heading mb-4">Today's Coverage</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-secondary">
+<div>
+<p class="text-metadata text-on-surface-variant">Shift A</p>
+<p class="font-semibold text-body">Manual Handling</p>
+</div>
+<span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-1 rounded-full font-bold">COMPLETED</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-error">
+<div>
+<p class="text-metadata text-on-surface-variant">Shift B</p>
+<p class="font-semibold text-body">PPE Protocol</p>
+</div>
+<span class="bg-error-container text-on-error-container text-[11px] px-2 py-1 rounded-full font-bold">MISSED</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-outline-variant">
+<div>
+<p class="text-metadata text-on-surface-variant">Shift C</p>
+<p class="font-semibold text-body italic text-on-surface-variant">Pending...</p>
+</div>
+<span class="bg-surface-container-highest text-on-surface-variant text-[11px] px-2 py-1 rounded-full font-bold">IN QUEUE</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-section-heading text-section-heading">Nov Coverage Heatmap</h3>
+<span class="text-metadata text-primary cursor-pointer hover:underline">View All</span>
+</div>
+<div class="space-y-4">
+<div class="grid grid-cols-8 gap-1">
+<div class="col-span-1"></div>
+<div class="text-[10px] text-center font-bold">14</div>
+<div class="text-[10px] text-center font-bold">15</div>
+<div class="text-[10px] text-center font-bold">16</div>
+<div class="text-[10px] text-center font-bold">17</div>
+<div class="text-[10px] text-center font-bold">18</div>
+<div class="text-[10px] text-center font-bold text-error">19</div>
+<div class="text-[10px] text-center font-bold">20</div>
+<div class="text-[10px] self-center">A</div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="text-[10px] self-center">B</div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-error" title="Missed"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+<div class="h-6 rounded-sm bg-error animate-pulse" title="Missed Today"></div>
+<div class="text-[10px] self-center">C</div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+<div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
+<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+<div class="h-6 rounded-sm bg-surface-dim" title="Pending"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] text-on-surface-variant pt-2 border-t border-outline-variant/30">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> 100%</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Partial</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Missed</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-dim"></span> Pending</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-4">
+<h4 class="font-label text-label font-bold mb-1">Safety Resource Center</h4>
+<p class="text-metadata text-on-surface-variant mb-3">Access 200+ TBT modules, visual aids, and compliance checklists.</p>
+<button class="w-full py-2 bg-surface-container-low text-primary font-label text-label rounded hover:bg-surface-container transition-colors">Explore Library</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Library Panel (Hidden by default) -->
+<div class="hidden animate-in fade-in slide-in-from-bottom-2 duration-300" id="panel-library">
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-4 bg-surface-bright border-b border-outline-variant flex items-center justify-between">
+<div class="flex gap-md">
+<input class="border-outline-variant rounded-lg text-metadata px-3 py-1.5 w-64" placeholder="Filter by name..." type="text"/>
+<select class="border-outline-variant rounded-lg text-metadata px-3 py-1.5">
+<option>All Categories</option>
+<option>Safety</option>
+<option>Occupational</option>
+</select>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded text-metadata font-semibold">+ Add New Topic</button>
+</div>
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Topic Name</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4">Seasonal Tag</th>
+<th class="px-6 py-4">Resource</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-body">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4 font-semibold">Heat Stress Prevention</td>
+<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td>
+<td class="px-6 py-4"><span class="bg-tertiary-fixed text-on-tertiary-fixed text-[11px] px-2 py-0.5 rounded-full font-bold">Summer</span></td>
+<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4 font-semibold">Monsoon Disease Control</td>
+<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td>
+<td class="px-6 py-4"><span class="bg-primary-fixed text-on-primary-fixed-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Monsoon</span></td>
+<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4 font-semibold">Fire Extinguisher Basics</td>
+<td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[11px] px-2 py-0.5 rounded-full font-bold">Emergency</span></td>
+<td class="px-6 py-4"><span class="bg-surface-variant text-on-surface-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Year-round</span></td>
+<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
+<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Compliance Panel (Hidden by default) -->
+<div class="hidden animate-in fade-in slide-in-from-bottom-2 duration-300 space-y-gap-lg" id="panel-compliance">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<select class="bg-white border-outline-variant rounded-lg px-4 py-2 text-label font-semibold">
+<option>November 2023</option>
+<option>October 2023</option>
+</select>
+<button class="bg-white border border-outline-variant px-4 py-2 rounded-lg text-label flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export Report
+                        </button>
+</div>
+<div class="flex gap-lg">
+<div class="text-center">
+<p class="text-metadata text-on-surface-variant">Monthly Compliance</p>
+<p class="text-page-title font-bold text-secondary">94.2%</p>
+</div>
+<div class="text-center">
+<p class="text-metadata text-on-surface-variant">Total Sessions</p>
+<p class="text-page-title font-bold text-primary">82/90</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant p-6 shadow-sm overflow-x-auto">
+<h3 class="font-section-heading text-section-heading mb-6">Full Monthly Heatmap</h3>
+<div class="grid grid-flow-col auto-cols-[minmax(32px,1fr)] gap-2 min-w-[800px]">
+<div class="grid grid-rows-4 gap-2">
+<div class="h-8"></div>
+<div class="h-8 flex items-center text-[11px] font-bold">A</div>
+<div class="h-8 flex items-center text-[11px] font-bold">B</div>
+<div class="h-8 flex items-center text-[11px] font-bold">C</div>
+</div>
+<!-- Generating 30 days dynamically via JS would be better, but adding some for static visualization -->
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">1</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">2</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-error rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">3</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px] text-error">4</div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">5</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-tertiary-container rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">6</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">7</div><div class="h-8 bg-error rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">8</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">9</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">10</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px] text-error">11</div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">12</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">13</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+<!-- ... rest of days ... -->
+</div>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase">
+<tr>
+<th class="px-6 py-3">Date</th>
+<th class="px-6 py-3">Shift A</th>
+<th class="px-6 py-3">Shift B</th>
+<th class="px-6 py-3">Shift C</th>
+<th class="px-6 py-3">Top Topic Covered</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-body">
+<tr>
+<td class="px-6 py-4 font-semibold">20 Nov</td>
+<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Done</span></td>
+<td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Missed</span></td>
+<td class="px-6 py-4"><span class="bg-surface-dim text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">Pending</span></td>
+<td class="px-6 py-4 text-on-surface-variant">Personal Protective Equipment</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-semibold">19 Nov</td>
+<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
+<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
+<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
+<td class="px-6 py-4 text-on-surface-variant text-metadata italic">— Sunday Rest —</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            // Panels
+            document.getElementById('panel-log').classList.add('hidden');
+            document.getElementById('panel-library').classList.add('hidden');
+            document.getElementById('panel-compliance').classList.add('hidden');
+
+            // Buttons
+            const tabs = ['tab-log', 'tab-library', 'tab-compliance'];
+            tabs.forEach(t => {
+                document.getElementById(t).classList.remove('border-primary', 'text-primary', 'font-semibold');
+                document.getElementById(t).classList.add('border-transparent', 'text-on-surface-variant');
+            });
+
+            // Activate target
+            document.getElementById('panel-' + tab).classList.remove('hidden');
+            const activeTab = document.getElementById('tab-' + tab);
+            activeTab.classList.remove('border-transparent', 'text-on-surface-variant');
+            activeTab.classList.add('border-primary', 'text-primary', 'font-semibold');
+        }
+
+        // Micro-interactions: Form validation mockup
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved Successfully';
+                btn.style.backgroundColor = '#059669';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = '';
+                }, 2000);
+            }, 1200);
+        });
+    </script>
+</body></html>
