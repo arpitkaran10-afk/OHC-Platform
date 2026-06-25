@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Surveillance | OHC Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../ohc-design-system.css"/>
+  <style>
+    :root {
+      --accent: #0EA5E9;
+      --accent-soft: #e0f2fe;
+      --bg: #F3F4F6;
+      --card-bg: #ffffff;
+      --border: #d8dde6;
+      --text-main: #1a1f36;
+      --text-muted: #6b7280;
+      --danger: #b91c1c;
+      --warning: #b45309;
+      --success: #166534;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    /* Inner nav tabs — matches design system tab style */
+    .inner-nav {
+      display: flex;
+      gap: 0;
+      margin: 0;
+      border-bottom: 1px solid #E5E7EB;
+      background: #fff;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .inner-nav::-webkit-scrollbar { display: none; }
+
+    .inner-nav-item {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      color: #6B7280;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+      transition: color 0.12s, background 0.12s;
+    }
+    .inner-nav-item:hover { background: #F9FAFB; color: #374151; }
+
+    .inner-nav-item.active {
+      color: #0EA5E9;
+      border-bottom-color: #0EA5E9;
+      font-weight: 500;
+    }
+
+    /* Generic components */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 640px;
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip-select {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kpi-value {
+      margin-top: 6px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .kpi-foot {
+      margin-top: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+
+    .badge-law {
+      border-color: #c4b5fd;
+      color: #4c1d95;
+      background: #f5f3ff;
+    }
+
+    .badge-critical {
+      border-color: #fecaca;
+      color: var(--danger);
+      background: #fef2f2;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin: 0 4px 4px 0;
+    }
+
+    .pill-info {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .pill-urgent {
+      background: #fef2f2;
+      color: var(--danger);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px dashed var(--border);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-right: 4px;
+      margin-bottom: 2px;
+    }
+
+    .small-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 6px 6px;
+      text-align: left;
+      border-bottom: 1px solid #edf0f5;
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      background: #f9fafb;
+    }
+
+    tr:nth-child(even) td {
+      background: #fafbff;
+    }
+
+    .status-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid var(--border);
+    }
+
+    .status-fit {
+      border-color: #bbf7d0;
+      color: var(--success);
+      background: #ecfdf5;
+    }
+
+    .status-restrict {
+      border-color: #fed7aa;
+      color: var(--warning);
+      background: #fffbeb;
+    }
+
+    .status-overdue {
+      border-color: #fecaca;
+      color: var(--danger);
+      background: #fef2f2;
+    }
+
+    .link-action {
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 11px;
+      margin-right: 6px;
+    }
+
+    .btn {
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: #e5e7eb;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+    }
+
+    /* Medical sub-tabs — same style as primary inner-nav */
+    .tabs-inner {
+      display: flex;
+      gap: 0;
+      margin: 16px 0 0 0;
+      border-bottom: 1px solid #E5E7EB;
+      background: #fff;
+      padding: 0;
+      overflow-x: auto;
+    }
+    .tabs-inner::-webkit-scrollbar { display: none; }
+
+    .tab-inner {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      color: #6B7280;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+      transition: color 0.12s, background 0.12s;
+    }
+    .tab-inner:hover { background: #F9FAFB; color: #374151; }
+
+    .tab-inner.active {
+      color: #0EA5E9;
+      border-bottom-color: #0EA5E9;
+      font-weight: 500;
+      background: none;
+    }
+
+    .inner-section {
+      display: none;
+    }
+
+    .inner-section.active {
+      display: block;
+    }
+
+    .layout-3col {
+      display: grid;
+      grid-template-columns: 2.2fr 1.9fr 1.5fr;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .layout-2col {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 10px;
+      margin-bottom: 6px;
+    }
+
+    .form-row {
+      margin-bottom: 6px;
+    }
+
+    .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .input, .select, .textarea {
+      width: 100%;
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .textarea {
+      min-height: 52px;
+      resize: vertical;
+    }
+
+    .check-row {
+      display: flex;
+      gap: 6px;
+      align-items: baseline;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .check-row input {
+      margin-top: 1px;
+    }
+
+    .hint {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .divider {
+      margin: 8px 0;
+      border-top: 1px dashed #e5e7eb;
+    }
+
+    @media (max-width: 1200px) {
+      .layout-3col {
+        grid-template-columns: 1.5fr 1.5fr;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .layout-3col,
+      .layout-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="ohc-header">
+  <div class="ohc-header-left">
+    <span class="ohc-logo">OHC</span>
+    <span class="ohc-breadcrumb">OHC Platform &gt; Compliance &amp; Audits &gt; OSHWC Compliance</span>
+  </div>
+  <div class="ohc-header-center">
+    <div class="ohc-search">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Search patients, medicines, staff…"/>
+    </div>
+  </div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="ohc-bell-badge"></span>
+    </div>
+    <span class="ohc-user-name">Kiran Prasad</span>
+    <div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector"><option>Select Site</option></select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">health_and_safety</span>OSHWC Compliance</a>
+  </nav>
+  <div class="ohc-sidebar-footer">
+    <div class="ohc-sidebar-version">OHC v4.0</div>
+  </div>
+</aside>
+<main class="ohc-main" style="margin-left:0;padding-top:0;padding:24px">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Medical Surveillance &amp; Health Records</div>
+            <div class="page-subtitle">
+              Pre&#8209;employment and periodic medical examinations, annual health exams &ge; 40, hazardous&#8209;process and
+              special&#8209;role fitness, statutory diseases, AED and biomedical waste for this establishment.
+            </div>
+          </div>
+          <div class="filters-row">
+            <div class="chip-select">Establishment &#9660;</div>
+            <div class="chip-select">Department &#9660;</div>
+            <div class="chip-select">Worker type &#9660;</div>
+            <div class="chip-select">Exam status &#9660;</div>
+          </div>
+        </div>
+
+        <section class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">Annual exams &ge; 40 yrs (all workers)</div>
+            <div class="kpi-value">126 / 148</div>
+            <div class="kpi-foot"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Hazardous&#8209;process workers &ndash; current exams</div>
+            <div class="kpi-value">77 / 82</div>
+            <div class="kpi-foot"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Special vision / balance roles &ndash; compliant</div>
+            <div class="kpi-value status-overdue">34 / 45</div>
+            <div class="kpi-foot"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">AED &amp; emergency equipment &ndash; OK</div>
+            <div class="kpi-value">5 / 5</div>
+            <div class="kpi-foot"></div>
+          </div>
+        </section>
+
+        <!-- Inner tabs for Medical -->
+        <nav class="tabs-inner">
+          <div class="tab-inner active" data-inner="med-workers">Workers &amp; exam mapping</div>
+          <div class="tab-inner" data-inner="med-examform">Exam form &amp; health register</div>
+          <div class="tab-inner" data-inner="med-equipment">AED &amp; BMW</div>
+        </nav>
+
+        <!-- Workers & exam mapping -->
+        <section class="inner-section active" id="inner-med-workers">
+          <section class="layout-3col">
+            <!-- Left: Worker-exam matrix -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Worker exam requirements
+                  <span class="badge badge-law">Exam types vs roles</span>
+                </div>
+                <div class="card-subtitle">
+                  Map each worker to required medical exams: IME, annual &ge; 40, hazardous&#8209;process, special roles, adolescent fitness.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Worker</th>
+                      <th>Attributes</th>
+                      <th>Required exams</th>
+                      <th>Next due</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Worker A (E001)</td>
+                      <td>
+                        Age 46, Direct<br />
+                        <span class="pill pill-info">Hazardous process</span>
+                        <span class="pill">Vehicle / forklift</span>
+                      </td>
+                      <td>
+                        <span class="tag">IME &ndash; Pre&#8209;employment</span>
+                        <span class="tag">Annual &ge; 40</span>
+                        <span class="tag">Periodic &ndash; hazardous process</span>
+                        <span class="tag">Special vision / balance (driving)</span>
+                      </td>
+                      <td>
+                        11&#8209;Mar&#8209;2027<br />
+                        <span class="small-text">Special vision/balance: 11&#8209;Mar&#8209;2027</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Worker B (E142)</td>
+                      <td>
+                        Age 51, Contract<br />
+                        <span class="pill">Night shift</span>
+                        <span class="pill">Fine visual inspection</span>
+                      </td>
+                      <td>
+                        <span class="tag">IME &ndash; Pre&#8209;employment</span>
+                        <span class="tag">Annual &ge; 40</span>
+                        <span class="tag">Night blindness screening</span>
+                        <span class="tag">Colour vision (inspection)</span>
+                      </td>
+                      <td>
+                        <span class="status-overdue">Due now</span><br />
+                        <span class="small-text">Annual exam pending this calendar year</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Worker C (E233)</td>
+                      <td>
+                        Age 17, Apprentice<br />
+                        <span class="pill pill-urgent">Adolescent</span>
+                      </td>
+                      <td>
+                        <span class="tag">Adolescent fitness exam</span>
+                        <span class="tag">Restrictions (no hazardous process)</span>
+                      </td>
+                      <td>
+                        01&#8209;Dec&#8209;2026<br />
+                        <span class="small-text">Fitness certificate valid 12 months</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="card">
+                <div class="card-title">
+                  Exam type catalogue
+                  <span class="badge badge-law">Configured templates</span>
+                </div>
+                <div class="card-subtitle">
+                  Standard templates aligned with OSHWC rules; used when saving individual exams.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Exam type</th>
+                      <th>Scope (systems / tests)</th>
+                      <th>Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>IME &ndash; Pre&#8209;employment</td>
+                      <td>
+                        Full medical history; vision (VA, colour, night blindness), hearing/audiometry, respiratory
+                        (chest exam, X&#8209;ray where indicated, spirometry for exposed roles), cardiovascular (BP, ECG&plusmn;Echo),
+                        abdomen, neuro &amp; balance (vertigo, reflexes), locomotor, skin, hydrocele/hernia; complete labs
+                        (CBC, glucose, lipids, LFT, RFT, stool/urine, exposure&#8209;specific tests like &delta;&#8209;ALA, manganese markers,
+                        Hb electrophoresis where mandated).
+                      </td>
+                      <td>Once before engagement or before role upgrade.</td>
+                    </tr>
+                    <tr>
+                      <td>Annual &ge; 40 yrs</td>
+                      <td>
+                        Annual exam for workers &ge; 40 as per prescribed format: history, general exam, vision/hearing screen,
+                        BP, BMI, core labs (CBC, FBS/PP, urine), additional tests per risk (X&#8209;ray, ECG, others).
+                      </td>
+                      <td>Once in every calendar year after 40th birthday.</td>
+                    </tr>
+                    <tr>
+                      <td>Periodic &ndash; hazardous process / exposures</td>
+                      <td>
+                        Focus on target organs based on process: lung function tests, ILO&#8209;graded chest X&#8209;ray where relevant,
+                        cardiovascular, neurological, liver/kidney, skin; targeted biologic monitoring
+                        (e.g. &delta;&#8209;ALA in urine for lead, special neuro tests for manganese, etc.).
+                      </td>
+                      <td>At least annually; more frequently if required by rule / risk assessment.</td>
+                    </tr>
+                    <tr>
+                      <td>Special vision / balance roles</td>
+                      <td>
+                        Night blindness, colour vision (Ishihara), distant/near vision per role, equilibrium tests
+                        (Romberg, tandem gait), audiometry for high&#8209;noise roles.
+                      </td>
+                      <td>At IME, then typically every 2&ndash;3 years or on indication.</td>
+                    </tr>
+                    <tr>
+                      <td>Adolescent fitness (14&ndash;18 yrs)</td>
+                      <td>
+                        Suitability for factory or construction work; restrictions on hazardous processes, night work,
+                        work at height; certificate validity and conditions recorded.
+                      </td>
+                      <td>At engagement; re&#8209;exam at least annually or as ordered.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+
+            <!-- Middle: Special roles matrix & removal/alternate employment -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Special roles &amp; vision / balance matrix
+                  <span class="badge badge-law">Risk&#8209;linked tests</span>
+                </div>
+                <div class="card-subtitle">
+                  Configure which roles must have normal vision/colour vision/balance and how often tests repeat.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Role / task</th>
+                      <th>Required tests</th>
+                      <th>Frequency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Drivers / forklift / mobile plant</td>
+                      <td>
+                        <span class="pill">Distant vision</span>
+                        <span class="pill">Colour vision</span>
+                        <span class="pill">Night blindness</span>
+                        <span class="pill">Balance / vertigo</span>
+                      </td>
+                      <td>IME + every 2 years</td>
+                    </tr>
+                    <tr>
+                      <td>Work at height / scaffolds</td>
+                      <td>
+                        <span class="pill">Night blindness</span>
+                        <span class="pill">Balance / vertigo</span>
+                        <span class="pill">Locomotor exam</span>
+                      </td>
+                      <td>IME + every 2 years</td>
+                    </tr>
+                    <tr>
+                      <td>Electrical / colour&#8209;critical inspection</td>
+                      <td>
+                        <span class="pill">Colour vision</span>
+                        <span class="pill">Distant &amp; near vision</span>
+                      </td>
+                      <td>IME + every 3 years</td>
+                    </tr>
+                    <tr>
+                      <td>Night shift (process areas)</td>
+                      <td>
+                        <span class="pill">Night blindness</span>
+                        <span class="pill">Basic vision</span>
+                      </td>
+                      <td>IME + every 3 years</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  The system can use this to auto&#8209;assign "Special vision/balance exam" when a worker is tagged with a role.
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">
+                  Hazardous&#8209;process removal &amp; alternate employment
+                  <span class="badge badge-law">Fitness decisions</span>
+                </div>
+                <div class="card-subtitle">
+                  Track workers found unfit for hazardous processes and document alternate posting and conditions.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Worker</th>
+                      <th>Decision</th>
+                      <th>Alternate role</th>
+                      <th>Effective from</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Worker D (E310)</td>
+                      <td>
+                        <span class="status-chip status-restrict">Removed from hazardous process</span><br />
+                        <span class="small-text">Medical reason (lung function)</span>
+                      </td>
+                      <td>Stores &ndash; non&#8209;hazardous</td>
+                      <td>05&#8209;Apr&#8209;2026</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  In each exam record, store: "Removed from hazardous process? Y/N/date", reason, and link to any Medical Inspector order.
+                </div>
+              </section>
+            </div>
+
+            <!-- Right: Disease notifications & quick health register summary -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Statutory diseases &amp; notices
+                  <span class="badge badge-law">Third Schedule</span>
+                </div>
+                <div class="card-subtitle">
+                  Identify workers with suspected notifiable occupational diseases and trigger statutory notices.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Worker</th>
+                      <th>Suspected disease</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Worker E (E412)</td>
+                      <td>Noise&#8209;induced hearing loss</td>
+                      <td>
+                        <span class="link-action">Open exams</span>
+                        <span class="link-action">Generate disease notice</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  Disease notice pre&#8209;fills the required statutory format (patient, diagnosis, workplace, doctor) for submission to the competent authority.
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">
+                  Health register snapshot
+                  <span class="badge badge-law">Records &amp; access</span>
+                </div>
+                <div class="card-subtitle">
+                  Summary of last exam per worker and link to detailed record / statutory forms.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Worker</th>
+                      <th>Last exam</th>
+                      <th>Type</th>
+                      <th>Fitness</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Worker A</td>
+                      <td>12&#8209;Mar&#8209;2026</td>
+                      <td>Periodic &ndash; hazardous process</td>
+                      <td><span class="status-chip status-fit">Fit</span></td>
+                    </tr>
+                    <tr>
+                      <td>Worker B</td>
+                      <td>&ndash;</td>
+                      <td>Annual &ge; 40</td>
+                      <td><span class="status-chip status-overdue">Not done</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  Full health register view can export in statutory formats and record "Shared with worker on [date]" or "Copy given at exit".
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+
+        <!-- Exam form & health register -->
+        <section class="inner-section" id="inner-med-examform">
+          <section class="layout-2col">
+            <!-- Detailed exam form -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Medical exam form
+                  <span class="badge badge-law">IME / annual / periodic</span>
+                </div>
+                <div class="card-subtitle">
+                  Structured to match prescribed forms (history, systems, labs, fitness) for any exam type.
+                </div>
+
+                <div class="section-label">Worker &amp; exam metadata</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Worker</div>
+                    <input class="input" type="text" placeholder="Name, ID" />
+                  </div>
+                  <div>
+                    <div class="label">Exam type</div>
+                    <select class="select">
+                      <option>IME &ndash; Pre&#8209;employment</option>
+                      <option>Annual &ge; 40 yrs</option>
+                      <option>Periodic &ndash; hazardous process</option>
+                      <option>Special vision / balance only</option>
+                      <option>Adolescent fitness</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Exam date</div>
+                    <input class="input" type="date" />
+                  </div>
+                  <div>
+                    <div class="label">Doctor (Qualified Medical Practitioner)</div>
+                    <input class="input" type="text" placeholder="Dr. Name, registration no." />
+                  </div>
+                </div>
+
+                <div class="section-label">General &amp; anthropometry</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">General development</div>
+                    <select class="select">
+                      <option>Good</option>
+                      <option>Fair</option>
+                      <option>Poor</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Mental health (brief)</div>
+                    <select class="select">
+                      <option>Normal</option>
+                      <option>Requires further evaluation</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Height (cm)</div>
+                    <input class="input" type="number" step="0.1" />
+                  </div>
+                  <div>
+                    <div class="label">Weight (kg)</div>
+                    <input class="input" type="number" step="0.1" />
+                  </div>
+                </div>
+
+                <div class="section-label">Eyes (vision, night blindness, colour)</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Distant vision &ndash; right</div>
+                    <input class="input" type="text" placeholder="6/6, 6/9 (with/without glasses)" />
+                  </div>
+                  <div>
+                    <div class="label">Distant vision &ndash; left</div>
+                    <input class="input" type="text" placeholder="6/6, 6/9 (with/without glasses)" />
+                  </div>
+                  <div>
+                    <div class="label">Near vision (if applicable)</div>
+                    <input class="input" type="text" placeholder="N5, N8, etc." />
+                  </div>
+                  <div>
+                    <div class="label">Organic eye disease / squint</div>
+                    <input class="input" type="text" placeholder="Nil / describe" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="check-row">
+                    <input type="checkbox" id="nightBlind" />
+                    <label for="nightBlind">Night blindness test performed (required for night work / height / driving)</label>
+                  </div>
+                  <div class="check-row">
+                    <input type="checkbox" id="colorVision" />
+                    <label for="colorVision">Colour vision tested with Ishihara plates (drivers, electrical, inspection roles)</label>
+                  </div>
+                </div>
+
+                <div class="section-label">Ears &amp; hearing</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Hearing &ndash; right ear</div>
+                    <input class="input" type="text" placeholder="Normal / mild loss / dB threshold" />
+                  </div>
+                  <div>
+                    <div class="label">Hearing &ndash; left ear</div>
+                    <input class="input" type="text" placeholder="Normal / mild loss / dB threshold" />
+                  </div>
+                  <div>
+                    <div class="label">Audiometry &ndash; summary</div>
+                    <input class="input" type="text" placeholder="Normal / not done / attach report" />
+                  </div>
+                  <div>
+                    <div class="label">Organic ear disease</div>
+                    <input class="input" type="text" placeholder="Nil / describe" />
+                  </div>
+                </div>
+
+                <div class="section-label">Respiratory system &amp; lung function</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Chest auscultation</div>
+                    <input class="input" type="text" placeholder="Clear / wheeze / creps" />
+                  </div>
+                  <div>
+                    <div class="label">Chest expansion (cm)</div>
+                    <input class="input" type="text" placeholder="e.g. 3 cm" />
+                  </div>
+                  <div>
+                    <div class="label">Chest X&#8209;ray &ndash; summary</div>
+                    <input class="input" type="text" placeholder="Normal / ILO grade / attach report" />
+                  </div>
+                  <div>
+                    <div class="label">Lung function classification</div>
+                    <select class="select">
+                      <option>Not done</option>
+                      <option>Normal</option>
+                      <option>Obstructive</option>
+                      <option>Restrictive</option>
+                      <option>Mixed</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">FVC &ndash; predicted / performed / %</div>
+                    <input class="input" type="text" placeholder="e.g. 3.5 / 3.2 L (91%)" />
+                  </div>
+                  <div>
+                    <div class="label">FEV&#8321; &ndash; predicted / performed / %</div>
+                    <input class="input" type="text" placeholder="e.g. 3.0 / 2.9 L (97%)" />
+                  </div>
+                  <div>
+                    <div class="label">FEV&#8321; / FVC (%)</div>
+                    <input class="input" type="text" placeholder="e.g. 90%" />
+                  </div>
+                  <div>
+                    <div class="label">Peak expiratory flow</div>
+                    <input class="input" type="text" placeholder="L/min" />
+                  </div>
+                </div>
+
+                <div class="section-label">Cardiovascular &amp; metabolic</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Blood pressure (mmHg)</div>
+                    <input class="input" type="text" placeholder="e.g. 120/80" />
+                  </div>
+                  <div>
+                    <div class="label">Pulse (per min)</div>
+                    <input class="input" type="number" />
+                  </div>
+                  <div>
+                    <div class="label">ECG (12&#8209;lead) &ndash; summary</div>
+                    <input class="input" type="text" placeholder="Normal / remarks" />
+                  </div>
+                  <div>
+                    <div class="label">Echo (if done) &ndash; summary</div>
+                    <input class="input" type="text" placeholder="Normal / LVH / etc." />
+                  </div>
+                </div>
+
+                <div class="section-label">Nervous system &amp; balance</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">History of fits / epilepsy / vertigo</div>
+                    <input class="input" type="text" placeholder="No history / details" />
+                  </div>
+                  <div>
+                    <div class="label">Neurological exam summary</div>
+                    <input class="input" type="text" placeholder="Normal reflexes / deficits" />
+                  </div>
+                  <div>
+                    <div class="label">Equilibrium tests</div>
+                    <input class="input" type="text" placeholder="Romberg, tandem gait, etc." />
+                  </div>
+                  <div>
+                    <div class="label">Fit for height/driving/confined space</div>
+                    <select class="select">
+                      <option>Fit</option>
+                      <option>Fit with restrictions</option>
+                      <option>Temporarily unfit</option>
+                      <option>Permanently unfit</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="section-label">Special neuro tests &ndash; manganese exposure</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Tremor</div>
+                    <select class="select">
+                      <option>Not applicable</option>
+                      <option>Present</option>
+                      <option>Not present</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Adiadochokinesia</div>
+                    <select class="select">
+                      <option>Not applicable</option>
+                      <option>Present</option>
+                      <option>Not present</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Speech defect</div>
+                    <select class="select">
+                      <option>Not applicable</option>
+                      <option>Present</option>
+                      <option>Not present</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Emotional / behavioural changes</div>
+                    <select class="select">
+                      <option>Not applicable</option>
+                      <option>Present</option>
+                      <option>Not present</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="section-label">Other systems</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Abdomen (liver, spleen, tenderness, hernia)</div>
+                    <input class="input" type="text" placeholder="Normal / findings" />
+                  </div>
+                  <div>
+                    <div class="label">Locomotor system</div>
+                    <input class="input" type="text" placeholder="Full range / deformity / etc." />
+                  </div>
+                  <div>
+                    <div class="label">Skin / occupational dermatoses</div>
+                    <input class="input" type="text" placeholder="Nil / describe" />
+                  </div>
+                  <div>
+                    <div class="label">Hydrocele (if present)</div>
+                    <input class="input" type="text" placeholder="Nil / describe" />
+                  </div>
+                </div>
+
+                <div class="section-label">Laboratory investigations</div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Test</th>
+                      <th>Result / comment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>CBC (Hb, TLC, DLC, platelets)</td><td><input class="input" type="text" placeholder="WNL / abnormalities" /></td></tr>
+                    <tr><td>Fasting blood sugar</td><td><input class="input" type="text" placeholder="mg/dL" /></td></tr>
+                    <tr><td>Post&#8209;prandial blood sugar</td><td><input class="input" type="text" placeholder="mg/dL" /></td></tr>
+                    <tr><td>HbA1c (IME / diabetics)</td><td><input class="input" type="text" placeholder="%" /></td></tr>
+                    <tr><td>Lipid profile</td><td><input class="input" type="text" placeholder="Total, LDL, HDL, TG" /></td></tr>
+                    <tr><td>Blood urea, creatinine</td><td><input class="input" type="text" placeholder="Values / WNL/abnormal" /></td></tr>
+                    <tr><td>Liver function (bilirubin, SGOT, SGPT)</td><td><input class="input" type="text" placeholder="Values / WNL/abnormal" /></td></tr>
+                    <tr><td>Urine (reaction, albumin, sugar)</td><td><input class="input" type="text" placeholder="WNL / proteinuria / glycosuria" /></td></tr>
+                    <tr><td>Stool routine (food&#8209;handling roles)</td><td><input class="input" type="text" placeholder="WNL / ova / cysts / etc." /></td></tr>
+                    <tr><td>Sputum for AFB (food&#8209;handling / TB screen)</td><td><input class="input" type="text" placeholder="Negative / positive / not applicable" /></td></tr>
+                    <tr><td>Lead exposure &ndash; &delta;&#8209;ALA in urine</td><td><input class="input" type="text" placeholder="WNL / elevated / not applicable" /></td></tr>
+                    <tr><td>Hb electrophoresis (sickle&#8209;cell trait &ndash; IME)</td><td><input class="input" type="text" placeholder="Normal / trait / not applicable" /></td></tr>
+                    <tr><td>Other exposure&#8209;specific tests</td><td><input class="input" type="text" placeholder="Specify" /></td></tr>
+                  </tbody>
+                </table>
+
+                <div class="section-label">Final opinion &amp; fitness</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Overall fitness for role</div>
+                    <select class="select">
+                      <option>Fit for all assigned duties</option>
+                      <option>Fit with restrictions</option>
+                      <option>Temporarily unfit &ndash; review</option>
+                      <option>Permanently unfit for current role</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Next exam due date</div>
+                    <input class="input" type="date" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="label">Restrictions / remarks</div>
+                  <textarea class="textarea" placeholder="e.g. No night shift, no work at height, no driving, redeploy to non&#8209;hazardous area."></textarea>
+                </div>
+
+                <div class="section-label">Hazardous&#8209;process removal / alternate employment</div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Removed from hazardous process?</div>
+                    <select class="select">
+                      <option>No</option>
+                      <option>Yes &ndash; from this date</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Removal date (if applicable)</div>
+                    <input class="input" type="date" />
+                  </div>
+                  <div>
+                    <div class="label">Alternate department/role</div>
+                    <input class="input" type="text" placeholder="e.g. Stores, admin" />
+                  </div>
+                  <div>
+                    <div class="label">Reference (order / Medical Inspector memo)</div>
+                    <input class="input" type="text" placeholder="Ref number / date" />
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                  <button class="btn btn-ghost">Cancel</button>
+                  <button class="btn btn-primary">Save exam</button>
+                </div>
+              </section>
+            </div>
+
+            <!-- Health register filter/summary -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Health register &ndash; filter
+                  <span class="badge badge-law">OSHWC register mapping</span>
+                </div>
+                <div class="card-subtitle">
+                  Filter and export health&#8209;register entries that back statutory forms.
+                </div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Worker</div>
+                    <input class="input" type="text" placeholder="Name / ID" />
+                  </div>
+                  <div>
+                    <div class="label">Exam type</div>
+                    <select class="select">
+                      <option>All</option>
+                      <option>IME &ndash; Pre&#8209;employment</option>
+                      <option>Annual &ge; 40 yrs</option>
+                      <option>Periodic &ndash; hazardous process</option>
+                      <option>Special vision / balance</option>
+                      <option>Adolescent fitness</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">From date</div>
+                    <input class="input" type="date" />
+                  </div>
+                  <div>
+                    <div class="label">To date</div>
+                    <input class="input" type="date" />
+                  </div>
+                </div>
+                <div style="margin-top:6px; display:flex; justify-content:flex-end; gap:8px;">
+                  <button class="btn">Filter</button>
+                  <button class="btn btn-primary">Export register (CSV / PDF)</button>
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">Health register &ndash; results</div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Worker</th>
+                      <th>Exam date</th>
+                      <th>Type</th>
+                      <th>Fitness</th>
+                      <th>Forms</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Worker A</td>
+                      <td>12&#8209;Mar&#8209;2026</td>
+                      <td>Periodic &ndash; hazardous process</td>
+                      <td><span class="status-chip status-fit">Fit</span></td>
+                      <td><span class="link-action">Open record</span></td>
+                    </tr>
+                    <tr>
+                      <td>Worker C</td>
+                      <td>01&#8209;Dec&#8209;2025</td>
+                      <td>Adolescent fitness</td>
+                      <td><span class="status-chip status-restrict">Fit with restrictions</span></td>
+                      <td><span class="link-action">Generate adolescent fitness form</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  Mark records as "Shared with worker on [date]" and "Copy issued at exit" to show rule compliance.
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+
+        <!-- AED & BMW -->
+        <section class="inner-section" id="inner-med-equipment">
+          <section class="layout-2col">
+            <!-- AED & emergency equipment -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  AED &amp; emergency equipment
+                  <span class="badge badge-critical">Ambulance room / medical room</span>
+                </div>
+                <div class="card-subtitle">
+                  Track AED units and key medical&#8209;room equipment required under OSHWC rules and annexures.
+                </div>
+
+                <div class="section-label">AED inventory</div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Device ID</th>
+                      <th>Last check</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Medical room &ndash; main</td>
+                      <td>AED&#8209;MAIN&#8209;01</td>
+                      <td>15&#8209;May&#8209;2026</td>
+                      <td><span class="status-chip status-fit">OK &ndash; in service</span></td>
+                    </tr>
+                    <tr>
+                      <td>High&#8209;risk area</td>
+                      <td>AED&#8209;HR&#8209;01</td>
+                      <td>10&#8209;May&#8209;2026</td>
+                      <td><span class="status-chip status-fit">OK &ndash; in service</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="section-label">AED inspection log</div>
+                <div class="form-row">
+                  <div class="label">AED unit</div>
+                  <select class="select">
+                    <option>AED&#8209;MAIN&#8209;01 &ndash; Medical room</option>
+                    <option>AED&#8209;HR&#8209;01 &ndash; High&#8209;risk area</option>
+                  </select>
+                </div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Check date &amp; time</div>
+                    <input class="input" type="datetime-local" />
+                  </div>
+                  <div>
+                    <div class="label">Checked by</div>
+                    <input class="input" type="text" placeholder="Name / designation" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="label">Checklist</div>
+                  <div class="check-row"><input type="checkbox" />Visual self&#8209;test indicator shows "OK".</div>
+                  <div class="check-row"><input type="checkbox" />Pads present, sealed, within expiry.</div>
+                  <div class="check-row"><input type="checkbox" />Battery OK / replaced as required.</div>
+                  <div class="check-row"><input type="checkbox" />Unit clean, accessible, not obstructed.</div>
+                  <div class="check-row"><input type="checkbox" />Relevant staff trained in BLS / AED use.</div>
+                </div>
+                <div class="form-row">
+                  <div class="label">Remarks / corrective actions</div>
+                  <textarea class="textarea" placeholder="E.g. pads replaced, battery ordered, re&#8209;training scheduled."></textarea>
+                </div>
+                <div class="divider"></div>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                  <button class="btn btn-ghost">Cancel</button>
+                  <button class="btn btn-primary">Save AED check</button>
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">Medical&#8209;room equipment checklist</div>
+                <div class="card-subtitle">
+                  Snapshot against a typical statutory equipment list (oxygen, suction, ECG, BP apparatus, etc.).
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Available?</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Oxygen cylinder / concentrator with accessories</td>
+                      <td>Yes</td>
+                      <td>Refilled 05&#8209;May&#8209;2026</td>
+                    </tr>
+                    <tr>
+                      <td>ECG machine</td>
+                      <td>Yes</td>
+                      <td>Calibration due Dec&#8209;2026</td>
+                    </tr>
+                    <tr>
+                      <td>Suction unit</td>
+                      <td>Yes</td>
+                      <td>Portable unit</td>
+                    </tr>
+                    <tr>
+                      <td>Emergency drugs &amp; IV fluids</td>
+                      <td>Yes</td>
+                      <td>Expiry checked monthly</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+
+            <!-- Biomedical waste -->
+            <div>
+              <section class="card">
+                <div class="card-title">
+                  Biomedical waste setup
+                  <span class="badge badge-law">BMW Rules 2016</span>
+                </div>
+                <div class="card-subtitle">
+                  Colour&#8209;coded bins at each medical point and authorisation details.
+                </div>
+                <div class="section-label">Authorisation &amp; facility</div>
+                <div class="form-row">
+                  <div class="label">BMW authorisation no. / SPCB</div>
+                  <input class="input" type="text" placeholder="Authorisation ID / validity" />
+                </div>
+                <div class="form-row">
+                  <div class="label">CBWTF (if used)</div>
+                  <input class="input" type="text" placeholder="Name of common BMW treatment facility" />
+                </div>
+
+                <div class="section-label">Segregation points &amp; bins</div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Yellow</th>
+                      <th>Red</th>
+                      <th>White (sharps)</th>
+                      <th>Blue</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Medical room &ndash; main</td>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                    </tr>
+                    <tr>
+                      <td>First&#8209;aid station &ndash; shopfloor</td>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                      <td>Yes</td>
+                      <td>No</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="hint">
+                  Ensure non&#8209;chlorinated colour&#8209;coded bags and puncture&#8209;proof sharps containers are used at each point.
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">Biomedical waste daily log</div>
+                <div class="card-subtitle">
+                  Track quantities and manifest details; enforce &le; 48&#8209;hour storage.
+                </div>
+                <div class="form-grid-2">
+                  <div>
+                    <div class="label">Date</div>
+                    <input class="input" type="date" />
+                  </div>
+                  <div>
+                    <div class="label">Shift / time band</div>
+                    <input class="input" type="text" placeholder="Day / Night" />
+                  </div>
+                  <div>
+                    <div class="label">Location</div>
+                    <select class="select">
+                      <option>Medical room &ndash; main</option>
+                      <option>First&#8209;aid station &ndash; shopfloor</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Yellow (kg / bags)</div>
+                    <input class="input" type="text" />
+                  </div>
+                  <div>
+                    <div class="label">Red (kg / bags)</div>
+                    <input class="input" type="text" />
+                  </div>
+                  <div>
+                    <div class="label">White &ndash; sharps (boxes)</div>
+                    <input class="input" type="text" />
+                  </div>
+                  <div>
+                    <div class="label">Blue (kg / bags)</div>
+                    <input class="input" type="text" />
+                  </div>
+                  <div>
+                    <div class="label">Handed over to CBWTF?</div>
+                    <select class="select">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div class="label">Manifest / pickup reference</div>
+                    <input class="input" type="text" placeholder="Manifest no. / vehicle" />
+                  </div>
+                  <div>
+                    <div class="label">Oldest BMW age (hrs)</div>
+                    <input class="input" type="text" placeholder="Auto&#8209;computed by system" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="label">If &gt; 48 hrs, actions / SPCB intimation ref.</div>
+                  <textarea class="textarea" placeholder="Document reason, risk controls, and any intimation to SPCB."></textarea>
+                </div>
+                <div class="divider"></div>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                  <button class="btn btn-ghost">Cancel</button>
+                  <button class="btn btn-primary">Save BMW log</button>
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="card-title">BMW staff training &amp; immunisation</div>
+                <div class="card-subtitle">
+                  Track training and Hep&#8209;B / tetanus immunisation for staff handling biomedical waste.
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Staff</th>
+                      <th>Role</th>
+                      <th>Last BMW training</th>
+                      <th>Hep&#8209;B</th>
+                      <th>Tetanus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Nurse 1</td>
+                      <td>Medical room</td>
+                      <td>01&#8209;Feb&#8209;2026</td>
+                      <td>Completed</td>
+                      <td>2025</td>
+                    </tr>
+                    <tr>
+                      <td>Housekeeping 2</td>
+                      <td>BMW handling</td>
+                      <td>15&#8209;Mar&#8209;2026</td>
+                      <td>1 dose pending</td>
+                      <td>2024</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+          </section>
+        </section>
+</main>
+<script>
+  const medTabs     = document.querySelectorAll('.tab-inner');
+  const medSections = document.querySelectorAll('.inner-section');
+  medTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-inner');
+      medTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      medSections.forEach(s => {
+        s.classList.toggle('active', s.id === 'inner-' + target);
+      });
+    });
+  });
+</script>
+</body>
+</html>

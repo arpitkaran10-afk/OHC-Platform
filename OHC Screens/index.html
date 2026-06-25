@@ -302,9 +302,21 @@ const NAV = [
     label: 'Compliance & Audits',
     icon: 'fact_check',
     children: [
-      { key: 'compliance_matrix', label: 'Compliance Matrix', icon: 'checklist',         file: 'compliance_audits_operational_hub_v4/code.html' },
-      { key: 'oshwc',             label: 'OSHWC Compliance',  icon: 'health_and_safety', file: 'OSHWC Compliance/hse-medical-dashboard-v2.html' },
-      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',       file: 'general_inventory_register_allianz/code.html' }
+      { key: 'compliance_matrix', label: 'Compliance Matrix', icon: 'checklist',    file: 'compliance_audits_operational_hub_v4/code.html' },
+      {
+        key: 'oshwc',
+        label: 'OSHWC Compliance',
+        icon: 'health_and_safety',
+        children: [
+          { key: 'oshwc_overview',   label: 'Compliance Overview',   file: 'OSHWC Compliance/compliance-overview.html' },
+          { key: 'oshwc_medical',    label: 'Medical Surveillance',  file: 'OSHWC Compliance/medical-surveillance.html' },
+          { key: 'oshwc_incidents',  label: 'Incidents & Diseases',  file: 'OSHWC Compliance/incidents-diseases.html' },
+          { key: 'oshwc_audits',     label: 'Safety Audits',         file: 'OSHWC Compliance/safety-audits.html' },
+          { key: 'oshwc_hazards',    label: 'Hazardous Processes',   file: 'OSHWC Compliance/hazardous-processes.html' },
+          { key: 'oshwc_incident_register', label: 'Incident Register', file: 'others_incident_register_v4/code.html' }
+        ]
+      },
+      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',  file: 'general_inventory_register_allianz/code.html' }
     ]
   },
   {
@@ -318,7 +330,6 @@ const NAV = [
     label: 'Others',
     icon: 'more_horiz',
     children: [
-      { key: 'incident', label: 'Incident Register', icon: 'report',                file: 'others_incident_register_v4/code.html' },
       { key: 'invoice',  label: 'Invoice Tracker',   icon: 'receipt_long',          file: 'invoice_tracker_allianz_finance_v4/code.html' },
       { key: 'laundry',  label: 'Laundry Register',  icon: 'local_laundry_service', file: 'laundry_register_allianz_compliance_v4/code.html' }
     ]
@@ -354,7 +365,9 @@ const OVERRIDE_CSS = `
   .ohc-header  { display: none !important; }
   .ohc-sidebar { display: none !important; }
   .ohc-main    { margin-left: 0 !important; padding-top: 0 !important;
+                 padding: 24px !important;
                  min-height: 100vh; background: #F3F4F6; }
+  .ohc-content { padding: 0 !important; }
   body         { overflow-y: auto !important; background: #F3F4F6 !important; }
 `;
 
