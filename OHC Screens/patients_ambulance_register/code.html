@@ -181,9 +181,12 @@
                 Log New Trip
             </button>
 </div>
-<!-- Filter Bar + Trip Log Table are shown in list view -->
+<!-- Filter Bar + Trip Log table continue below, inside view-list -->
+<!-- view-list intentionally stays open — filter+table are inside it, form is NOT -->
 
-<!-- ── VIEW: FORM ── -->
+</div><!-- /view-list -->
+
+<!-- ── VIEW: FORM (sibling of view-list, not nested inside it) ── -->
 <div id="view-form" style="display:none;">
 <!-- Page Header for form view -->
 <div class="flex justify-between items-end mb-8">
@@ -315,7 +318,8 @@
 </div>
 </div><!-- /view-form -->
 
-<!-- Filter Bar (part of list view) -->
+<!-- Filter Bar + Table (list view content) -->
+<div id="view-list-table">
 <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 mb-6 flex flex-wrap items-center gap-4">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-outline" data-icon="calendar_today">calendar_today</span>
@@ -434,18 +438,20 @@
 </div>
 </div>
 </div>
-</div><!-- /view-list -->
+</div><!-- /view-list-table -->
 </div>
 </main>
 <script>
         function showForm() {
             document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-list-table').style.display = 'none';
             document.getElementById('view-form').style.display = 'block';
             window.scrollTo(0,0);
         }
         function showList() {
             document.getElementById('view-form').style.display = 'none';
             document.getElementById('view-list').style.display = 'block';
+            document.getElementById('view-list-table').style.display = 'block';
             window.scrollTo(0,0);
         }
         // Auto-calculation logic for KM

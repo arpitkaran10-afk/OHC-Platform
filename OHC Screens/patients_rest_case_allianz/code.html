@@ -175,9 +175,10 @@
                 New Rest Entry
             </button>
 </div>
-<!-- Rest Case History table shown as default list view -->
+<!-- (header row only — History table is in view-list-table below) -->
+</div><!-- /view-list -->
 
-<!-- ── VIEW: FORM ── -->
+<!-- ── VIEW: FORM (sibling, not nested) ── -->
 <div id="view-form" style="display:none;">
 <div class="flex items-center justify-between mb-container_gap">
 <div>
@@ -369,6 +370,7 @@
 
 </div><!-- /view-form -->
 
+<div id="view-list-table">
 <!-- ── REST CASE HISTORY ────────────────────────────────────────── -->
 <style>
   .rch-table { width:100%; border-collapse:collapse; table-layout:fixed; }
@@ -521,18 +523,20 @@
   </div>
 </div>
 <!-- ── END REST CASE HISTORY ── -->
-</div><!-- /view-list -->
+</div><!-- /view-list-table -->
 
 </main>
 <script>
         function showForm() {
             document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-list-table').style.display = 'none';
             document.getElementById('view-form').style.display = 'block';
             window.scrollTo(0,0);
         }
         function showList() {
             document.getElementById('view-form').style.display = 'none';
             document.getElementById('view-list').style.display = 'block';
+            document.getElementById('view-list-table').style.display = 'block';
             window.scrollTo(0,0);
         }
         // Micro-interactions and auto-calculation logic simulation
