@@ -168,16 +168,32 @@
 <main class="ohc-main">
 <div class="ohc-content">
 
+<!-- ── VIEW: LIST (default) ── -->
+<div id="view-list">
 <!-- Page Header -->
 <div class="flex justify-between items-end mb-8">
 <div>
 <h1 class="font-page-title text-page-title text-on-surface">Ambulance Register</h1>
 <p class="font-body text-body text-on-surface-variant">Log all ambulance trips with odometer readings</p>
 </div>
-<button class="h-9 px-4 bg-primary-container text-white font-semibold rounded-lg flex items-center gap-2 hover:bg-[#0284c7] transition-colors">
+<button onclick="showForm()" class="h-9 px-4 bg-primary-container text-white font-semibold rounded-lg flex items-center gap-2 hover:bg-[#0284c7] transition-colors">
 <span class="material-symbols-outlined" data-icon="add">add</span>
                 Log New Trip
             </button>
+</div>
+<!-- Filter Bar + Trip Log Table are shown in list view -->
+
+<!-- ── VIEW: FORM ── -->
+<div id="view-form" style="display:none;">
+<!-- Page Header for form view -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<button onclick="showList()" class="flex items-center gap-1 text-primary font-label-sm font-semibold mb-2 hover:underline bg-transparent border-0 p-0 cursor-pointer font-['Inter']">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to trip log
+</button>
+<h1 class="font-page-title text-page-title text-on-surface">Log New Trip</h1>
+<p class="font-body text-body text-on-surface-variant">Record a new ambulance dispatch</p>
+</div>
 </div>
 <!-- Form Card: Trip Details -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 mb-8">
@@ -292,12 +308,14 @@
 <textarea class="w-full border border-outline-variant rounded bg-white p-2 font-body text-body" placeholder="Any delays or issues..." rows="1"></textarea>
 </div>
 <div class="md:col-span-2 pt-4 flex justify-end gap-3">
-<button class="h-9 px-6 border border-outline-variant text-primary font-semibold rounded-lg hover:bg-surface-container transition-colors" type="reset">Clear</button>
-<button class="h-9 px-8 bg-primary text-white font-semibold rounded-lg hover:opacity-90 transition-opacity" type="submit">Submit Entry</button>
+<button onclick="showList()" class="h-9 px-6 border border-outline-variant text-primary font-semibold rounded-lg hover:bg-surface-container transition-colors" type="button">Cancel</button>
+<button onclick="showList()" class="h-9 px-8 bg-primary text-white font-semibold rounded-lg hover:opacity-90 transition-opacity" type="button">Submit Entry</button>
 </div>
 </form>
 </div>
-<!-- Filter Bar -->
+</div><!-- /view-form -->
+
+<!-- Filter Bar (part of list view) -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 mb-6 flex flex-wrap items-center gap-4">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-outline" data-icon="calendar_today">calendar_today</span>
@@ -416,8 +434,20 @@
 </div>
 </div>
 </div>
+</div><!-- /view-list -->
+</div>
 </main>
 <script>
+        function showForm() {
+            document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-form').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+        function showList() {
+            document.getElementById('view-form').style.display = 'none';
+            document.getElementById('view-list').style.display = 'block';
+            window.scrollTo(0,0);
+        }
         // Auto-calculation logic for KM
         const startKmInput = document.getElementById('startKm');
         const endKmInput = document.getElementById('endKm');

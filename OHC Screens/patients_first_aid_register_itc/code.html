@@ -161,82 +161,49 @@
 <!-- Main Content Canvas -->
 <main class="ohc-main">
 <div class="ohc-content">
-<!-- Page Header Section -->
+
+<!-- ── VIEW: LIST (default) ── -->
+<div id="view-list">
+<!-- Page Header -->
 <div class="flex justify-between items-start mb-6">
 <div>
 <h1 class="text-page-title font-page-title text-on-surface">First Aid Register</h1>
 <p class="text-body font-body text-on-surface-variant">First aid box checks and item dispensing log</p>
 </div>
-<button class="bg-[#0EA5E9] text-white h-9 px-4 rounded-lg flex items-center gap-2 font-label-sm text-label-sm transition-opacity hover:opacity-90 active:scale-95">
+<button onclick="showForm()" class="bg-[#0EA5E9] text-white h-9 px-4 rounded-lg flex items-center gap-2 font-label-sm text-label-sm transition-opacity hover:opacity-90 active:scale-95">
 <span class="material-symbols-outlined text-[18px]">add</span>
                 New Entry
             </button>
 </div>
-<!-- Tab System -->
-<div class="flex items-center gap-8 mb-6 border-b border-outline-variant">
-<button class="pb-3 text-label-sm font-label-sm text-[#0EA5E9] active-tab-border font-bold">
-                Box Check Log
-            </button>
-<button class="pb-3 text-label-sm font-label-sm text-on-surface-variant hover:text-[#0EA5E9] transition-colors">
-                Item Dispensing Log
-            </button>
+<!-- Stats row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center text-[#0EA5E9]">
+<span class="material-symbols-outlined text-[28px]">medical_information</span>
 </div>
-<div class="grid grid-cols-1 gap-6">
-<!-- New Box Check Entry Card -->
-<div class="bg-white rounded-lg border border-outline-variant p-6 shadow-sm">
-<div class="flex items-center gap-2 mb-6 text-[#0EA5E9]">
-<span class="material-symbols-outlined">fact_check</span>
-<h2 class="text-section-heading font-section-heading">New Box Check Entry</h2>
-</div>
-<form class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-<div class="space-y-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant block">Date</label>
-<input class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" type="date"/>
-</div>
-<div class="space-y-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant block">Shift</label>
-<div class="flex gap-2">
-<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
-<input checked="" class="hidden" name="shift" type="radio" value="A"/> A
-                            </label>
-<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
-<input class="hidden" name="shift" type="radio" value="B"/> B
-                            </label>
-<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
-<input class="hidden" name="shift" type="radio" value="C"/> C
-                            </label>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Total Boxes Managed</p>
+<p class="text-page-title font-page-title text-[#0EA5E9]">14</p>
 </div>
 </div>
-<div class="space-y-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant block">First Aid Box No.</label>
-<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
-<option>FAB-ITC-001 (Production)</option>
-<option>FAB-ITC-002 (Admin Block)</option>
-<option>FAB-ITC-003 (Warehouse)</option>
-<option>FAB-ITC-004 (Canteen)</option>
-</select>
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
+<span class="material-symbols-outlined text-[28px]">warning</span>
 </div>
-<div class="space-y-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant block">Box Status</label>
-<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
-<option>OK / Ready</option>
-<option>Needs Restocking</option>
-<option>Items Missing</option>
-<option>Lock Broken</option>
-</select>
-</div>
-<div class="md:col-span-2 space-y-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant block">OHC Staff Sign-off</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">badge</span>
-<input class="w-full border border-outline-variant rounded-lg h-9 pl-10 pr-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" placeholder="Enter Staff ID or Name" type="text"/>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Pending Restock</p>
+<p class="text-page-title font-page-title text-amber-600">03</p>
 </div>
 </div>
-<div class="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-outline-variant mt-2">
-<button class="px-6 h-9 border border-outline-variant text-on-surface hover:bg-surface-container rounded-lg font-label-sm text-label-sm transition-all" type="button">Cancel</button>
-<button class="px-6 h-9 bg-[#0EA5E9] text-white hover:opacity-90 rounded-lg font-label-sm text-label-sm shadow-sm transition-all" type="submit">Save Entry</button>
+<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-[28px]">schedule</span>
 </div>
-</form>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Next Audit Cycle</p>
+<p class="text-page-title font-page-title text-blue-600">06 Days</p>
+</div>
+</div>
 </div>
 <!-- Recent Box Check Entries Section Card -->
 <div class="bg-white rounded-lg border border-outline-variant overflow-hidden shadow-sm">
@@ -341,37 +308,77 @@
 </div>
 </div>
 </div>
-<!-- Dashboard Snapshot Widget -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center text-[#0EA5E9]">
-<span class="material-symbols-outlined text-[28px]">medical_information</span>
-</div>
+</div><!-- /grid -->
+</div><!-- /view-list -->
+
+<!-- ── VIEW: FORM ── -->
+<div id="view-form" style="display:none;">
+<div class="flex justify-between items-start mb-6">
 <div>
-<p class="text-label-sm font-label-sm text-on-surface-variant">Total Boxes Managed</p>
-<p class="text-page-title font-page-title text-[#0EA5E9]">14</p>
+<button onclick="showList()" class="flex items-center gap-1 text-[#0EA5E9] text-label-sm font-label-sm mb-2 hover:underline bg-transparent border-0 p-0 cursor-pointer font-['Inter']">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to register
+</button>
+<h1 class="text-page-title font-page-title text-on-surface">New Box Check Entry</h1>
+<p class="text-body font-body text-on-surface-variant">Log a first aid box check for the current shift</p>
 </div>
 </div>
-<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
-<span class="material-symbols-outlined text-[28px]">warning</span>
+<div class="bg-white rounded-lg border border-outline-variant p-6 shadow-sm">
+<div class="flex items-center gap-2 mb-6 text-[#0EA5E9]">
+<span class="material-symbols-outlined">fact_check</span>
+<h2 class="text-section-heading font-section-heading">Box Check Details</h2>
 </div>
-<div>
-<p class="text-label-sm font-label-sm text-on-surface-variant">Pending Restock</p>
-<p class="text-page-title font-page-title text-amber-600">03</p>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" onsubmit="event.preventDefault(); showList();">
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Date</label>
+<input class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" type="date"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Shift</label>
+<div class="flex gap-2">
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input checked="" class="hidden" name="shift2" type="radio" value="A"/> A
+</label>
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input class="hidden" name="shift2" type="radio" value="B"/> B
+</label>
+<label class="flex-1 flex items-center justify-center border border-outline-variant rounded-lg h-9 text-body cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-[#0EA5E9] has-[:checked]:text-white transition-colors">
+<input class="hidden" name="shift2" type="radio" value="C"/> C
+</label>
 </div>
 </div>
-<div class="bg-white border border-outline-variant rounded-lg p-5 flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
-<span class="material-symbols-outlined text-[28px]">schedule</span>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">First Aid Box No.</label>
+<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
+<option>FAB-ITC-001 (Production)</option>
+<option>FAB-ITC-002 (Admin Block)</option>
+<option>FAB-ITC-003 (Warehouse)</option>
+<option>FAB-ITC-004 (Canteen)</option>
+</select>
 </div>
-<div>
-<p class="text-label-sm font-label-sm text-on-surface-variant">Next Audit Cycle</p>
-<p class="text-page-title font-page-title text-blue-600">06 Days</p>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Box Status</label>
+<select class="w-full border border-outline-variant rounded-lg h-9 px-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]">
+<option>OK / Ready</option>
+<option>Needs Restocking</option>
+<option>Items Missing</option>
+<option>Lock Broken</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">OHC Staff Sign-off</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">badge</span>
+<input class="w-full border border-outline-variant rounded-lg h-9 pl-10 pr-3 text-body focus:ring-1 focus:ring-[#0EA5E9] focus:border-[#0EA5E9]" placeholder="Enter Staff ID or Name" type="text"/>
 </div>
 </div>
+<div class="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-outline-variant mt-2">
+<button onclick="showList()" class="px-6 h-9 border border-outline-variant text-on-surface hover:bg-surface-container rounded-lg font-label-sm text-label-sm transition-all" type="button">Cancel</button>
+<button class="px-6 h-9 bg-[#0EA5E9] text-white hover:opacity-90 rounded-lg font-label-sm text-label-sm shadow-sm transition-all" type="submit">Save Entry</button>
 </div>
+</form>
 </div>
+</div><!-- /view-form -->
+
 </div>
 </main>
 <!-- Floating Action Button (FAB) logic -->
@@ -381,18 +388,15 @@
 </button>
 </div>
 <script>
-        // Simple interactivity for demo
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                // Background colors are handled by Tailwind's "has-[:checked]" pseudo-class
-                console.log('Shift Selected:', e.target.value);
-            });
-        });
-
-        // Form Submission handling
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Entry saved successfully into the OHC Secure Database.');
-        });
+        function showForm() {
+            document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-form').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+        function showList() {
+            document.getElementById('view-form').style.display = 'none';
+            document.getElementById('view-list').style.display = 'block';
+            window.scrollTo(0,0);
+        }
     </script>
 </body></html>

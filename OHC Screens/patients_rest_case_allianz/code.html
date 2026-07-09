@@ -163,16 +163,30 @@
 <!-- Main Content Area -->
 <main class="ohc-main">
 <div class="ohc-content">
-<!-- Page Header -->
+<!-- ── VIEW: LIST (default) ── -->
+<div id="view-list">
 <div class="flex items-center justify-between mb-container_gap">
 <div>
 <h1 class="font-page-title text-page-title text-on-surface">Patients — Rest Case</h1>
-<p class="text-on-surface-variant font-body text-body">Log a rest room visit</p>
+<p class="text-on-surface-variant font-body text-body">Rest room visit register</p>
 </div>
-<button class="ohc-btn-primary h-[36px] px-4 rounded-lg font-label-sm text-label-sm flex items-center gap-2 shadow-sm transition-transform active:scale-95">
+<button onclick="showForm()" class="ohc-btn-primary h-[36px] px-4 rounded-lg font-label-sm text-label-sm flex items-center gap-2 shadow-sm transition-transform active:scale-95">
 <span class="material-symbols-outlined text-[18px]">add</span>
                 New Rest Entry
             </button>
+</div>
+<!-- Rest Case History table shown as default list view -->
+
+<!-- ── VIEW: FORM ── -->
+<div id="view-form" style="display:none;">
+<div class="flex items-center justify-between mb-container_gap">
+<div>
+<button onclick="showList()" class="flex items-center gap-1 text-primary font-label-sm font-semibold mb-2 hover:underline bg-transparent border-0 p-0 cursor-pointer" style="font-family:'Inter',sans-serif;">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to register
+</button>
+<h1 class="font-page-title text-page-title text-on-surface">New Rest Entry</h1>
+<p class="text-on-surface-variant font-body text-body">Log a rest room visit</p>
+</div>
 </div>
 <!-- Info Banner -->
 <div class="bg-primary-container/10 border border-primary-container text-on-primary-container p-3 rounded-lg flex items-center gap-3 mb-6">
@@ -244,8 +258,8 @@
 </select>
 </div>
 <div class="flex items-center justify-end gap-3 pt-4 mt-2 border-t border-outline-variant">
-<button class="h-[36px] px-6 rounded-lg font-label-sm text-label-sm border border-outline text-on-surface hover:bg-surface-container-low transition-colors">Cancel</button>
-<button class="ohc-btn-primary h-[36px] px-6 rounded-lg font-label-sm text-label-sm shadow-md hover:opacity-90 transition-opacity">Save Rest Case</button>
+<button onclick="showList()" class="h-[36px] px-6 rounded-lg font-label-sm text-label-sm border border-outline text-on-surface hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+<button onclick="showList()" class="ohc-btn-primary h-[36px] px-6 rounded-lg font-label-sm text-label-sm shadow-md hover:opacity-90 transition-opacity" type="button">Save Rest Case</button>
 </div>
 </div>
 </div>
@@ -352,6 +366,8 @@
 </div>
 </div>
 </div>
+
+</div><!-- /view-form -->
 
 <!-- ── REST CASE HISTORY ────────────────────────────────────────── -->
 <style>
@@ -505,9 +521,20 @@
   </div>
 </div>
 <!-- ── END REST CASE HISTORY ── -->
+</div><!-- /view-list -->
 
 </main>
 <script>
+        function showForm() {
+            document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-form').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+        function showList() {
+            document.getElementById('view-form').style.display = 'none';
+            document.getElementById('view-list').style.display = 'block';
+            window.scrollTo(0,0);
+        }
         // Micro-interactions and auto-calculation logic simulation
         document.querySelectorAll('input[type="time"]').forEach(input => {
             input.addEventListener('change', () => {
