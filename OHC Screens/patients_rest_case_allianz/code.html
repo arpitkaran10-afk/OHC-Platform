@@ -388,6 +388,11 @@
   .rch-badge-ok   { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:9999px; background:#F3F4F6; color:#374151; font-size:11px; font-weight:600; white-space:nowrap; }
   .rch-badge-warn .material-symbols-outlined,
   .rch-badge-ok   .material-symbols-outlined { font-size:12px; }
+  .filter-pills { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+  .filter-pill  { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+  .filter-pill:hover { color:#111827; background:#fff; }
+  .filter-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+  #rc-empty { display:none; padding:40px 24px; text-align:center; color:#9CA3AF; font-size:13px; }
 </style>
 
 <div style="padding:0 24px 32px;">
@@ -396,31 +401,35 @@
     <div class="ohc-card-pad" style="border-bottom:1px solid #F3F4F6; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
       <div>
         <div class="ohc-card-title" style="font-size:14px; font-weight:600; color:#374151;">Rest Case History</div>
-        <div style="font-size:12px; color:#9CA3AF; margin-top:2px;">All logged rest cases for this site. Rows highlighted amber indicate duration exceeding 4 hours — mandatory review required.</div>
+        <div style="font-size:12px; color:#9CA3AF; margin-top:2px;">All logged rest cases. Amber rows exceed 4 hours — mandatory review required.</div>
       </div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <button class="ohc-btn ohc-btn-secondary" style="height:32px; font-size:12px; padding:0 12px; display:inline-flex; align-items:center; gap:5px;">
-          <span class="material-symbols-outlined" style="font-size:15px;">filter_list</span> Filter
-        </button>
-        <button class="ohc-btn ohc-btn-secondary" style="height:32px; font-size:12px; padding:0 12px; display:inline-flex; align-items:center; gap:5px;">
-          <span class="material-symbols-outlined" style="font-size:15px;">download</span> Export
-        </button>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <div class="filter-pills" role="group">
+          <button class="filter-pill active" data-period="today"   onclick="rcSetFilter(this)">Today</button>
+          <button class="filter-pill"        data-period="week"    onclick="rcSetFilter(this)">This Week</button>
+          <button class="filter-pill"        data-period="month"   onclick="rcSetFilter(this)">This Month</button>
+          <button class="filter-pill"        data-period="quarter" onclick="rcSetFilter(this)">This Quarter</button>
+          <button class="filter-pill"        data-period="year"    onclick="rcSetFilter(this)">This Year</button>
+        </div>
+        <span id="rc-count" class="ohc-chip ohc-chip-na" style="font-size:11px;">— cases</span>
       </div>
     </div>
     <!-- Table -->
     <div style="overflow-x:auto; width:100%;">
       <table class="rch-table">
         <colgroup>
-          <col style="width:16%"/>  <!-- Patient Name -->
-          <col style="width:22%"/>  <!-- Reason -->
-          <col style="width:9%"/>   <!-- In Time -->
-          <col style="width:9%"/>   <!-- Out Time -->
-          <col style="width:14%"/>  <!-- Duration -->
-          <col style="width:15%"/>  <!-- Flag -->
-          <col style="width:15%"/>  <!-- Monitoring Notes -->
+          <col style="width:13%"/>  <!-- Date -->
+          <col style="width:14%"/>  <!-- Patient Name -->
+          <col style="width:19%"/>  <!-- Reason -->
+          <col style="width:8%"/>   <!-- In Time -->
+          <col style="width:8%"/>   <!-- Out Time -->
+          <col style="width:12%"/>  <!-- Duration -->
+          <col style="width:13%"/>  <!-- Flag -->
+          <col style="width:13%"/>  <!-- Monitoring Notes -->
         </colgroup>
         <thead>
           <tr>
+            <th>Date</th>
             <th>Patient Name</th>
             <th>Reason for Rest</th>
             <th>In Time</th>
@@ -430,94 +439,14 @@
             <th>Monitoring Notes</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Row helper: flag class applied via inline style on tr -->
-          <tr>
-            <td style="font-weight:500; color:#111827;">Priya Nair</td>
-            <td>Post-injection fatigue following annual flu vaccination</td>
-            <td>09:15</td><td>10:30</td>
-            <td>01 hr 15 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>BP stable at 118/76. Alert and responsive.</td>
-          </tr>
-          <tr class="rch-flag">
-            <td style="font-weight:500; color:#111827;">Rajesh Varma</td>
-            <td>Severe migraine with photosensitivity; unable to return to workstation</td>
-            <td>08:00</td><td>13:10</td>
-            <td>05 hr 10 min</td>
-            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
-            <td>Administered sumatriptan. HR notified at 12:00. Sent home post-review.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Sunita Pillai</td>
-            <td>Lower back pain after prolonged sitting — ergonomic concern</td>
-            <td>11:00</td><td>12:45</td>
-            <td>01 hr 45 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>Heat pack applied. Physiotherapy referral initiated.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Arjun Sharma</td>
-            <td>Dizziness and mild nausea — suspected low blood pressure episode</td>
-            <td>14:30</td><td>16:00</td>
-            <td>01 hr 30 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>ORS given, BP monitored every 20 min. Stable on discharge.</td>
-          </tr>
-          <tr class="rch-flag">
-            <td style="font-weight:500; color:#111827;">Mohammed Saleem</td>
-            <td>Acute asthma exacerbation; nebulisation required, observation period extended</td>
-            <td>10:00</td><td>15:30</td>
-            <td>05 hr 30 min</td>
-            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
-            <td>Two rounds of nebulisation. SpO₂ monitored continuously. Referred to pulmonologist.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Deepa Krishnan</td>
-            <td>Tension headache — stress-related, no clinical emergency</td>
-            <td>13:00</td><td>14:20</td>
-            <td>01 hr 20 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>Dark room rest. Paracetamol administered. Returned to work.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Leena George</td>
-            <td>General fatigue; patient requested rest as precautionary measure</td>
-            <td>15:00</td><td>16:30</td>
-            <td>01 hr 30 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>Vitals normal. No medication. Returned to shift.</td>
-          </tr>
-          <tr class="rch-flag">
-            <td style="font-weight:500; color:#111827;">Vinod Chandran</td>
-            <td>Post-cardiac event monitoring — precautionary rest following ECG anomaly detected at routine check</td>
-            <td>09:30</td><td>14:45</td>
-            <td>05 hr 15 min</td>
-            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
-            <td>ECG repeated at 12:00, cardiologist consulted remotely. Transferred to hospital at 14:45.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Anjali Thomas</td>
-            <td>Minor abrasion on palm; rest while wound dressing applied and dried</td>
-            <td>10:45</td><td>11:30</td>
-            <td>00 hr 45 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>Wound cleaned, dressed. Tetanus status confirmed. No further action.</td>
-          </tr>
-          <tr>
-            <td style="font-weight:500; color:#111827;">Santhosh Kumar</td>
-            <td>Mild allergic reaction to dust — sneezing, watery eyes, no breathing distress</td>
-            <td>16:00</td><td>17:10</td>
-            <td>01 hr 10 min</td>
-            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
-            <td>Antihistamine given. Symptoms resolved. Workstation relocation recommended.</td>
-          </tr>
+        <tbody id="rc-table-body">
         </tbody>
       </table>
+      <div id="rc-empty">No rest cases found for this period.</div>
     </div>
     <!-- Footer -->
     <div style="padding:10px 16px; border-top:1px solid #E5E7EB; background:#F9FAFB; display:flex; align-items:center; justify-content:space-between;">
-      <span style="font-size:12px; color:#9CA3AF;">Showing 10 records · 3 flagged for review</span>
+      <span id="rc-footer" style="font-size:12px; color:#9CA3AF;">Loading…</span>
       <span style="font-size:12px; color:#9CA3AF;">Last updated: today</span>
     </div>
   </div>
@@ -539,6 +468,70 @@
             document.getElementById('view-list-table').style.display = 'block';
             window.scrollTo(0,0);
         }
+
+        // ── Rest Case filter logic ──
+        var RC_RAW = [
+          { daysAgo:0,  inT:'09:15', outT:'10:30', dur:'01 hr 15 min', flag:false, name:'Priya Nair',      reason:'Post-injection fatigue following flu vaccination',          notes:'BP stable 118/76. Alert.' },
+          { daysAgo:0,  inT:'08:00', outT:'13:10', dur:'05 hr 10 min', flag:true,  name:'Rajesh Varma',    reason:'Severe migraine with photosensitivity',                     notes:'Sumatriptan administered. HR notified.' },
+          { daysAgo:0,  inT:'11:00', outT:'12:45', dur:'01 hr 45 min', flag:false, name:'Sunita Pillai',   reason:'Lower back pain — ergonomic concern',                       notes:'Heat pack. Physio referral.' },
+          { daysAgo:0,  inT:'14:30', outT:'16:00', dur:'01 hr 30 min', flag:false, name:'Arjun Sharma',    reason:'Dizziness, low BP episode',                                notes:'ORS given. Stable on discharge.' },
+          { daysAgo:2,  inT:'10:00', outT:'15:30', dur:'05 hr 30 min', flag:true,  name:'Mohammed Saleem', reason:'Acute asthma exacerbation; nebulisation required',          notes:'Two nebulisation rounds. Referred to pulmonologist.' },
+          { daysAgo:2,  inT:'13:00', outT:'14:20', dur:'01 hr 20 min', flag:false, name:'Deepa Krishnan',  reason:'Tension headache — stress-related',                        notes:'Dark room rest. Paracetamol given.' },
+          { daysAgo:3,  inT:'15:00', outT:'16:30', dur:'01 hr 30 min', flag:false, name:'Leena George',    reason:'General fatigue, precautionary rest',                      notes:'Vitals normal. Returned to shift.' },
+          { daysAgo:4,  inT:'09:30', outT:'14:45', dur:'05 hr 15 min', flag:true,  name:'Vinod Chandran',  reason:'Post-cardiac monitoring — ECG anomaly at routine check',   notes:'ECG at 12:00. Cardiologist consulted. Transferred.' },
+          { daysAgo:4,  inT:'10:45', outT:'11:30', dur:'00 hr 45 min', flag:false, name:'Anjali Thomas',   reason:'Minor palm abrasion — rest during dressing',                notes:'Wound dressed. Tetanus confirmed.' },
+          { daysAgo:8,  inT:'16:00', outT:'17:10', dur:'01 hr 10 min', flag:false, name:'Santhosh Kumar',  reason:'Mild allergic reaction to dust',                            notes:'Antihistamine given. Workstation relocation advised.' },
+          { daysAgo:12, inT:'09:00', outT:'10:15', dur:'01 hr 15 min', flag:false, name:'Kavitha Ramesh',  reason:'Nausea and dizziness post meal',                            notes:'ORS given. Vitals normal.' },
+          { daysAgo:18, inT:'11:30', outT:'17:00', dur:'05 hr 30 min', flag:true,  name:'Arun Pillai',     reason:'High BP, observation required before clearance',            notes:'BP monitored every 30 min. Sent home.' },
+          { daysAgo:45, inT:'14:00', outT:'15:10', dur:'01 hr 10 min', flag:false, name:'Nisha Rao',       reason:'Migraine, light sensitivity',                               notes:'Paracetamol. Returned to work.' },
+          { daysAgo:80, inT:'08:30', outT:'09:45', dur:'01 hr 15 min', flag:false, name:'Meera Gopalan',   reason:'Post-blood draw fatigue',                                   notes:'ORS given. Discharged.' },
+        ];
+        function rcMidnight(n){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-n);return d;}
+        var RC_ROWS=RC_RAW.map(function(r){return Object.assign({},r,{date:rcMidnight(r.daysAgo)});});
+        function rcFmtDate(d){return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+        function rcGetRange(period){
+            var s=new Date();s.setHours(0,0,0,0);var e=new Date();e.setHours(23,59,59,999);
+            if(period==='week'){var dow=s.getDay();s.setDate(s.getDate()-(dow===0?6:dow-1));}
+            else if(period==='month'){s.setDate(1);}
+            else if(period==='quarter'){s.setMonth(Math.floor(s.getMonth()/3)*3,1);}
+            else if(period==='year'){s.setMonth(0,1);}
+            return{start:s,end:e};
+        }
+        function rcRender(period){
+            var tbody=document.getElementById('rc-table-body');
+            var empty=document.getElementById('rc-empty');
+            var count=document.getElementById('rc-count');
+            var footer=document.getElementById('rc-footer');
+            var r=rcGetRange(period);
+            var rows=RC_ROWS.filter(function(v){return v.date>=r.start&&v.date<=r.end;});
+            var flagged=rows.filter(function(v){return v.flag;}).length;
+            count.textContent=rows.length+' case'+(rows.length===1?'':'s');
+            footer.textContent='Showing '+rows.length+' case'+(rows.length===1?'':'s')+(flagged>0?' · '+flagged+' flagged':'');
+            if(rows.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+            empty.style.display='none';
+            tbody.innerHTML=rows.map(function(v){
+                var flagCls=v.flag?'rch-flag':'';
+                var badge=v.flag
+                    ?'<span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span>'
+                    :'<span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span>';
+                return '<tr class="'+flagCls+'">'+
+                    '<td>'+rcFmtDate(v.date)+'</td>'+
+                    '<td style="font-weight:500;color:#111827;">'+v.name+'</td>'+
+                    '<td>'+v.reason+'</td>'+
+                    '<td>'+v.inT+'</td>'+
+                    '<td>'+v.outT+'</td>'+
+                    '<td>'+v.dur+'</td>'+
+                    '<td>'+badge+'</td>'+
+                    '<td>'+v.notes+'</td>'+
+                '</tr>';
+            }).join('');
+        }
+        function rcSetFilter(btn){
+            document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+            btn.classList.add('active');
+            rcRender(btn.dataset.period);
+        }
+        rcRender('today');
         // Micro-interactions and auto-calculation logic simulation
         document.querySelectorAll('input[type="time"]').forEach(input => {
             input.addEventListener('change', () => {

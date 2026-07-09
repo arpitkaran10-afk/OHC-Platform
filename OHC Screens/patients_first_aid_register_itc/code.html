@@ -95,6 +95,12 @@
     </script>
 <style>
         body { font-family: 'Inter', sans-serif; }
+        .filter-pills { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+        .filter-pill  { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+        .filter-pill:hover { color:#111827; background:#fff; }
+        .filter-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+        #fa-table-body tr { transition:background .1s; }
+        #fa-empty { display:none; padding:40px 24px; text-align:center; color:#9CA3AF; font-size:13px; }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
@@ -207,15 +213,21 @@
 </div>
 <!-- Recent Box Check Entries Section Card -->
 <div class="bg-white rounded-lg border border-outline-variant overflow-hidden shadow-sm">
-<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center flex-wrap gap-3">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-[#0EA5E9]">history</span>
 <h2 class="text-section-heading font-section-heading">Recent Box Check Entries</h2>
 </div>
-<button class="text-[#0EA5E9] flex items-center gap-1 text-label-sm font-label-sm hover:underline">
-                        View Detailed Report
-                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-</button>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+<div class="filter-pills" role="group">
+  <button class="filter-pill active" data-period="today"   onclick="faSetFilter(this)">Today</button>
+  <button class="filter-pill"        data-period="week"    onclick="faSetFilter(this)">This Week</button>
+  <button class="filter-pill"        data-period="month"   onclick="faSetFilter(this)">This Month</button>
+  <button class="filter-pill"        data-period="quarter" onclick="faSetFilter(this)">This Quarter</button>
+  <button class="filter-pill"        data-period="year"    onclick="faSetFilter(this)">This Year</button>
+</div>
+<span id="fa-count" class="inline-flex items-center px-2 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-[11px] font-semibold">— entries</span>
+</div>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left">
@@ -229,83 +241,12 @@
 <th class="p-3 pr-6 border-b border-outline-variant text-right">Actions</th>
 </tr>
 </thead>
-<tbody class="text-body font-body divide-y divide-outline-variant">
-<!-- Row 1: Success -->
-<tr class="hover:bg-surface-container-lowest transition-colors bg-white">
-<td class="p-3 pl-6">24 Oct 2023</td>
-<td class="p-3">A</td>
-<td class="p-3">FAB-ITC-001</td>
-<td class="p-3">
-<span class="inline-flex items-center px-3 h-6 bg-green-100 text-green-800 rounded-full text-[11px] font-semibold">
-                                        OK
-                                    </span>
-</td>
-<td class="p-3">Dr. Arun Kumar</td>
-<td class="p-3 pr-6 text-right">
-<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-</td>
-</tr>
-<!-- Row 2: Warning -->
-<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low">
-<td class="p-3 pl-6">24 Oct 2023</td>
-<td class="p-3">A</td>
-<td class="p-3">FAB-ITC-004</td>
-<td class="p-3">
-<span class="inline-flex items-center px-3 h-6 bg-amber-100 text-amber-800 rounded-full text-[11px] font-semibold">
-                                        Needs Restocking
-                                    </span>
-</td>
-<td class="p-3">Nurse Sheela</td>
-<td class="p-3 pr-6 text-right">
-<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-</td>
-</tr>
-<!-- Row 3: Error -->
-<tr class="hover:bg-surface-container-lowest transition-colors bg-white">
-<td class="p-3 pl-6">23 Oct 2023</td>
-<td class="p-3">C</td>
-<td class="p-3">FAB-ITC-002</td>
-<td class="p-3">
-<span class="inline-flex items-center px-3 h-6 bg-red-100 text-red-800 rounded-full text-[11px] font-semibold">
-                                        Items Missing
-                                    </span>
-</td>
-<td class="p-3">Suresh Mani</td>
-<td class="p-3 pr-6 text-right">
-<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low">
-<td class="p-3 pl-6">23 Oct 2023</td>
-<td class="p-3">B</td>
-<td class="p-3">FAB-ITC-003</td>
-<td class="p-3">
-<span class="inline-flex items-center px-3 h-6 bg-green-100 text-green-800 rounded-full text-[11px] font-semibold">
-                                        OK
-                                    </span>
-</td>
-<td class="p-3">Nurse Sheela</td>
-<td class="p-3 pr-6 text-right">
-<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>
-</td>
-</tr>
-</tbody>
+<tbody id="fa-table-body" class="text-body font-body divide-y divide-outline-variant"></tbody>
 </table>
+<div id="fa-empty">No entries found for this period.</div>
 </div>
 <div class="p-4 bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
-<span>Showing 4 of 128 entries</span>
-<div class="flex gap-1">
-<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
-<button class="w-8 h-8 rounded border border-[#0EA5E9] bg-[#0EA5E9] text-white flex items-center justify-center">1</button>
-<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low">2</button>
-<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low">3</button>
-<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
-</div>
+<span id="fa-footer">Loading…</span>
 </div>
 </div>
 </div><!-- /grid -->
@@ -398,5 +339,66 @@
             document.getElementById('view-list').style.display = 'block';
             window.scrollTo(0,0);
         }
+
+        // ── First Aid filter logic ──
+        var FA_RAW = [
+          { daysAgo:0,  shift:'A', box:'FAB-ITC-001', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Dr. Arun Kumar' },
+          { daysAgo:0,  shift:'B', box:'FAB-ITC-003', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Nurse Sheela' },
+          { daysAgo:0,  shift:'C', box:'FAB-ITC-004', status:'Needs Restocking', statusCls:'bg-amber-100 text-amber-800', staff:'Nurse Sheela' },
+          { daysAgo:2,  shift:'A', box:'FAB-ITC-002', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Suresh Mani' },
+          { daysAgo:2,  shift:'B', box:'FAB-ITC-001', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Dr. Arun Kumar' },
+          { daysAgo:3,  shift:'C', box:'FAB-ITC-002', status:'Items Missing',    statusCls:'bg-red-100 text-red-800',     staff:'Suresh Mani' },
+          { daysAgo:4,  shift:'A', box:'FAB-ITC-003', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Nurse Sheela' },
+          { daysAgo:8,  shift:'B', box:'FAB-ITC-004', status:'Needs Restocking', statusCls:'bg-amber-100 text-amber-800', staff:'Dr. Arun Kumar' },
+          { daysAgo:11, shift:'A', box:'FAB-ITC-001', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Suresh Mani' },
+          { daysAgo:15, shift:'C', box:'FAB-ITC-002', status:'Lock Broken',      statusCls:'bg-red-100 text-red-800',     staff:'Nurse Sheela' },
+          { daysAgo:19, shift:'B', box:'FAB-ITC-003', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Dr. Arun Kumar' },
+          { daysAgo:45, shift:'A', box:'FAB-ITC-001', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Suresh Mani' },
+          { daysAgo:62, shift:'B', box:'FAB-ITC-004', status:'Needs Restocking', statusCls:'bg-amber-100 text-amber-800', staff:'Nurse Sheela' },
+          { daysAgo:90, shift:'A', box:'FAB-ITC-002', status:'OK',               statusCls:'bg-green-100 text-green-800', staff:'Dr. Arun Kumar' },
+        ];
+        function faMidnight(n) { var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+        var FA_ROWS = FA_RAW.map(function(r){ return Object.assign({},r,{date:faMidnight(r.daysAgo)}); });
+        function faFmtDate(d){ return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+        function faGetRange(period) {
+            var s=new Date(); s.setHours(0,0,0,0);
+            var e=new Date(); e.setHours(23,59,59,999);
+            if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+            else if(period==='month'){ s.setDate(1); }
+            else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+            else if(period==='year'){ s.setMonth(0,1); }
+            return {start:s,end:e};
+        }
+        function faRender(period) {
+            var tbody=document.getElementById('fa-table-body');
+            var empty=document.getElementById('fa-empty');
+            var count=document.getElementById('fa-count');
+            var footer=document.getElementById('fa-footer');
+            var r=faGetRange(period);
+            var rows=FA_ROWS.filter(function(v){return v.date>=r.start&&v.date<=r.end;});
+            count.textContent=rows.length+' entr'+(rows.length===1?'y':'ies');
+            footer.textContent='Showing '+rows.length+' entr'+(rows.length===1?'y':'ies');
+            if(rows.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+            empty.style.display='none';
+            tbody.innerHTML=rows.map(function(v,i){
+                var bg=i%2===0?'bg-white':'bg-surface-container-low';
+                return '<tr class="hover:bg-surface-container-lowest transition-colors '+bg+'">'+
+                    '<td class="p-3 pl-6">'+faFmtDate(v.date)+'</td>'+
+                    '<td class="p-3">'+v.shift+'</td>'+
+                    '<td class="p-3">'+v.box+'</td>'+
+                    '<td class="p-3"><span class="inline-flex items-center px-3 h-6 '+v.statusCls+' rounded-full text-[11px] font-semibold">'+v.status+'</span></td>'+
+                    '<td class="p-3">'+v.staff+'</td>'+
+                    '<td class="p-3 pr-6 text-right">'+
+                        '<button class="text-on-surface-variant hover:text-[#0EA5E9] p-1"><span class="material-symbols-outlined text-[20px]">edit</span></button>'+
+                        '<button class="text-on-surface-variant hover:text-error p-1 ml-2"><span class="material-symbols-outlined text-[20px]">delete</span></button>'+
+                    '</td></tr>';
+            }).join('');
+        }
+        function faSetFilter(btn) {
+            document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+            btn.classList.add('active');
+            faRender(btn.dataset.period);
+        }
+        faRender('today');
     </script>
 </body></html>

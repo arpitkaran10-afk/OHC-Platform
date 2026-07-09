@@ -95,6 +95,11 @@
     </script>
 <style>
         body { font-family: 'Inter', sans-serif; }
+        .filter-pills { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+        .filter-pill  { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+        .filter-pill:hover { color:#111827; background:#fff; }
+        .filter-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+        #amb-empty { display:none; padding:40px 24px; text-align:center; color:#9CA3AF; font-size:13px; }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
@@ -346,9 +351,18 @@
 </div>
 <!-- Section Card: Trip Log -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
-<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center flex-wrap gap-3">
 <h3 class="font-section-heading text-section-heading">Trip Log</h3>
-<span class="text-label-sm font-label-sm text-on-surface-variant">Showing 48 recent records</span>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+<div class="filter-pills" role="group">
+  <button class="filter-pill active" data-period="today"   onclick="ambSetFilter(this)">Today</button>
+  <button class="filter-pill"        data-period="week"    onclick="ambSetFilter(this)">This Week</button>
+  <button class="filter-pill"        data-period="month"   onclick="ambSetFilter(this)">This Month</button>
+  <button class="filter-pill"        data-period="quarter" onclick="ambSetFilter(this)">This Quarter</button>
+  <button class="filter-pill"        data-period="year"    onclick="ambSetFilter(this)">This Year</button>
+</div>
+<span id="amb-count" class="inline-flex items-center px-2 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-[11px] font-semibold">— trips</span>
+</div>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
@@ -364,57 +378,9 @@
 <th class="px-6 py-3 text-right">Actions</th>
 </tr>
 </thead>
-<tbody class="text-body font-body">
-<tr class="bg-white border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
-<td class="px-6 py-3">24 Oct 2023</td>
-<td class="px-6 py-3"><span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold">SHIFT A</span></td>
-<td class="px-6 py-3 font-semibold text-primary">Arjun Mehta</td>
-<td class="px-6 py-3">City General Hospital</td>
-<td class="px-6 py-3">12.5 km</td>
-<td class="px-6 py-3 text-on-surface-variant">Robert Wilson</td>
-<td class="px-6 py-3 text-on-surface-variant">Nurse Maria S.</td>
-<td class="px-6 py-3 text-right">
-<a class="text-primary font-semibold hover:underline" href="#">View</a>
-</td>
-</tr>
-<tr class="bg-neutral-50 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
-<td class="px-6 py-3">24 Oct 2023</td>
-<td class="px-6 py-3"><span class="px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-[10px] font-bold">SHIFT B</span></td>
-<td class="px-6 py-3 font-semibold text-primary">Sarah Jenkins</td>
-<td class="px-6 py-3">Ortho Trauma Center</td>
-<td class="px-6 py-3">8.2 km</td>
-<td class="px-6 py-3 text-on-surface-variant">David Miller</td>
-<td class="px-6 py-3 text-on-surface-variant">Paramedic Tom H.</td>
-<td class="px-6 py-3 text-right">
-<a class="text-primary font-semibold hover:underline" href="#">View</a>
-</td>
-</tr>
-<tr class="bg-white border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
-<td class="px-6 py-3">23 Oct 2023</td>
-<td class="px-6 py-3"><span class="px-2 py-0.5 bg-orange-100 text-orange-800 rounded-full text-[10px] font-bold">SHIFT C</span></td>
-<td class="px-6 py-3 font-semibold text-primary">Kevin Spacey</td>
-<td class="px-6 py-3">Metropolitan Cardiac</td>
-<td class="px-6 py-3">18.0 km</td>
-<td class="px-6 py-3 text-on-surface-variant">James Carter</td>
-<td class="px-6 py-3 text-on-surface-variant">Dr. Sarah L.</td>
-<td class="px-6 py-3 text-right">
-<a class="text-primary font-semibold hover:underline" href="#">View</a>
-</td>
-</tr>
-<tr class="bg-neutral-50 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
-<td class="px-6 py-3">23 Oct 2023</td>
-<td class="px-6 py-3"><span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold">SHIFT A</span></td>
-<td class="px-6 py-3 font-semibold text-primary">Anita Desai</td>
-<td class="px-6 py-3">Apollo Diagnostics</td>
-<td class="px-6 py-3">5.5 km</td>
-<td class="px-6 py-3 text-on-surface-variant">Robert Wilson</td>
-<td class="px-6 py-3 text-on-surface-variant">Nurse Maria S.</td>
-<td class="px-6 py-3 text-right">
-<a class="text-primary font-semibold hover:underline" href="#">View</a>
-</td>
-</tr>
-</tbody>
+<tbody id="amb-table-body" class="text-body font-body"></tbody>
 </table>
+<div id="amb-empty">No trips found for this period.</div>
 </div>
 <!-- Table Footer / Pagination -->
 <div class="px-6 py-4 bg-surface-container-low flex justify-between items-center border-t border-outline-variant">
@@ -454,6 +420,61 @@
             document.getElementById('view-list-table').style.display = 'block';
             window.scrollTo(0,0);
         }
+        // ── Ambulance filter logic ──
+        var AMB_RAW = [
+          { daysAgo:0,  shift:'A', shiftCls:'bg-blue-100 text-blue-800',   patient:'Arjun Mehta',    dest:'City General Hospital',  km:'12.5', driver:'Robert Wilson', accompanied:'Nurse Maria S.' },
+          { daysAgo:0,  shift:'B', shiftCls:'bg-green-100 text-green-800', patient:'Nisha Rao',       dest:'St. Thomas Hospital',    km:'9.0',  driver:'David Miller',  accompanied:'Dr. Sarah L.' },
+          { daysAgo:0,  shift:'C', shiftCls:'bg-orange-100 text-orange-800',patient:'Vinod Chandran', dest:'Cardiology, KIMS',       km:'14.2', driver:'James Carter',  accompanied:'Paramedic Tom H.' },
+          { daysAgo:2,  shift:'A', shiftCls:'bg-blue-100 text-blue-800',   patient:'Sarah Jenkins',  dest:'Ortho Trauma Center',    km:'8.2',  driver:'David Miller',  accompanied:'Nurse Maria S.' },
+          { daysAgo:3,  shift:'B', shiftCls:'bg-green-100 text-green-800', patient:'Kevin Rajan',    dest:'Metropolitan Cardiac',   km:'18.0', driver:'James Carter',  accompanied:'Dr. Sarah L.' },
+          { daysAgo:4,  shift:'A', shiftCls:'bg-blue-100 text-blue-800',   patient:'Anita Desai',    dest:'Apollo Diagnostics',     km:'5.5',  driver:'Robert Wilson', accompanied:'Nurse Maria S.' },
+          { daysAgo:9,  shift:'C', shiftCls:'bg-orange-100 text-orange-800',patient:'Suresh Babu',   dest:'City General Hospital',  km:'11.3', driver:'David Miller',  accompanied:'Paramedic Tom H.' },
+          { daysAgo:14, shift:'B', shiftCls:'bg-green-100 text-green-800', patient:'Priya Nair',     dest:'Physiotherapy Centre',   km:'6.8',  driver:'James Carter',  accompanied:'Nurse Maria S.' },
+          { daysAgo:20, shift:'A', shiftCls:'bg-blue-100 text-blue-800',   patient:'Rajesh Varma',   dest:'St. Thomas Hospital',    km:'9.5',  driver:'Robert Wilson', accompanied:'Dr. Sarah L.' },
+          { daysAgo:50, shift:'B', shiftCls:'bg-green-100 text-green-800', patient:'Leena George',   dest:'Medical Centre TVM',     km:'7.2',  driver:'David Miller',  accompanied:'Nurse Maria S.' },
+          { daysAgo:75, shift:'A', shiftCls:'bg-blue-100 text-blue-800',   patient:'Meera Gopalan',  dest:'City General Hospital',  km:'12.0', driver:'Robert Wilson', accompanied:'Paramedic Tom H.' },
+        ];
+        function ambMidnight(n){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-n);return d;}
+        var AMB_ROWS=AMB_RAW.map(function(r){return Object.assign({},r,{date:ambMidnight(r.daysAgo)});});
+        function ambFmtDate(d){return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+        function ambGetRange(period){
+            var s=new Date();s.setHours(0,0,0,0);var e=new Date();e.setHours(23,59,59,999);
+            if(period==='week'){var dow=s.getDay();s.setDate(s.getDate()-(dow===0?6:dow-1));}
+            else if(period==='month'){s.setDate(1);}
+            else if(period==='quarter'){s.setMonth(Math.floor(s.getMonth()/3)*3,1);}
+            else if(period==='year'){s.setMonth(0,1);}
+            return{start:s,end:e};
+        }
+        function ambRender(period){
+            var tbody=document.getElementById('amb-table-body');
+            var empty=document.getElementById('amb-empty');
+            var count=document.getElementById('amb-count');
+            var r=ambGetRange(period);
+            var rows=AMB_ROWS.filter(function(v){return v.date>=r.start&&v.date<=r.end;});
+            count.textContent=rows.length+' trip'+(rows.length===1?'':'s');
+            if(rows.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+            empty.style.display='none';
+            tbody.innerHTML=rows.map(function(v,i){
+                var bg=i%2===0?'bg-white':'bg-neutral-50';
+                return '<tr class="'+bg+' border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">'+
+                    '<td class="px-6 py-3">'+ambFmtDate(v.date)+'</td>'+
+                    '<td class="px-6 py-3"><span class="px-2 py-0.5 '+v.shiftCls+' rounded-full text-[10px] font-bold">SHIFT '+v.shift+'</span></td>'+
+                    '<td class="px-6 py-3 font-semibold text-primary">'+v.patient+'</td>'+
+                    '<td class="px-6 py-3">'+v.dest+'</td>'+
+                    '<td class="px-6 py-3">'+v.km+' km</td>'+
+                    '<td class="px-6 py-3 text-on-surface-variant">'+v.driver+'</td>'+
+                    '<td class="px-6 py-3 text-on-surface-variant">'+v.accompanied+'</td>'+
+                    '<td class="px-6 py-3 text-right"><a class="text-primary font-semibold hover:underline" href="#">View</a></td>'+
+                '</tr>';
+            }).join('');
+        }
+        function ambSetFilter(btn){
+            document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+            btn.classList.add('active');
+            ambRender(btn.dataset.period);
+        }
+        ambRender('today');
+
         // Auto-calculation logic for KM
         const startKmInput = document.getElementById('startKm');
         const endKmInput = document.getElementById('endKm');
