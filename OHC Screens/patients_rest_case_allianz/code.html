@@ -352,6 +352,160 @@
 </div>
 </div>
 </div>
+
+<!-- ── REST CASE HISTORY ────────────────────────────────────────── -->
+<style>
+  .rch-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  .rch-table thead tr { background:#F9FAFB; border-bottom:1px solid #E5E7EB; }
+  .rch-table thead th { padding:11px 16px; font-size:11px; font-weight:600; color:#6B7280; text-transform:uppercase; letter-spacing:.05em; text-align:left; white-space:nowrap; }
+  .rch-table tbody tr { background:#fff; border-bottom:1px solid #F3F4F6; transition:background .1s; }
+  .rch-table tbody tr:nth-child(even) { background:#FAFAFA; }
+  .rch-table tbody tr:hover { background:#F0F9FF; }
+  .rch-table tbody td { padding:13px 16px; font-size:13px; color:#374151; vertical-align:top; line-height:1.45; }
+  /* Flagged row — >4 hours */
+  .rch-table tbody tr.rch-flag { background:#FFFBEB; border-left:3px solid #F59E0B; }
+  .rch-table tbody tr.rch-flag:hover { background:#FEF3C7; }
+  /* Duration badge */
+  .rch-badge-warn { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:9999px; background:#FEF3C7; color:#92400E; font-size:11px; font-weight:600; white-space:nowrap; }
+  .rch-badge-ok   { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:9999px; background:#F3F4F6; color:#374151; font-size:11px; font-weight:600; white-space:nowrap; }
+  .rch-badge-warn .material-symbols-outlined,
+  .rch-badge-ok   .material-symbols-outlined { font-size:12px; }
+</style>
+
+<div style="padding:0 24px 32px;">
+  <div class="ohc-card" style="overflow:hidden;">
+    <!-- Card header -->
+    <div class="ohc-card-pad" style="border-bottom:1px solid #F3F4F6; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+      <div>
+        <div class="ohc-card-title" style="font-size:14px; font-weight:600; color:#374151;">Rest Case History</div>
+        <div style="font-size:12px; color:#9CA3AF; margin-top:2px;">All logged rest cases for this site. Rows highlighted amber indicate duration exceeding 4 hours — mandatory review required.</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="ohc-btn ohc-btn-secondary" style="height:32px; font-size:12px; padding:0 12px; display:inline-flex; align-items:center; gap:5px;">
+          <span class="material-symbols-outlined" style="font-size:15px;">filter_list</span> Filter
+        </button>
+        <button class="ohc-btn ohc-btn-secondary" style="height:32px; font-size:12px; padding:0 12px; display:inline-flex; align-items:center; gap:5px;">
+          <span class="material-symbols-outlined" style="font-size:15px;">download</span> Export
+        </button>
+      </div>
+    </div>
+    <!-- Table -->
+    <div style="overflow-x:auto; width:100%;">
+      <table class="rch-table">
+        <colgroup>
+          <col style="width:16%"/>  <!-- Patient Name -->
+          <col style="width:22%"/>  <!-- Reason -->
+          <col style="width:9%"/>   <!-- In Time -->
+          <col style="width:9%"/>   <!-- Out Time -->
+          <col style="width:14%"/>  <!-- Duration -->
+          <col style="width:15%"/>  <!-- Flag -->
+          <col style="width:15%"/>  <!-- Monitoring Notes -->
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Reason for Rest</th>
+            <th>In Time</th>
+            <th>Out Time</th>
+            <th>Duration</th>
+            <th>Flag</th>
+            <th>Monitoring Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row helper: flag class applied via inline style on tr -->
+          <tr>
+            <td style="font-weight:500; color:#111827;">Priya Nair</td>
+            <td>Post-injection fatigue following annual flu vaccination</td>
+            <td>09:15</td><td>10:30</td>
+            <td>01 hr 15 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>BP stable at 118/76. Alert and responsive.</td>
+          </tr>
+          <tr class="rch-flag">
+            <td style="font-weight:500; color:#111827;">Rajesh Varma</td>
+            <td>Severe migraine with photosensitivity; unable to return to workstation</td>
+            <td>08:00</td><td>13:10</td>
+            <td>05 hr 10 min</td>
+            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
+            <td>Administered sumatriptan. HR notified at 12:00. Sent home post-review.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Sunita Pillai</td>
+            <td>Lower back pain after prolonged sitting — ergonomic concern</td>
+            <td>11:00</td><td>12:45</td>
+            <td>01 hr 45 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>Heat pack applied. Physiotherapy referral initiated.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Arjun Sharma</td>
+            <td>Dizziness and mild nausea — suspected low blood pressure episode</td>
+            <td>14:30</td><td>16:00</td>
+            <td>01 hr 30 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>ORS given, BP monitored every 20 min. Stable on discharge.</td>
+          </tr>
+          <tr class="rch-flag">
+            <td style="font-weight:500; color:#111827;">Mohammed Saleem</td>
+            <td>Acute asthma exacerbation; nebulisation required, observation period extended</td>
+            <td>10:00</td><td>15:30</td>
+            <td>05 hr 30 min</td>
+            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
+            <td>Two rounds of nebulisation. SpO₂ monitored continuously. Referred to pulmonologist.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Deepa Krishnan</td>
+            <td>Tension headache — stress-related, no clinical emergency</td>
+            <td>13:00</td><td>14:20</td>
+            <td>01 hr 20 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>Dark room rest. Paracetamol administered. Returned to work.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Leena George</td>
+            <td>General fatigue; patient requested rest as precautionary measure</td>
+            <td>15:00</td><td>16:30</td>
+            <td>01 hr 30 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>Vitals normal. No medication. Returned to shift.</td>
+          </tr>
+          <tr class="rch-flag">
+            <td style="font-weight:500; color:#111827;">Vinod Chandran</td>
+            <td>Post-cardiac event monitoring — precautionary rest following ECG anomaly detected at routine check</td>
+            <td>09:30</td><td>14:45</td>
+            <td>05 hr 15 min</td>
+            <td><span class="rch-badge-warn"><span class="material-symbols-outlined">warning</span>Review Required</span></td>
+            <td>ECG repeated at 12:00, cardiologist consulted remotely. Transferred to hospital at 14:45.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Anjali Thomas</td>
+            <td>Minor abrasion on palm; rest while wound dressing applied and dried</td>
+            <td>10:45</td><td>11:30</td>
+            <td>00 hr 45 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>Wound cleaned, dressed. Tetanus status confirmed. No further action.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:500; color:#111827;">Santhosh Kumar</td>
+            <td>Mild allergic reaction to dust — sneezing, watery eyes, no breathing distress</td>
+            <td>16:00</td><td>17:10</td>
+            <td>01 hr 10 min</td>
+            <td><span class="rch-badge-ok"><span class="material-symbols-outlined">check_circle</span>Within Limit</span></td>
+            <td>Antihistamine given. Symptoms resolved. Workstation relocation recommended.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Footer -->
+    <div style="padding:10px 16px; border-top:1px solid #E5E7EB; background:#F9FAFB; display:flex; align-items:center; justify-content:space-between;">
+      <span style="font-size:12px; color:#9CA3AF;">Showing 10 records · 3 flagged for review</span>
+      <span style="font-size:12px; color:#9CA3AF;">Last updated: today</span>
+    </div>
+  </div>
+</div>
+<!-- ── END REST CASE HISTORY ── -->
+
 </main>
 <script>
         // Micro-interactions and auto-calculation logic simulation

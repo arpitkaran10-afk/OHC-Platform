@@ -1,114 +1,202 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
+<html class="light" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Incident Register - OHC Platform</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "#8a5100",
-                        "surface-container-highest": "#dee3e9",
-                        "surface-container-high": "#e4e8ee",
-                        "secondary": "#3c627d",
-                        "error": "#ba1a1a",
-                        "surface-container-low": "#f0f4fa",
-                        "on-primary": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "tertiary-container": "#de8712",
-                        "on-surface": "#171c20",
-                        "on-secondary-fixed": "#001e2f",
-                        "inverse-primary": "#89ceff",
-                        "secondary-container": "#b8dffe",
-                        "tertiary-fixed-dim": "#ffb86e",
-                        "on-secondary-container": "#3d637d",
-                        "secondary-fixed-dim": "#a5cbe9",
-                        "primary": "#0EA5E9",
-                        "on-background": "#171c20",
-                        "surface-bright": "#f6faff",
-                        "primary-container": "#0ea5e9",
-                        "on-tertiary": "#ffffff",
-                        "outline": "#6e7881",
-                        "surface-variant": "#dee3e9",
-                        "background": "#f6faff",
-                        "primary-fixed-dim": "#89ceff",
-                        "on-primary-fixed-variant": "#004c6e",
-                        "inverse-on-surface": "#edf1f7",
-                        "outline-variant": "#bec8d2",
-                        "on-primary-container": "#003751",
-                        "on-tertiary-fixed-variant": "#693c00",
-                        "on-tertiary-fixed": "#2c1600",
-                        "on-secondary-fixed-variant": "#234b64",
-                        "surface-tint": "#0EA5E9",
-                        "on-secondary": "#ffffff",
-                        "on-surface-variant": "#3e4850",
-                        "on-error-container": "#93000a",
-                        "primary-fixed": "#c9e6ff",
-                        "surface-dim": "#d6dae0",
-                        "surface-container": "#eaeef4",
-                        "inverse-surface": "#2c3135",
-                        "on-tertiary-container": "#4d2b00",
-                        "secondary-fixed": "#c9e6ff",
-                        "on-primary-fixed": "#001e2f",
-                        "surface": "#f6faff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed": "#ffdcbd"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "header_height": "56px",
-                        "base": "4px",
-                        "container_gap": "16px",
-                        "stack_gap": "8px",
-                        "content_padding": "24px",
-                        "sidebar_width": "240px"
-                    },
-                    "fontFamily": {
-                        "page-title": ["Inter"],
-                        "section-heading": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body": ["Inter"]
-                    },
-                    "fontSize": {
-                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
-                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
-                    }
-                },
-            },
-        }
-    </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
-    </style>
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body { font-family: 'Inter', sans-serif; background: #F1F5F9; color: #0F172A; -webkit-font-smoothing: antialiased; }
+  /* Reset ohc-main for iframe context — shell injects same via OVERRIDE_CSS but this prevents flash */
+  .ohc-main { margin-left: 0 !important; padding-top: 0 !important; }
+  .ohc-header, .ohc-sidebar { display: none !important; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; font-size: 18px; }
+
+  /* Premium inputs */
+  .field-input {
+    width: 100%; height: 40px; padding: 0 12px;
+    border: 1.5px solid #E2E8F0; border-radius: 10px;
+    background: #fff; font-size: 13px; color: #0F172A;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  .field-input:hover { border-color: #CBD5E1; }
+  .field-input:focus { border-color: #0EA5E9; box-shadow: 0 0 0 3px rgba(14,165,233,.12); }
+  .field-input::placeholder { color: #94A3B8; }
+  select.field-input { cursor: pointer; padding-right: 32px; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394A3B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; }
+  textarea.field-input { height: auto; padding: 10px 12px; resize: vertical; min-height: 80px; }
+
+  /* Labels */
+  .field-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 5px; letter-spacing: .01em; }
+  .field-label .req { display: inline-block; width: 5px; height: 5px; background: #EF4444; border-radius: 50%; margin-left: 4px; vertical-align: middle; position: relative; top: -1px; }
+  .field-hint { font-size: 11px; color: #94A3B8; margin-top: 3px; }
+
+  /* Section card */
+  .section-card { background: #fff; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04); overflow: hidden; margin-bottom: 20px; }
+  .section-card-header { padding: 20px 28px; border-bottom: 1px solid #F1F5F9; display: flex; align-items: flex-start; gap: 16px; }
+  .section-badge { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .section-card-header h2 { font-size: 16px; font-weight: 700; color: #0F172A; margin: 0 0 3px; }
+  .section-card-header p { font-size: 12px; color: #64748B; margin: 0; }
+  .section-body { padding: 24px 28px; }
+
+  /* Grid helpers */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+  .severity-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+
+  /* Chips */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip-option { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; border: 1.5px solid #E2E8F0; background: #F8FAFC; font-size: 12px; font-weight: 500; color: #475569; cursor: pointer; transition: all .15s; user-select: none; }
+  .chip-option:hover { border-color: #0EA5E9; color: #0EA5E9; background: #F0F9FF; }
+  .chip-option.selected { border-color: #0EA5E9; background: #E0F2FE; color: #0369A1; font-weight: 600; }
+  .chip-option input { display: none; }
+
+  /* Severity cards */
+  .severity-card { padding: 16px; border-radius: 12px; border: 2px solid #E2E8F0; cursor: pointer; transition: all .15s; text-align: center; }
+  .severity-card:hover { border-color: #CBD5E1; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+  .severity-card.selected-critical { border-color: #EF4444; background: #FEF2F2; }
+  .severity-card.selected-warning { border-color: #F59E0B; background: #FFFBEB; }
+  .severity-card.selected-success { border-color: #10B981; background: #F0FDF4; }
+  .severity-card input { display: none; }
+  .severity-card .sev-icon { font-size: 24px; margin-bottom: 6px; }
+  .severity-card .sev-label { font-size: 13px; font-weight: 600; }
+  .severity-card .sev-sub { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+
+  /* Accordion */
+  .accordion-header { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; background: none; border: none; cursor: pointer; text-align: left; transition: background .1s; }
+  .accordion-header:hover { background: #F8FAFC; }
+  .accordion-header-left { display: flex; align-items: center; gap: 14px; }
+  .accordion-chevron { transition: transform .2s; color: #94A3B8; font-size: 20px !important; }
+  .accordion-chevron.open { transform: rotate(180deg); }
+  .accordion-body { overflow: hidden; transition: max-height .3s ease; max-height: 0; }
+  .accordion-body.open { max-height: 9999px; }
+  .accordion-body-inner { padding: 0 28px 24px; }
+
+  /* Check list */
+  .check-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px; }
+  .check-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; }
+  .check-item { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 8px; cursor: pointer; transition: background .1s; font-size: 12.5px; color: #334155; }
+  .check-item:hover { background: #F1F5F9; }
+  .check-item input[type=checkbox] { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid #CBD5E1; cursor: pointer; flex-shrink: 0; accent-color: #0EA5E9; }
+  .check-group-title { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: .06em; padding: 12px 0 8px; border-bottom: 1px solid #F1F5F9; margin-bottom: 8px; }
+
+  /* Count badge */
+  .count-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 11px; background: #E0F2FE; color: #0369A1; font-size: 11px; font-weight: 700; padding: 0 6px; }
+  .count-badge.zero { background: #F1F5F9; color: #94A3B8; }
+
+  /* Section nav */
+  #section-nav { position: sticky; top: 0; z-index: 40; background: rgba(241,245,249,.95); backdrop-filter: blur(8px); padding: 10px 0; margin-bottom: 24px; border-bottom: 1px solid #E2E8F0; width: 100%; }
+  .snav-inner { display: flex; gap: 6px; overflow-x: auto; padding: 0 16px 4px; scrollbar-width: none; }
+  .snav-inner::-webkit-scrollbar { display: none; }
+  .snav-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; border: 1.5px solid transparent; background: transparent; font-size: 12px; font-weight: 500; color: #64748B; cursor: pointer; white-space: nowrap; transition: all .15s; text-decoration: none; }
+  .snav-chip:hover { background: #fff; border-color: #E2E8F0; color: #0F172A; }
+  .snav-chip.active { background: #fff; border-color: #0EA5E9; color: #0EA5E9; font-weight: 600; }
+  .snav-chip.done { color: #10B981; }
+  .snav-chip.done .snav-letter { background: #D1FAE5; color: #059669; }
+  .snav-chip.active .snav-letter { background: #E0F2FE; color: #0369A1; }
+  .snav-letter { width: 20px; height: 20px; border-radius: 6px; background: #F1F5F9; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+
+  /* Progress bar */
+  .progress-bar { height: 4px; border-radius: 2px; background: #E2E8F0; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 2px; transition: width .4s ease; }
+
+  /* Radio group */
+  .radio-row { display: flex; gap: 16px; align-items: center; height: 40px; }
+  .radio-opt { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; color: #334155; }
+  .radio-opt input { width: 16px; height: 16px; accent-color: #0EA5E9; cursor: pointer; }
+
+  /* Sign field */
+  .sign-field { width: 100%; height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px dashed #CBD5E1; background: #FAFBFC; font-family: Georgia, serif; font-style: italic; font-size: 15px; color: #334155; outline: none; transition: all .15s; }
+  .sign-field:focus { border-color: #0EA5E9; border-style: solid; box-shadow: 0 0 0 3px rgba(14,165,233,.1); }
+
+  /* Sign card */
+  .signoff-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 20px; }
+
+  /* Phase connector */
+  .phase-connector { display: flex; justify-content: center; padding: 8px 0; color: #CBD5E1; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table thead tr { background: #F8FAFC; }
+  .data-table th { padding: 11px 16px; font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: .05em; text-align: left; border-bottom: 1px solid #E2E8F0; white-space: nowrap; }
+  .data-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background .1s; }
+  .data-table tbody tr:hover { background: #F8FAFC; }
+  .data-table td { padding: 13px 16px; font-size: 13px; color: #334155; vertical-align: middle; }
+  .data-table .td-id { font-weight: 600; color: #0EA5E9; }
+  .data-table .tr-critical { background: #FEF2F2; border-left: 3px solid #EF4444; }
+  .data-table .tr-critical:hover { background: #FEE2E2; }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 1.4; white-space: nowrap; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+  .badge-amber { background: #FEF3C7; color: #92400E; }
+  .badge-green { background: #D1FAE5; color: #065F46; }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+  .badge-gray { background: #F1F5F9; color: #475569; }
+  .badge-orange { background: #FFEDD5; color: #9A3412; }
+  .badge-purple { background: #EDE9FE; color: #5B21B6; }
+
+  /* Vitals sub-section */
+  .vitals-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 20px; }
+  .vitals-label { font-size: 10.5px; font-weight: 700; color: #0EA5E9; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+
+  /* Sidebar widget */
+  .widget-card { background: #fff; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); padding: 20px; margin-bottom: 16px; }
+  .widget-title { font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .metric-row { margin-bottom: 14px; }
+  .metric-row:last-child { margin-bottom: 0; }
+  .metric-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .metric-name { font-size: 12px; color: #64748B; }
+  .metric-value { font-size: 13px; font-weight: 700; }
+
+  /* Buttons */
+  .btn-primary { display: inline-flex; align-items: center; gap-6px; gap: 6px; padding: 0 20px; height: 40px; border-radius: 10px; background: #EF4444; color: #fff; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .btn-primary:hover { background: #DC2626; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(239,68,68,.3); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 6px; padding: 0 20px; height: 40px; border-radius: 10px; background: #fff; color: #475569; font-size: 13px; font-weight: 600; border: 1.5px solid #E2E8F0; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .btn-secondary:hover { border-color: #CBD5E1; background: #F8FAFC; }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; height: 40px; border-radius: 10px; background: transparent; color: #94A3B8; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .btn-ghost:hover { color: #64748B; background: #F1F5F9; }
+
+  /* ID chip */
+  .id-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 8px; background: #F1F5F9; border: 1px solid #E2E8F0; font-size: 12px; font-weight: 600; color: #475569; font-family: monospace; }
+
+  /* Status chip */
+  .status-draft { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; border-radius: 8px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+
+  /* Conditional hidden */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* Separator */
+  .sep { border: none; border-top: 1px solid #F1F5F9; margin: 20px 0; }
+
+  /* Investigation card */
+  .investigation-header { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-radius: 20px 20px 0 0; padding: 22px 28px; }
+  .investigation-header h2 { color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 3px; }
+  .investigation-header p { color: #94A3B8; font-size: 12px; margin: 0; }
+  .investigation-header .section-badge { background: rgba(255,255,255,.1); color: #fff; }
+
+  /* Phase workflow */
+  .phase-card { background: #fff; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); overflow: hidden; margin-bottom: 0; }
+  .phase-header { padding: 18px 24px; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; gap: 12px; }
+  .phase-num { width: 28px; height: 28px; border-radius: 8px; background: #F1F5F9; color: #64748B; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .phase-body { padding: 20px 24px; }
+</style>
 </head>
-<body class="bg-background text-on-surface">
+<body class="bg-surface">
+
+<!-- Shell chrome (hidden at runtime by parent shell OVERRIDE_CSS) -->
 <header class="ohc-header">
   <div class="ohc-header-left">
     <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Incident Register</span>
+    <span class="ohc-breadcrumb">OHC Platform › Compliance & Audits › OSHWC Compliance › Incident Register</span>
   </div>
   <div class="ohc-header-center">
     <div class="ohc-search">
@@ -126,358 +214,997 @@
   </div>
 </header>
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Trivandrum</option><option>Pune</option><option>Khordha</option></select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
-    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance & Audits</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
 </aside>
-<main class="ohc-main">
-<div class="ohc-content">
-<!-- PAGE HEADER -->
-<div class="flex items-start justify-between mb-6">
-<div>
-<h1 class="font-page-title text-page-title text-on-surface font-bold">Incident Register</h1>
-<p class="text-on-surface-variant text-body mt-1">Legally critical — all workplace incidents must be logged immediately</p>
-</div>
-<button class="bg-[#EF4444] text-white px-4 h-9 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#DC2626] transition-all active:scale-95">
-<span class="material-symbols-outlined text-[18px]">add</span>
-                Log New Incident
-            </button>
-</div>
-<!-- CRITICAL BANNER -->
-<div class="mb-8 p-4 bg-error-container text-on-error-container border-l-4 border-error rounded-r-lg flex items-center gap-3">
-<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
-<p class="font-body font-semibold">Incident reports are legally mandated. All fields marked required must be completed before submission.</p>
-</div>
-<div class="grid grid-cols-12 gap-6">
-<!-- FORM CARD — INCIDENT REPORT -->
-<div class="col-span-12 lg:col-span-8 space-y-6">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
-<div class="border-l-[4px] border-[#EF4444] px-6 py-4 border-b border-outline-variant flex items-center justify-between">
-<h2 class="font-section-heading text-section-heading text-[#991B1B]">Incident Report</h2>
-<span class="text-label-sm font-label-sm text-outline">ID: INC-2023-0892 (Auto-Generated)</span>
-</div>
-<form class="p-6 space-y-6">
-<!-- Row 1 -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Visit Type</label>
-<div class="h-9 px-3 bg-error-container text-error rounded flex items-center w-fit font-semibold text-[12px]">
-                                    Incident
-                                </div>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Date <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" type="date" value="2023-10-27"/>
-</div>
-</div>
-<!-- Row 2 -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Time of Incident <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" type="time"/>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Patient / Employee <span class="text-error">*</span></label>
-<div class="relative">
-<input class="w-full h-9 pl-3 pr-10 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body" placeholder="Search by name or ID..." type="text"/>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-</div>
-</div>
-</div>
-<!-- Row 3 -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Building <span class="text-error">*</span></label>
-<select class="w-full h-9 border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body">
-<option>Select Building</option>
-<option>Main Assembly Block</option>
-<option>R&amp;D Center</option>
-<option>Logistics Warehouse</option>
-</select>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Work Related <span class="text-error">*</span></label>
-<div class="flex gap-4 items-center h-9">
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="text-primary focus:ring-primary" name="work_related" type="radio"/>
-<span class="text-body">Yes</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="text-primary focus:ring-primary" name="work_related" type="radio"/>
-<span class="text-body">No</span>
-</label>
-</div>
-</div>
-</div>
-<!-- Row 4 (Vitals) -->
-<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
-<p class="text-label-sm font-bold text-primary mb-3 uppercase tracking-wider">Baseline Vitals</p>
-<div class="grid grid-cols-4 gap-4">
-<div>
-<label class="block text-[10px] text-on-surface-variant mb-1">BP SYSTOLIC <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="mmHg" type="text"/>
-</div>
-<div>
-<label class="block text-[10px] text-on-surface-variant mb-1">BP DIASTOLIC <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="mmHg" type="text"/>
-</div>
-<div>
-<label class="block text-[10px] text-on-surface-variant mb-1">PULSE <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="bpm" type="text"/>
-</div>
-<div>
-<label class="block text-[10px] text-on-surface-variant mb-1">SPO2 <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="%" type="text"/>
-</div>
-</div>
-</div>
-<!-- Full Width Textareas -->
-<div class="space-y-4">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Nature of Incident <span class="text-error">*</span></label>
-<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="3"></textarea>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Root Cause (Optional)</label>
-<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="2"></textarea>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">First Aid / Care Given <span class="text-error">*</span></label>
-<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="3"></textarea>
-</div>
-</div>
-<!-- Row 8 & 9 -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div class="flex items-center gap-3">
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-body">Ambulance Used</span>
-</label>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Referred to Hospital <span class="text-error">*</span></label>
-<div class="flex gap-4 items-center h-9">
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="text-primary focus:ring-primary" name="referred" type="radio" value="yes"/>
-<span class="text-body">Yes</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="text-primary focus:ring-primary" name="referred" type="radio" value="no"/>
-<span class="text-body">No</span>
-</label>
-</div>
-</div>
-</div>
-<!-- Conditional Hospital Row -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Hospital Name</label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body" placeholder="Enter hospital name" type="text"/>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Accompanied By</label>
-<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
-<option>None</option>
-<option>Staff Nurse</option>
-<option>Paramedic</option>
-<option>Co-worker</option>
-</select>
-</div>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Escalation (Optional)</label>
-<textarea class="w-full border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body p-3" rows="2"></textarea>
-</div>
-<!-- Row 11 -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Follow-up Status <span class="text-error">*</span></label>
-<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
-<option>Stable</option>
-<option>Under Observation</option>
-<option>Hospitalised</option>
-<option>Closed</option>
-</select>
-</div>
-<div>
-<label class="block text-label-sm text-on-surface-variant mb-1">Reported By Staff <span class="text-error">*</span></label>
-<select class="w-full h-9 border-outline-variant rounded focus:border-primary text-body">
-<option>Select Staff Member</option>
-<option>Dr. Sarah Chen</option>
-<option>Nurse Rajesh Kumar</option>
-</select>
-</div>
-</div>
-<!-- Row 12 -->
-<div class="w-1/2">
-<label class="block text-label-sm text-on-surface-variant mb-1">Sign (Type Name) <span class="text-error">*</span></label>
-<input class="w-full h-9 border-outline-variant rounded focus:border-primary text-body italic font-serif" placeholder="Digital acknowledgement" type="text"/>
-</div>
-<div class="flex items-center gap-4 pt-4 border-t border-outline-variant">
-<button class="bg-[#EF4444] text-white px-6 h-9 rounded font-semibold hover:bg-[#DC2626] transition-all" type="button">Submit Incident Report</button>
-<button class="bg-white border border-outline-variant text-on-surface-variant px-6 h-9 rounded font-semibold hover:bg-surface-container-low transition-all" type="button">Cancel</button>
-</div>
-</form>
-</div>
-</div>
-<!-- SIDEBAR INFO / METRICS -->
-<div class="col-span-12 lg:col-span-4 space-y-6">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
-<h3 class="font-section-heading text-section-heading text-on-surface mb-4">Incident Visualizer</h3>
-<div class="aspect-square w-full rounded-lg bg-surface-container flex items-center justify-center relative overflow-hidden">
 
-<div class="relative z-10 text-center p-6 bg-white/80 backdrop-blur rounded-lg">
-<p class="font-bold text-3xl text-[#991B1B]">12</p>
-<p class="text-[10px] font-bold uppercase tracking-widest text-outline">Open Incidents</p>
-</div>
-</div>
-</div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
-<h3 class="font-section-heading text-section-heading text-on-surface mb-4">Quick Stats</h3>
-<div class="space-y-4">
-<div class="flex justify-between items-center">
-<span class="text-body text-on-surface-variant">Last 30 Days</span>
-<span class="font-bold text-primary">08</span>
-</div>
-<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
-<div class="bg-primary h-full" style="width: 65%;"></div>
-</div>
-<div class="flex justify-between items-center">
-<span class="text-body text-on-surface-variant">High Severity</span>
-<span class="font-bold text-error">02</span>
-</div>
-<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
-<div class="bg-error h-full" style="width: 25%;"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- SECTION CARD — INCIDENT HISTORY -->
-<div class="col-span-12">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
-<div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between">
-<h2 class="font-section-heading text-section-heading text-on-surface">Incident History</h2>
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-2 border border-outline-variant rounded-md px-3 h-8 text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px]">calendar_today</span>
-<span>Last 90 Days</span>
-</div>
-<div class="flex items-center gap-2 border border-outline-variant rounded-md px-3 h-8 text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px]">filter_list</span>
-<span>Filters</span>
-</div>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Incident ID</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Patient</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Building</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nature</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Work Related</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Reported By</th>
-<th class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0889</td>
-<td class="px-6 py-4 text-body">24 Oct 2023</td>
-<td class="px-6 py-4 text-body">John Doe (EMP-442)</td>
-<td class="px-6 py-4 text-body">Main Block</td>
-<td class="px-6 py-4 text-body truncate max-w-[150px]">Laceration on right forearm...</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
-</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant text-[11px] font-semibold rounded">CLOSED</span>
-</td>
-<td class="px-6 py-4 text-body">S. Chen</td>
-<td class="px-6 py-4">
-<button class="text-primary hover:underline font-semibold text-body">View</button>
-</td>
-</tr>
-<tr class="bg-[#FEF2F2] hover:bg-[#FEE2E2] transition-colors border-l-4 border-error">
-<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0885</td>
-<td class="px-6 py-4 text-body">22 Oct 2023</td>
-<td class="px-6 py-4 text-body">Alice Smith (EMP-091)</td>
-<td class="px-6 py-4 text-body">Logistics</td>
-<td class="px-6 py-4 text-body truncate max-w-[150px]">Fall from height, possible head injury</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
-</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-error text-white text-[11px] font-semibold rounded">HOSPITALISED</span>
-</td>
-<td class="px-6 py-4 text-body">R. Kumar</td>
-<td class="px-6 py-4">
-<button class="text-primary hover:underline font-semibold text-body">View</button>
-</td>
-</tr>
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="px-6 py-4 text-body font-semibold text-primary">INC-2023-0881</td>
-<td class="px-6 py-4 text-body">19 Oct 2023</td>
-<td class="px-6 py-4 text-body">Sam Wilson (CONT-12)</td>
-<td class="px-6 py-4 text-body">R&amp;D Center</td>
-<td class="px-6 py-4 text-body truncate max-w-[150px]">Chemical splash in eye...</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-semibold rounded">YES</span>
-</td>
-<td class="px-6 py-4">
-<span class="px-2 py-0.5 bg-tertiary-container text-on-tertiary-container text-[11px] font-semibold rounded">OBSERVATION</span>
-</td>
-<td class="px-6 py-4 text-body">S. Chen</td>
-<td class="px-6 py-4">
-<button class="text-primary hover:underline font-semibold text-body">View</button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
+<main class="ohc-main">
+<div style="max-width:100%; width:100%; margin:0 auto; padding: 24px 24px 48px; overflow-x:hidden;">
+
+  <!-- ── PAGE HEADER ── -->
+  <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; gap:16px; flex-wrap:wrap;">
+    <div>
+      <h1 style="font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px;">Incident Register</h1>
+      <p style="font-size:13px; color:#64748B; margin:0;">Legally mandated — all workplace incidents must be logged and investigated immediately.</p>
+    </div>
+    <div style="flex-shrink:0;">
+      <button class="btn-primary" onclick="alert('Report submitted')">
+        <span class="material-symbols-outlined" style="font-size:16px;">send</span> Submit Incident Report
+      </button>
+    </div>
+  </div>
+
+  <!-- ── CRITICAL BANNER ── -->
+  <div style="display:flex; align-items:center; gap:12px; background:#FEF2F2; border:1px solid #FECACA; border-left:4px solid #EF4444; border-radius:12px; padding:14px 18px; margin-bottom:24px;">
+    <span class="material-symbols-outlined" style="color:#EF4444; font-size:22px; flex-shrink:0;">warning</span>
+    <p style="font-size:13px; font-weight:500; color:#991B1B; margin:0;">Incident reports are legally mandated under the Factories Act and OSHWC regulations. All required fields must be completed before submission. Do not delay filing.</p>
+  </div>
+
+  <!-- ── SECTION NAV ── -->
+  <div id="section-nav">
+    <div class="snav-inner">
+      <a href="#sec-a" class="snav-chip active" data-sec="a"><span class="snav-letter">A</span>Particulars</a>
+      <a href="#sec-b" class="snav-chip" data-sec="b"><span class="snav-letter">B</span>Persons</a>
+      <a href="#sec-c" class="snav-chip" data-sec="c"><span class="snav-letter">C</span>Medical</a>
+      <a href="#sec-d" class="snav-chip" data-sec="d"><span class="snav-letter">D</span>Investigation</a>
+      <a href="#sec-e" class="snav-chip" data-sec="e"><span class="snav-letter">E</span>Immediate Causes</a>
+      <a href="#sec-f" class="snav-chip" data-sec="f"><span class="snav-letter">F</span>Root Causes</a>
+      <a href="#sec-g" class="snav-chip" data-sec="g"><span class="snav-letter">G</span>Corrective Action</a>
+      <a href="#sec-h" class="snav-chip" data-sec="h"><span class="snav-letter">H</span>Verification</a>
+      <a href="#sec-i" class="snav-chip" data-sec="i"><span class="snav-letter">I</span>Prevention</a>
+    </div>
+  </div>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <!-- CSS Grid: form column takes all remaining space; sidebar column is fixed 280px.
+       align-items:start means each column is only as tall as its own content.
+       The sidebar uses position:sticky so it stays in viewport while the form scrolls. -->
+  <div style="display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:20px; align-items:start; max-width:100%;">
+
+    <!-- RIGHT: sidebar — position:sticky keeps it pinned while form scrolls -->
+    <div id="ir-sidebar" style="position:sticky; top:24px; min-width:0; grid-column:2; grid-row:1;">
+
+      <!-- Open Incidents widget -->
+      <div class="widget-card">
+        <div class="widget-title">
+          <span class="material-symbols-outlined" style="font-size:16px; color:#EF4444;">error</span>
+          Open Incidents
+        </div>
+        <div style="text-align:center; padding:16px 0 20px;">
+          <div style="font-size:48px; font-weight:800; color:#EF4444; line-height:1;">12</div>
+          <div style="font-size:11px; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-top:4px;">Requiring Action</div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div style="background:#FEF2F2; border-radius:10px; padding:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#991B1B;">2</div>
+            <div style="font-size:10px; font-weight:600; color:#EF4444; margin-top:2px;">Critical</div>
+          </div>
+          <div style="background:#FFFBEB; border-radius:10px; padding:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#92400E;">5</div>
+            <div style="font-size:10px; font-weight:600; color:#F59E0B; margin-top:2px;">Serious</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats widget -->
+      <div class="widget-card">
+        <div class="widget-title">
+          <span class="material-symbols-outlined" style="font-size:16px; color:#64748B;">bar_chart</span>
+          Quick Stats
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">
+            <span class="metric-name">Last 30 Days</span>
+            <span class="metric-value" style="color:#0EA5E9;">08</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:65%; background:#0EA5E9;"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">
+            <span class="metric-name">High Severity</span>
+            <span class="metric-value" style="color:#EF4444;">02</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:25%; background:#EF4444;"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">
+            <span class="metric-name">OHS Recordable</span>
+            <span class="metric-value" style="color:#F59E0B;">03</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:37%; background:#F59E0B;"></div></div>
+        </div>
+      </div>
+
+      <!-- Report Progress widget -->
+      <div class="widget-card">
+        <div class="widget-title">
+          <span class="material-symbols-outlined" style="font-size:16px; color:#10B981;">task_alt</span>
+          Report Progress
+        </div>
+        <div id="progress-sections" style="display:flex; flex-direction:column; gap:6px;"></div>
+        <div style="margin-top:14px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:12px; color:#64748B;">Overall</span>
+            <span style="font-size:12px; font-weight:700; color:#0F172A;" id="pct-label">0%</span>
+          </div>
+          <div class="progress-bar" style="height:6px;">
+            <div class="progress-fill" id="overall-progress" style="width:0%; background:linear-gradient(90deg,#0EA5E9,#6366F1);"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+    <!-- LEFT: form column -->
+    <div id="ir-form-col" style="grid-column:1; grid-row:1; min-width:0;">
+
+    <!-- ── SECTION A ── -->
+    <div class="section-card" id="sec-a">
+      <div class="section-card-header">
+        <div class="section-badge" style="background:#EFF6FF; color:#1D4ED8;">A</div>
+        <div>
+          <h2>Particulars of Incident</h2>
+          <p>Basic information about where, when, and what type of incident occurred.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label" style="display:flex; align-items:center; justify-content:space-between;">
+              <span>Facility / Site <span class="req"></span></span>
+              <span style="font-family:monospace; font-size:11px; font-weight:600; color:#0EA5E9; background:#E0F2FE; padding:1px 7px; border-radius:5px;">08072026/1</span>
+            </label>
+            <select class="field-input">
+              <option value="">Select facility</option>
+              <option>Trivandrum — Main Assembly Block</option>
+              <option>Trivandrum — R&D Center</option>
+              <option>Trivandrum — Logistics Warehouse</option>
+              <option>Pune — Manufacturing Unit</option>
+              <option>Khordha — Plant A</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Location of Incident <span class="req"></span></label>
+            <input class="field-input" type="text" placeholder="Building / floor / room / outdoor area"/>
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label class="field-label">Incident Type <span class="req"></span> <span style="font-weight:400; color:#94A3B8;">(select all that apply)</span></label>
+          <div class="chip-grid" id="incident-type-chips">
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="accident"/> Accident</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="near_miss"/> Near Miss</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="security"/> Security</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="fire"/> Fire</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="property"/> Property Damage</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="environmental"/> Environmental</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="business"/> Business Impact</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="medical_emergency"/> Medical Emergency</label>
+            <label class="chip-option"><input type="checkbox" name="inc_type" value="theft"/> Theft</label>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Date of Incident <span class="req"></span></label>
+            <input class="field-input" type="date" value="2026-07-08"/>
+          </div>
+          <div>
+            <label class="field-label">Time of Incident <span class="req"></span></label>
+            <input class="field-input" type="time"/>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="field-label">Prepared By <span class="req"></span></label>
+            <input class="field-input" type="text" placeholder="Name and designation"/>
+          </div>
+          <div>
+            <label class="field-label">Date Reported <span class="req"></span></label>
+            <input class="field-input" type="date" value="2026-07-08"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION B ── -->
+    <div class="section-card" id="sec-b">
+      <div class="section-card-header">
+        <div class="section-badge" style="background:#F5F3FF; color:#6D28D9;">B</div>
+        <div>
+          <h2>Details of Persons Involved / Affected</h2>
+          <p>Who was involved — employee, contractor, or visitor details.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Patient / Employee <span class="req"></span></label>
+            <div style="position:relative;">
+              <input class="field-input" type="text" placeholder="Search by name or ID…" style="padding-right:36px;"/>
+              <span class="material-symbols-outlined" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#94A3B8; font-size:18px;">search</span>
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Employee ID</label>
+            <input class="field-input" type="text" placeholder="Auto-filled on selection"/>
+          </div>
+        </div>
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Work Phone</label>
+            <input class="field-input" type="text" placeholder="+91 …"/>
+          </div>
+          <div>
+            <label class="field-label">Type of Job <span class="req"></span></label>
+            <select class="field-input" id="job-type-select" onchange="handleJobType(this)">
+              <option value="">Select…</option>
+              <option value="employee">Employee</option>
+              <option value="contractor">Contractor</option>
+              <option value="visitor">Visitor</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Location / Department</label>
+            <input class="field-input" type="text" placeholder="Department or work area"/>
+          </div>
+        </div>
+
+        <!-- Contractor conditional -->
+        <div id="contractor-fields" class="conditional" style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:12px; padding:16px; margin-bottom:16px;">
+          <p style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:.06em; margin:0 0 12px;">Contractor Details</p>
+          <div class="grid-2">
+            <div>
+              <label class="field-label">Company Name <span class="req"></span></label>
+              <input class="field-input" type="text" placeholder="Contracting company"/>
+            </div>
+            <div>
+              <label class="field-label">Vendor Supervisor Informed <span class="req"></span></label>
+              <div class="radio-row">
+                <label class="radio-opt"><input type="radio" name="vendor_informed"/><span>Yes</span></label>
+                <label class="radio-opt"><input type="radio" name="vendor_informed"/><span>No</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="sep"/>
+        <div style="margin-bottom:12px;">
+          <label class="field-label">Injury Type <span style="font-weight:400; color:#94A3B8;">(select all that apply)</span></label>
+          <div class="chip-grid" id="injury-chips">
+            <label class="chip-option"><input type="checkbox" name="injury" value="bruising"/> Bruising</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="dislocation"/> Dislocation</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="strain"/> Strain / Sprain</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="scratch"/> Scratch / Abrasion</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="internal"/> Internal</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="fracture"/> Fracture</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="amputation"/> Amputation</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="foreign_body"/> Foreign Body</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="laceration"/> Laceration / Cut</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="burn"/> Burn / Scald</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="chemical"/> Chemical Reaction</label>
+            <label class="chip-option"><input type="checkbox" name="injury" value="no_injury"/> No Injury</label>
+            <label class="chip-option" id="injury-other-chip"><input type="checkbox" name="injury" value="other" onchange="toggleOtherInjury(this)"/> Other</label>
+          </div>
+        </div>
+        <div id="other-injury-field" class="conditional">
+          <label class="field-label">Describe Other Injury</label>
+          <input class="field-input" type="text" placeholder="Specify injury type…"/>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /left col A+B -->
+
+  </div><!-- /two-col grid (A+B + sidebar) -->
+
+  <!-- ── FULL-WIDTH SECTION C ONWARDS ── -->
+  <div style="max-width:100%; min-width:0;">
+
+    <!-- ── SECTION C ── -->
+    <div class="section-card" id="sec-c">
+      <div class="section-card-header">
+        <div class="section-badge" style="background:#ECFDF5; color:#065F46;">C</div>
+        <div>
+          <h2>Medical / First Aid Treatment Details</h2>
+          <p>Clinical response, treatment given, and case disposition.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="vitals-box" style="margin-bottom:20px;">
+          <div class="vitals-label">
+            <span class="material-symbols-outlined" style="font-size:16px;">monitor_heart</span> Baseline Vitals
+          </div>
+          <div class="grid-4">
+            <div>
+              <label class="field-label">BP Systolic <span class="req"></span></label>
+              <input class="field-input" type="text" placeholder="mmHg"/>
+            </div>
+            <div>
+              <label class="field-label">BP Diastolic <span class="req"></span></label>
+              <input class="field-input" type="text" placeholder="mmHg"/>
+            </div>
+            <div>
+              <label class="field-label">Pulse <span class="req"></span></label>
+              <input class="field-input" type="text" placeholder="bpm"/>
+            </div>
+            <div>
+              <label class="field-label">SpO₂ <span class="req"></span></label>
+              <input class="field-input" type="text" placeholder="%"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Type of Treatment Given <span class="req"></span></label>
+            <textarea class="field-input" rows="3" placeholder="Describe treatment administered…"></textarea>
+          </div>
+          <div>
+            <label class="field-label">First Aid / Care Given <span class="req"></span></label>
+            <textarea class="field-input" rows="3" placeholder="First aid steps taken…"></textarea>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Name of Person Giving Treatment <span class="req"></span></label>
+            <select class="field-input">
+              <option value="">Select staff member</option>
+              <option>Dr. Sarah Chen</option>
+              <option>Nurse Rajesh Kumar</option>
+              <option>Paramedic Anita Rao</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Location Treatment Rendered</label>
+            <input class="field-input" type="text" placeholder="OHC / on-site / hospital"/>
+          </div>
+          <div>
+            <label class="field-label">Case Number</label>
+            <input class="field-input" type="text" placeholder="Optional case reference"/>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Ambulance Used</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="ambulance"/><span>Yes</span></label>
+              <label class="radio-opt"><input type="radio" name="ambulance"/><span>No</span></label>
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Referred to Hospital <span class="req"></span></label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="referred" value="yes" onchange="toggleHospitalFields('yes')"/><span>Yes</span></label>
+              <label class="radio-opt"><input type="radio" name="referred" value="no" onchange="toggleHospitalFields('no')"/><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div id="hospital-fields" class="conditional" style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:12px; padding:16px; margin-bottom:16px;">
+          <div class="grid-2">
+            <div>
+              <label class="field-label">Hospital Name</label>
+              <input class="field-input" id="hospital-name-input" type="text" placeholder="Enter hospital name"/>
+            </div>
+            <div>
+              <label class="field-label">Accompanied By</label>
+              <select class="field-input" id="accompanied-select">
+                <option value="none">None</option>
+                <option value="nurse">Staff Nurse</option>
+                <option value="paramedic">Paramedic</option>
+                <option value="coworker">Co-worker</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div>
+            <label class="field-label">Follow-up Status <span class="req"></span></label>
+            <select class="field-input">
+              <option>Stable</option>
+              <option>Under Observation</option>
+              <option>Hospitalised</option>
+              <option>Closed</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">OHS Recordable <span class="req"></span></label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="ohs_recordable" value="yes" data-ohs-recordable="true"/><span>Yes</span></label>
+              <label class="radio-opt"><input type="radio" name="ohs_recordable" value="no" data-ohs-recordable="true"/><span>No</span></label>
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Reported By Staff <span class="req"></span></label>
+            <select class="field-input">
+              <option value="">Select staff member</option>
+              <option>Dr. Sarah Chen</option>
+              <option>Nurse Rajesh Kumar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="field-label">OHS Team Member Sign <span class="req"></span></label>
+            <input class="sign-field" type="text" placeholder="Type full name as digital acknowledgement"/>
+          </div>
+          <div>
+            <label class="field-label">Sign Date</label>
+            <input class="field-input" type="date"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION D — Investigation (dark header) ── -->
+    <div class="section-card" id="sec-d" style="overflow:hidden;">
+      <div class="investigation-header" style="display:flex; align-items:flex-start; gap:16px;">
+        <div class="section-badge investigation-header" style="background:rgba(255,255,255,.12); color:#fff; padding:0; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:10px; flex-shrink:0; margin-top:2px;">D</div>
+        <div>
+          <h2 style="color:#fff; font-size:16px; font-weight:700; margin:0 0 3px;">Incident Investigation</h2>
+          <p style="color:#94A3B8; font-size:12px; margin:0;">Severity assessment, containment actions, and root cause analysis.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div style="margin-bottom:20px;">
+          <label class="field-label" style="margin-bottom:12px;">How Bad Could It Have Been? <span class="req"></span></label>
+          <div class="severity-grid">
+            <label class="severity-card" onclick="selectSeverity(this,'critical')">
+              <input type="radio" name="severity" value="very_serious" style="display:none;"/>
+              <div class="sev-icon">🔴</div>
+              <div class="sev-label" style="color:#991B1B;">Very Serious</div>
+              <div class="sev-sub">Fatality or permanent disability</div>
+            </label>
+            <label class="severity-card" onclick="selectSeverity(this,'warning')">
+              <input type="radio" name="severity" value="serious" style="display:none;"/>
+              <div class="sev-icon">🟡</div>
+              <div class="sev-label" style="color:#92400E;">Serious</div>
+              <div class="sev-sub">Lost time injury, hospitalisation</div>
+            </label>
+            <label class="severity-card" onclick="selectSeverity(this,'success')">
+              <input type="radio" name="severity" value="minor" style="display:none;"/>
+              <div class="sev-icon">🟢</div>
+              <div class="sev-label" style="color:#065F46;">Minor</div>
+              <div class="sev-sub">First aid only, no lost time</div>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label class="field-label" style="margin-bottom:12px;">Chance of Similar Events Happening <span class="req"></span></label>
+          <div class="severity-grid">
+            <label class="severity-card" onclick="selectChance(this,'critical')">
+              <input type="radio" name="chance" value="frequently" style="display:none;"/>
+              <div class="sev-icon">⚡</div>
+              <div class="sev-label" style="color:#991B1B;">Frequently</div>
+              <div class="sev-sub">Could happen again soon</div>
+            </label>
+            <label class="severity-card" onclick="selectChance(this,'warning')">
+              <input type="radio" name="chance" value="occasionally" style="display:none;"/>
+              <div class="sev-icon">🌊</div>
+              <div class="sev-label" style="color:#92400E;">Occasionally</div>
+              <div class="sev-sub">Possible but not expected soon</div>
+            </label>
+            <label class="severity-card" onclick="selectChance(this,'success')">
+              <input type="radio" name="chance" value="rarely" style="display:none;"/>
+              <div class="sev-icon">🌤</div>
+              <div class="sev-label" style="color:#065F46;">Rarely</div>
+              <div class="sev-sub">Unlikely to recur</div>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label class="field-label">Details of Incident <span class="req"></span></label>
+          <textarea class="field-input" rows="6" placeholder="Describe what happened — sequence of events, conditions at time of incident, persons involved…"></textarea>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label class="field-label">Interim Containment Actions <span class="req"></span></label>
+          <textarea class="field-input" rows="4" placeholder="Immediate steps taken to contain the situation…"></textarea>
+        </div>
+        <div>
+          <label class="field-label">Root Cause <span class="req"></span></label>
+          <textarea class="field-input" rows="3" placeholder="Underlying cause(s) identified…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION E — Immediate Causes (accordion) ── -->
+    <div class="section-card" id="sec-e">
+      <button class="accordion-header" onclick="toggleAccordion('acc-e')">
+        <div class="accordion-header-left">
+          <div class="section-badge" style="background:#FFF7ED; color:#C2410C;">E</div>
+          <div>
+            <div style="font-size:15px; font-weight:700; color:#0F172A;">Immediate Causes</div>
+            <div style="font-size:12px; color:#64748B; margin-top:2px;">Physical or behavioral causes directly preceding the incident</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="count-badge zero" id="count-e">0 selected</span>
+          <span class="material-symbols-outlined accordion-chevron" id="chev-e">keyboard_arrow_down</span>
+        </div>
+      </button>
+      <div class="accordion-body" id="acc-e">
+        <div class="accordion-body-inner">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Struck against</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Struck by</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Fall from elevation</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Fall on same level</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Caught in</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Caught on</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Caught between</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Overstress / ergonomic stress</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Equipment failure</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Environmental chemical release / spill</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Abnormal operation</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Product contamination</label>
+          </div>
+          <div class="check-group-title" style="margin-top:16px;">Contact With</div>
+          <div class="check-grid-3">
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Electricity</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Heat</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Diesel / fuel</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Acids</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Caustics</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Toxic / noxious substances</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Biological / infectious</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Noise</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('e')"/> Sharp object</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION F — Root / Basic Causes (accordion) ── -->
+    <div class="section-card" id="sec-f">
+      <button class="accordion-header" onclick="toggleAccordion('acc-f')">
+        <div class="accordion-header-left">
+          <div class="section-badge" style="background:#FDF4FF; color:#7E22CE;">F</div>
+          <div>
+            <div style="font-size:15px; font-weight:700; color:#0F172A;">Root / Basic Causes</div>
+            <div style="font-size:12px; color:#64748B; margin-top:2px;">Underlying systemic factors that allowed the incident to occur</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="count-badge zero" id="count-f">0 selected</span>
+          <span class="material-symbols-outlined accordion-chevron" id="chev-f">keyboard_arrow_down</span>
+        </div>
+      </button>
+      <div class="accordion-body" id="acc-f">
+        <div class="accordion-body-inner">
+          <div class="check-group-title">Personal Factors</div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate physical capability</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate mental / psych. capability</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Physical / physiological stress</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Mental / psychological stress</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Lack of knowledge</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Lack of training / skill</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Improper motivation</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Abuse or misuse</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Medical predisposition</label>
+          </div>
+
+          <div class="check-group-title" style="margin-top:16px;">Job / System Factors</div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate supervision</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate engineering</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate purchasing</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate maintenance</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate tools / equipment</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate work standard</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Excessive wear / tear</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate communications</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate controls</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Poor housekeeping</label>
+          </div>
+
+          <div class="check-group-title" style="margin-top:16px;">Substandard Behaviors &amp; Conditions</div>
+          <div class="check-grid-3">
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Operating without authority</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to warn</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to secure</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Operating at improper speed</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Making safety devices inoperative</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Using defective equipment</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to use PPE properly</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Improper loading</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Improper placement</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Improper lifting</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Improper position for task</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Servicing equipment in operation</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Horseplay</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Under influence of alcohol / drugs</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Using equipment improperly</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to follow procedure</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to identify hazard / risk</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to check / monitor</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to react / correct</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Failure to communicate</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate guards or barriers</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Defective tools / materials</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Congestion / crowded work area</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate warning system</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Fire and explosion hazards</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Noise exposure</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Heat / temperature extremes</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate ventilation</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Presence of harmful materials</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate instructions / procedures</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Inadequate preparation / planning</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Road conditions</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Weather conditions</label>
+            <label class="check-item"><input type="checkbox" onchange="updateCount('f')"/> Mind off task</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTIONS G / H / I — Workflow ── -->
+    <div style="margin-bottom:20px;">
+      <!-- G -->
+      <div class="phase-card" id="sec-g">
+        <div class="phase-header">
+          <div class="phase-num" style="background:#EFF6FF; color:#1D4ED8;">G</div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:#0F172A;">Permanent Corrective Action</div>
+            <div style="font-size:12px; color:#64748B;">Phase 1 of 3</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div style="margin-bottom:14px;">
+            <label class="field-label">Corrective Action <span class="req"></span></label>
+            <textarea class="field-input" rows="3" placeholder="Describe the permanent corrective action (enter 'NA' if not applicable)…"></textarea>
+          </div>
+          <div class="grid-3">
+            <div>
+              <label class="field-label">By Whom</label>
+              <input class="field-input" type="text" placeholder="Responsible person"/>
+            </div>
+            <div>
+              <label class="field-label">Target Date</label>
+              <input class="field-input" type="date"/>
+            </div>
+            <div>
+              <label class="field-label">Completion Date</label>
+              <input class="field-input" type="date"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-connector">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#CBD5E1;">arrow_downward</span>
+      </div>
+
+      <!-- H -->
+      <div class="phase-card" id="sec-h">
+        <div class="phase-header">
+          <div class="phase-num" style="background:#ECFDF5; color:#065F46;">H</div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:#0F172A;">Verification of Corrective Actions</div>
+            <div style="font-size:12px; color:#64748B;">Phase 2 of 3</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <label class="field-label">Verification Notes</label>
+          <textarea class="field-input" rows="3" placeholder="Confirm that corrective actions were completed and effective…"></textarea>
+        </div>
+      </div>
+
+      <div class="phase-connector">
+        <span class="material-symbols-outlined" style="font-size:24px; color:#CBD5E1;">arrow_downward</span>
+      </div>
+
+      <!-- I -->
+      <div class="phase-card" id="sec-i">
+        <div class="phase-header">
+          <div class="phase-num" style="background:#FDF4FF; color:#7E22CE;">I</div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:#0F172A;">Prevention</div>
+            <div style="font-size:12px; color:#64748B;">Phase 3 of 3</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div style="margin-bottom:14px;">
+            <label class="field-label">Prevention Plan</label>
+            <textarea class="field-input" rows="3" placeholder="Long-term measures to prevent recurrence…"></textarea>
+          </div>
+          <div class="grid-3">
+            <div>
+              <label class="field-label">By Whom</label>
+              <input class="field-input" type="text" placeholder="Responsible person"/>
+            </div>
+            <div>
+              <label class="field-label">Target Date</label>
+              <input class="field-input" type="date"/>
+            </div>
+            <div>
+              <label class="field-label">Completion Date</label>
+              <input class="field-input" type="date"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SIGN-OFF ── -->
+    <div style="background:#fff; border-radius:20px; box-shadow:0 1px 3px rgba(0,0,0,.06); padding:28px; margin-bottom:20px;">
+      <p style="font-size:13px; font-weight:700; color:#0F172A; margin:0 0 18px; display:flex; align-items:center; gap:8px;">
+        <span class="material-symbols-outlined" style="font-size:18px; color:#64748B;">verified</span>
+        Sign-off &amp; Authorisation
+      </p>
+      <div class="grid-2" style="gap:24px;">
+        <div class="signoff-card">
+          <p style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:.06em; margin:0 0 14px;">Incident Reported By</p>
+          <div style="margin-bottom:12px;">
+            <label class="field-label">Full Name <span class="req"></span></label>
+            <input class="field-input" type="text" placeholder="Full name"/>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="field-label">Signature <span class="req"></span></label>
+            <input class="sign-field" type="text" placeholder="Type full name as digital signature"/>
+          </div>
+          <div>
+            <label class="field-label">Date <span class="req"></span></label>
+            <input class="field-input" type="date"/>
+          </div>
+        </div>
+        <div class="signoff-card">
+          <p style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:.06em; margin:0 0 14px;">Admin Location In-Charge</p>
+          <div style="margin-bottom:12px;">
+            <label class="field-label">Full Name <span class="req"></span></label>
+            <input class="field-input" type="text" placeholder="Full name"/>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="field-label">Signature <span class="req"></span></label>
+            <input class="sign-field" type="text" placeholder="Type full name as digital signature"/>
+          </div>
+          <div>
+            <label class="field-label">Date <span class="req"></span></label>
+            <input class="field-input" type="date"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FORM ACTIONS ── -->
+    <div style="background:#fff; border-radius:16px; padding:20px 24px; box-shadow:0 1px 3px rgba(0,0,0,.06); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+      <button class="btn-primary" onclick="alert('Report submitted')">
+        <span class="material-symbols-outlined" style="font-size:16px;">send</span> Submit Incident Report
+      </button>
+    </div>
+
+    <!-- ── INCIDENT HISTORY TABLE ── -->
+    <div style="background:#fff; border-radius:20px; box-shadow:0 1px 3px rgba(0,0,0,.06); overflow:hidden; margin-top:24px;">
+      <div style="padding:20px 24px; border-bottom:1px solid #F1F5F9; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h2 style="font-size:16px; font-weight:700; color:#0F172A; margin:0 0 2px;">Incident History</h2>
+          <p style="font-size:12px; color:#64748B; margin:0;">Recent incidents — last 90 days</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="btn-secondary" style="height:34px; font-size:12px; padding:0 12px;">
+            <span class="material-symbols-outlined" style="font-size:15px;">calendar_today</span> Last 90 Days
+          </button>
+          <button class="btn-secondary" style="height:34px; font-size:12px; padding:0 12px;">
+            <span class="material-symbols-outlined" style="font-size:15px;">filter_list</span> Filters
+          </button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Incident ID</th>
+              <th>Date</th>
+              <th>Patient</th>
+              <th>Building</th>
+              <th>Nature</th>
+              <th>Incident Type</th>
+              <th>Work Related</th>
+              <th>Severity</th>
+              <th>OHS Recordable</th>
+              <th>Status</th>
+              <th>Reported By</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-id">INC-2023-0889</td>
+              <td>24 Oct 2023</td>
+              <td>John Doe (EMP-442)</td>
+              <td>Main Block</td>
+              <td style="max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Laceration on right forearm</td>
+              <td><span class="badge badge-orange">Accident</span></td>
+              <td><span class="badge badge-blue">YES</span></td>
+              <td><span class="badge badge-green">Minor</span></td>
+              <td><span class="badge badge-gray">No</span></td>
+              <td><span class="badge badge-gray">CLOSED</span></td>
+              <td>S. Chen</td>
+              <td><button style="color:#0EA5E9; font-size:13px; font-weight:600; background:none; border:none; cursor:pointer;">View</button></td>
+            </tr>
+            <tr class="tr-critical">
+              <td class="td-id">INC-2023-0885</td>
+              <td>22 Oct 2023</td>
+              <td>Alice Smith (EMP-091)</td>
+              <td>Logistics</td>
+              <td style="max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Fall from height, head injury</td>
+              <td><span class="badge badge-red">Accident</span></td>
+              <td><span class="badge badge-blue">YES</span></td>
+              <td><span class="badge badge-red">Very Serious</span></td>
+              <td><span class="badge badge-red">Yes</span></td>
+              <td><span class="badge badge-red">HOSPITALISED</span></td>
+              <td>R. Kumar</td>
+              <td><button style="color:#0EA5E9; font-size:13px; font-weight:600; background:none; border:none; cursor:pointer;">View</button></td>
+            </tr>
+            <tr>
+              <td class="td-id">INC-2023-0881</td>
+              <td>19 Oct 2023</td>
+              <td>Sam Wilson (CONT-12)</td>
+              <td>R&amp;D Center</td>
+              <td style="max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Chemical splash in eye</td>
+              <td><span class="badge badge-purple">Medical Emergency</span></td>
+              <td><span class="badge badge-blue">YES</span></td>
+              <td><span class="badge badge-amber">Serious</span></td>
+              <td><span class="badge badge-red">Yes</span></td>
+              <td><span class="badge badge-amber">OBSERVATION</span></td>
+              <td>S. Chen</td>
+              <td><button style="color:#0EA5E9; font-size:13px; font-weight:600; background:none; border:none; cursor:pointer;">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /full-width C onwards -->
+
 </div>
 </main>
+
 <script>
-        // Simple logic for toggle states
-        document.querySelectorAll('input[name="referred"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const hospitalInput = document.querySelector('input[placeholder="Enter hospital name"]');
-                const accompaniedSelect = document.querySelector('select:has(option:contains("None"))');
-                if(e.target.value === 'no') {
-                    hospitalInput.disabled = true;
-                    hospitalInput.parentElement.classList.add('opacity-50');
-                } else {
-                    hospitalInput.disabled = false;
-                    hospitalInput.parentElement.classList.remove('opacity-50');
-                }
-            });
-        });
-    </script>
-</body></html>
+// ── Chip toggle ──
+document.querySelectorAll('.chip-grid .chip-option input[type=checkbox]').forEach(cb => {
+  cb.addEventListener('change', function() {
+    this.closest('.chip-option').classList.toggle('selected', this.checked);
+  });
+});
+
+// ── Accordion ──
+function toggleAccordion(id) {
+  const body = document.getElementById(id);
+  const chevId = id.replace('acc-', 'chev-');
+  const chev = document.getElementById(chevId);
+  const open = body.classList.toggle('open');
+  if (chev) chev.classList.toggle('open', open);
+}
+
+// ── Count badges ──
+function updateCount(section) {
+  const container = document.getElementById('acc-' + section);
+  const checked = container.querySelectorAll('input[type=checkbox]:checked').length;
+  const badge = document.getElementById('count-' + section);
+  badge.textContent = checked + ' selected';
+  badge.classList.toggle('zero', checked === 0);
+}
+
+// ── Severity cards ──
+function selectSeverity(el, type) {
+  el.closest('.severity-grid').querySelectorAll('.severity-card').forEach(c => {
+    c.classList.remove('selected-critical','selected-warning','selected-success');
+  });
+  el.classList.add('selected-' + type);
+  el.querySelector('input[type=radio]').checked = true;
+}
+function selectChance(el, type) {
+  el.closest('.severity-grid').querySelectorAll('.severity-card').forEach(c => {
+    c.classList.remove('selected-critical','selected-warning','selected-success');
+  });
+  el.classList.add('selected-' + type);
+  el.querySelector('input[type=radio]').checked = true;
+}
+
+// ── Conditional: contractor fields ──
+function handleJobType(sel) {
+  const fields = document.getElementById('contractor-fields');
+  if (sel.value === 'contractor') {
+    fields.classList.add('visible');
+  } else {
+    fields.classList.remove('visible');
+  }
+}
+
+// ── Conditional: hospital referral ──
+function toggleHospitalFields(val) {
+  const fields = document.getElementById('hospital-fields');
+  if (val === 'yes') {
+    fields.classList.add('visible');
+    document.getElementById('hospital-name-input').disabled = false;
+    document.getElementById('accompanied-select').disabled = false;
+  } else {
+    fields.classList.remove('visible');
+    document.getElementById('hospital-name-input').disabled = true;
+    document.getElementById('accompanied-select').disabled = true;
+  }
+}
+
+// ── Conditional: Other injury ──
+function toggleOtherInjury(cb) {
+  const field = document.getElementById('other-injury-field');
+  field.classList.toggle('visible', cb.checked);
+  cb.closest('.chip-option').classList.toggle('selected', cb.checked);
+}
+
+// ── Section nav active state on scroll ──
+const sections = ['a','b','c','d','e','f','g','h','i'];
+const secMap = {};
+sections.forEach(s => {
+  const el = document.getElementById('sec-' + s);
+  if (el) secMap[s] = el;
+});
+
+function onScroll() {
+  let active = 'a';
+  const offset = 120;
+  sections.forEach(s => {
+    const el = secMap[s];
+    if (el && el.getBoundingClientRect().top <= offset) active = s;
+  });
+  document.querySelectorAll('.snav-chip').forEach(chip => {
+    chip.classList.toggle('active', chip.dataset.sec === active);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+
+
+// ── Report progress tracker ──
+const sectionNames = {a:'Particulars',b:'Persons',c:'Medical',d:'Investigation',e:'Imm. Causes',f:'Root Causes',g:'Corrective',h:'Verification',i:'Prevention'};
+const sectionProgress = {a:0,b:0,c:0,d:0,e:0,f:0,g:0,h:0,i:0};
+
+function renderProgress() {
+  const container = document.getElementById('progress-sections');
+  const vals = Object.values(sectionProgress);
+  const done = vals.filter(v => v >= 1).length;
+  const pct = Math.round((done / 9) * 100);
+  document.getElementById('pct-label').textContent = pct + '%';
+  document.getElementById('overall-progress').style.width = pct + '%';
+  container.innerHTML = sections.map(s => {
+    const p = sectionProgress[s];
+    const color = p >= 1 ? '#10B981' : p > 0 ? '#F59E0B' : '#E2E8F0';
+    const icon = p >= 1 ? 'check_circle' : p > 0 ? 'pending' : 'radio_button_unchecked';
+    return `<div style="display:flex; align-items:center; gap:8px;">
+      <span class="material-symbols-outlined" style="font-size:16px; color:${color};">${icon}</span>
+      <span style="font-size:12px; color:#334155; flex:1;">${sectionNames[s]}</span>
+      <span style="font-size:11px; font-weight:600; color:${color};">${p >= 1 ? 'Done' : p > 0 ? 'Partial' : '—'}</span>
+    </div>`;
+  }).join('');
+}
+
+// Track inputs to mark sections partial/done
+document.querySelectorAll('.field-input, .sign-field').forEach(input => {
+  input.addEventListener('input', () => {
+    // Determine which section this belongs to by walking up to section-card
+    const card = input.closest('[id^="sec-"]');
+    if (!card) return;
+    const sec = card.id.replace('sec-','');
+    const allInputs = card.querySelectorAll('.field-input, .sign-field');
+    const filled = [...allInputs].filter(i => i.value.trim().length > 0).length;
+    sectionProgress[sec] = filled === allInputs.length ? 1 : filled > 0 ? 0.5 : 0;
+    renderProgress();
+  });
+});
+renderProgress();
+</script>
+</body>
+</html>

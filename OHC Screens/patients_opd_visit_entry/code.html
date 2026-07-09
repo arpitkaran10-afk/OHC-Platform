@@ -1,123 +1,108 @@
 <!DOCTYPE html>
-
-<html lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Patients — OPD Visit Entry | OHC Platform</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>Patients — OPD Visits | OHC Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary-fixed-dim": "#89ceff",
-                    "on-tertiary": "#ffffff",
-                    "surface-container-low": "#f0f4fa",
-                    "surface-container-highest": "#dee3e9",
-                    "surface-container-lowest": "#ffffff",
-                    "on-tertiary-fixed-variant": "#693c00",
-                    "on-error-container": "#93000a",
-                    "tertiary-container": "#de8712",
-                    "tertiary-fixed": "#ffdcbd",
-                    "surface-dim": "#d6dae0",
-                    "inverse-surface": "#2c3135",
-                    "inverse-on-surface": "#edf1f7",
-                    "background": "#f6faff",
-                    "surface-variant": "#dee3e9",
-                    "secondary-container": "#b8dffe",
-                    "surface-container-high": "#e4e8ee",
-                    "secondary-fixed": "#c9e6ff",
-                    "on-surface": "#171c20",
-                    "surface": "#f6faff",
-                    "primary-fixed": "#c9e6ff",
-                    "on-error": "#ffffff",
-                    "on-primary": "#ffffff",
-                    "surface-container": "#eaeef4",
-                    "on-secondary-container": "#3d637d",
-                    "surface-bright": "#f6faff",
-                    "on-primary-fixed": "#001e2f",
-                    "tertiary-fixed-dim": "#ffb86e",
-                    "on-surface-variant": "#3e4850",
-                    "on-secondary-fixed-variant": "#234b64",
-                    "on-primary-container": "#003751",
-                    "on-secondary": "#ffffff",
-                    "secondary": "#3c627d",
-                    "surface-tint": "#0EA5E9",
-                    "on-secondary-fixed": "#001e2f",
-                    "on-tertiary-fixed": "#2c1600",
-                    "outline-variant": "#bec8d2",
-                    "on-background": "#171c20",
-                    "outline": "#6e7881",
-                    "on-primary-fixed-variant": "#004c6e",
-                    "on-tertiary-container": "#4d2b00",
-                    "error-container": "#ffdad6",
-                    "tertiary": "#8a5100",
-                    "primary-container": "#0ea5e9",
-                    "error": "#ba1a1a",
-                    "secondary-fixed-dim": "#a5cbe9",
-                    "inverse-primary": "#89ceff",
-                    "primary": "#0EA5E9"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "header_height": "56px",
-                    "sidebar_width": "240px",
-                    "content_padding": "24px",
-                    "base": "4px",
-                    "container_gap": "16px",
-                    "stack_gap": "8px"
-            },
-            "fontFamily": {
-                    "body": ["Inter"],
-                    "page-title": ["Inter"],
-                    "section-heading": ["Inter"],
-                    "label-sm": ["Inter"]
-            },
-            "fontSize": {
-                    "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                    "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}]
-            }
-          },
-        },
-      }
-    </script>
 <style>
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Custom UI transitions */
-        .form-section-hidden { display: none; }
-        .form-section-visible { display: block; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body { font-family: 'Inter', sans-serif; background: var(--ohc-n-100); -webkit-font-smoothing: antialiased; }
+  .ohc-main  { margin-left: 0 !important; padding-top: 0 !important; }
+  .ohc-header, .ohc-sidebar { display: none !important; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; }
+
+  /* ── View toggle ── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── Filter pills ── */
+  .filter-pills { display: inline-flex; background: var(--ohc-n-100); border: 1px solid var(--ohc-n-200); border-radius: 8px; padding: 3px; gap: 2px; }
+  .filter-pill { padding: 5px 14px; border-radius: 6px; border: none; background: transparent; font-size: 12px; font-weight: 500; color: #6B7280; cursor: pointer; font-family: 'Inter', sans-serif; transition: background .12s, color .12s, box-shadow .12s; white-space: nowrap; }
+  .filter-pill:hover { color: var(--ohc-n-900); background: var(--ohc-white); }
+  .filter-pill.active { background: var(--ohc-white); color: var(--ohc-primary); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+  /* ── Visit ID badge ── */
+  .visit-id { font-family: 'SF Mono','Fira Mono','Consolas',monospace; font-size: 10.5px; font-weight: 500; background: var(--ohc-primary-light); color: var(--ohc-primary); padding: 1px 6px; border-radius: 4px; white-space: nowrap; display: inline-block; }
+
+  /* ── Health issue chips ── */
+  .issue-chip { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 9999px; font-size: 11px; font-weight: 500; line-height: 1.4; white-space: nowrap; }
+  .issue-fever    { background: #FEF3C7; color: #92400E; }
+  .issue-bp       { background: #DBEAFE; color: #1D4ED8; }
+  .issue-sprain   { background: #FFEDD5; color: #9A3412; }
+  .issue-injury   { background: #FEE2E2; color: #991B1B; }
+  .issue-eye      { background: #EDE9FE; color: #5B21B6; }
+  .issue-routine  { background: #D1FAE5; color: #065F46; }
+  .issue-headache { background: #F3E8FF; color: #6B21A8; }
+  .issue-cold     { background: #E0F2FE; color: #0369A1; }
+  .issue-gastric  { background: #FEF9C3; color: #854D0E; }
+  .issue-allergy  { background: #FCE7F3; color: #9D174D; }
+  .issue-back     { background: #F0FDF4; color: #166534; }
+  .issue-dizziness{ background: #FEF9C3; color: #713F12; }
+  .issue-wound    { background: #FEE2E2; color: #9F1239; }
+
+  /* ── Referral ── */
+  .ref-icon { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 500; color: #374151; cursor: default; }
+  .ref-icon .material-symbols-outlined { font-size: 14px; color: var(--ohc-n-400); }
+
+  /* ── Wrapping cells ── */
+  .cell-wrap { white-space: normal; word-wrap: break-word; line-height: 1.45; }
+  .cell-datetime .t-date { font-size: 12.5px; color: #6B7280; display: block; }
+  .cell-datetime .t-time { font-size: 11px; color: var(--ohc-n-400); display: block; margin-top: 1px; }
+
+  /* ── Empty state ── */
+  .empty-state { display: none; padding: 56px 24px; text-align: center; }
+  .empty-state-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--ohc-n-100); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .empty-state-icon .material-symbols-outlined { font-size: 26px; color: var(--ohc-n-400); }
+  .empty-state h3 { font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+  .empty-state p  { font-size: 13px; color: var(--ohc-n-400); }
+
+  /* ── Table fade ── */
+  #table-body { transition: opacity .12s; }
+  #table-body.fading { opacity: 0; }
+
+  /* ── Form styles (matching existing OPD form) ── */
+  .form-card { background: #fff; border-radius: 8px; border: 1px solid #BEC8D2; box-shadow: 0 1px 3px rgba(0,0,0,.06); overflow: hidden; margin-bottom: 20px; }
+  .form-card-header { padding: 12px 20px; background: #F0F4FA; border-bottom: 1px solid #BEC8D2; display: flex; align-items: center; gap: 8px; }
+  .form-card-header h2 { font-size: 16px; font-weight: 600; color: #171C20; }
+  .form-card-body { padding: 24px; }
+  .form-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+  .form-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+  .form-grid-6 { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 12px; }
+  .form-field { display: flex; flex-direction: column; gap: 4px; }
+  .form-label { font-size: 11px; font-weight: 600; color: #3E4850; letter-spacing: .01em; }
+  .form-input { height: 36px; border: 1px solid #BEC8D2; border-radius: 6px; padding: 0 12px; font-size: 13px; color: #171C20; font-family: 'Inter', sans-serif; outline: none; width: 100%; }
+  .form-input:focus { border-color: #0EA5E9; box-shadow: 0 0 0 2px rgba(14,165,233,.15); }
+  select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394A3B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  textarea.form-input { height: auto; padding: 8px 12px; resize: vertical; }
+  .form-input::placeholder { color: #9CA3AF; }
+  .vitals-unit { display: flex; align-items: center; }
+  .vitals-unit input { border-radius: 6px 0 0 6px; border-right: none; flex: 1; }
+  .vitals-suffix { height: 36px; display: flex; align-items: center; padding: 0 8px; background: #F0F4FA; border: 1px solid #BEC8D2; border-left: none; border-radius: 0 6px 6px 0; font-size: 10px; font-weight: 600; color: #6B7280; white-space: nowrap; }
+  .chip-tag { display: inline-flex; align-items: center; gap: 4px; background: #E4E8EE; border: 1px solid #BEC8D2; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; cursor: pointer; }
+  .chip-tag:hover { background: #DEE3E9; }
+  .chip-tag-blue { background: #B8DFFE; color: #001E2F; border-color: #3C627D; }
+  .chip-tag-red  { background: #FFDAD6; color: #93000A; border-color: #BA1A1A; }
+  .chip-add { display: inline-flex; align-items: center; gap: 4px; border: 1.5px dashed #BEC8D2; padding: 4px 10px; border-radius: 9999px; font-size: 11px; color: #0EA5E9; cursor: pointer; background: none; font-family: 'Inter', sans-serif; }
+  .sign-box { height: 88px; border: 1.5px dashed #BEC8D2; border-radius: 8px; background: #F6FAFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; }
+  .sign-box:hover { background: #EAEEf4; }
+  .sign-box .material-symbols-outlined { font-size: 22px; color: #6E7881; }
+  .sign-box p { font-size: 10px; color: #6B7280; }
+  .injury-section { display: none; padding: 16px; background: rgba(186,26,26,.05); border-radius: 8px; border: 1px solid rgba(186,26,26,.2); }
+  .injury-section.visible { display: block; animation: slideIn .25s ease-out; }
+  @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+</style>
 </head>
-<body class="bg-[#F3F4F6] text-on-surface overflow-hidden">
-<!-- TopNavBar -->
+<body>
+
+<!-- Shell chrome — hidden at runtime by shell OVERRIDE_CSS -->
 <header class="ohc-header">
   <div class="ohc-header-left">
     <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Patients &gt; OPD Visit</span>
+    <span class="ohc-breadcrumb">OHC Platform › Clinic Management › Patients › OPD Visits</span>
   </div>
   <div class="ohc-header-center">
     <div class="ohc-search">
@@ -134,344 +119,424 @@
     <div class="ohc-avatar">KP</div>
   </div>
 </header>
-<!-- SideNavBar -->
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Trivandrum</option><option>Pune</option><option>Khordha</option></select>
   <nav class="ohc-nav">
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
     <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">delete_sweep</span>Bio Medical Waste Tracking</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
-    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#">
-      <span class="material-symbols-outlined mat-icon">help</span>
-      Help &amp; Support
-    </a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
 </aside>
-<!-- Content Area -->
+
 <main class="ohc-main">
-<div class="ohc-content">
-<!-- Page Header -->
-<header class="flex items-center justify-between mb-6">
-<div>
-<h1 class="font-page-title text-page-title text-on-surface">Patients — OPD Visit</h1>
-<p class="text-body text-on-surface-variant">Log a new occupational health visit for on-site clinic record keeping.</p>
-</div>
-<button class="h-9 px-4 bg-primary text-white font-bold rounded shadow-sm flex items-center gap-2 hover:bg-[#004c6e] transition-colors">
-<span class="material-symbols-outlined text-[18px]">add</span> New Visit
-            </button>
-</header>
-<!-- Search Bar -->
-<div class="mb-6 relative">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-<input class="w-full h-11 pl-12 pr-4 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-body shadow-sm" placeholder="Search by Employee ID or Name to load returning patient profile…" type="text"/>
-</div>
-<div class="space-y-6 max-w-6xl">
-<!-- Form Card 1: Employee Profile -->
-<section class="bg-white rounded-lg border border-outline-variant shadow-sm overflow-hidden">
-<div class="px-5 py-3 bg-surface-container-low border-b border-outline-variant flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
-<h2 class="font-section-heading text-section-heading text-on-surface">Employee Profile</h2>
-</div>
-<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5">
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Employee ID*</label>
-<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" placeholder="e.g. EMP-9921" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Full Name*</label>
-<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" placeholder="Enter patient's full name" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Gender*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Gender</option>
-<option>Male</option>
-<option>Female</option>
-<option>Non-binary</option>
-<option>Prefer not to say</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Department*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Department</option>
-<option>IT &amp; Engineering</option>
-<option>Operations</option>
-<option>Human Resources</option>
-<option>Finance</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Staff Type*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Type</option>
-<option>Permanent</option>
-<option>Contractual</option>
-<option>Vendor Staff</option>
-<option>Visitor</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Building*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Building</option>
-<option>Tower A - Tech Plaza</option>
-<option>Tower B - Tech Plaza</option>
-<option>Main Warehouse</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Shift</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Shift</option>
-<option>General Shift (09:00 - 18:00)</option>
-<option>Morning Shift (06:00 - 14:00)</option>
-<option>Evening Shift (14:00 - 22:00)</option>
-<option>Night Shift (22:00 - 06:00)</option>
-</select>
-</div>
-</div>
-</section>
-<!-- Form Card 2: Visit Details -->
-<section class="bg-white rounded-lg border border-outline-variant shadow-sm overflow-hidden">
-<div class="px-5 py-3 bg-surface-container-low border-b border-outline-variant flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[20px]">medical_information</span>
-<h2 class="font-section-heading text-section-heading text-on-surface">Visit Details</h2>
-</div>
-<div class="p-6 space-y-6">
-<!-- Row 1 & 2: Type, Date, Time -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Visit Type*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>OPD</option>
-<option>Rest</option>
-<option>Incident</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Date*</label>
-<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" type="date" value="2024-05-20"/>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Time*</label>
-<input class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border" type="time" value="14:30"/>
-</div>
-</div>
-<!-- Row 3: Shift, Floor -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Visit Shift*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Morning</option>
-<option selected="">General</option>
-<option>Night</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Floor / Wing</label>
-<div class="flex items-center gap-2">
-<select class="flex-1 h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Floor</option>
-<option>Floor 4 - North Wing</option>
-<option>Floor 5 - Tech Lab</option>
-</select>
-</div>
-</div>
-</div>
-<!-- Row 4: Ailments -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant">Ailments*</label>
-<div class="flex flex-wrap gap-2">
-<span class="flex items-center gap-1 bg-surface-container-high border border-outline-variant px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-surface-variant">
-                                Fever <span class="material-symbols-outlined text-[14px]">close</span>
-</span>
-<span class="flex items-center gap-1 bg-surface-container-high border border-outline-variant px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-surface-variant">
-                                Headache <span class="material-symbols-outlined text-[14px]">close</span>
-</span>
-<span class="flex items-center gap-1 bg-error-container text-on-error-container border border-error px-3 py-1 rounded-full text-label-sm cursor-pointer hover:bg-opacity-80" onclick="toggleInjurySection()">
-                                Cut Wound <span class="material-symbols-outlined text-[14px]">add_circle</span>
-</span>
-<button class="flex items-center gap-1 border border-dashed border-outline-variant px-3 py-1 rounded-full text-label-sm text-primary hover:bg-primary-fixed-dim transition-colors">
-<span class="material-symbols-outlined text-[14px]">add</span> Add More
-                            </button>
-</div>
-</div>
-<!-- Hidden Cut Wound Section -->
-<div class="form-section-hidden p-4 bg-error-container/20 rounded-lg border border-error/30" id="injurySection">
-<div class="flex items-start gap-3 mb-4">
-<span class="material-symbols-outlined text-error">info</span>
-<div class="text-body text-on-error-container">
-<strong>Injury Management:</strong> Detailed logging is required for Cut Wounds as per OSHA standards. Please specify the severity and location.
-                            </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<div class="space-y-1">
-<label class="text-label-sm">Depth/Severity</label>
-<select class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body">
-<option>Superficial</option>
-<option>Deep</option>
-<option>Laceration</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm">Location</label>
-<input class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body" placeholder="e.g. Right Forefinger" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm">Tetanus Status</label>
-<select class="w-full h-8 bg-white border-outline-variant rounded px-2 text-body">
-<option>Up to date</option>
-<option>Expired</option>
-<option>Unknown</option>
-</select>
-</div>
-</div>
-</div>
-<!-- Row 5: Treatment -->
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Type of Treatment*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Select Treatment</option>
-<option>First Aid</option>
-<option>Medication Provided</option>
-<option>Referred to Hospital</option>
-<option>Injection / IV</option>
-</select>
-</div>
-<!-- Row 6: Vitals (High density) -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant">Vitals</label>
-<div class="grid grid-cols-2 md:grid-cols-6 gap-3">
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Sys" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mmHg</span>
-</div>
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Dia" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mmHg</span>
-</div>
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Pulse" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">BPM</span>
-</div>
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="SpO2" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">%</span>
-</div>
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Sugar" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">mg/dL</span>
-</div>
-<div class="relative">
-<input class="w-full h-9 border-outline-variant rounded-l px-3 text-body focus:ring-1 focus:ring-primary border-r-0 outline-none border" placeholder="Temp" type="text"/>
-<span class="absolute right-0 top-0 h-full flex items-center px-2 text-[10px] bg-surface-container-low border border-outline-variant border-l-0 rounded-r text-on-surface-variant">°F</span>
-</div>
-</div>
-</div>
-<!-- Row 7: Medicines -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant">Medicines Given</label>
-<div class="flex flex-wrap gap-2">
-<span class="flex items-center gap-1 bg-secondary-container text-on-secondary-container border border-secondary px-3 py-1 rounded-full text-label-sm">
-                                Paracetamol (500mg) <span class="material-symbols-outlined text-[14px]">close</span>
-</span>
-<span class="flex items-center gap-1 bg-secondary-container text-on-secondary-container border border-secondary px-3 py-1 rounded-full text-label-sm">
-                                Cetirizine <span class="material-symbols-outlined text-[14px]">close</span>
-</span>
-<button class="flex items-center gap-1 border border-dashed border-outline-variant px-3 py-1 rounded-full text-label-sm text-primary">
-<span class="material-symbols-outlined text-[14px]">add</span> Select Medicine
-                            </button>
-</div>
-</div>
-<!-- Row 8: Provider and Outcome -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Treated By*</label>
-<div class="flex items-center gap-4 h-9">
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="text-primary focus:ring-primary" name="provider" type="radio"/>
-<span class="text-body">Nurse</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input checked="" class="text-primary focus:ring-primary" name="provider" type="radio"/>
-<span class="text-body">Doctor</span>
-</label>
-</div>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Post-Visit Outcome*</label>
-<select class="w-full h-9 border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-primary outline-none border">
-<option>Returned to Work</option>
-<option>Sent Home (Medical Leave)</option>
-<option>Sent to Hospital</option>
-<option>Observation Ward</option>
-</select>
-</div>
-</div>
-<!-- Row 9: Signatures -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Staff Sign*</label>
-<div class="w-full h-24 border border-dashed border-outline-variant rounded-lg bg-surface flex items-center justify-center flex-col gap-1 cursor-pointer hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined text-outline">draw</span>
-<p class="text-[10px] text-on-surface-variant">Click to capture digital signature</p>
-</div>
-</div>
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Patient / Employee Sign*</label>
-<div class="w-full h-24 border border-dashed border-outline-variant rounded-lg bg-surface flex items-center justify-center flex-col gap-1 cursor-pointer hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined text-outline">fingerprint</span>
-<p class="text-[10px] text-on-surface-variant">Biometric or Manual Touch Sign</p>
-</div>
-</div>
-</div>
-<!-- Row 10: Remarks -->
-<div class="space-y-1">
-<label class="text-label-sm text-on-surface-variant">Remarks</label>
-<textarea class="w-full h-24 border border-outline-variant rounded p-3 text-body focus:ring-1 focus:ring-primary outline-none border resize-none" placeholder="Enter detailed observations or clinical notes..."></textarea>
-</div>
-</div>
-</section>
-<!-- Final Form Actions -->
-<div class="flex items-center justify-end gap-3 pb-12">
-<button class="h-9 px-8 border border-outline-variant text-on-surface font-bold rounded hover:bg-surface-container transition-colors">
-                    Cancel
-                </button>
-<button class="h-9 px-10 bg-primary text-white font-bold rounded shadow-md hover:bg-[#004c6e] transition-all transform active:scale-95">
-                    Save Visit
-                </button>
-</div>
-</div>
+<div class="ohc-content" style="max-width:100%; padding:24px;">
+
+  <!-- ════════════════════════════════════════════════════════
+       LIST VIEW
+  ════════════════════════════════════════════════════════ -->
+  <div id="view-list" class="view active">
+
+    <!-- Page header -->
+    <div class="ohc-page-header">
+      <div>
+        <h1 class="ohc-page-title">Patients — OPD Visits</h1>
+        <p class="ohc-page-subtitle">Summary of all patient visits across registers for the selected time period.</p>
+      </div>
+      <button class="ohc-btn ohc-btn-primary" onclick="showForm()">
+        <span class="material-symbols-outlined" style="font-size:16px;">add</span> New Visit
+      </button>
+    </div>
+
+    <!-- List card -->
+    <div class="ohc-card" style="overflow:hidden;">
+      <div class="ohc-card-pad" style="border-bottom:1px solid var(--ohc-n-100); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div class="ohc-card-title" style="margin-bottom:2px;">Patient Visit Timeline</div>
+          <div style="font-size:12px; color:var(--ohc-n-400);">Showing visits for the selected time period.</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div class="filter-pills" role="group">
+            <button class="filter-pill active" data-period="today"   onclick="setFilter(this)">Today</button>
+            <button class="filter-pill"        data-period="week"    onclick="setFilter(this)">This Week</button>
+            <button class="filter-pill"        data-period="month"   onclick="setFilter(this)">This Month</button>
+            <button class="filter-pill"        data-period="quarter" onclick="setFilter(this)">This Quarter</button>
+            <button class="filter-pill"        data-period="year"    onclick="setFilter(this)">This Year</button>
+          </div>
+          <span id="row-count" class="ohc-chip ohc-chip-na" style="font-size:12px;">— visits</span>
+        </div>
+      </div>
+      <div style="overflow-x:auto; width:100%;">
+        <table class="ohc-table" style="table-layout:fixed; width:100%;">
+          <colgroup>
+            <col style="width:18%"/>  <!-- Visit / Patient -->
+            <col style="width:8%"/>   <!-- Date/Time -->
+            <col style="width:12%"/>  <!-- Health Issue -->
+            <col style="width:31%"/>  <!-- Treatment Given -->
+            <col style="width:13%"/>  <!-- Pathology -->
+            <col style="width:18%"/>  <!-- Referred To -->
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Visit / Patient</th>
+              <th>Date / Time</th>
+              <th>Health Issue</th>
+              <th>Treatment Given</th>
+              <th>Pathology / Diagnostics</th>
+              <th>Referred To</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state-icon"><span class="material-symbols-outlined">person_search</span></div>
+          <h3>No patient visits found</h3>
+          <p>There are no visits recorded for this time period.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-list -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FORM VIEW
+  ════════════════════════════════════════════════════════ -->
+  <div id="view-form" class="view">
+
+    <!-- Page header -->
+    <div class="ohc-page-header">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <button onclick="showList()" style="display:inline-flex; align-items:center; gap:4px; background:none; border:none; color:var(--ohc-primary); font-size:13px; font-weight:500; cursor:pointer; padding:0; font-family:'Inter',sans-serif;">
+            <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span> Back to visits
+          </button>
+        </div>
+        <h1 class="ohc-page-title">New OPD Visit</h1>
+        <p class="ohc-page-subtitle">Log a new occupational health visit for on-site clinic record keeping.</p>
+      </div>
+    </div>
+
+    <!-- Employee search -->
+    <div style="margin-bottom:20px; position:relative;">
+      <span class="material-symbols-outlined" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#6B7280; font-size:18px;">search</span>
+      <input class="form-input" style="padding-left:40px; height:40px;" type="text" placeholder="Search by Employee ID or Name to load returning patient profile…"/>
+    </div>
+
+    <div style="max-width:100%;">
+
+      <!-- Employee Profile -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <span class="material-symbols-outlined" style="color:#0EA5E9; font-size:20px;">badge</span>
+          <h2>Employee Profile</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-2" style="margin-bottom:20px;">
+            <div class="form-field">
+              <label class="form-label">Employee ID *</label>
+              <input class="form-input" type="text" placeholder="e.g. EMP-9921"/>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Full Name *</label>
+              <input class="form-input" type="text" placeholder="Enter patient's full name"/>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Gender *</label>
+              <select class="form-input">
+                <option>Select Gender</option>
+                <option>Male</option><option>Female</option><option>Non-binary</option><option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Department *</label>
+              <select class="form-input">
+                <option>Select Department</option>
+                <option>IT &amp; Engineering</option><option>Operations</option><option>Human Resources</option><option>Finance</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Staff Type *</label>
+              <select class="form-input">
+                <option>Select Type</option>
+                <option>Permanent</option><option>Contractual</option><option>Vendor Staff</option><option>Visitor</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Building *</label>
+              <select class="form-input">
+                <option>Select Building</option>
+                <option>Tower A - Tech Plaza</option><option>Tower B - Tech Plaza</option><option>Main Warehouse</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Shift</label>
+              <select class="form-input">
+                <option>Select Shift</option>
+                <option>General Shift (09:00–18:00)</option><option>Morning Shift (06:00–14:00)</option>
+                <option>Evening Shift (14:00–22:00)</option><option>Night Shift (22:00–06:00)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visit Details -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <span class="material-symbols-outlined" style="color:#0EA5E9; font-size:20px;">medical_information</span>
+          <h2>Visit Details</h2>
+        </div>
+        <div class="form-card-body" style="display:flex; flex-direction:column; gap:20px;">
+
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label class="form-label">Visit Type *</label>
+              <select class="form-input"><option>OPD</option><option>Rest</option><option>Incident</option></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Date *</label>
+              <input class="form-input" type="date" value="2026-07-08"/>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Time *</label>
+              <input class="form-input" type="time" value="14:30"/>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Visit Shift *</label>
+              <select class="form-input"><option>Morning</option><option selected>General</option><option>Night</option></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Floor / Wing</label>
+              <select class="form-input"><option>Select Floor</option><option>Floor 4 - North Wing</option><option>Floor 5 - Tech Lab</option></select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Ailments *</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
+              <span class="chip-tag">Fever <span class="material-symbols-outlined" style="font-size:13px;">close</span></span>
+              <span class="chip-tag">Headache <span class="material-symbols-outlined" style="font-size:13px;">close</span></span>
+              <span class="chip-tag chip-tag-red" onclick="toggleInjury()">Cut Wound <span class="material-symbols-outlined" style="font-size:13px;">add_circle</span></span>
+              <button class="chip-add"><span class="material-symbols-outlined" style="font-size:13px;">add</span> Add More</button>
+            </div>
+          </div>
+
+          <div class="injury-section" id="injurySection">
+            <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:14px;">
+              <span class="material-symbols-outlined" style="color:#BA1A1A; font-size:18px;">info</span>
+              <p style="font-size:13px; color:#93000A;"><strong>Injury Management:</strong> Detailed logging required for Cut Wounds per OSHA standards.</p>
+            </div>
+            <div class="form-grid-3">
+              <div class="form-field"><label class="form-label">Depth / Severity</label>
+                <select class="form-input" style="background:#fff;"><option>Superficial</option><option>Deep</option><option>Laceration</option></select></div>
+              <div class="form-field"><label class="form-label">Location</label>
+                <input class="form-input" style="background:#fff;" type="text" placeholder="e.g. Right Forefinger"/></div>
+              <div class="form-field"><label class="form-label">Tetanus Status</label>
+                <select class="form-input" style="background:#fff;"><option>Up to date</option><option>Expired</option><option>Unknown</option></select></div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Type of Treatment *</label>
+            <select class="form-input">
+              <option>Select Treatment</option><option>First Aid</option><option>Medication Provided</option>
+              <option>Referred to Hospital</option><option>Injection / IV</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Vitals</label>
+            <div class="form-grid-6">
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="Sys"/><span class="vitals-suffix">mmHg</span></div>
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="Dia"/><span class="vitals-suffix">mmHg</span></div>
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="Pulse"/><span class="vitals-suffix">BPM</span></div>
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="SpO2"/><span class="vitals-suffix">%</span></div>
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="Sugar"/><span class="vitals-suffix">mg/dL</span></div>
+              <div class="vitals-unit"><input class="form-input" type="text" placeholder="Temp"/><span class="vitals-suffix">°F</span></div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Medicines Given</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
+              <span class="chip-tag chip-tag-blue">Paracetamol (500mg) <span class="material-symbols-outlined" style="font-size:13px;">close</span></span>
+              <span class="chip-tag chip-tag-blue">Cetirizine <span class="material-symbols-outlined" style="font-size:13px;">close</span></span>
+              <button class="chip-add"><span class="material-symbols-outlined" style="font-size:13px;">add</span> Select Medicine</button>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Treated By *</label>
+              <div style="display:flex; gap:20px; align-items:center; height:36px;">
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="provider" style="accent-color:#0EA5E9;"/> Nurse</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="provider" checked style="accent-color:#0EA5E9;"/> Doctor</label>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Post-Visit Outcome *</label>
+              <select class="form-input">
+                <option>Returned to Work</option><option>Sent Home (Medical Leave)</option>
+                <option>Sent to Hospital</option><option>Observation Ward</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Staff Sign *</label>
+              <div class="sign-box">
+                <span class="material-symbols-outlined">draw</span>
+                <p>Click to capture digital signature</p>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Patient / Employee Sign *</label>
+              <div class="sign-box">
+                <span class="material-symbols-outlined">fingerprint</span>
+                <p>Biometric or Manual Touch Sign</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Remarks</label>
+            <textarea class="form-input" rows="4" placeholder="Enter detailed observations or clinical notes…"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Form actions -->
+      <div style="display:flex; align-items:center; justify-content:flex-end; gap:12px; padding-bottom:40px;">
+        <button class="ohc-btn ohc-btn-secondary" onclick="showList()">Cancel</button>
+        <button class="ohc-btn ohc-btn-primary" onclick="saveAndReturn()">Save Visit</button>
+      </div>
+
+    </div>
+  </div><!-- /view-form -->
+
 </div>
 </main>
+
 <script>
-        function toggleInjurySection() {
-            const section = document.getElementById('injurySection');
-            if (section.classList.contains('form-section-hidden')) {
-                section.classList.remove('form-section-hidden');
-                section.classList.add('form-section-visible');
-            } else {
-                section.classList.add('form-section-hidden');
-                section.classList.remove('form-section-visible');
-            }
-        }
-    </script>
-</body></html>
+// ── View toggle ──────────────────────────────────────────────
+function showForm() {
+  document.getElementById('view-list').classList.remove('active');
+  document.getElementById('view-form').classList.add('active');
+  window.scrollTo(0, 0);
+}
+function showList() {
+  document.getElementById('view-form').classList.remove('active');
+  document.getElementById('view-list').classList.add('active');
+  window.scrollTo(0, 0);
+}
+function saveAndReturn() {
+  showList();
+}
+
+// ── Injury toggle ────────────────────────────────────────────
+function toggleInjury() {
+  var s = document.getElementById('injurySection');
+  s.classList.toggle('visible');
+}
+
+// ── Dataset ──────────────────────────────────────────────────
+var RAW = [
+  // ── Today (8 rows) ──
+  { id:'OPD-2026-0213', name:'Ravi Menon',        daysAgo:0, time:'08:10', issueKey:'fever',     issueLbl:'Fever',            tx:'Paracetamol 500mg, rest advised, fluids increased',                                         path:'CBC ordered',            ref:null },
+  { id:'OPD-2026-0212', name:'Sunita Pillai',     daysAgo:0, time:'09:05', issueKey:'bp',        issueLbl:'BP Check',         tx:'BP medication adjusted',                                                                     path:'—',                      ref:null },
+  { id:'OPD-2026-0211', name:'Arjun Sharma',      daysAgo:0, time:'09:50', issueKey:'wound',     issueLbl:'Cut / Wound',      tx:'Wound irrigated, antiseptic dressing applied, tetanus shot administered, advised follow-up',  path:'X-ray ordered',          ref:'St. Thomas Hospital, Trivandrum' },
+  { id:'OPD-2026-0210', name:'Nisha Rao',         daysAgo:0, time:'10:30', issueKey:'back',      issueLbl:'Back Pain',        tx:'Ibuprofen, heat pack, posture advice given',                                                 path:'—',                      ref:null },
+  { id:'OPD-2026-0209', name:'Arun Pillai',       daysAgo:0, time:'11:15', issueKey:'dizziness', issueLbl:'Dizziness',        tx:'ORS administered, BP monitored, patient rested 30 min, discharged stable',                  path:'—',                      ref:null },
+  { id:'OPD-2026-0208', name:'Preethi Varma',     daysAgo:0, time:'12:00', issueKey:'allergy',   issueLbl:'Allergic Reaction',tx:'Cetirizine 10mg, cold compress applied',                                                    path:'Skin prick test advised', ref:null },
+  { id:'OPD-2026-0207', name:'Suresh Babu',       daysAgo:0, time:'13:45', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, dark room rest',                                                                path:'—',                      ref:null },
+  { id:'OPD-2026-0206', name:'Kavitha Ramesh',    daysAgo:0, time:'15:20', issueKey:'routine',   issueLbl:'Routine Check',    tx:'Vitals recorded, all normal',                                                                path:'Lipid profile advised',  ref:null },
+  // ── This week (2–4 days ago) ──
+  { id:'OPD-2026-0205', name:'Priya Nair',        daysAgo:2, time:'08:30', issueKey:'sprain',    issueLbl:'Sprain',           tx:'Ice pack, compression bandage, ibuprofen 400mg',                                             path:'Ultrasound recommended', ref:null },
+  { id:'OPD-2026-0204', name:'Mohammed Saleem',   daysAgo:2, time:'14:10', issueKey:'eye',       issueLbl:'Eye Irritation',   tx:'Eye wash, chloramphenicol drops',                                                            path:'—',                      ref:null },
+  { id:'OPD-2026-0203', name:'Deepa Krishnan',    daysAgo:3, time:'09:50', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, hydration advised',                                                             path:'—',                      ref:null },
+  { id:'OPD-2026-0202', name:'Rajesh Varma',      daysAgo:4, time:'16:05', issueKey:'back',      issueLbl:'Back Pain',        tx:'Diclofenac gel, rest advised, referred for physiotherapy assessment',                        path:'Physiotherapy referral', ref:'Ernakulam Medical Centre' },
+  // ── This month (8–20 days ago) ──
+  { id:'OPD-2026-0198', name:'Anjali Thomas',     daysAgo:8,  time:'10:20', issueKey:'cold',     issueLbl:'Cold / URTI',      tx:'Antihistamine, steam inhalation',                                                            path:'—',                      ref:null },
+  { id:'OPD-2026-0194', name:'Santhosh Kumar',    daysAgo:11, time:'13:35', issueKey:'wound',    issueLbl:'Cut / Wound',      tx:'First aid dressing, tetanus booster given, wound reviewed at 48h',                           path:'—',                      ref:'Medical Centre TVM' },
+  { id:'OPD-2026-0191', name:'Vinod Chandran',    daysAgo:15, time:'11:45', issueKey:'bp',       issueLbl:'BP Check',         tx:'Amlodipine dose reviewed',                                                                   path:'ECG recommended',        ref:'Cardiology Dept, KIMS' },
+  { id:'OPD-2026-0185', name:'Leena George',      daysAgo:19, time:'09:00', issueKey:'gastric',  issueLbl:'Gastric Pain',     tx:'Antacid, dietary advice given',                                                              path:'Stool test recommended', ref:null },
+  // ── This year / quarter (45–110 days ago) ──
+  { id:'OPD-2026-0142', name:'Meera Gopalan',     daysAgo:45,  time:'10:10', issueKey:'allergy', issueLbl:'Allergy',          tx:'Cetirizine, avoid known trigger',                                                            path:'Skin prick test advised', ref:null },
+  { id:'OPD-2026-0118', name:'Ravi Kumar',        daysAgo:62,  time:'15:30', issueKey:'sprain',  issueLbl:'Sprain',           tx:'RICE protocol, physiotherapy referral',                                                      path:'MRI advised',            ref:'Physiotherapy Centre, TVM' },
+  { id:'OPD-2026-0097', name:'Neetha Das',        daysAgo:85,  time:'08:45', issueKey:'fever',   issueLbl:'Fever',            tx:'Azithromycin, paracetamol, increased fluids, follow-up in 3 days',                           path:'Typhidot test done',     ref:null },
+  { id:'OPD-2026-0074', name:'Arun Krishnan',     daysAgo:110, time:'12:00', issueKey:'routine', issueLbl:'Routine Check',    tx:'Annual health check completed, all parameters normal',                                        path:'Full blood panel done',  ref:null },
+];
+
+function midnight(n) {
+  var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d;
+}
+var VISITS = RAW.map(function(r){ return Object.assign({}, r, { date: midnight(r.daysAgo) }); });
+
+function getRange(period) {
+  var start = new Date(); start.setHours(0,0,0,0);
+  var end   = new Date(); end.setHours(23,59,59,999);
+  if (period === 'week') {
+    var dow = start.getDay();
+    start.setDate(start.getDate() - (dow === 0 ? 6 : dow - 1));
+  } else if (period === 'month') {
+    start.setDate(1);
+  } else if (period === 'quarter') {
+    start.setMonth(Math.floor(start.getMonth()/3)*3, 1);
+  } else if (period === 'year') {
+    start.setMonth(0,1);
+  }
+  return { start: start, end: end };
+}
+
+function fmtDate(d) {
+  return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+function renderTable(period) {
+  var body    = document.getElementById('table-body');
+  var empty   = document.getElementById('empty-state');
+  var countEl = document.getElementById('row-count');
+  body.classList.add('fading');
+  setTimeout(function() {
+    var r = getRange(period);
+    var rows = VISITS.filter(function(v){ return v.date >= r.start && v.date <= r.end; });
+    countEl.textContent = rows.length + ' visit' + (rows.length !== 1 ? 's' : '');
+    if (rows.length === 0) {
+      body.innerHTML = '';
+      empty.style.display = 'block';
+    } else {
+      empty.style.display = 'none';
+      body.innerHTML = rows.map(function(v) {
+        var ref = v.ref
+          ? '<span class="ref-icon" style="white-space:normal;word-wrap:break-word;"><span class="material-symbols-outlined" style="flex-shrink:0;">local_hospital</span>'+v.ref+'</span>'
+          : '<span style="color:var(--ohc-n-400);">—</span>';
+        return '<tr>'+
+          '<td><span style="font-weight:600;color:#111827;font-size:13px;display:block;margin-bottom:3px;">'+v.name+'</span><span class="visit-id">'+v.id+'</span></td>'+
+          '<td class="cell-datetime"><span class="t-date">'+fmtDate(v.date)+'</span><span class="t-time">'+v.time+'</span></td>'+
+          '<td><span class="issue-chip issue-'+v.issueKey+'">'+v.issueLbl+'</span></td>'+
+          '<td class="cell-wrap">'+v.tx+'</td>'+
+          '<td class="cell-wrap" style="color:#6B7280;">'+v.path+'</td>'+
+          '<td>'+ref+'</td>'+
+        '</tr>';
+      }).join('');
+    }
+    body.classList.remove('fading');
+  }, 100);
+}
+
+function setFilter(btn) {
+  document.querySelectorAll('.filter-pill').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  renderTable(btn.dataset.period);
+}
+
+// Boot
+renderTable('today');
+</script>
+</body>
+</html>

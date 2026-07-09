@@ -178,7 +178,7 @@
 <!-- KPI Cards Grid (4x2) -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 <!-- Row 1 -->
-<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="patients_opd">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Consultations Today</p>
 <h3 class="text-[32px] font-bold text-on-surface">42</h3>
 <div class="mt-2 flex items-center text-[11px] text-green-600 font-bold">
@@ -186,11 +186,11 @@
                         12% increase from yesterday
                     </div>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden" data-nav="patients_rest">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Rest Cases Today</p>
 <h3 class="text-[32px] font-bold text-on-surface">12</h3>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="clinicians">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Active Clinicians</p>
 <div class="flex items-end justify-between">
 <h3 class="text-[32px] font-bold text-on-surface">08</h3>
@@ -201,7 +201,7 @@
 </div>
 </div>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-green-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-green-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="pharmacy_stock">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Low Stock Alerts</p>
 <div class="flex items-center gap-2">
 <h3 class="text-[32px] font-bold text-green-600">0</h3>
@@ -209,23 +209,23 @@
 </div>
 </div>
 <!-- Row 2 -->
-<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="bmw">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">BMW Pickup Pending</p>
 <h3 class="text-[32px] font-bold text-on-surface">No</h3>
 <p class="text-[11px] text-on-surface-variant/70 mt-2 italic">Next scheduled: 09:00 AM Tomorrow</p>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-outline-variant rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="oshwc_incident_register">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Incidents This Month</p>
 <h3 class="text-[32px] font-bold text-on-surface">0</h3>
 <div class="mt-2 flex items-center text-[11px] text-primary font-bold">
                         Maintain workplace safety standards
                     </div>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-lowest border-l-4 border-primary rounded-lg p-5 border border-outline-variant/50 shadow-sm relative overflow-hidden" data-nav="toolbox">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Training Sessions</p>
 <h3 class="text-[32px] font-bold text-on-surface">05</h3>
 </div>
-<div class="bg-surface-container-lowest border-l-4 border-orange-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm">
+<div class="bg-surface-container-lowest border-l-4 border-orange-500 rounded-lg p-5 border border-outline-variant/50 shadow-sm" data-nav="compliance_matrix">
 <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Pending Follow-ups</p>
 <div class="flex items-center gap-2">
 <h3 class="text-[32px] font-bold text-orange-600">14</h3>
@@ -236,7 +236,7 @@
 <!-- Widgets Grid (2 columns) -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 <!-- R1L: Footfall Chart -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm" data-nav="analytics">
 <div class="flex items-center justify-between mb-6">
 <h4 class="text-section-heading font-section-heading text-on-surface">Footfall by Staff Type</h4>
 <span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">more_vert</span>
@@ -284,7 +284,7 @@
 </div>
 </div>
 <!-- R1R: OPD vs Rest Split -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col" data-nav="patients_opd">
 <div class="flex items-center justify-between mb-6">
 <div>
 <h4 class="text-section-heading font-section-heading text-on-surface">OPD vs Rest Split</h4>
@@ -316,7 +316,7 @@
 </div>
 </div>
 <!-- R2L: Top 5 Ailments -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm" data-nav="analytics">
 <h4 class="text-section-heading font-section-heading text-on-surface mb-6">Top 5 Ailments This Month</h4>
 <div class="space-y-5">
 <div class="space-y-1.5">
@@ -367,7 +367,7 @@
 </div>
 </div>
 <!-- R2R: Frequent Visitor Alerts -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col" data-nav="patients_opd">
 <div class="p-6 pb-2">
 <h4 class="text-section-heading font-section-heading text-on-surface">Frequent Visitor Alerts</h4>
 </div>
@@ -419,7 +419,7 @@
 </div>
 </div>
 <!-- R3L: Medicine Stock Alerts -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm" data-nav="pharmacy_stock">
 <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
 <h4 class="text-section-heading font-section-heading text-on-surface">Medicine Stock Alerts</h4>
 <button class="text-primary font-bold text-label-sm flex items-center gap-1">
@@ -470,7 +470,7 @@
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
 <h4 class="text-section-heading font-section-heading text-on-surface mb-6">MoM Action Items</h4>
 <div class="space-y-4">
-<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group">
+<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group" style="cursor:pointer;" onclick="window.parent.navigateTo('bmw')">
 <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
 <span class="material-symbols-outlined">assignment</span>
 </div>
@@ -485,7 +485,7 @@
 </div>
 </div>
 </div>
-<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group">
+<div class="p-3 bg-surface rounded-lg border border-outline-variant/20 flex items-start gap-4 hover:border-primary transition-all group" style="cursor:pointer;" onclick="window.parent.navigateTo('toolbox')">
 <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
 <span class="material-symbols-outlined">analytics</span>
 </div>
@@ -502,6 +502,68 @@
 </div>
 </div>
 </div>
+<!-- Medicine Consumption Trend (full-width) -->
+<div class="col-span-full bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm" data-nav="pharmacy_stock">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+  <div>
+    <h4 class="text-section-heading font-section-heading text-on-surface" style="margin-bottom:3px;">Medicine Consumption Trend</h4>
+    <p style="font-size:11px;color:#6B7280;">3-month quarter view per medicine — click to manage stock</p>
+  </div>
+  <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6B7280;"><span style="width:10px;height:10px;border-radius:2px;background:#E8D5B7;display:inline-block;"></span>May</div>
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6B7280;"><span style="width:10px;height:10px;border-radius:2px;background:#C9A96E;display:inline-block;"></span>Jun</div>
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6B7280;"><span style="width:10px;height:10px;border-radius:2px;background:#8a5100;display:inline-block;"></span>Jul (current)</div>
+  </div>
+</div>
+<div id="dash-med-trend-rows" style="max-height:390px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:#CBD5E1 transparent;"></div>
+</div>
+
+<script>
+(function(){
+  var MEDICINES = [
+    { name:'Paracetamol 500mg',         unit:'tabs',   m2:1980, m1:2210, cur:2450 },
+    { name:'Ibuprofen 400mg',           unit:'tabs',   m2:580,  m1:620,  cur:595  },
+    { name:'Cetirizine 10mg',           unit:'tabs',   m2:340,  m1:420,  cur:510  },
+    { name:'Amoxicillin 500mg',         unit:'caps',   m2:310,  m1:275,  cur:240  },
+    { name:'Azithromycin 500mg',        unit:'tabs',   m2:95,   m1:120,  cur:148  },
+    { name:'Antacids (Gelusil)',        unit:'ml',     m2:1080, m1:1100, cur:1120 },
+    { name:'ORS Sachets',               unit:'units',  m2:1240, m1:1060, cur:890  },
+  ];
+  var MONTHS = ['May','Jun','Jul'];
+  var COLORS = ['#E8D5B7','#C9A96E','#8a5100'];
+  function fmt(n){ return n.toLocaleString('en-IN'); }
+  function pct(cur,prev){ return Math.round((cur-prev)/prev*100); }
+
+  var container = document.getElementById('dash-med-trend-rows');
+  if (!container) return;
+  MEDICINES.forEach(function(m){
+    var maxVal = Math.max(m.m2, m.m1, m.cur);
+    var vals = [m.m2, m.m1, m.cur];
+    var change = pct(m.cur, m.m1);
+    var trendCls = change > 2 ? 'background:#D1FAE5;color:#065F46;' : change < -2 ? 'background:#FEE2E2;color:#991B1B;' : 'background:#F3F4F6;color:#374151;';
+    var arrow = change > 2 ? '↑' : change < -2 ? '↓' : '→';
+
+    var barsHtml = vals.map(function(v,i){
+      var h = Math.round((v/maxVal)*52);
+      return '<div style="flex:1;height:'+h+'px;background:'+COLORS[i]+';border-radius:3px 3px 0 0;min-width:0;" title="'+MONTHS[i]+': '+fmt(v)+' '+m.unit+'"></div>';
+    }).join('');
+
+    var numsHtml = vals.map(function(v,i){
+      return '<div style="flex:1;text-align:center;"><div style="font-size:12px;font-weight:600;color:#374151;">'+fmt(v)+'</div><div style="font-size:10px;color:#9CA3AF;">'+MONTHS[i]+'</div></div>';
+    }).join('');
+
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid #F3F4F6;';
+    row.innerHTML =
+      '<div style="width:180px;flex-shrink:0;"><div style="font-size:13px;font-weight:600;color:#111827;margin-bottom:2px;">'+m.name+'</div><div style="font-size:11px;color:#6B7280;">'+fmt(m.cur)+' '+m.unit+' this month</div></div>'+
+      '<div style="flex:1;display:flex;align-items:flex-end;gap:3px;height:52px;min-width:0;">'+barsHtml+'</div>'+
+      '<div style="flex:1;display:flex;gap:12px;min-width:0;">'+numsHtml+'</div>'+
+      '<div style="width:100px;flex-shrink:0;text-align:right;"><span style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:700;'+trendCls+'">'+arrow+' '+Math.abs(change)+'% vs Jun</span></div>';
+    container.appendChild(row);
+  });
+})();
+</script>
+
 <!-- R4_NEW_L: Compliance Overview -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col">
 <div class="flex items-start justify-between mb-5">
@@ -649,7 +711,7 @@ View Audit Schedule
 </div>
 </div>
 <!-- R4L: Staff Attendance -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm" data-nav="clinicians">
 <div class="p-6 pb-2">
 <h4 class="text-section-heading font-section-heading text-on-surface">Staff Attendance — Today</h4>
 </div>
@@ -687,7 +749,7 @@ View Audit Schedule
 </div>
 </div>
 <!-- R4R: MoM Footfall Trend -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm" data-nav="analytics">
 <div class="flex items-center justify-between mb-8">
 <h4 class="text-section-heading font-section-heading text-on-surface">MoM Footfall Trend</h4>
 <div class="flex gap-4">
@@ -730,7 +792,7 @@ View Audit Schedule
 </main>
 <!-- FAB (Suppressed based on context: Dashboard usually has them, but here we prioritize focus) -->
 <script>
-        // Simple micro-interaction for cards
+        // Hover lift on all surface cards
         document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.classList.add('shadow-md');
@@ -740,6 +802,30 @@ View Audit Schedule
             card.addEventListener('mouseleave', () => {
                 card.classList.remove('shadow-md');
                 card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Navigation wiring — cards with data-nav call parent shell's navigateTo()
+        document.querySelectorAll('[data-nav]').forEach(card => {
+            var key = card.getAttribute('data-nav');
+            card.style.cursor = 'pointer';
+            // Stronger hover border to reinforce interactivity
+            card.addEventListener('mouseenter', () => {
+                card.style.outline = '2px solid #0EA5E9';
+                card.style.outlineOffset = '-2px';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.outline = '';
+                card.style.outlineOffset = '';
+            });
+            card.addEventListener('click', () => {
+                try {
+                    // Reach the shell's navigateTo via parent frame
+                    window.parent.navigateTo(key);
+                } catch(e) {
+                    // Fallback: direct open if not in iframe
+                    console.warn('navigateTo not available:', e);
+                }
             });
         });
     </script>
