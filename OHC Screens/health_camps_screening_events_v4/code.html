@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -9,140 +8,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #dee3e9;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #bec8d2;
-        }
-    </style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#dee3e9; border-radius:10px; }
+    /* filter pills */
+    .hc-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+    .hc-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+    .hc-pill:hover { color:#111827; background:#fff; }
+    .hc-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+</style>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-error-container": "#93000a",
-                        "surface-tint": "#0EA5E9",
-                        "primary-fixed-dim": "#89ceff",
-                        "error": "#ba1a1a",
-                        "on-tertiary-container": "#4d2b00",
-                        "surface-container-high": "#e4e8ee",
-                        "on-surface": "#171c20",
-                        "on-primary": "#ffffff",
-                        "on-primary-fixed-variant": "#004c6e",
-                        "on-secondary-container": "#3d637d",
-                        "surface-variant": "#dee3e9",
-                        "surface-container-low": "#f0f4fa",
-                        "inverse-surface": "#2c3135",
-                        "secondary-container": "#b8dffe",
-                        "on-secondary": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed": "#ffdcbd",
-                        "surface-dim": "#d6dae0",
-                        "on-secondary-fixed": "#001e2f",
-                        "surface-container-highest": "#dee3e9",
-                        "surface-bright": "#f6faff",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary-fixed-variant": "#234b64",
-                        "inverse-on-surface": "#edf1f7",
-                        "on-surface-variant": "#3e4850",
-                        "primary-container": "#0ea5e9",
-                        "surface": "#f6faff",
-                        "outline-variant": "#bec8d2",
-                        "on-tertiary-fixed": "#2c1600",
-                        "surface-container": "#eaeef4",
-                        "on-primary-fixed": "#001e2f",
-                        "error-container": "#ffdad6",
-                        "background": "#F3F4F6",
-                        "surface-container-lowest": "#ffffff",
-                        "primary-fixed": "#c9e6ff",
-                        "tertiary-container": "#de8712",
-                        "on-background": "#171c20",
-                        "secondary-fixed-dim": "#a5cbe9",
-                        "inverse-primary": "#89ceff",
-                        "tertiary": "#8a5100",
-                        "tertiary-fixed-dim": "#ffb86e",
-                        "primary": "#0EA5E9",
-                        "on-tertiary-fixed-variant": "#693c00",
-                        "secondary": "#3c627d",
-                        "outline": "#6e7881",
-                        "on-primary-container": "#003751",
-                        "secondary-fixed": "#c9e6ff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "content_padding": "24px",
-                        "stack_gap": "8px",
-                        "container_gap": "16px",
-                        "sidebar_width": "240px",
-                        "header_height": "56px",
-                        "base": "4px"
-                    },
-                    "fontFamily": {
-                        "section-heading": ["Inter"],
-                        "page-title": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body": ["Inter"]
-                    },
-                    "fontSize": {
-                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
-                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
-                    }
-                },
-            },
-        }
-    </script>
+    tailwind.config = { darkMode:"class", theme:{ extend:{
+        "colors":{"on-error-container":"#93000a","surface-tint":"#0EA5E9","primary-fixed-dim":"#89ceff","error":"#ba1a1a","on-tertiary-container":"#4d2b00","surface-container-high":"#e4e8ee","on-surface":"#171c20","on-primary":"#ffffff","on-primary-fixed-variant":"#004c6e","on-secondary-container":"#3d637d","surface-variant":"#dee3e9","surface-container-low":"#f0f4fa","inverse-surface":"#2c3135","secondary-container":"#b8dffe","on-secondary":"#ffffff","on-error":"#ffffff","tertiary-fixed":"#ffdcbd","surface-dim":"#d6dae0","on-secondary-fixed":"#001e2f","surface-container-highest":"#dee3e9","surface-bright":"#f6faff","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#234b64","inverse-on-surface":"#edf1f7","on-surface-variant":"#3e4850","primary-container":"#0ea5e9","surface":"#f6faff","outline-variant":"#bec8d2","on-tertiary-fixed":"#2c1600","surface-container":"#eaeef4","on-primary-fixed":"#001e2f","error-container":"#ffdad6","background":"#F3F4F6","surface-container-lowest":"#ffffff","primary-fixed":"#c9e6ff","tertiary-container":"#de8712","on-background":"#171c20","secondary-fixed-dim":"#a5cbe9","inverse-primary":"#89ceff","tertiary":"#8a5100","tertiary-fixed-dim":"#ffb86e","primary":"#0EA5E9","on-tertiary-fixed-variant":"#693c00","secondary":"#3c627d","outline":"#6e7881","on-primary-container":"#003751","secondary-fixed":"#c9e6ff"},
+        "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+        "spacing":{"content_padding":"24px","stack_gap":"8px","container_gap":"16px","sidebar_width":"240px","header_height":"56px","base":"4px"},
+        "fontFamily":{"section-heading":["Inter"],"page-title":["Inter"],"label-sm":["Inter"],"body":["Inter"]},
+        "fontSize":{"section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],"page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],"body":["13px",{"lineHeight":"20px","fontWeight":"400"}]}
+    }}}
+</script>
 </head>
-<body class="bg-background font-body text-on-surface overflow-hidden h-screen flex">
+<body class="bg-background font-body text-on-surface">
 
-<!-- OHC Header -->
 <header class="ohc-header">
-  <div class="ohc-header-left">
-    <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Health Camps</span>
-  </div>
-  <div class="ohc-header-center">
-    <div class="ohc-search">
-      <span class="material-symbols-outlined search-icon">search</span>
-      <input type="text" placeholder="Search patients, medicines, staff…"/>
-    </div>
-  </div>
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform &gt; Health Camps</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
   <div class="ohc-header-right">
-    <div class="ohc-bell-wrap">
-      <span class="material-symbols-outlined">notifications</span>
-      <span class="ohc-bell-badge"></span>
-    </div>
-    <span class="ohc-user-name">Kiran Prasad</span>
-    <div class="ohc-avatar">KP</div>
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
   </div>
 </header>
-
-<!-- OHC Sidebar -->
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A</option><option>Site B</option></select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
@@ -158,291 +55,302 @@
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
 </aside>
 
-<!-- Main Viewport -->
-<main class="ohc-main" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
-<div class="ohc-content" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+<main class="ohc-main">
+<div class="ohc-content">
+
 <!-- Page Header -->
-<div class="px-content_padding py-4 flex justify-between items-end shrink-0 bg-surface-container-lowest border-b border-outline-variant">
-<div>
-<h2 class="text-page-title font-page-title text-on-surface">Health Camps</h2>
-<p class="text-body text-on-surface-variant">Manage workforce screening events — Annual Health Check, PCC, Periodic, Specialist</p>
+<div class="flex justify-between items-end mb-6">
+  <div>
+    <h2 class="text-page-title font-page-title text-on-surface">Health Camps</h2>
+    <p class="text-body text-on-surface-variant">Manage workforce screening events — Annual Health Check, PCC, Periodic, Specialist</p>
+  </div>
+  <button onclick="hcOpenModal(null)" class="h-[36px] bg-primary text-white px-4 rounded-lg flex items-center gap-2 hover:opacity-90 transition-all font-semibold text-body">
+    <span class="material-symbols-outlined text-[18px]">add_circle</span> Create Camp
+  </button>
 </div>
-<button class="h-[36px] bg-primary text-white px-4 rounded-lg flex items-center gap-2 hover:opacity-90 transition-all font-semibold text-body">
-<span class="material-symbols-outlined text-[18px]">add_circle</span>
-                    Create Camp
-                </button>
+
+<!-- Search + Filter bar -->
+<div class="flex flex-wrap items-center gap-4 mb-4">
+  <div class="relative flex-1 max-w-xs">
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+    <input id="hc-search" oninput="hcApplyFilters()" class="w-full bg-white border border-outline-variant rounded-lg pl-9 pr-4 py-2 text-body focus:border-primary-container h-[36px]" placeholder="Search camps by name..." type="text"/>
+  </div>
+  <div class="hc-pill-bar" role="group">
+    <button class="hc-pill active" data-period="today"   onclick="hcSetFilter(this)">Today</button>
+    <button class="hc-pill"        data-period="week"    onclick="hcSetFilter(this)">This Week</button>
+    <button class="hc-pill"        data-period="month"   onclick="hcSetFilter(this)">This Month</button>
+    <button class="hc-pill"        data-period="quarter" onclick="hcSetFilter(this)">This Quarter</button>
+    <button class="hc-pill"        data-period="year"    onclick="hcSetFilter(this)">This Year</button>
+  </div>
+  <span id="hc-count" class="text-body text-on-surface-variant font-medium">— camps</span>
 </div>
-<!-- Two-Panel Layout -->
-<div class="flex-1 flex overflow-hidden">
-<!-- Left Panel (Camp List) -->
-<aside class="w-[35%] border-r border-outline-variant bg-surface-container-low flex flex-col">
-<div class="p-4 border-b border-outline-variant space-y-3">
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
-<input class="w-full bg-white border border-outline-variant rounded-lg pl-9 pr-4 py-2 text-body focus:border-primary-container h-[36px]" placeholder="Search camps by name or date..." type="text"/>
+
+<!-- Camp Cards Grid -->
+<div id="hc-cards-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-container_gap mb-6">
+  <!-- rendered by JS -->
 </div>
+<div id="hc-empty" style="display:none;" class="py-16 text-center bg-white rounded-lg border border-outline-variant">
+  <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">campaign</span>
+  <p class="text-body text-on-surface-variant">No camps scheduled in this period.</p>
+  <button onclick="hcOpenModal(null)" class="mt-4 h-[36px] bg-primary text-white px-4 rounded-lg font-semibold text-body inline-flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">add_circle</span> Create Camp
+  </button>
 </div>
-<div class="flex-1 overflow-y-auto p-4 space-y-container_gap">
-<!-- Card 1 -->
-<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm ring-2 ring-primary">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-semibold text-body">Annual Screening 2024</h3>
-<span class="bg-primary-container/10 text-primary px-3 py-0.5 rounded-full text-label-sm font-semibold">Annual</span>
-</div>
-<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 12, 2024
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">domain</span> Block A, HQ
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">groups</span> 450 / 500
-                                </div>
-<div class="flex items-center gap-1.5 text-primary">
-<span class="material-symbols-outlined text-[16px]">check_circle</span> In Progress
-                                </div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-semibold text-body">PCC Compliance Q4</h3>
-<span class="bg-secondary-container text-on-secondary-container px-3 py-0.5 rounded-full text-label-sm font-semibold">PCC</span>
-</div>
-<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">calendar_today</span> Nov 05, 2024
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">domain</span> South Wing
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">groups</span> 0 / 120
-                                </div>
-<div class="flex items-center gap-1.5 text-on-surface-variant opacity-60">
-<span class="material-symbols-outlined text-[16px]">schedule</span> Upcoming
-                                </div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-semibold text-body">Specialist Hearing Camp</h3>
-<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-0.5 rounded-full text-label-sm font-semibold">Specialist</span>
-</div>
-<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">calendar_today</span> Sep 28, 2024
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">domain</span> Plant 02
-                                </div>
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px]">groups</span> 88 / 90
-                                </div>
-<div class="flex items-center gap-1.5 text-error">
-<span class="material-symbols-outlined text-[16px]">archive</span> Completed
-                                </div>
-</div>
-</div>
-</div>
-</aside>
-<!-- Right Panel (Camp Setup, Upload, Results) -->
-<div class="w-[65%] flex flex-col overflow-y-auto p-content_padding bg-surface gap-container_gap">
-<!-- Camp Setup Section -->
-<section class="bg-white border border-outline-variant rounded-lg p-6">
-<div class="flex items-center gap-2 mb-6">
-<span class="material-symbols-outlined text-primary">settings_applications</span>
-<h3 class="font-section-heading text-section-heading">Camp Setup</h3>
-</div>
-<div class="grid grid-cols-2 gap-x-6 gap-y-4">
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Camp Title</label>
-<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Annual Screening 2024"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Camp Type</label>
-<select class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary">
-<option>Annual Health Check</option>
-<option>PCC Compliance</option>
-<option>Periodic Screening</option>
-<option>Specialist</option>
-</select>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Schedule Date</label>
-<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="date" value="2024-10-12"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Building / Site</label>
-<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Block A, Corporate HQ"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Conducted By</label>
-<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="text" value="Metro Diagnostics Team"/>
-</div>
-<div class="flex flex-col gap-1">
-<label class="text-label-sm text-on-surface-variant">Target Headcount</label>
-<input class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary" type="number" value="500"/>
-</div>
-</div>
-<div class="mt-6 flex justify-end">
-<button class="h-[36px] bg-primary-container text-white px-6 rounded-lg font-semibold hover:opacity-90 transition-all text-body">Save Setup</button>
-</div>
-</section>
-<!-- Bulk Employee Upload Section -->
-<section class="bg-white border border-outline-variant rounded-lg p-6">
-<div class="flex items-center gap-2 mb-6">
-<span class="material-symbols-outlined text-primary">upload_file</span>
-<h3 class="font-section-heading text-section-heading">Bulk Employee Upload</h3>
-</div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors mb-6">
-<span class="material-symbols-outlined text-[48px] text-on-surface-variant mb-2">cloud_upload</span>
-<p class="text-body font-semibold">Drop .xlsx file here or click to upload</p>
-<p class="text-label-sm text-on-surface-variant">Max file size: 10MB | Mandatory columns: EmpID, Name, Gender, Dept</p>
-</div>
-<div class="space-y-4">
-<div class="flex items-center justify-between">
-<p class="text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Mapping Preview</p>
-<div class="flex items-center gap-2">
-<label class="text-label-sm">Duplicates:</label>
-<select class="h-[30px] border border-outline-variant rounded-lg px-2 text-label-sm focus:ring-1 focus:ring-primary">
-<option>Skip Record</option>
-<option>Overwrite Existing</option>
-<option>Flag for Review</option>
-</select>
-</div>
-</div>
-<div class="border border-outline-variant rounded-lg overflow-hidden">
-<table class="w-full text-left text-body">
-<thead class="bg-surface-container text-label-sm uppercase text-on-surface-variant">
-<tr>
-<th class="px-4 py-2 border-b border-outline-variant">Source Column</th>
-<th class="px-4 py-2 border-b border-outline-variant">System Field</th>
-<th class="px-4 py-2 border-b border-outline-variant">Match Status</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<tr>
-<td class="px-4 py-2">employee_id</td>
-<td class="px-4 py-2">Emp ID</td>
-<td class="px-4 py-2"><span class="text-primary flex items-center gap-1 text-label-sm"><span class="material-symbols-outlined text-[14px]">check_circle</span> Auto-mapped</span></td>
-</tr>
-<tr>
-<td class="px-4 py-2">full_name</td>
-<td class="px-4 py-2">Name</td>
-<td class="px-4 py-2"><span class="text-primary flex items-center gap-1 text-label-sm"><span class="material-symbols-outlined text-[14px]">check_circle</span> Auto-mapped</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<!-- Camp Results Section -->
-<section class="bg-white border border-outline-variant rounded-lg p-6">
-<div class="flex items-center justify-between mb-6">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">analytics</span>
-<h3 class="font-section-heading text-section-heading">Camp Results</h3>
-</div>
-<div class="flex items-center gap-container_gap">
-<div class="relative">
-<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
-<input class="h-[32px] w-[200px] border border-outline-variant rounded-lg pl-8 text-label-sm focus:ring-1 focus:ring-primary" placeholder="Search result..." type="text"/>
-</div>
-<select class="h-[32px] border border-outline-variant rounded-lg px-2 text-label-sm focus:ring-1 focus:ring-primary">
-<option>All Outcomes</option>
-<option>Fit</option>
-<option>Unfit</option>
-<option>Referral</option>
-</select>
-<button class="h-[32px] border border-outline-variant px-3 rounded-lg text-label-sm flex items-center gap-1 hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-[16px]">download</span> Export
-                                </button>
-</div>
-</div>
-<div class="overflow-x-auto border border-outline-variant rounded-lg">
-<table class="w-full text-left border-collapse">
-<thead class="bg-surface-container-low text-label-sm font-bold border-b border-outline-variant">
-<tr>
-<th class="p-3">Emp ID</th>
-<th class="p-3">Name</th>
-<th class="p-3">Gender</th>
-<th class="p-3">Dept</th>
-<th class="p-3">Screened On</th>
-<th class="p-3">Params</th>
-<th class="p-3">Outcome</th>
-<th class="p-3">Status</th>
-</tr>
-</thead>
-<tbody class="text-body divide-y divide-outline-variant">
-<tr class="hover:bg-surface transition-colors">
-<td class="p-3 font-semibold">EMP-4402</td>
-<td class="p-3">Sarah J. Miller</td>
-<td class="p-3">Female</td>
-<td class="p-3">Logistics</td>
-<td class="p-3">12/10/24</td>
-<td class="p-3">BP, BMI, CBC</td>
-<td class="p-3">
-<span class="bg-green-100 text-green-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Fit</span>
-</td>
-<td class="p-3 flex gap-2">
-<span class="bg-primary-container text-white px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">PCC Completed</span>
-</td>
-</tr>
-<tr class="bg-surface-container-low/30 hover:bg-surface transition-colors">
-<td class="p-3 font-semibold">EMP-4481</td>
-<td class="p-3">Robert Chen</td>
-<td class="p-3">Male</td>
-<td class="p-3">Operations</td>
-<td class="p-3">12/10/24</td>
-<td class="p-3">Vision, BP</td>
-<td class="p-3">
-<span class="bg-orange-100 text-orange-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Referred</span>
-</td>
-<td class="p-3 flex gap-2">
-<span class="bg-error-container text-on-error-container px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Pending PCC</span>
-</td>
-</tr>
-<tr class="hover:bg-surface transition-colors">
-<td class="p-3 font-semibold">EMP-4512</td>
-<td class="p-3">Elena Gilbert</td>
-<td class="p-3">Female</td>
-<td class="p-3">Finance</td>
-<td class="p-3">12/10/24</td>
-<td class="p-3">All Standard</td>
-<td class="p-3">
-<span class="bg-green-100 text-green-700 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">Fit</span>
-</td>
-<td class="p-3">
-<span class="bg-primary-container text-white px-3 py-0.5 rounded-full text-[10px] font-bold uppercase">PCC Completed</span>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<!-- Spacer for flow -->
-<div class="h-8"></div>
-</div>
-</div>
+
 </div>
 </main>
 
+<!-- ===== Camp Setup Modal ===== -->
+<div id="hc-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)hcCloseModal()">
+  <div class="ohc-modal ohc-modal-lg" style="max-height:90vh;overflow-y:auto;">
+    <div class="ohc-modal-header">
+      <h2 id="hc-modal-title">Create Camp</h2>
+      <button onclick="hcCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form id="hc-modal-form" onsubmit="hcSaveEntry(event)">
+      <!-- Camp Setup section -->
+      <div class="flex items-center gap-2 mb-4">
+        <span class="material-symbols-outlined text-primary">settings_applications</span>
+        <h3 class="font-section-heading text-section-heading">Camp Setup</h3>
+      </div>
+      <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-6">
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Camp Title <span style="color:#ba1a1a">*</span></label>
+          <input id="hc-f-title" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. Annual Screening 2026" required/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Camp Type</label>
+          <select id="hc-f-type" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
+            <option>Annual Health Check</option><option>PCC Compliance</option><option>Periodic Screening</option><option>Specialist</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Schedule Date <span style="color:#ba1a1a">*</span></label>
+          <input id="hc-f-date" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date" required/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Building / Site</label>
+          <input id="hc-f-building" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Block A, Corporate HQ"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Conducted By</label>
+          <input id="hc-f-conductor" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Metro Diagnostics Team"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Target Headcount</label>
+          <input id="hc-f-headcount" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="number" value="100" min="1"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Attended</label>
+          <input id="hc-f-attended" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="number" value="0" min="0"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Status</label>
+          <select id="hc-f-status" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
+            <option>Upcoming</option><option>In Progress</option><option>Completed</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1 col-span-2">
+          <label class="text-label-sm text-on-surface-variant">Coverage Types <span class="text-on-surface-variant font-normal">(select all that apply)</span></label>
+          <div class="flex flex-wrap gap-2 p-3 border border-outline-variant rounded-lg bg-surface-container-low" id="hc-coverage-checkboxes">
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Visual Health Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Visual Health Check</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Night Blindness Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Night Blindness Check</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Colour Blindness Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Colour Blindness Check</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Vertigo Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Vertigo Check</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Audiogram" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Audiogram</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Lung Health" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Lung Health</label>
+            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Other" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Other</label>
+          </div>
+        </div>
+      </div>
+      <!-- Bulk Employee Upload section -->
+      <div class="flex items-center gap-2 mb-4">
+        <span class="material-symbols-outlined text-primary">upload_file</span>
+        <h3 class="font-section-heading text-section-heading">Bulk Employee Upload</h3>
+      </div>
+      <div class="border-2 border-dashed border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors mb-4">
+        <span class="material-symbols-outlined text-[40px] text-on-surface-variant mb-2">cloud_upload</span>
+        <p class="text-body font-semibold">Drop .xlsx file here or click to upload</p>
+        <p class="text-label-sm text-on-surface-variant">Max file size: 10MB | Mandatory columns: EmpID, Name, Gender, Dept</p>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="hcCloseModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
+        <button type="submit" id="hc-submit-btn" class="bg-primary text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all">Save Setup</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
-        // Simple micro-interaction for camp list cards
-        document.querySelectorAll('aside .bg-white').forEach(card => {
-            card.addEventListener('click', () => {
-                document.querySelectorAll('aside .bg-white').forEach(c => c.classList.remove('ring-2', 'ring-primary'));
-                card.classList.add('ring-2', 'ring-primary');
-            });
+    // ── Demo data (daysAgo for schedule date) ─────────────────
+    var HC_RAW = [
+        { daysAgo:0,   title:'Annual Screening 2026', type:'Annual Health Check',    building:'Block A, HQ',       conductor:'Metro Diagnostics',  headcount:500, attended:450, status:'In Progress', coverage:['Visual Health Check','Audiogram','Lung Health']  },
+        { daysAgo:0,   title:'Eye Specialist Camp',   type:'Specialist',              building:'OPD Block',         conductor:'Vasan Eye Care',     headcount:120, attended:0,   status:'Upcoming',    coverage:['Visual Health Check','Night Blindness Check','Colour Blindness Check'] },
+        { daysAgo:2,   title:'Diabetes Screening',    type:'Periodic Screening',      building:'South Wing',        conductor:'In-house Team',      headcount:200, attended:185, status:'Completed',   coverage:['Other'] },
+        { daysAgo:4,   title:'PCC Compliance Q3',     type:'PCC Compliance',          building:'Block B',           conductor:'Apollo Hospitals',   headcount:90,  attended:88,  status:'Completed',   coverage:['Visual Health Check','Audiogram'] },
+        { daysAgo:6,   title:'Hearing Test Camp',     type:'Specialist',              building:'Plant 02',          conductor:'ENT Specialists',    headcount:90,  attended:88,  status:'Completed',   coverage:['Audiogram','Vertigo Check'] },
+        { daysAgo:10,  title:'BP & Sugar Screening',  type:'Periodic Screening',      building:'All Buildings',     conductor:'In-house Team',      headcount:350, attended:310, status:'Completed',   coverage:['Other'] },
+        { daysAgo:15,  title:'Vision Camp 2026',      type:'Specialist',              building:'OHC-1',             conductor:'Vasan Eye Care',     headcount:150, attended:142, status:'Completed',   coverage:['Visual Health Check','Colour Blindness Check'] },
+        { daysAgo:30,  title:'Stress Mgmt Workshop',  type:'Annual Health Check',     building:'Admin Block',       conductor:'Max Healthcare',     headcount:80,  attended:75,  status:'Completed',   coverage:['Other'] },
+        { daysAgo:60,  title:'PCC Compliance Q2',     type:'PCC Compliance',          building:'South Wing',        conductor:'Apollo Hospitals',   headcount:120, attended:118, status:'Completed',   coverage:['Visual Health Check','Lung Health'] },
+        { daysAgo:100, title:'Ergonomics Screening',  type:'Periodic Screening',      building:'Warehouse 1',       conductor:'External Agency',    headcount:200, attended:195, status:'Completed',   coverage:['Lung Health'] },
+        { daysAgo:200, title:'Annual Screening 2025', type:'Annual Health Check',     building:'Block A, HQ',       conductor:'Metro Diagnostics',  headcount:500, attended:480, status:'Completed',   coverage:['Visual Health Check','Night Blindness Check','Audiogram','Lung Health'] },
+    ];
+
+    var HC_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function hcMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+    var HC_ROWS = HC_RAW.map(function(r,i){ return Object.assign({},r,{date:hcMidnight(r.daysAgo),id:i}); });
+    function hcFmt(d){ return d.getDate()+' '+HC_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+    var hcCurrentPeriod = 'today';
+    var hcEditId = null;
+
+    function hcGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function hcApplyFilters(){
+        var search = (document.getElementById('hc-search').value||'').toLowerCase();
+        var r = hcGetRange(hcCurrentPeriod);
+        var rows = HC_ROWS.filter(function(v){
+            if(v.date < r.start || v.date > r.end) return false;
+            if(search && v.title.toLowerCase().indexOf(search)===-1) return false;
+            return true;
         });
-    </script>
+        var n = rows.length;
+        document.getElementById('hc-count').textContent = n + ' camp'+(n===1?'':'s');
+        var grid = document.getElementById('hc-cards-grid');
+        var empty = document.getElementById('hc-empty');
+        if(!n){ grid.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+
+        var typeColors = {
+            'Annual Health Check': 'bg-primary-container/10 text-primary',
+            'PCC Compliance':      'bg-secondary-container text-on-secondary-container',
+            'Specialist':          'bg-tertiary-fixed text-on-tertiary-fixed',
+            'Periodic Screening':  'bg-surface-container-high text-on-surface-variant'
+        };
+        var statusMeta = {
+            'In Progress': { icon:'check_circle', cls:'text-primary',              label:'In Progress' },
+            'Completed':   { icon:'archive',      cls:'text-error',                label:'Completed'   },
+            'Upcoming':    { icon:'schedule',     cls:'text-on-surface-variant opacity-60', label:'Upcoming' }
+        };
+
+        grid.innerHTML = rows.map(function(v){
+            var tc = typeColors[v.type] || 'bg-surface-container text-on-surface-variant';
+            var sm = statusMeta[v.status] || statusMeta['Upcoming'];
+            var coverageChips = (v.coverage||[]).map(function(c){
+                return '<span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap;">'+c+'</span>';
+            }).join('');
+            return '<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm" onclick="hcOpenModal('+v.id+')">'
+                +'<div class="flex justify-between items-start mb-2">'
+                +'<h3 class="font-semibold text-body">'+v.title+'</h3>'
+                +'<span class="px-3 py-0.5 rounded-full text-label-sm font-semibold '+tc+'">'+v.type.split(' ')[0]+'</span>'
+                +'</div>'
+                +'<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm mb-2">'
+                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">calendar_today</span> '+hcFmt(v.date)+'</div>'
+                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">domain</span> '+v.building+'</div>'
+                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">groups</span> '+v.attended+' / '+v.headcount+'</div>'
+                +'<div class="flex items-center gap-1.5 '+sm.cls+'"><span class="material-symbols-outlined text-[16px]">'+sm.icon+'</span> '+sm.label+'</div>'
+                +'</div>'
+                +(coverageChips ? '<div class="flex flex-wrap gap-1">'+coverageChips+'</div>' : '')
+                +'</div>';
+        }).join('');
+    }
+
+    function hcSetFilter(btn){
+        document.querySelectorAll('.hc-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        hcCurrentPeriod = btn.dataset.period;
+        hcApplyFilters();
+    }
+
+    // ── Modal ─────────────────────────────────────────────────
+    function hcOpenModal(id){
+        hcEditId = id;
+        var today = new Date().toISOString().slice(0,10);
+        // reset all coverage checkboxes
+        document.querySelectorAll('.hc-coverage-cb').forEach(function(cb){ cb.checked = false; });
+        if(id === null){
+            document.getElementById('hc-modal-title').textContent = 'Create Camp';
+            document.getElementById('hc-modal-form').reset();
+            document.getElementById('hc-f-date').value = today;
+        } else {
+            var v = HC_ROWS.filter(function(r){ return r.id===id; })[0];
+            if(!v) return;
+            document.getElementById('hc-modal-title').textContent = 'Edit Camp';
+            document.getElementById('hc-f-title').value     = v.title;
+            document.getElementById('hc-f-type').value      = v.type;
+            var dd = v.date;
+            document.getElementById('hc-f-date').value = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
+            document.getElementById('hc-f-building').value  = v.building;
+            document.getElementById('hc-f-conductor').value = v.conductor;
+            document.getElementById('hc-f-headcount').value = v.headcount;
+            document.getElementById('hc-f-attended').value  = v.attended;
+            document.getElementById('hc-f-status').value    = v.status;
+            // restore coverage checkboxes
+            (v.coverage||[]).forEach(function(c){
+                document.querySelectorAll('.hc-coverage-cb').forEach(function(cb){
+                    if(cb.value===c) cb.checked = true;
+                });
+            });
+        }
+        document.getElementById('hc-overlay').style.display = 'flex';
+    }
+
+    function hcCloseModal(){
+        document.getElementById('hc-overlay').style.display = 'none';
+        hcEditId = null;
+    }
+
+    function hcSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('hc-submit-btn');
+        var title     = document.getElementById('hc-f-title').value;
+        var type      = document.getElementById('hc-f-type').value;
+        var dateVal   = document.getElementById('hc-f-date').value;
+        var building  = document.getElementById('hc-f-building').value || '—';
+        var conductor = document.getElementById('hc-f-conductor').value || '—';
+        var headcount = parseInt(document.getElementById('hc-f-headcount').value) || 0;
+        var attended  = parseInt(document.getElementById('hc-f-attended').value) || 0;
+        var status    = document.getElementById('hc-f-status').value;
+        var coverage  = Array.from(document.querySelectorAll('.hc-coverage-cb:checked')).map(function(cb){ return cb.value; });
+
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+            d.setHours(0,0,0,0);
+            if(hcEditId !== null){
+                var idx = HC_ROWS.findIndex(function(r){ return r.id===hcEditId; });
+                if(idx>=0){ HC_ROWS[idx] = { id:hcEditId, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 }; }
+            } else {
+                var newId = HC_ROWS.length;
+                HC_ROWS.unshift({ id:newId, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 });
+            }
+            btn.textContent = 'Saved ✓';
+            btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Save Setup';
+                btn.style.backgroundColor = '';
+                btn.disabled = false;
+                hcCloseModal();
+                hcApplyFilters();
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    hcApplyFilters();
+</script>
 </body></html>

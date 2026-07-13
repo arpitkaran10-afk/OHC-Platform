@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -9,138 +8,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <style>
-        body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-    </style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+    .custom-scrollbar::-webkit-scrollbar { width:4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background:transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:10px; }
+    .glass-panel { background:rgba(255,255,255,0.7); backdrop-filter:blur(10px); }
+    /* filter pills */
+    .tb-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+    .tb-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+    .tb-pill:hover { color:#111827; background:#fff; }
+    .tb-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+</style>
 <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "surface-container": "#e9edff",
-                      "on-primary-fixed": "#001e2f",
-                      "outline": "#6e7881",
-                      "inverse-surface": "#293040",
-                      "surface-container-highest": "#dce2f7",
-                      "primary": "#0EA5E9",
-                      "on-background": "#141b2b",
-                      "surface-dim": "#d3daef",
-                      "surface-container-high": "#e1e8fd",
-                      "secondary-container": "#6cf8bb",
-                      "surface-bright": "#f9f9ff",
-                      "inverse-on-surface": "#edf0ff",
-                      "tertiary-fixed": "#ffddb8",
-                      "on-tertiary-fixed": "#2a1700",
-                      "on-secondary": "#ffffff",
-                      "on-error": "#ffffff",
-                      "on-secondary-fixed": "#002113",
-                      "on-error-container": "#93000a",
-                      "on-surface": "#141b2b",
-                      "inverse-primary": "#89ceff",
-                      "tertiary": "#855300",
-                      "secondary-fixed": "#6ffbbe",
-                      "on-secondary-fixed-variant": "#005236",
-                      "secondary-fixed-dim": "#4edea3",
-                      "tertiary-fixed-dim": "#ffb95f",
-                      "surface-variant": "#dce2f7",
-                      "surface-tint": "#0EA5E9",
-                      "surface": "#f9f9ff",
-                      "surface-container-lowest": "#ffffff",
-                      "primary-container": "#0ea5e9",
-                      "on-tertiary-fixed-variant": "#653e00",
-                      "error": "#ba1a1a",
-                      "tertiary-container": "#d88a00",
-                      "secondary": "#006c49",
-                      "on-surface-variant": "#3e4850",
-                      "on-tertiary": "#ffffff",
-                      "primary-fixed": "#c9e6ff",
-                      "primary-fixed-dim": "#89ceff",
-                      "on-primary": "#ffffff",
-                      "surface-container-low": "#f1f3ff",
-                      "outline-variant": "#bec8d2",
-                      "on-primary-container": "#003751",
-                      "background": "#F3F4F6",
-                      "on-tertiary-container": "#4a2c00",
-                      "on-secondary-container": "#00714d",
-                      "on-primary-fixed-variant": "#004c6e",
-                      "error-container": "#ffdad6"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "spacing": {
-                      "header-height": "56px",
-                      "gap-sm": "8px",
-                      "container-padding": "24px",
-                      "gap-xs": "4px",
-                      "sidebar-width": "240px",
-                      "gap-md": "16px",
-                      "gap-lg": "24px",
-                      "base-unit": "4px"
-              },
-              "fontFamily": {
-                      "metadata": ["Inter"],
-                      "section-heading": ["Inter"],
-                      "page-title-mobile": ["Inter"],
-                      "label": ["Inter"],
-                      "page-title": ["Inter"],
-                      "body": ["Inter"]
-              },
-              "fontSize": {
-                      "metadata": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
-                      "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                      "page-title-mobile": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
-                      "label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
-                      "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
-              }
-            },
-          },
-        }
-    </script>
+    tailwind.config = { darkMode:"class", theme:{ extend:{
+        "colors":{"surface-container":"#e9edff","on-primary-fixed":"#001e2f","outline":"#6e7881","inverse-surface":"#293040","surface-container-highest":"#dce2f7","primary":"#0EA5E9","on-background":"#141b2b","surface-dim":"#d3daef","surface-container-high":"#e1e8fd","secondary-container":"#6cf8bb","surface-bright":"#f9f9ff","inverse-on-surface":"#edf0ff","tertiary-fixed":"#ffddb8","on-tertiary-fixed":"#2a1700","on-secondary":"#ffffff","on-error":"#ffffff","on-secondary-fixed":"#002113","on-error-container":"#93000a","on-surface":"#141b2b","inverse-primary":"#89ceff","tertiary":"#855300","secondary-fixed":"#6ffbbe","on-secondary-fixed-variant":"#005236","secondary-fixed-dim":"#4edea3","tertiary-fixed-dim":"#ffb95f","surface-variant":"#dce2f7","surface-tint":"#0EA5E9","surface":"#f9f9ff","surface-container-lowest":"#ffffff","primary-container":"#0ea5e9","on-tertiary-fixed-variant":"#653e00","error":"#ba1a1a","tertiary-container":"#d88a00","secondary":"#006c49","on-surface-variant":"#3e4850","on-tertiary":"#ffffff","primary-fixed":"#c9e6ff","primary-fixed-dim":"#89ceff","on-primary":"#ffffff","surface-container-low":"#f1f3ff","outline-variant":"#bec8d2","on-primary-container":"#003751","background":"#F3F4F6","on-tertiary-container":"#4a2c00","on-secondary-container":"#00714d","on-primary-fixed-variant":"#004c6e","error-container":"#ffdad6"},
+        "borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+        "spacing":{"header-height":"56px","gap-sm":"8px","container-padding":"24px","gap-xs":"4px","sidebar-width":"240px","gap-md":"16px","gap-lg":"24px","base-unit":"4px"},
+        "fontFamily":{"metadata":["Inter"],"section-heading":["Inter"],"page-title-mobile":["Inter"],"label":["Inter"],"page-title":["Inter"],"body":["Inter"]},
+        "fontSize":{"metadata":["12px",{"lineHeight":"16px","fontWeight":"400"}],"section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],"page-title-mobile":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label":["13px",{"lineHeight":"18px","fontWeight":"500"}],"page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body":["13px",{"lineHeight":"20px","fontWeight":"400"}]}
+    }}}
+</script>
 </head>
 <body class="bg-[#F3F4F6] text-on-surface">
 
-<!-- OHC Header -->
 <header class="ohc-header">
-  <div class="ohc-header-left">
-    <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Toolbox Trainings</span>
-  </div>
-  <div class="ohc-header-center">
-    <div class="ohc-search">
-      <span class="material-symbols-outlined search-icon">search</span>
-      <input type="text" placeholder="Search patients, medicines, staff…"/>
-    </div>
-  </div>
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform &gt; Toolbox Trainings</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
   <div class="ohc-header-right">
-    <div class="ohc-bell-wrap">
-      <span class="material-symbols-outlined">notifications</span>
-      <span class="ohc-bell-badge"></span>
-    </div>
-    <span class="ohc-user-name">Kiran Prasad</span>
-    <div class="ohc-avatar">KP</div>
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
   </div>
 </header>
-
-<!-- OHC Sidebar -->
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A</option><option>Site B</option></select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
@@ -156,405 +57,423 @@
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
 </aside>
 
-<!-- Main Content Area -->
 <main class="ohc-main">
 <div class="p-gap-lg">
+
 <!-- Page Header -->
-<header class="mb-gap-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
-<div>
-<h1 class="font-page-title text-page-title text-on-background">Toolbox Training (TBT)</h1>
-<p class="text-on-surface-variant text-body mt-1 max-w-2xl">
-                        3 sessions/day, one per shift. Log sessions, track compliance, manage topic library.
-                    </p>
-</div>
-<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg flex items-center gap-sm font-label text-label hover:brightness-110 transition-all shadow-sm">
-<span class="material-symbols-outlined text-[20px]">add_circle</span>
-                    Log Session
-                </button>
+<header class="mb-gap-lg flex flex-col md:flex-row md:items-end justify-between gap-gap-md">
+  <div>
+    <h1 class="font-page-title text-page-title text-on-background">Toolbox Training (TBT)</h1>
+    <p class="text-on-surface-variant text-body mt-1 max-w-2xl">3 sessions/day, one per shift. Log sessions, track compliance, manage topic library.</p>
+  </div>
+  <button onclick="tbOpenModal()" class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg flex items-center gap-gap-sm font-label text-label hover:brightness-110 transition-all shadow-sm">
+    <span class="material-symbols-outlined text-[20px]">add_circle</span> Log Session
+  </button>
 </header>
-<!-- Tab System -->
+
+<!-- Tab System — FIX: explicit gap between tabs -->
 <div class="border-b border-outline-variant mb-gap-lg">
-<nav class="flex gap-lg">
-<button class="pb-3 border-b-2 border-primary text-primary font-semibold text-label" id="tab-log" onclick="switchTab('log')">Session Log</button>
-<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label" id="tab-library" onclick="switchTab('library')">Topic Library</button>
-<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label flex items-center gap-sm" id="tab-compliance" onclick="switchTab('compliance')">
-                        Compliance View
-                        <span class="bg-secondary-container text-on-secondary-container text-[10px] px-1.5 py-0.5 rounded-full font-bold">TBT</span>
-</button>
-</nav>
+  <nav class="flex" style="gap:32px;">
+    <button class="pb-3 border-b-2 border-primary text-primary font-semibold text-label" id="tab-log" onclick="switchTab('log')">Session Log</button>
+    <button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label" id="tab-library" onclick="switchTab('library')">Topic Library</button>
+    <button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface text-label flex items-center gap-gap-sm" id="tab-compliance" onclick="switchTab('compliance')">
+      Compliance View
+      <span class="bg-secondary-container text-on-secondary-container text-[10px] px-1.5 py-0.5 rounded-full font-bold">TBT</span>
+    </button>
+  </nav>
 </div>
-<!-- Content Panels -->
-<div class="grid grid-cols-12 gap-gap-lg" id="panel-log">
-<!-- Left Panel: Form -->
-<div class="col-span-12 lg:col-span-8">
-<div class="bg-white rounded-xl border border-outline-variant p-6 shadow-sm">
-<div class="flex items-center justify-between mb-6">
-<h2 class="font-section-heading text-section-heading flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary">edit_square</span>
-                                New Training Session
-                            </h2>
-<span class="text-metadata text-on-surface-variant">Session ID: #TBT-2023-1104</span>
+
+<!-- Session Log Panel -->
+<div id="panel-log">
+  <div class="grid grid-cols-12 gap-gap-lg">
+    <!-- Left: session log table (primary) -->
+    <div class="col-span-12 lg:col-span-8">
+      <!-- filter bar -->
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <div class="tb-pill-bar" role="group">
+          <button class="tb-pill active" data-period="today"   onclick="tbSetFilter(this)">Today</button>
+          <button class="tb-pill"        data-period="week"    onclick="tbSetFilter(this)">This Week</button>
+          <button class="tb-pill"        data-period="month"   onclick="tbSetFilter(this)">This Month</button>
+          <button class="tb-pill"        data-period="quarter" onclick="tbSetFilter(this)">This Quarter</button>
+          <button class="tb-pill"        data-period="year"    onclick="tbSetFilter(this)">This Year</button>
+        </div>
+        <span id="tb-count" class="text-body text-on-surface-variant font-medium">— sessions</span>
+      </div>
+      <div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+        <table class="w-full text-left" style="table-layout:fixed;">
+          <colgroup>
+            <col style="width:14%"/><col style="width:6%"/><col style="width:13%"/>
+            <col style="width:26%"/><col style="width:18%"/><col style="width:7%"/><col style="width:16%"/>
+          </colgroup>
+          <thead class="bg-surface-container-low border-b border-outline-variant">
+            <tr>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Date</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Shift</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Type</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Topic</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Conducted By</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant text-center">Count</th>
+              <th class="px-3 py-3 text-metadata font-bold uppercase tracking-wider text-on-surface-variant">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tb-table-body" class="divide-y divide-outline-variant text-body">
+            <!-- rendered by JS -->
+          </tbody>
+        </table>
+        <div id="tb-empty" style="display:none;" class="py-16 text-center">
+          <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">construction</span>
+          <p class="text-body text-on-surface-variant">No sessions logged in this period.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Right: compliance widgets (kept as-is) -->
+    <div class="col-span-12 lg:col-span-4 space-y-gap-lg">
+      <div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
+        <h3 class="font-section-heading text-section-heading mb-4">Today's Coverage</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-secondary">
+            <div><p class="text-metadata text-on-surface-variant">Shift A</p><p class="font-semibold text-body">Manual Handling</p></div>
+            <span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-1 rounded-full font-bold">COMPLETED</span>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-error">
+            <div><p class="text-metadata text-on-surface-variant">Shift B</p><p class="font-semibold text-body">PPE Protocol</p></div>
+            <span class="bg-error-container text-on-error-container text-[11px] px-2 py-1 rounded-full font-bold">MISSED</span>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-outline-variant">
+            <div><p class="text-metadata text-on-surface-variant">Shift C</p><p class="font-semibold text-body italic text-on-surface-variant">Pending...</p></div>
+            <span class="bg-surface-container-highest text-on-surface-variant text-[11px] px-2 py-1 rounded-full font-bold">IN QUEUE</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-section-heading text-section-heading" id="tb-heatmap-title">Jul Coverage Heatmap</h3>
+          <span class="text-metadata text-primary cursor-pointer hover:underline">View All</span>
+        </div>
+        <div class="space-y-4">
+          <div class="grid grid-cols-8 gap-1">
+            <div class="col-span-1"></div>
+            <div class="text-[10px] text-center font-bold">1</div>
+            <div class="text-[10px] text-center font-bold">2</div>
+            <div class="text-[10px] text-center font-bold">3</div>
+            <div class="text-[10px] text-center font-bold">7</div>
+            <div class="text-[10px] text-center font-bold">8</div>
+            <div class="text-[10px] text-center font-bold text-error">9</div>
+            <div class="text-[10px] text-center font-bold">10</div>
+            <div class="text-[10px] self-center">A</div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="text-[10px] self-center">B</div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-error" title="Missed"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+            <div class="h-6 rounded-sm bg-error animate-pulse" title="Missed Today"></div>
+            <div class="text-[10px] self-center">C</div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
+            <div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
+            <div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
+            <div class="h-6 rounded-sm bg-surface-dim" title="Pending"></div>
+          </div>
+          <div class="flex justify-between items-center text-[10px] text-on-surface-variant pt-2 border-t border-outline-variant/30">
+            <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> 100%</div>
+            <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Partial</div>
+            <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Missed</div>
+            <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-dim"></span> Pending</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+        <div class="p-4">
+          <h4 class="font-label text-label font-bold mb-1">Safety Resource Center</h4>
+          <p class="text-metadata text-on-surface-variant mb-3">Access 200+ TBT modules, visual aids, and compliance checklists.</p>
+          <button class="w-full py-2 bg-surface-container-low text-primary font-label text-label rounded hover:bg-surface-container transition-colors">Explore Library</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<form class="space-y-6">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Date</label>
-<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="date" value="2023-11-20"/>
+
+<!-- Library Panel (Hidden) -->
+<div class="hidden" id="panel-library">
+  <div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+    <div class="p-4 bg-surface-bright border-b border-outline-variant flex items-center justify-between">
+      <div class="flex gap-gap-md">
+        <input class="border-outline-variant rounded-lg text-metadata px-3 py-1.5 w-64" placeholder="Filter by name..." type="text"/>
+        <select class="border-outline-variant rounded-lg text-metadata px-3 py-1.5"><option>All Categories</option><option>Safety</option><option>Occupational</option></select>
+      </div>
+      <button class="bg-primary text-on-primary px-4 py-1.5 rounded text-metadata font-semibold">+ Add New Topic</button>
+    </div>
+    <table class="w-full text-left">
+      <thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase tracking-wider">
+        <tr><th class="px-6 py-4">Topic Name</th><th class="px-6 py-4">Category</th><th class="px-6 py-4">Seasonal Tag</th><th class="px-6 py-4">Resource</th><th class="px-6 py-4 text-right">Actions</th></tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant text-body">
+        <tr class="hover:bg-surface-bright transition-colors"><td class="px-6 py-4 font-semibold">Heat Stress Prevention</td><td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td><td class="px-6 py-4"><span class="bg-tertiary-fixed text-on-tertiary-fixed text-[11px] px-2 py-0.5 rounded-full font-bold">Summer</span></td><td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td><td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td></tr>
+        <tr class="hover:bg-surface-bright transition-colors"><td class="px-6 py-4 font-semibold">Monsoon Disease Control</td><td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td><td class="px-6 py-4"><span class="bg-primary-fixed text-on-primary-fixed-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Monsoon</span></td><td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td><td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td></tr>
+        <tr class="hover:bg-surface-bright transition-colors"><td class="px-6 py-4 font-semibold">Fire Extinguisher Basics</td><td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[11px] px-2 py-0.5 rounded-full font-bold">Emergency</span></td><td class="px-6 py-4"><span class="bg-surface-variant text-on-surface-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Year-round</span></td><td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td><td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Shift</label>
-<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2">
-<option>Shift A (06:00 - 14:00)</option>
-<option>Shift B (14:00 - 22:00)</option>
-<option>Shift C (22:00 - 06:00)</option>
-</select>
+
+<!-- Compliance Panel (Hidden) -->
+<div class="hidden space-y-gap-lg" id="panel-compliance">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-gap-md">
+      <select class="bg-white border-outline-variant rounded-lg px-4 py-2 text-label font-semibold"><option>July 2026</option><option>June 2026</option></select>
+      <button class="bg-white border border-outline-variant px-4 py-2 rounded-lg text-label flex items-center gap-gap-sm"><span class="material-symbols-outlined text-[18px]">download</span>Export Report</button>
+    </div>
+    <div class="flex gap-gap-lg">
+      <div class="text-center"><p class="text-metadata text-on-surface-variant">Monthly Compliance</p><p class="text-page-title font-bold text-secondary">94.2%</p></div>
+      <div class="text-center"><p class="text-metadata text-on-surface-variant">Total Sessions</p><p class="text-page-title font-bold text-primary">82/90</p></div>
+    </div>
+  </div>
+  <div class="bg-white rounded-xl border border-outline-variant p-6 shadow-sm overflow-x-auto">
+    <h3 class="font-section-heading text-section-heading mb-6">Full Monthly Heatmap</h3>
+    <div class="grid grid-flow-col auto-cols-[minmax(32px,1fr)] gap-2 min-w-[800px]">
+      <div class="grid grid-rows-4 gap-2"><div class="h-8"></div><div class="h-8 flex items-center text-[11px] font-bold">A</div><div class="h-8 flex items-center text-[11px] font-bold">B</div><div class="h-8 flex items-center text-[11px] font-bold">C</div></div>
+      <div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">1</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+      <div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">2</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-error rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+      <div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">3</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
+    </div>
+  </div>
+  <div class="bg-white rounded-xl border border-outline-variant shadow-sm">
+    <table class="w-full text-left">
+      <thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase">
+        <tr><th class="px-6 py-3">Date</th><th class="px-6 py-3">Shift A</th><th class="px-6 py-3">Shift B</th><th class="px-6 py-3">Shift C</th><th class="px-6 py-3">Top Topic Covered</th></tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant text-body">
+        <tr><td class="px-6 py-4 font-semibold">10 Jul</td><td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Done</span></td><td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Missed</span></td><td class="px-6 py-4"><span class="bg-surface-dim text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">Pending</span></td><td class="px-6 py-4 text-on-surface-variant">Personal Protective Equipment</td></tr>
+        <tr><td class="px-6 py-4 font-semibold">9 Jul</td><td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td><td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td><td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td><td class="px-6 py-4 text-on-surface-variant text-metadata italic">— Rest Day —</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Training Type</label>
-<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2">
-<option>Routine Safety</option>
-<option>Specialized Task</option>
-<option>Post-Incident Briefing</option>
-</select>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Topic</label>
-<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" list="topics" placeholder="Select or type topic..." type="text"/>
-<datalist id="topics">
-<option value="Manual Handling Hazards">
-</option><option value="Working at Heights">
-</option><option value="Chemical Safety &amp; MSDS">
-</option><option value="Emergency Evacuation Procedure">
-</option></datalist>
-</div>
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Conducted By</label>
-<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" placeholder="Instructor name..." type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Session Time</label>
-<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="time"/>
-</div>
-<div class="space-y-1.5">
-<label class="font-label text-label text-on-surface-variant">Expected Count</label>
-<input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2" type="number" value="12"/>
-</div>
-</div>
-<div class="border-t border-outline-variant pt-6">
-<div class="flex items-center justify-between mb-4">
-<h3 class="font-label text-label text-on-surface font-semibold">Attendee List</h3>
-<button class="text-primary hover:underline text-label flex items-center gap-xs" type="button">
-<span class="material-symbols-outlined text-[18px]">group_add</span>
-                                        Import from Shift Roster
-                                    </button>
-</div>
-<div class="space-y-3">
-<div class="grid grid-cols-12 gap-sm items-center">
-<div class="col-span-5"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" placeholder="Employee Name" type="text"/></div>
-<div class="col-span-3"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" placeholder="ID No" type="text"/></div>
-<div class="col-span-3">
-<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5">
-<option>Present</option>
-<option>Absent</option>
-</select>
-</div>
-<div class="col-span-1 text-center"><button class="text-error/60 hover:text-error"><span class="material-symbols-outlined">delete</span></button></div>
-</div>
-<div class="grid grid-cols-12 gap-sm items-center">
-<div class="col-span-5"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" type="text" value="Rajesh Kumar"/></div>
-<div class="col-span-3"><input class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5" type="text" value="OHC-8821"/></div>
-<div class="col-span-3">
-<select class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-1.5">
-<option>Present</option>
-<option>Absent</option>
-</select>
-</div>
-<div class="col-span-1 text-center"><button class="text-error/60 hover:text-error"><span class="material-symbols-outlined">delete</span></button></div>
-</div>
-</div>
-<button class="mt-4 border border-dashed border-primary text-primary w-full py-2 rounded-lg font-label text-label hover:bg-primary/5 transition-colors" type="button">
-                                    + Add Attendee
-                                </button>
-</div>
-<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant border-dashed">
-<div class="flex flex-col items-center justify-center gap-sm py-4">
-<span class="material-symbols-outlined text-[32px] text-on-surface-variant">upload_file</span>
-<p class="text-metadata text-on-surface-variant">Drop attendance sheet or photos here (Max 5MB)</p>
-<button class="bg-white border border-outline-variant px-4 py-1.5 rounded text-metadata font-semibold hover:bg-surface-bright" type="button">Browse Files</button>
-</div>
-</div>
-<div class="flex items-center justify-end gap-md pt-4">
-<button class="text-on-surface-variant font-label text-label px-6 py-2 hover:bg-surface-container-low rounded-lg transition-colors" type="button">Cancel</button>
-<button class="bg-secondary text-on-secondary px-8 py-2 rounded-lg font-label text-label hover:brightness-110 shadow-sm transition-all" type="submit">Save Session</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Right Panel: Compliance -->
-<div class="col-span-12 lg:col-span-4 space-y-gap-lg">
-<div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
-<h3 class="font-section-heading text-section-heading mb-4">Today's Coverage</h3>
-<div class="space-y-3">
-<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-secondary">
-<div>
-<p class="text-metadata text-on-surface-variant">Shift A</p>
-<p class="font-semibold text-body">Manual Handling</p>
-</div>
-<span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-1 rounded-full font-bold">COMPLETED</span>
-</div>
-<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-error">
-<div>
-<p class="text-metadata text-on-surface-variant">Shift B</p>
-<p class="font-semibold text-body">PPE Protocol</p>
-</div>
-<span class="bg-error-container text-on-error-container text-[11px] px-2 py-1 rounded-full font-bold">MISSED</span>
-</div>
-<div class="flex items-center justify-between p-3 bg-surface-bright rounded-lg border-l-4 border-outline-variant">
-<div>
-<p class="text-metadata text-on-surface-variant">Shift C</p>
-<p class="font-semibold text-body italic text-on-surface-variant">Pending...</p>
-</div>
-<span class="bg-surface-container-highest text-on-surface-variant text-[11px] px-2 py-1 rounded-full font-bold">IN QUEUE</span>
-</div>
-</div>
-</div>
-<div class="bg-white rounded-xl border border-outline-variant p-5 shadow-sm">
-<div class="flex items-center justify-between mb-4">
-<h3 class="font-section-heading text-section-heading">Nov Coverage Heatmap</h3>
-<span class="text-metadata text-primary cursor-pointer hover:underline">View All</span>
-</div>
-<div class="space-y-4">
-<div class="grid grid-cols-8 gap-1">
-<div class="col-span-1"></div>
-<div class="text-[10px] text-center font-bold">14</div>
-<div class="text-[10px] text-center font-bold">15</div>
-<div class="text-[10px] text-center font-bold">16</div>
-<div class="text-[10px] text-center font-bold">17</div>
-<div class="text-[10px] text-center font-bold">18</div>
-<div class="text-[10px] text-center font-bold text-error">19</div>
-<div class="text-[10px] text-center font-bold">20</div>
-<div class="text-[10px] self-center">A</div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="text-[10px] self-center">B</div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-error" title="Missed"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
-<div class="h-6 rounded-sm bg-error animate-pulse" title="Missed Today"></div>
-<div class="text-[10px] self-center">C</div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-secondary" title="Complete"></div>
-<div class="h-6 rounded-sm bg-tertiary-container" title="Partial"></div>
-<div class="h-6 rounded-sm bg-surface-container-high" title="No Shift"></div>
-<div class="h-6 rounded-sm bg-surface-dim" title="Pending"></div>
-</div>
-<div class="flex justify-between items-center text-[10px] text-on-surface-variant pt-2 border-t border-outline-variant/30">
-<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> 100%</div>
-<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Partial</div>
-<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Missed</div>
-<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-dim"></span> Pending</div>
-</div>
-</div>
-</div>
-<div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
-<div class="p-4">
-<h4 class="font-label text-label font-bold mb-1">Safety Resource Center</h4>
-<p class="text-metadata text-on-surface-variant mb-3">Access 200+ TBT modules, visual aids, and compliance checklists.</p>
-<button class="w-full py-2 bg-surface-container-low text-primary font-label text-label rounded hover:bg-surface-container transition-colors">Explore Library</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Library Panel (Hidden by default) -->
-<div class="hidden animate-in fade-in slide-in-from-bottom-2 duration-300" id="panel-library">
-<div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
-<div class="p-4 bg-surface-bright border-b border-outline-variant flex items-center justify-between">
-<div class="flex gap-md">
-<input class="border-outline-variant rounded-lg text-metadata px-3 py-1.5 w-64" placeholder="Filter by name..." type="text"/>
-<select class="border-outline-variant rounded-lg text-metadata px-3 py-1.5">
-<option>All Categories</option>
-<option>Safety</option>
-<option>Occupational</option>
-</select>
-</div>
-<button class="bg-primary text-on-primary px-4 py-1.5 rounded text-metadata font-semibold">+ Add New Topic</button>
-</div>
-<table class="w-full text-left">
-<thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase tracking-wider">
-<tr>
-<th class="px-6 py-4">Topic Name</th>
-<th class="px-6 py-4">Category</th>
-<th class="px-6 py-4">Seasonal Tag</th>
-<th class="px-6 py-4">Resource</th>
-<th class="px-6 py-4 text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant text-body">
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="px-6 py-4 font-semibold">Heat Stress Prevention</td>
-<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td>
-<td class="px-6 py-4"><span class="bg-tertiary-fixed text-on-tertiary-fixed text-[11px] px-2 py-0.5 rounded-full font-bold">Summer</span></td>
-<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
-<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
-</tr>
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="px-6 py-4 font-semibold">Monsoon Disease Control</td>
-<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[11px] px-2 py-0.5 rounded-full font-bold">Health</span></td>
-<td class="px-6 py-4"><span class="bg-primary-fixed text-on-primary-fixed-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Monsoon</span></td>
-<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
-<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
-</tr>
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="px-6 py-4 font-semibold">Fire Extinguisher Basics</td>
-<td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[11px] px-2 py-0.5 rounded-full font-bold">Emergency</span></td>
-<td class="px-6 py-4"><span class="bg-surface-variant text-on-surface-variant text-[11px] px-2 py-0.5 rounded-full font-bold">Year-round</span></td>
-<td class="px-6 py-4"><button class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">link</span></button></td>
-<td class="px-6 py-4 text-right"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- Compliance Panel (Hidden by default) -->
-<div class="hidden animate-in fade-in slide-in-from-bottom-2 duration-300 space-y-gap-lg" id="panel-compliance">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-md">
-<select class="bg-white border-outline-variant rounded-lg px-4 py-2 text-label font-semibold">
-<option>November 2023</option>
-<option>October 2023</option>
-</select>
-<button class="bg-white border border-outline-variant px-4 py-2 rounded-lg text-label flex items-center gap-sm">
-<span class="material-symbols-outlined text-[18px]">download</span>
-                            Export Report
-                        </button>
-</div>
-<div class="flex gap-lg">
-<div class="text-center">
-<p class="text-metadata text-on-surface-variant">Monthly Compliance</p>
-<p class="text-page-title font-bold text-secondary">94.2%</p>
-</div>
-<div class="text-center">
-<p class="text-metadata text-on-surface-variant">Total Sessions</p>
-<p class="text-page-title font-bold text-primary">82/90</p>
-</div>
-</div>
-</div>
-<div class="bg-white rounded-xl border border-outline-variant p-6 shadow-sm overflow-x-auto">
-<h3 class="font-section-heading text-section-heading mb-6">Full Monthly Heatmap</h3>
-<div class="grid grid-flow-col auto-cols-[minmax(32px,1fr)] gap-2 min-w-[800px]">
-<div class="grid grid-rows-4 gap-2">
-<div class="h-8"></div>
-<div class="h-8 flex items-center text-[11px] font-bold">A</div>
-<div class="h-8 flex items-center text-[11px] font-bold">B</div>
-<div class="h-8 flex items-center text-[11px] font-bold">C</div>
-</div>
-<!-- Generating 30 days dynamically via JS would be better, but adding some for static visualization -->
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">1</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">2</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-error rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">3</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px] text-error">4</div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">5</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-tertiary-container rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">6</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">7</div><div class="h-8 bg-error rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">8</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">9</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">10</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px] text-error">11</div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div><div class="h-8 bg-surface-container rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">12</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<div class="grid grid-rows-4 gap-2"><div class="h-8 text-center text-[10px]">13</div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div><div class="h-8 bg-secondary rounded"></div></div>
-<!-- ... rest of days ... -->
-</div>
-</div>
-<div class="bg-white rounded-xl border border-outline-variant shadow-sm">
-<table class="w-full text-left">
-<thead class="bg-surface-container-low text-on-surface-variant font-metadata text-metadata uppercase">
-<tr>
-<th class="px-6 py-3">Date</th>
-<th class="px-6 py-3">Shift A</th>
-<th class="px-6 py-3">Shift B</th>
-<th class="px-6 py-3">Shift C</th>
-<th class="px-6 py-3">Top Topic Covered</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant text-body">
-<tr>
-<td class="px-6 py-4 font-semibold">20 Nov</td>
-<td class="px-6 py-4"><span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Done</span></td>
-<td class="px-6 py-4"><span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded font-bold uppercase">Missed</span></td>
-<td class="px-6 py-4"><span class="bg-surface-dim text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">Pending</span></td>
-<td class="px-6 py-4 text-on-surface-variant">Personal Protective Equipment</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-semibold">19 Nov</td>
-<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
-<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
-<td class="px-6 py-4"><span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">No Shift</span></td>
-<td class="px-6 py-4 text-on-surface-variant text-metadata italic">— Sunday Rest —</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+
 </div>
 </main>
+
+<!-- ===== Log Session Modal ===== -->
+<div id="tb-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)tbCloseModal()">
+  <div class="ohc-modal ohc-modal-lg" style="max-height:90vh;overflow-y:auto;">
+    <div class="ohc-modal-header">
+      <h2>New Training Session</h2>
+      <button onclick="tbCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form id="tb-modal-form" onsubmit="tbSaveEntry(event)">
+      <div class="space-y-gap-md">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Date <span style="color:#ba1a1a">*</span></label>
+            <input id="tb-f-date" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" type="date" required/>
+          </div>
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Shift <span style="color:#ba1a1a">*</span></label>
+            <select id="tb-f-shift" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" required>
+              <option>Shift A (06:00 - 14:00)</option><option>Shift B (14:00 - 22:00)</option><option>Shift C (22:00 - 06:00)</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Training Type</label>
+            <select id="tb-f-type" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border">
+              <option>Routine Safety</option><option>Specialized Task</option><option>Post-Incident Briefing</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Topic <span style="color:#ba1a1a">*</span></label>
+            <input id="tb-f-topic" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" list="tb-topics" placeholder="Select or type topic..." type="text" required/>
+            <datalist id="tb-topics"><option value="Manual Handling Hazards"/><option value="Working at Heights"/><option value="Chemical Safety &amp; MSDS"/><option value="Emergency Evacuation Procedure"/><option value="PPE Protocol"/></datalist>
+          </div>
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Conducted By</label>
+            <input id="tb-f-conductor" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" placeholder="Instructor name..." type="text"/>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Session Time</label>
+            <input id="tb-f-time" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" type="time"/>
+          </div>
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Attendee Count</label>
+            <input id="tb-f-count" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border" type="number" value="12" min="0"/>
+          </div>
+          <div class="space-y-1.5">
+            <label class="font-label text-label text-on-surface-variant">Status</label>
+            <select id="tb-f-status" class="w-full border-outline-variant rounded-lg bg-surface-bright text-body px-3 py-2 border">
+              <option>Completed</option><option>Missed</option><option>Partial</option>
+            </select>
+          </div>
+        </div>
+        <!-- Attendance upload -->
+        <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant border-dashed">
+          <div class="flex flex-col items-center justify-center gap-gap-sm py-2">
+            <span class="material-symbols-outlined text-[32px] text-on-surface-variant">upload_file</span>
+            <p class="text-metadata text-on-surface-variant">Drop attendance sheet or photos here (Max 5MB)</p>
+            <button class="bg-white border border-outline-variant px-4 py-1.5 rounded text-metadata font-semibold hover:bg-surface-bright" type="button">Browse Files</button>
+          </div>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="tbCloseModal()" class="text-on-surface-variant font-label text-label px-6 py-2 hover:bg-surface-container-low rounded-lg transition-colors border border-outline-variant">Cancel</button>
+        <button type="submit" id="tb-submit-btn" class="bg-secondary text-on-secondary px-8 py-2 rounded-lg font-label text-label hover:brightness-110 shadow-sm transition-all">Save Session</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
-        function switchTab(tab) {
-            // Panels
-            document.getElementById('panel-log').classList.add('hidden');
-            document.getElementById('panel-library').classList.add('hidden');
-            document.getElementById('panel-compliance').classList.add('hidden');
+    // ── Demo data (daysAgo) ───────────────────────────────────
+    var TB_RAW = [
+        { daysAgo:0, shift:'Shift A', type:'Routine Safety',      topic:'Manual Handling Hazards',       conductor:'Rahul Kumar',   count:14, status:'Completed' },
+        { daysAgo:0, shift:'Shift B', type:'Routine Safety',      topic:'PPE Protocol',                  conductor:'Sarah M.',      count:0,  status:'Missed'    },
+        { daysAgo:1, shift:'Shift A', type:'Specialized Task',    topic:'Working at Heights',            conductor:'James W.',      count:12, status:'Completed' },
+        { daysAgo:1, shift:'Shift B', type:'Routine Safety',      topic:'Fire Safety Refresher',         conductor:'Rahul Kumar',   count:11, status:'Completed' },
+        { daysAgo:2, shift:'Shift C', type:'Routine Safety',      topic:'Chemical Safety & MSDS',        conductor:'Admin KP.',     count:9,  status:'Partial'   },
+        { daysAgo:3, shift:'Shift A', type:'Post-Incident Briefing','topic':'Emergency Evacuation Procedure',conductor:'James W.', count:16, status:'Completed' },
+        { daysAgo:4, shift:'Shift B', type:'Routine Safety',      topic:'Manual Handling Hazards',       conductor:'Sarah M.',      count:13, status:'Completed' },
+        { daysAgo:6, shift:'Shift A', type:'Specialized Task',    topic:'Confined Space Entry',          conductor:'Rahul Kumar',   count:8,  status:'Completed' },
+        { daysAgo:10,shift:'Shift C', type:'Routine Safety',      topic:'PPE Protocol',                  conductor:'Admin KP.',     count:10, status:'Completed' },
+        { daysAgo:15,shift:'Shift A', type:'Routine Safety',      topic:'Heat Stress Prevention',        conductor:'James W.',      count:15, status:'Completed' },
+        { daysAgo:20,shift:'Shift B', type:'Specialized Task',    topic:'Working at Heights',            conductor:'Sarah M.',      count:12, status:'Completed' },
+        { daysAgo:35,shift:'Shift A', type:'Routine Safety',      topic:'Manual Handling Hazards',       conductor:'Rahul Kumar',   count:14, status:'Completed' },
+        { daysAgo:60,shift:'Shift C', type:'Routine Safety',      topic:'Fire Safety Refresher',         conductor:'Admin KP.',     count:11, status:'Completed' },
+        { daysAgo:200,shift:'Shift A',type:'Post-Incident Briefing','topic':'Chemical Safety & MSDS',    conductor:'James W.',      count:9,  status:'Completed' },
+    ];
 
-            // Buttons
-            const tabs = ['tab-log', 'tab-library', 'tab-compliance'];
-            tabs.forEach(t => {
-                document.getElementById(t).classList.remove('border-primary', 'text-primary', 'font-semibold');
-                document.getElementById(t).classList.add('border-transparent', 'text-on-surface-variant');
-            });
+    var TB_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function tbMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+    var TB_ROWS = TB_RAW.map(function(r){ return Object.assign({},r,{date:tbMidnight(r.daysAgo)}); });
+    function tbFmt(d){ return d.getDate()+' '+TB_MO[d.getMonth()]+' '+d.getFullYear(); }
 
-            // Activate target
-            document.getElementById('panel-' + tab).classList.remove('hidden');
-            const activeTab = document.getElementById('tab-' + tab);
-            activeTab.classList.remove('border-transparent', 'text-on-surface-variant');
-            activeTab.classList.add('border-primary', 'text-primary', 'font-semibold');
-        }
+    var tbCurrentPeriod = 'today';
 
-        // Micro-interactions: Form validation mockup
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Saving...';
-            btn.disabled = true;
+    function tbGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
 
-            setTimeout(() => {
-                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved Successfully';
-                btn.style.backgroundColor = '#059669';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    btn.style.backgroundColor = '';
-                }, 2000);
-            }, 1200);
+    function tbRender(period){
+        var r = tbGetRange(period);
+        var rows = TB_ROWS.filter(function(v){ return v.date>=r.start && v.date<=r.end; });
+        var n = rows.length;
+        document.getElementById('tb-count').textContent = n + ' session'+(n===1?'':'s');
+        var tbody = document.getElementById('tb-table-body');
+        var empty = document.getElementById('tb-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+        var statusStyles = {
+            'Completed': 'bg-secondary-container text-on-secondary-container',
+            'Missed':    'bg-error-container text-on-error-container',
+            'Partial':   'bg-tertiary-fixed text-on-tertiary-fixed'
+        };
+        tbody.innerHTML = rows.map(function(v,i){
+            var bg = i%2===0 ? '#fff' : '#f9fafb';
+            var ss = statusStyles[v.status] || 'bg-surface-container text-on-surface-variant';
+            return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f9ff\'" onmouseleave="this.style.background=\''+bg+'\'">'
+                +'<td class="px-3 py-3 text-body" style="white-space:nowrap;">'+tbFmt(v.date)+'</td>'
+                +'<td class="px-3 py-3 text-body font-medium" style="white-space:nowrap;">'+v.shift.split(' ')[1]+'</td>'
+                +'<td class="px-3 py-3 text-body" style="white-space:normal;word-wrap:break-word;">'+v.type+'</td>'
+                +'<td class="px-3 py-3 text-body" style="white-space:normal;word-wrap:break-word;">'+v.topic+'</td>'
+                +'<td class="px-3 py-3 text-body" style="white-space:normal;word-wrap:break-word;">'+v.conductor+'</td>'
+                +'<td class="px-3 py-3 text-body text-center font-bold">'+v.count+'</td>'
+                +'<td class="px-3 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase '+ss+'" style="white-space:nowrap;display:inline-block;">'+v.status+'</span></td>'
+                +'</tr>';
+        }).join('');
+    }
+
+    function tbSetFilter(btn){
+        document.querySelectorAll('.tb-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        tbCurrentPeriod = btn.dataset.period;
+        tbRender(tbCurrentPeriod);
+    }
+
+    // ── Tab switching ─────────────────────────────────────────
+    function switchTab(tab){
+        ['log','library','compliance'].forEach(function(t){
+            document.getElementById('panel-'+t).classList.add('hidden');
+            var el = document.getElementById('tab-'+t);
+            el.classList.remove('border-primary','text-primary','font-semibold');
+            el.classList.add('border-transparent','text-on-surface-variant');
         });
-    </script>
+        document.getElementById('panel-'+tab).classList.remove('hidden');
+        var active = document.getElementById('tab-'+tab);
+        active.classList.remove('border-transparent','text-on-surface-variant');
+        active.classList.add('border-primary','text-primary','font-semibold');
+    }
+
+    // ── Modal ─────────────────────────────────────────────────
+    function tbOpenModal(){
+        var today = new Date().toISOString().slice(0,10);
+        document.getElementById('tb-f-date').value = today;
+        document.getElementById('tb-overlay').style.display = 'flex';
+    }
+
+    function tbCloseModal(){
+        document.getElementById('tb-overlay').style.display = 'none';
+        document.getElementById('tb-modal-form').reset();
+    }
+
+    function tbSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('tb-submit-btn');
+        var dateVal   = document.getElementById('tb-f-date').value;
+        var shift     = document.getElementById('tb-f-shift').value;
+        var type      = document.getElementById('tb-f-type').value;
+        var topic     = document.getElementById('tb-f-topic').value;
+        var conductor = document.getElementById('tb-f-conductor').value || '—';
+        var count     = parseInt(document.getElementById('tb-f-count').value) || 0;
+        var status    = document.getElementById('tb-f-status').value;
+
+        btn.innerHTML = 'Saving...';
+        btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+            d.setHours(0,0,0,0);
+            TB_ROWS.unshift({ date:d, shift:shift, type:type, topic:topic, conductor:conductor, count:count, status:status, daysAgo:0 });
+            btn.innerHTML = 'Saved ✓';
+            btn.style.backgroundColor = '#059669';
+            setTimeout(function(){
+                btn.innerHTML = 'Save Session';
+                btn.style.backgroundColor = '';
+                btn.disabled = false;
+                tbCloseModal();
+                tbRender(tbCurrentPeriod);
+            }, 900);
+        }, 600);
+    }
+
+    // Set heatmap title to current month
+    document.addEventListener('DOMContentLoaded', function(){
+        var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var now = new Date();
+        document.getElementById('tb-heatmap-title').textContent = mo[now.getMonth()]+' Coverage Heatmap';
+    });
+
+    // Boot
+    tbRender('today');
+</script>
 </body></html>

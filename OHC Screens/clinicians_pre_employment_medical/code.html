@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pre-Employment Medical | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+tailwind.config = { darkMode:"class", theme:{ extend:{
+    "colors":{
+      "on-tertiary-fixed-variant":"#693c00","surface":"#f6faff","secondary-fixed":"#c9e6ff",
+      "on-primary":"#ffffff","on-error-container":"#93000a","surface-dim":"#d6dae0",
+      "primary":"#0EA5E9","on-background":"#171c20","surface-container-high":"#e4e8ee",
+      "outline":"#6e7881","error":"#ba1a1a","tertiary":"#8a5100","surface-bright":"#f6faff",
+      "on-tertiary":"#ffffff","primary-container":"#0ea5e9","on-primary-container":"#003751",
+      "primary-fixed":"#c9e6ff","outline-variant":"#bec8d2","tertiary-fixed":"#ffdcbd",
+      "error-container":"#ffdad6","on-primary-fixed":"#001e2f","on-error":"#ffffff",
+      "surface-variant":"#dee3e9","on-secondary":"#ffffff","on-tertiary-fixed":"#2c1600",
+      "on-secondary-container":"#3d637d","inverse-on-surface":"#edf1f7",
+      "on-surface-variant":"#3e4850","on-secondary-fixed":"#001e2f","secondary":"#3c627d",
+      "tertiary-fixed-dim":"#ffb86e","inverse-surface":"#2c3135","surface-tint":"#0EA5E9",
+      "surface-container-low":"#f0f4fa","surface-container":"#eaeef4",
+      "tertiary-container":"#de8712","secondary-container":"#b8dffe",
+      "on-secondary-fixed-variant":"#234b64","on-tertiary-container":"#4d2b00",
+      "primary-fixed-dim":"#89ceff","surface-container-highest":"#dee3e9",
+      "background":"#f6faff","surface-container-lowest":"#ffffff",
+      "inverse-primary":"#89ceff","on-primary-fixed-variant":"#004c6e",
+      "secondary-fixed-dim":"#a5cbe9","on-surface":"#171c20"
+    },
+    "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+    "spacing":{"content_padding":"24px","container_gap":"16px","header_height":"56px","base":"4px","sidebar_width":"240px","stack_gap":"8px"},
+    "fontFamily":{"section-heading":["Inter"],"page-title":["Inter"],"label-sm":["Inter"],"body":["Inter"]},
+    "fontSize":{
+      "section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],
+      "page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],
+      "label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],
+      "body":["13px",{"lineHeight":"20px","fontWeight":"400"}]
+    }
+}}}
+</script>
+<style>
+  body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; display:inline-block; vertical-align:middle; }
+  /* filter pills */
+  .pe-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+  .pe-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+  .pe-pill:hover { color:#111827; background:#fff; }
+  .pe-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+  /* modal tabs */
+  .pe-modal-tab { padding:8px 20px; border-bottom:2px solid transparent; background:none; border-top:none; border-left:none; border-right:none; font-size:13px; font-weight:500; color:#6B7280; cursor:pointer; white-space:nowrap; transition:color .12s; }
+  .pe-modal-tab:hover { color:#111827; }
+  .pe-modal-tab.active { color:#0EA5E9; border-bottom-color:#0EA5E9; font-weight:600; }
+  .pe-modal-panel { display:none; }
+  .pe-modal-panel.active { display:block; }
+  /* compact checklist table */
+  .pe-check-table { width:100%; border-collapse:collapse; font-size:12px; }
+  .pe-check-table th { background:#f0f4fa; color:#6B7280; font-weight:600; text-transform:uppercase; letter-spacing:.05em; padding:6px 8px; border-bottom:1px solid #E5E7EB; font-size:11px; }
+  .pe-check-table td { padding:5px 8px; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
+  .pe-check-table tr:last-child td { border-bottom:none; }
+  .pe-check-table tr:nth-child(even) td { background:#fafafa; }
+  .pe-check-table input[type=text] { width:64px; height:28px; border:1px solid #E5E7EB; border-radius:4px; padding:0 6px; font-size:12px; outline:none; }
+  .pe-check-table input[type=text]:focus { border-color:#0EA5E9; }
+  /* section card */
+  .pe-card { background:#fff; border:1px solid #E5E7EB; border-radius:8px; margin-bottom:16px; overflow:hidden; }
+  .pe-card-header { background:#f0f4fa; padding:10px 16px; font-size:13px; font-weight:600; color:#171c20; border-bottom:1px solid #E5E7EB; display:flex; align-items:center; gap:8px; }
+  .pe-card-body { padding:16px; }
+  /* input helpers */
+  .pe-input { height:32px; border:1px solid #E5E7EB; border-radius:4px; padding:0 10px; font-size:13px; width:100%; outline:none; background:#fff; }
+  .pe-input:focus { border-color:#0EA5E9; box-shadow:0 0 0 2px rgba(14,165,233,.1); }
+  .pe-select { height:32px; border:1px solid #E5E7EB; border-radius:4px; padding:0 8px; font-size:13px; width:100%; outline:none; background:#fff; }
+  .pe-select:focus { border-color:#0EA5E9; }
+  .pe-textarea { border:1px solid #E5E7EB; border-radius:4px; padding:8px 10px; font-size:13px; width:100%; outline:none; background:#fff; resize:vertical; }
+  .pe-textarea:focus { border-color:#0EA5E9; box-shadow:0 0 0 2px rgba(14,165,233,.1); }
+  .pe-label { font-size:11px; font-weight:600; color:#6B7280; text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:4px; }
+  /* systemic exam table */
+  .pe-sys-table { width:100%; border-collapse:collapse; font-size:12px; }
+  .pe-sys-table th { background:#f0f4fa; padding:6px 8px; font-size:11px; font-weight:600; color:#6B7280; text-transform:uppercase; border-bottom:1px solid #E5E7EB; }
+  .pe-sys-table td { padding:5px 8px; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
+  .pe-sys-table tr:nth-child(even) td { background:#fafafa; }
+  .pe-sys-table tr:last-child td { border-bottom:none; }
+  /* result badge */
+  .pe-badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:10px; font-weight:700; text-transform:uppercase; white-space:nowrap; }
+  .pe-badge-fit { background:#dcfce7; color:#15803d; }
+  .pe-badge-obs { background:#fef3c7; color:#92400e; }
+  .pe-badge-ref { background:#ffdad6; color:#93000a; }
+  /* modal scroll */
+  #pe-modal-body { overflow-y:auto; flex:1; padding:16px 20px 0; }
+  #pe-modal-footer { border-top:1px solid #E5E7EB; padding:12px 20px; display:flex; justify-content:flex-end; gap:8px; flex-shrink:0; background:#fff; }
+</style>
+</head>
+<body class="text-on-surface">
+
+<header class="ohc-header">
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform › Health Camps & Screenings › New Employee Screening</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector"><option>Select Site</option><option>Trivandrum HQ</option><option>Pune Phase 2</option><option>Khordha Plant</option></select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
+</aside>
+
+<main class="ohc-main">
+<div class="ohc-content">
+
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6">
+  <div>
+    <h1 class="font-page-title text-page-title text-on-surface">Pre-Employment Medical</h1>
+    <p class="text-body text-on-surface-variant mt-1">ITC Factory Medical Officer — pre-employment fitness examination log</p>
+  </div>
+  <button onclick="peOpenModal(null)" class="h-[36px] px-4 bg-primary text-white rounded-lg flex items-center gap-2 font-semibold text-body hover:opacity-90 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-[18px]">add</span> New Medical Exam
+  </button>
+</div>
+
+<!-- Filter bar + count -->
+<div class="flex flex-wrap items-center gap-3 mb-4">
+  <div class="pe-pill-bar" role="group">
+    <button class="pe-pill active" data-period="today"   onclick="peSetFilter(this)">Today</button>
+    <button class="pe-pill"        data-period="week"    onclick="peSetFilter(this)">This Week</button>
+    <button class="pe-pill"        data-period="month"   onclick="peSetFilter(this)">This Month</button>
+    <button class="pe-pill"        data-period="quarter" onclick="peSetFilter(this)">This Quarter</button>
+    <button class="pe-pill"        data-period="year"    onclick="peSetFilter(this)">This Year</button>
+  </div>
+  <span id="pe-count" class="text-body text-on-surface-variant font-medium">— exams</span>
+</div>
+
+<!-- Log table -->
+<div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+  <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+    <colgroup>
+      <col style="width:18%"/><col style="width:10%"/><col style="width:16%"/>
+      <col style="width:6%"/><col style="width:5%"/><col style="width:16%"/>
+      <col style="width:18%"/><col style="width:11%"/>
+    </colgroup>
+    <thead class="bg-surface-container-low border-b border-outline-variant">
+      <tr>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Candidate Name</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Site / Building</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Sex</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Age</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Result</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Physician</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="pe-table-body" class="divide-y divide-outline-variant text-body">
+      <!-- rendered by JS -->
+    </tbody>
+  </table>
+  <div id="pe-empty" style="display:none;" class="py-16 text-center">
+    <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">medical_information</span>
+    <p class="text-body text-on-surface-variant">No medical exams recorded in this period.</p>
+    <button onclick="peOpenModal(null)" class="mt-4 h-[36px] px-4 bg-primary text-white rounded-lg font-semibold text-body inline-flex items-center gap-2 hover:opacity-90">
+      <span class="material-symbols-outlined text-[18px]">add</span> New Medical Exam
+    </button>
+  </div>
+</div>
+
+</div>
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="pe-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)peCloseModal()">
+  <!-- Wide modal, internal scroll -->
+  <div style="background:#fff;border-radius:12px;width:900px;max-width:96vw;height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.18);overflow:hidden;">
+
+    <!-- Modal header -->
+    <div style="padding:16px 20px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div>
+        <div style="font-size:16px;font-weight:600;color:#171c20;" id="pe-modal-title">New Pre-Employment Medical Exam</div>
+      </div>
+      <button onclick="peCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;padding:4px;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <!-- Candidate header bar -->
+    <div style="padding:10px 20px;background:#f0f4fa;border-bottom:1px solid #E5E7EB;display:flex;flex-wrap:wrap;gap:12px;flex-shrink:0;">
+      <div style="flex:1;min-width:160px;">
+        <label class="pe-label">Candidate Name *</label>
+        <input id="pe-h-name" class="pe-input" type="text" placeholder="Full name" required/>
+      </div>
+      <div style="width:110px;">
+        <label class="pe-label">Date *</label>
+        <input id="pe-h-date" class="pe-input" type="date" required/>
+      </div>
+      <div style="width:110px;">
+        <label class="pe-label">Place</label>
+        <input id="pe-h-place" class="pe-input" type="text" placeholder="e.g. Trivandrum"/>
+      </div>
+      <div style="width:120px;">
+        <label class="pe-label">Overall Result</label>
+        <select id="pe-h-result" class="pe-select">
+          <option value="Fit">Fit</option>
+          <option value="Fit with Observations">Fit with Observations</option>
+          <option value="Referred">Referred</option>
+        </select>
+      </div>
+      <div style="flex:1;min-width:140px;">
+        <label class="pe-label">Examining Physician</label>
+        <input id="pe-h-physician" class="pe-input" type="text" placeholder="Dr. Name"/>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div style="border-bottom:1px solid #E5E7EB;display:flex;padding:0 20px;flex-shrink:0;background:#fff;">
+      <button class="pe-modal-tab active" onclick="peSwitchTab('p1',this)">Part 1 — Medical History</button>
+      <button class="pe-modal-tab" onclick="peSwitchTab('p2',this)">Part 2 — Physical Exam / Lab</button>
+    </div>
+
+    <!-- Scrollable body -->
+    <div id="pe-modal-body">
+
+      <!-- ════ PART 1 ════ -->
+      <div id="pe-panel-p1" class="pe-modal-panel active">
+
+        <!-- Personal Details -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">person</span>Personal Details</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
+              <div><label class="pe-label">Sex</label>
+                <select id="pe-p1-sex" class="pe-select"><option>Male</option><option>Female</option><option>Other</option></select></div>
+              <div><label class="pe-label">Marital Status</label>
+                <select id="pe-p1-marital" class="pe-select"><option>Single</option><option>Married</option><option>Widow</option><option>Widower</option><option>Divorced</option><option>Separated</option></select></div>
+              <div><label class="pe-label">Date of Birth</label>
+                <input id="pe-p1-dob" class="pe-input" type="date"/></div>
+              <div><label class="pe-label">Age</label>
+                <input id="pe-p1-age" class="pe-input" type="number" min="15" max="100" placeholder="Years"/></div>
+            </div>
+            <div style="margin-top:10px;">
+              <label class="pe-label">Home Address</label>
+              <input id="pe-p1-addr" class="pe-input" type="text" placeholder="Full residential address"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Have you ever had — two column checklist -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">history</span>Have You Ever Had</div>
+          <div class="pe-card-body" style="padding:0;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;">
+              <!-- Left column -->
+              <div style="border-right:1px solid #E5E7EB;">
+                <table class="pe-check-table">
+                  <thead><tr><th style="width:58%">Condition</th><th style="width:15%;text-align:center;">Yes</th><th style="width:15%;text-align:center;">No</th><th style="width:12%">Year</th></tr></thead>
+                  <tbody id="pe-had-left">
+                    <!-- JS rendered -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- Right column -->
+              <div>
+                <table class="pe-check-table">
+                  <thead><tr><th style="width:58%">Condition</th><th style="width:15%;text-align:center;">Yes</th><th style="width:15%;text-align:center;">No</th><th style="width:12%">Year</th></tr></thead>
+                  <tbody id="pe-had-right">
+                    <!-- JS rendered -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Family History -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">family_restroom</span>Family History</div>
+          <div class="pe-card-body" style="padding:0;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;">
+              <!-- Relations table -->
+              <div style="border-right:1px solid #E5E7EB;padding:0;">
+                <table class="pe-check-table">
+                  <thead><tr><th>Relation</th><th style="width:60px;">Age</th><th style="width:90px;">State of Health</th><th style="width:90px;">Cause of Death</th></tr></thead>
+                  <tbody>
+                    <tr><td>Father</td><td><input class="pe-input" style="width:56px;" type="number" min="0" max="120"/></td><td><input class="pe-input" type="text" placeholder="e.g. Good"/></td><td><input class="pe-input" type="text" placeholder="If deceased"/></td></tr>
+                    <tr><td>Mother</td><td><input class="pe-input" style="width:56px;" type="number" min="0" max="120"/></td><td><input class="pe-input" type="text"/></td><td><input class="pe-input" type="text"/></td></tr>
+                    <tr><td>Brother</td><td><input class="pe-input" style="width:56px;" type="number" min="0" max="120"/></td><td><input class="pe-input" type="text"/></td><td><input class="pe-input" type="text"/></td></tr>
+                    <tr><td>Sisters</td><td><input class="pe-input" style="width:56px;" type="number" min="0" max="120"/></td><td><input class="pe-input" type="text"/></td><td><input class="pe-input" type="text"/></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Family conditions checklist -->
+              <div style="padding:0;">
+                <table class="pe-check-table">
+                  <thead><tr><th style="width:52%">Has any relative ever had</th><th style="width:10%;text-align:center;">Yes</th><th style="width:10%;text-align:center;">No</th><th>Relation</th><th style="width:48px;">Age</th></tr></thead>
+                  <tbody id="pe-fam-conds"><!-- JS rendered --></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Habits & Lifestyle -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">coffee</span>Habits &amp; Lifestyle</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+              <div><label class="pe-label">Coffee (cups/day)</label><input class="pe-input" type="number" min="0" placeholder="0"/></div>
+              <div><label class="pe-label">Tea (cups/day)</label><input class="pe-input" type="number" min="0" placeholder="0"/></div>
+              <div><label class="pe-label">Whiskey (Oz/week)</label><input class="pe-input" type="number" min="0" placeholder="0"/></div>
+              <div><label class="pe-label">Beer (Bottles/week)</label><input class="pe-input" type="number" min="0" placeholder="0"/></div>
+            </div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;">
+              <div>
+                <label class="pe-label">On diet / medication (last 12 months)?</label>
+                <div style="display:flex;gap:16px;margin-top:6px;">
+                  <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="pe-diet" value="Yes" style="accent-color:#0EA5E9;"/> Yes</label>
+                  <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="pe-diet" value="No" checked style="accent-color:#0EA5E9;"/> No</label>
+                </div>
+              </div>
+              <div><label class="pe-label">If Yes, specify</label><input class="pe-input" type="text" placeholder="Diet/medication details"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Women / Exercise -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">fitness_center</span>Additional Information</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div><label class="pe-label">Menstrual History (Women)</label><input class="pe-input" type="text" placeholder="Regular / Irregular / NA"/></div>
+              <div><label class="pe-label">Physical Exercise</label><input class="pe-input" type="text" placeholder="e.g. Daily walk, gym 3×/week"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">draw</span>Signatures</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <label class="pe-label">Candidate's Signature</label>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                  <input type="checkbox" id="pe-sig-cand" style="accent-color:#0EA5E9;width:16px;height:16px;"/>
+                  <label for="pe-sig-cand" style="font-size:13px;color:#3e4850;cursor:pointer;">Signed by candidate (verified in person)</label>
+                </div>
+              </div>
+              <div>
+                <label class="pe-label">Physician's Signature</label>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                  <input type="checkbox" id="pe-sig-phys" style="accent-color:#0EA5E9;width:16px;height:16px;"/>
+                  <label for="pe-sig-phys" style="font-size:13px;color:#3e4850;cursor:pointer;">Signed by examining physician</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /p1 panel -->
+
+      <!-- ════ PART 2 ════ -->
+      <div id="pe-panel-p2" class="pe-modal-panel">
+
+        <!-- Vitals -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">monitor_heart</span>Vitals</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+              <div><label class="pe-label">Height (cm)</label><input class="pe-input" type="number" placeholder="e.g. 170"/></div>
+              <div><label class="pe-label">Weight (kg)</label><input class="pe-input" type="number" placeholder="e.g. 68"/></div>
+              <div><label class="pe-label">Build</label>
+                <select class="pe-select"><option>Normal</option><option>Under Weight</option><option>Over Weight</option></select></div>
+              <div><label class="pe-label">Pulse (bpm)</label><input class="pe-input" type="number" placeholder="72"/></div>
+              <div><label class="pe-label">Blood Pressure</label><input class="pe-input" type="text" placeholder="120/80 mmHg"/></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;">
+              <div><label class="pe-label">Respiratory Rate</label><input class="pe-input" type="number" placeholder="/min"/></div>
+              <div><label class="pe-label">Near Vision</label><input class="pe-input" type="text" placeholder="e.g. N6"/></div>
+              <div><label class="pe-label">Audiometry</label>
+                <select class="pe-select"><option>Normal</option><option>Abnormal</option></select></div>
+              <div><label class="pe-label">Blood Group + Rh</label><input class="pe-input" type="text" placeholder="e.g. B+"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Acuity & Colour Vision -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">visibility</span>Vision</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:8px;">
+              <div><label class="pe-label">W/O Glasses Rt</label><input class="pe-input" type="text" placeholder="6/6"/></div>
+              <div><label class="pe-label">W/O Glasses Lt</label><input class="pe-input" type="text" placeholder="6/6"/></div>
+              <div><label class="pe-label">With Glasses Rt</label><input class="pe-input" type="text" placeholder="6/6"/></div>
+              <div><label class="pe-label">With Glasses Lt</label><input class="pe-input" type="text" placeholder="6/6"/></div>
+              <div><label class="pe-label">Colour Vision</label>
+                <select class="pe-select"><option>Normal</option><option>Abnormal</option></select></div>
+              <div><label class="pe-label">Colour Test</label>
+                <select class="pe-select"><option>Done</option><option>Missed</option></select></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chest & Immunisation -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">vaccines</span>Chest Measurements &amp; Immunisation</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+              <div><label class="pe-label">Chest Inspiration (cm)</label><input class="pe-input" type="number" placeholder="90"/></div>
+              <div><label class="pe-label">Chest Expiration (cm)</label><input class="pe-input" type="number" placeholder="87"/></div>
+            </div>
+            <label class="pe-label" style="margin-bottom:8px;">Immunisation Status</label>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;">
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> T.A.B.C.</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> Polio</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> Tetanus</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> Small Pox</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> Hepatitis-B</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:#0EA5E9;"/> Others</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Systemic Examination -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">stethoscope</span>Systemic Examination</div>
+          <div class="pe-card-body" style="padding:0;">
+            <table class="pe-sys-table">
+              <thead><tr><th style="width:22%">System</th><th style="width:14%;text-align:center;">Normal</th><th style="width:16%;text-align:center;">Abnormal</th><th>Nature of Abnormality</th></tr></thead>
+              <tbody id="pe-sys-body"><!-- JS rendered --></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Haematology -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">science</span>Haematology</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+              <div><label class="pe-label">Hb % (gms)</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">RBC</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">WBC</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Platelets</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">ESR (mm/1hr)</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Poly %</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Lympho %</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Eosino %</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Mono %</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Baso %</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Biochemistry %</label><input class="pe-input" type="text"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sugar & HbA1c -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">bloodtype</span>Sugar / HbA1c</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+              <div><label class="pe-label">HbA1c %</label><input class="pe-input" type="text" placeholder="%"/></div>
+              <div><label class="pe-label">Fasting Sugar (mg/dl)</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Post Prandial Sugar 2hrs (mg/dl)</label><input class="pe-input" type="text"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liver Function -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">science</span>Liver Function Tests</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+              <div><label class="pe-label">Bilirubin</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Gamma GT</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">SGOT</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">SGPT</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Alk. Phosphatase</label><input class="pe-input" type="text"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lipid Profile -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">monitor_heart</span>Lipid Profile</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+              <div><label class="pe-label">Cholesterol</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">HDL</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">VLDL</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">TG</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">LDL</label><input class="pe-input" type="text"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Renal, Urine, Stool -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">science</span>Renal Function / Urine / Stool</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;">
+              <div><label class="pe-label">Urea (mg/dl)</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Creatinine (mg/dl)</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Uric Acid (mg/dl)</label><input class="pe-input" type="text"/></div>
+              <div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;">
+              <div><label class="pe-label">Urine Sp. Gr.</label><input class="pe-input" type="text" placeholder="1.010"/></div>
+              <div><label class="pe-label">Urine Sugar</label><input class="pe-input" type="text" placeholder="Nil"/></div>
+              <div><label class="pe-label">Urine Alb</label><input class="pe-input" type="text" placeholder="Nil"/></div>
+              <div><label class="pe-label">Urine Micro</label><input class="pe-input" type="text"/></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div><label class="pe-label">Stool Ova</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Stool Cysts</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">Stool Parasites</label><input class="pe-input" type="text"/></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Serology -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">biotech</span>Serology &amp; Thyroid</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div><label class="pe-label">VDRL</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">HbSAg</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">TSH</label><input class="pe-input" type="text"/></div>
+              <div><label class="pe-label">HCV</label><input class="pe-input" type="text"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Imaging & Cardiac -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">radiology</span>Imaging &amp; Cardiac Investigations</div>
+          <div class="pe-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><label class="pe-label">X-Ray Chest (PA View)</label><input class="pe-input" type="text" placeholder="Findings..."/></div>
+              <div><label class="pe-label">ECG</label><input class="pe-input" type="text" placeholder="Findings..."/></div>
+              <div><label class="pe-label">Echocardiogram</label><input class="pe-input" type="text" placeholder="Findings..."/></div>
+              <div><label class="pe-label">Ultrasound of Abdomen</label><input class="pe-input" type="text" placeholder="Findings..."/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authorisation & Recommendations -->
+        <div class="pe-card">
+          <div class="pe-card-header"><span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">assignment_turned_in</span>Authorisation &amp; Recommendations</div>
+          <div class="pe-card-body">
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;">
+              <input type="checkbox" id="pe-auth" style="accent-color:#0EA5E9;width:16px;height:16px;margin-top:2px;flex-shrink:0;"/>
+              <label for="pe-auth" style="font-size:13px;color:#171c20;cursor:pointer;line-height:1.5;">I authorise the examiner to report to the Company the result of this examination.</label>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+              <div>
+                <label class="pe-label">Signature of Examinee</label>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                  <input type="checkbox" id="pe-sig-exam" style="accent-color:#0EA5E9;width:16px;height:16px;"/>
+                  <label for="pe-sig-exam" style="font-size:13px;color:#3e4850;cursor:pointer;">Signed by examinee (verified in person)</label>
+                </div>
+              </div>
+              <div>
+                <label class="pe-label">Physician's Signature (Part 2)</label>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                  <input type="checkbox" id="pe-sig-phys2" style="accent-color:#0EA5E9;width:16px;height:16px;"/>
+                  <label for="pe-sig-phys2" style="font-size:13px;color:#3e4850;cursor:pointer;">Signed by examining physician</label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="pe-label">Recommendations</label>
+              <textarea class="pe-textarea" rows="3" placeholder="Enter medical recommendations, follow-up actions, or observations..."></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /p2 panel -->
+
+    </div><!-- /pe-modal-body -->
+
+    <!-- Sticky footer -->
+    <div id="pe-modal-footer">
+      <button type="button" onclick="peCloseModal()" style="height:36px;padding:0 20px;border:1px solid #E5E7EB;border-radius:6px;background:#fff;font-size:13px;font-weight:600;color:#6B7280;cursor:pointer;">Cancel</button>
+      <button type="button" onclick="peSaveEntry()" id="pe-save-btn" style="height:36px;padding:0 24px;border:none;border-radius:6px;background:#0EA5E9;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">Save Exam Record</button>
+    </div>
+
+  </div><!-- /modal card -->
+</div><!-- /overlay -->
+
+<script>
+// ── "Have you ever had" checklist data ─────────────────────────
+var PE_HAD_LEFT = [
+    'Tonsils removed','Appendix removed','Other Operations',
+    'Typhoid','Malaria','Dysentery (Amoebic)','Dysentery (Bacillary)',
+    'Pneumonia','Jaundice','Tuberculosis','Asthma',
+    'History of Bleeding Disorder / Bleeding from any source'
+];
+var PE_HAD_RIGHT = [
+    'Loss of Memory','Loss of Consciousness','Severe Injury',
+    'Loss of Limb or Digit','Drug Reaction','Any other illness or Injuries',
+    'Worn Glasses or Contact Lenses','Worn a Hearing Aid',
+    'Been advised to have an operation',
+    'Been denied Employment for health reasons',
+    'Fits or Convulsions'
+];
+var PE_FAM_CONDS = [
+    'Had a heart attack','Had a Stroke or high BP',
+    'Had Diabetes or sugar in the urine','Had Fits or convulsions',
+    'Had a nervous breakdown or mental illness',
+    'Had Asthma, hay fever or allergies','Had cancer','Committed suicide'
+];
+var PE_SYSTEMS = [
+    'Skin','Lymph Glands','Eye','Fundoscopic Exam','Ears','Nose',
+    'Mouth & Throat','Teeth','Neck','Lungs','Heart','Abdomen',
+    'Liver','Spleen','Hernia','Genitalia','Reflexes'
+];
+
+// Render checklist rows
+function peRenderCheckRows(tbodyId, items) {
+    var tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = items.map(function(item, i) {
+        var gid = tbodyId+'_'+i;
+        return '<tr>'
+            +'<td>'+item+'</td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="Yes" style="accent-color:#0EA5E9;"/></td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="No" checked style="accent-color:#0EA5E9;"/></td>'
+            +'<td><input type="text" placeholder="—" style="width:54px;height:26px;border:1px solid #E5E7EB;border-radius:4px;padding:0 5px;font-size:12px;outline:none;"/></td>'
+            +'</tr>';
+    }).join('');
+}
+
+function peRenderFamConds() {
+    var tbody = document.getElementById('pe-fam-conds');
+    tbody.innerHTML = PE_FAM_CONDS.map(function(item, i) {
+        var gid = 'pe_fam_'+i;
+        return '<tr>'
+            +'<td>'+item+'</td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="Yes" style="accent-color:#0EA5E9;"/></td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="No" checked style="accent-color:#0EA5E9;"/></td>'
+            +'<td><input type="text" style="width:72px;height:26px;border:1px solid #E5E7EB;border-radius:4px;padding:0 5px;font-size:12px;outline:none;" placeholder="—"/></td>'
+            +'<td><input type="text" style="width:40px;height:26px;border:1px solid #E5E7EB;border-radius:4px;padding:0 5px;font-size:12px;outline:none;" placeholder="—"/></td>'
+            +'</tr>';
+    }).join('');
+}
+
+function peRenderSysExam() {
+    var tbody = document.getElementById('pe-sys-body');
+    tbody.innerHTML = PE_SYSTEMS.map(function(sys, i) {
+        var gid = 'pe_sys_'+i;
+        return '<tr>'
+            +'<td style="font-weight:500;">'+sys+'</td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="Normal" checked style="accent-color:#0EA5E9;"/></td>'
+            +'<td style="text-align:center;"><input type="radio" name="'+gid+'" value="Abnormal" style="accent-color:#0EA5E9;"/></td>'
+            +'<td><input type="text" style="width:100%;height:26px;border:1px solid #E5E7EB;border-radius:4px;padding:0 6px;font-size:12px;outline:none;" placeholder="Describe if abnormal"/></td>'
+            +'</tr>';
+    }).join('');
+}
+
+peRenderCheckRows('pe-had-left',  PE_HAD_LEFT);
+peRenderCheckRows('pe-had-right', PE_HAD_RIGHT);
+peRenderFamConds();
+peRenderSysExam();
+
+// ── Demo data (daysAgo) ──────────────────────────────────────
+var PE_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function peMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+
+var PE_RAW = [
+    { daysAgo:0,  name:'Ramesh Chandra Nair',     site:'Trivandrum HQ',  sex:'Male',   age:28, result:'Fit',                    physician:'Dr. Priya Menon' },
+    { daysAgo:0,  name:'Divya Sreedharan',         site:'Trivandrum HQ',  sex:'Female', age:24, result:'Fit',                    physician:'Dr. Priya Menon' },
+    { daysAgo:1,  name:'Suresh Babu Patnaik',      site:'Khordha Plant',  sex:'Male',   age:32, result:'Fit with Observations',  physician:'Dr. Arvind Rao'  },
+    { daysAgo:2,  name:'Megha Agarwal',            site:'Pune Phase 2',   sex:'Female', age:26, result:'Fit',                    physician:'Dr. Sunita Joshi' },
+    { daysAgo:3,  name:'Kiran Kumar Mishra',       site:'Khordha Plant',  sex:'Male',   age:30, result:'Referred',               physician:'Dr. Arvind Rao'  },
+    { daysAgo:5,  name:'Ananya Sharma',            site:'Pune Phase 2',   sex:'Female', age:23, result:'Fit',                    physician:'Dr. Sunita Joshi' },
+    { daysAgo:7,  name:'Venkatesh Iyengar',        site:'Trivandrum HQ',  sex:'Male',   age:35, result:'Fit with Observations',  physician:'Dr. Priya Menon' },
+    { daysAgo:10, name:'Pooja Kumari Das',         site:'Khordha Plant',  sex:'Female', age:27, result:'Fit',                    physician:'Dr. Arvind Rao'  },
+    { daysAgo:15, name:'Rajiv Shankar Prasad',     site:'Trivandrum HQ',  sex:'Male',   age:29, result:'Fit',                    physician:'Dr. Priya Menon' },
+    { daysAgo:30, name:'Preethi Nambiar',          site:'Pune Phase 2',   sex:'Female', age:25, result:'Fit',                    physician:'Dr. Sunita Joshi' },
+    { daysAgo:60, name:'Harish Chandra Bose',      site:'Khordha Plant',  sex:'Male',   age:31, result:'Fit',                    physician:'Dr. Arvind Rao'  },
+    { daysAgo:100,name:'Sushma Reddy',             site:'Trivandrum HQ',  sex:'Female', age:28, result:'Fit with Observations',  physician:'Dr. Priya Menon' },
+    { daysAgo:200,name:'Ashok Narayan Singh',      site:'Pune Phase 2',   sex:'Male',   age:33, result:'Fit',                    physician:'Dr. Sunita Joshi' },
+];
+
+var PE_ROWS = PE_RAW.map(function(r,i){ return Object.assign({},r,{date:peMidnight(r.daysAgo),id:i}); });
+function peFmt(d){ return d.getDate()+' '+PE_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+var peCurrentPeriod = 'today';
+
+function peGetRange(period){
+    var s=new Date(); s.setHours(0,0,0,0);
+    var e=new Date(); e.setHours(23,59,59,999);
+    if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+    else if(period==='month'){ s.setDate(1); }
+    else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+    else if(period==='year'){ s.setMonth(0,1); }
+    return {start:s,end:e};
+}
+
+function peRender(period){
+    var r = peGetRange(period);
+    var rows = PE_ROWS.filter(function(v){ return v.date>=r.start && v.date<=r.end; });
+    var n = rows.length;
+    document.getElementById('pe-count').textContent = n + ' exam'+(n===1?'':'s');
+    var tbody = document.getElementById('pe-table-body');
+    var empty = document.getElementById('pe-empty');
+    if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+    tbody.innerHTML = rows.map(function(v,i){
+        var bg = i%2===0 ? '#fff' : '#f9fafb';
+        var badgeCls = v.result==='Fit' ? 'pe-badge-fit' : (v.result==='Referred' ? 'pe-badge-ref' : 'pe-badge-obs');
+        return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+bg+'\'">'
+            +'<td class="px-4 py-3 font-semibold" style="white-space:normal;word-wrap:break-word;">'+v.name+'</td>'
+            +'<td class="px-4 py-3 text-body" style="white-space:nowrap;">'+peFmt(v.date)+'</td>'
+            +'<td class="px-4 py-3 text-body" style="white-space:normal;word-wrap:break-word;">'+v.site+'</td>'
+            +'<td class="px-4 py-3 text-body" style="white-space:nowrap;">'+v.sex+'</td>'
+            +'<td class="px-4 py-3 text-body text-center">'+v.age+'</td>'
+            +'<td class="px-4 py-3"><span class="pe-badge '+badgeCls+'">'+v.result+'</span></td>'
+            +'<td class="px-4 py-3 text-body" style="white-space:normal;word-wrap:break-word;">'+v.physician+'</td>'
+            +'<td class="px-4 py-3 text-right" style="white-space:nowrap;">'
+            +'<button onclick="peOpenModal('+v.id+')" style="background:none;border:none;cursor:pointer;color:#0EA5E9;padding:4px;" title="View/Edit"><span class="material-symbols-outlined" style="font-size:18px;">edit</span></button>'
+            +'</td>'
+            +'</tr>';
+    }).join('');
+}
+
+function peSetFilter(btn){
+    document.querySelectorAll('.pe-pill').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    peCurrentPeriod = btn.dataset.period;
+    peRender(peCurrentPeriod);
+}
+
+// ── Modal ──────────────────────────────────────────────────
+function peOpenModal(id){
+    document.getElementById('pe-overlay').style.display = 'flex';
+    // reset header fields on new
+    if(id === null){
+        document.getElementById('pe-modal-title').textContent = 'New Pre-Employment Medical Exam';
+        document.getElementById('pe-h-name').value = '';
+        document.getElementById('pe-h-date').value = new Date().toISOString().slice(0,10);
+        document.getElementById('pe-h-place').value = '';
+        document.getElementById('pe-h-result').value = 'Fit';
+        document.getElementById('pe-h-physician').value = '';
+    } else {
+        var v = PE_ROWS.filter(function(r){ return r.id===id; })[0];
+        if(!v) return;
+        document.getElementById('pe-modal-title').textContent = 'Edit Exam — '+v.name;
+        document.getElementById('pe-h-name').value = v.name;
+        var dd = v.date;
+        document.getElementById('pe-h-date').value = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
+        document.getElementById('pe-h-result').value = v.result;
+        document.getElementById('pe-h-physician').value = v.physician;
+    }
+    // always start on Part 1
+    peSwitchTab('p1', document.querySelectorAll('.pe-modal-tab')[0]);
+    document.getElementById('pe-modal-body').scrollTop = 0;
+    window.scrollTo(0,0);
+}
+
+function peCloseModal(){
+    document.getElementById('pe-overlay').style.display = 'none';
+}
+
+function peSwitchTab(tabId, btn){
+    document.querySelectorAll('.pe-modal-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.pe-modal-panel').forEach(function(p){ p.classList.remove('active'); });
+    if(btn) btn.classList.add('active');
+    document.getElementById('pe-panel-'+tabId).classList.add('active');
+    document.getElementById('pe-modal-body').scrollTop = 0;
+}
+
+function peSaveEntry(){
+    var name      = document.getElementById('pe-h-name').value.trim();
+    var dateVal   = document.getElementById('pe-h-date').value;
+    var result    = document.getElementById('pe-h-result').value;
+    var physician = document.getElementById('pe-h-physician').value.trim() || 'Dr. —';
+    var place     = document.getElementById('pe-h-place').value.trim() || 'Trivandrum HQ';
+    var sex       = document.getElementById('pe-p1-sex').value;
+    var age       = parseInt(document.getElementById('pe-p1-age').value) || 0;
+
+    if(!name || !dateVal){ alert('Candidate Name and Date are required.'); return; }
+
+    var btn = document.getElementById('pe-save-btn');
+    btn.textContent = 'Saving...'; btn.disabled = true;
+    setTimeout(function(){
+        var parts = dateVal.split('-');
+        var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2])); d.setHours(0,0,0,0);
+        var newId = PE_ROWS.length;
+        PE_ROWS.unshift({ id:newId, name:name, date:d, site:place, sex:sex, age:age||'—', result:result, physician:physician, daysAgo:0 });
+        btn.textContent = 'Saved ✓'; btn.style.background = '#10b981';
+        setTimeout(function(){
+            btn.textContent = 'Save Exam Record'; btn.style.background = '#0EA5E9'; btn.disabled = false;
+            peCloseModal();
+            peRender(peCurrentPeriod);
+        }, 900);
+    }, 500);
+}
+
+// Boot
+peRender('today');
+</script>
+</body></html>

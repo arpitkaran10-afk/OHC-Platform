@@ -267,34 +267,41 @@ const NAV = [
           { key: 'patients_rest',      label: 'Rest Case',          file: 'patients_rest_case_allianz/code.html?v=5' }
         ]
       },
-      { key: 'clinicians',    label: 'Clinicians',    icon: 'medical_services', file: 'clinicians_staff_master_roster/code.html?v=2' },
-      { key: 'prescriptions', label: 'Prescriptions', icon: 'prescriptions',    file: 'prescriptions_digital_rx_log/code.html' },
+      { key: 'clinicians', label: 'Clinicians', icon: 'medical_services', file: 'clinicians_staff_master_roster/code.html?v=2' },
+      { key: 'prescriptions', label: 'Prescriptions', icon: 'prescriptions',    file: 'prescriptions_digital_rx_log/code.html?v=7' },
       {
         key: 'pharmacy',
         label: 'Pharmacy',
         icon: 'local_pharmacy',
         children: [
-          { key: 'pharmacy_stock',   label: 'Stock Management', file: 'pharmacy_stock_management_v4_1/code.html' },
-          { key: 'pharmacy_oxygen',  label: 'Oxygen Supply',    file: 'Oxygen Supply/code.html' },
-          { key: 'pharmacy_vending', label: 'Vending Machine',  file: 'Vending Machine/code.html' }
+          { key: 'pharmacy_stock',   label: 'Stock Management', file: 'pharmacy_stock_management_v4_1/code.html?v=3' },
+          { key: 'pharmacy_oxygen',  label: 'Oxygen Supply',    file: 'Oxygen Supply/code.html?v=2' },
+          { key: 'pharmacy_vending', label: 'Vending Machine',  file: 'Vending Machine/code.html?v=2' }
         ]
       },
-      { key: 'bmw', label: 'Biomedical Waste', icon: 'delete_sweep', file: 'bmw_tracking_collection_log_v4/code.html' }
+      { key: 'bmw', label: 'Biomedical Waste', icon: 'delete_sweep', file: 'bmw_tracking_collection_log_v4/code.html?v=3' }
     ]
   },
   {
     key: 'health_camps',
     label: 'Health Camps & Screenings',
     icon: 'campaign',
-    file: 'health_camps_screening_events_v4/code.html'
+    children: [
+      { key: 'health_camps_annual',     label: 'Annual Health Camps',      file: 'health_camps_screening_events_v4/code.html?v=3' },
+      // New Employee Screening reuses the Pre-Employment Medical module built under Clinicians
+      { key: 'health_camps_new_emp',    label: 'New Employee Screening',   file: 'clinicians_pre_employment_medical/code.html?v=1' },
+      { key: 'health_camps_hazardous',  label: 'Hazardous Process Checks', file: 'hazardous_process_checks/code.html?v=1' }
+    ]
   },
   {
     key: 'wellness',
     label: 'Wellness',
     icon: 'favorite',
     children: [
-      { key: 'toolbox',        label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html' },
-      { key: 'other_wellness', label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html' }
+      { key: 'toolbox',           label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html?v=3' },
+      { key: 'other_wellness',    label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html?v=3' },
+      // External link — opens HR coaching dashboard in a new tab. Replace URL before go-live.
+      { key: 'coaching_programs', label: 'Coaching Programs', icon: 'open_in_new',  external: true, url: 'https://REPLACE-WITH-HR-DASHBOARD-URL' }
     ]
   },
   {
@@ -316,7 +323,7 @@ const NAV = [
           { key: 'oshwc_incident_register', label: 'Incident Register', file: 'others_incident_register_v4/code.html?v=7' }
         ]
       },
-      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',  file: 'general_inventory_register_allianz/code.html' }
+      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',  file: 'general_inventory_register_allianz/code.html?v=2' }
     ]
   },
   {
@@ -330,8 +337,8 @@ const NAV = [
     label: 'Others',
     icon: 'more_horiz',
     children: [
-      { key: 'invoice',  label: 'Invoice Tracker',   icon: 'receipt_long',          file: 'invoice_tracker_allianz_finance_v4/code.html' },
-      { key: 'laundry',  label: 'Laundry Register',  icon: 'local_laundry_service', file: 'laundry_register_allianz_compliance_v4/code.html' }
+      { key: 'invoice',  label: 'Invoice Tracker',   icon: 'receipt_long',          file: 'invoice_tracker_allianz_finance_v4/code.html?v=2' },
+      { key: 'laundry',  label: 'Laundry Register',  icon: 'local_laundry_service', file: 'laundry_register_allianz_compliance_v4/code.html?v=2' }
     ]
   },
   {
@@ -346,7 +353,7 @@ const NAV = [
 const LEAF_MAP = {};
 (function buildLeafMap(items) {
   items.forEach(item => {
-    if (item.file)     LEAF_MAP[item.key] = item;
+    if (item.file || item.external) LEAF_MAP[item.key] = item;
     if (item.children) buildLeafMap(item.children);
   });
 }(NAV));
@@ -374,7 +381,8 @@ const OVERRIDE_CSS = `
 // ── File loader ───────────────────────────────────────────────
 function loadFile(file) {
   loadingOverlay.classList.remove('hidden');
-  iframe.src = file;
+  const sep = file.includes('?') ? '&' : '?';
+  iframe.src = file + sep + 't=' + Date.now();
 }
 
 iframe.addEventListener('load', () => {
@@ -403,7 +411,13 @@ function renderNav(items, level) {
       ? `<span class="nav-icon material-symbols-outlined">${item.icon}</span>`
       : '';
 
-    if (item.file) {
+    if (item.external) {
+      // ── External-link node (opens in new tab, never loads iframe) ──
+      return `<a class="nav-row nav-row--l${level}"
+                 data-key="${item.key}"
+                 href="javascript:void(0)"
+                 onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
+    } else if (item.file) {
       // ── Leaf node ─────────────────────────────────────────
       return `<a class="nav-row nav-row--l${level}"
                  data-key="${item.key}"
@@ -411,11 +425,14 @@ function renderNav(items, level) {
                  onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
     } else {
       // ── Group / accordion node ────────────────────────────
+      const childrenHtml = (item.children || []).length
+        ? renderNav(item.children, level + 1)
+        : '';
       return `<div class="nav-group" id="group-${item.key}">
         <button class="nav-row nav-row--l${level}"
                 onclick="toggleGroup('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span><span class="nav-chevron material-symbols-outlined">expand_more</span></button>
         <div class="nav-group-body">
-          <div class="nav-group-body-inner">${renderNav(item.children, level + 1)}</div>
+          <div class="nav-group-body-inner">${childrenHtml}</div>
         </div>
       </div>`;
     }
@@ -466,6 +483,12 @@ function toggleGroup(key) {
 function navigateTo(key) {
   const item = LEAF_MAP[key];
   if (!item) return;
+
+  // External links open in a new tab — do not load into the iframe
+  if (item.external && item.url) {
+    window.open(item.url, '_blank', 'noopener,noreferrer');
+    return;
+  }
 
   activeKey = key;
 

@@ -7,110 +7,52 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F3F4F6;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #bec8d2;
-            border-radius: 10px;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
+        /* Filter pills */
+        .bw-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+        .bw-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+        .bw-pill:hover { color:#111827; background:#fff; }
+        .bw-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed": "#2c1600",
-                        "primary-fixed": "#c9e6ff",
-                        "on-error": "#ffffff",
-                        "secondary-fixed": "#c9e6ff",
-                        "surface-tint": "#0EA5E9",
-                        "on-error-container": "#93000a",
-                        "primary-container": "#0ea5e9",
-                        "primary-fixed-dim": "#89ceff",
-                        "secondary": "#3c627d",
-                        "background": "#f6faff",
-                        "tertiary-fixed": "#ffdcbd",
-                        "on-background": "#171c20",
-                        "on-tertiary-fixed-variant": "#693c00",
-                        "on-primary": "#ffffff",
-                        "secondary-container": "#b8dffe",
-                        "surface-container-high": "#e4e8ee",
-                        "primary": "#0EA5E9",
-                        "tertiary": "#8a5100",
-                        "on-primary-fixed": "#001e2f",
-                        "inverse-surface": "#2c3135",
-                        "surface-bright": "#f6faff",
-                        "surface-container-highest": "#dee3e9",
-                        "surface-dim": "#d6dae0",
-                        "on-secondary-fixed": "#001e2f",
-                        "on-primary-fixed-variant": "#004c6e",
-                        "surface": "#f6faff",
-                        "on-secondary-fixed-variant": "#234b64",
-                        "outline": "#6e7881",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-low": "#f0f4fa",
-                        "on-secondary": "#ffffff",
-                        "inverse-on-surface": "#edf1f7",
-                        "error": "#ba1a1a",
-                        "on-secondary-container": "#3d637d",
-                        "surface-container-lowest": "#ffffff",
-                        "on-surface-variant": "#3e4850",
-                        "on-primary-container": "#003751",
-                        "secondary-fixed-dim": "#a5cbe9",
-                        "on-tertiary-container": "#4d2b00",
-                        "error-container": "#ffdad6",
-                        "outline-variant": "#bec8d2",
-                        "tertiary-fixed-dim": "#ffb86e",
-                        "surface-container": "#eaeef4",
-                        "tertiary-container": "#de8712",
-                        "on-surface": "#171c20",
-                        "surface-variant": "#dee3e9",
-                        "inverse-primary": "#89ceff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "stack_gap": "8px",
-                        "header_height": "56px",
-                        "container_gap": "16px",
-                        "base": "4px",
-                        "sidebar_width": "240px",
-                        "content_padding": "24px"
-                    },
-                    "fontFamily": {
-                        "label-sm": ["Inter"],
-                        "section-heading": ["Inter"],
-                        "body": ["Inter"],
-                        "page-title": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
-                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
-                    }
+            theme: { extend: {
+                "colors": {
+                    "on-tertiary-fixed": "#2c1600", "primary-fixed": "#c9e6ff", "on-error": "#ffffff",
+                    "secondary-fixed": "#c9e6ff", "surface-tint": "#0EA5E9", "on-error-container": "#93000a",
+                    "primary-container": "#0ea5e9", "primary-fixed-dim": "#89ceff", "secondary": "#3c627d",
+                    "background": "#f6faff", "tertiary-fixed": "#ffdcbd", "on-background": "#171c20",
+                    "on-tertiary-fixed-variant": "#693c00", "on-primary": "#ffffff", "secondary-container": "#b8dffe",
+                    "surface-container-high": "#e4e8ee", "primary": "#0EA5E9", "tertiary": "#8a5100",
+                    "on-primary-fixed": "#001e2f", "inverse-surface": "#2c3135", "surface-bright": "#f6faff",
+                    "surface-container-highest": "#dee3e9", "surface-dim": "#d6dae0", "on-secondary-fixed": "#001e2f",
+                    "on-primary-fixed-variant": "#004c6e", "surface": "#f6faff", "on-secondary-fixed-variant": "#234b64",
+                    "outline": "#6e7881", "on-tertiary": "#ffffff", "surface-container-low": "#f0f4fa",
+                    "on-secondary": "#ffffff", "inverse-on-surface": "#edf1f7", "error": "#ba1a1a",
+                    "on-secondary-container": "#3d637d", "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#3e4850", "on-primary-container": "#003751",
+                    "secondary-fixed-dim": "#a5cbe9", "on-tertiary-container": "#4d2b00",
+                    "error-container": "#ffdad6", "outline-variant": "#bec8d2", "tertiary-fixed-dim": "#ffb86e",
+                    "surface-container": "#eaeef4", "tertiary-container": "#de8712",
+                    "on-surface": "#171c20", "surface-variant": "#dee3e9", "inverse-primary": "#89ceff"
                 },
-            },
+                "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                "spacing": { "stack_gap": "8px", "header_height": "56px", "container_gap": "16px", "base": "4px", "sidebar_width": "240px", "content_padding": "24px" },
+                "fontFamily": { "label-sm": ["Inter"], "section-heading": ["Inter"], "body": ["Inter"], "page-title": ["Inter"] },
+                "fontSize": {
+                    "label-sm": ["11px", {"lineHeight":"16px","fontWeight":"600"}],
+                    "section-heading": ["16px", {"lineHeight":"24px","fontWeight":"600"}],
+                    "body": ["13px", {"lineHeight":"20px","fontWeight":"400"}],
+                    "page-title": ["20px", {"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}]
+                }
+            }}
         }
     </script>
 </head>
@@ -137,9 +79,7 @@
 </header>
 <aside class="ohc-sidebar">
   <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
+    <option>Select Site</option><option>Site A</option><option>Site B</option>
   </select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
@@ -163,293 +103,408 @@
 </aside>
 <main class="ohc-main">
 <div class="ohc-content">
+
 <!-- Page Header -->
 <div class="flex items-center justify-between mb-6">
-<div>
-<h1 class="font-page-title text-page-title text-on-surface">BMW Tracking</h1>
-<p class="font-body text-body text-on-surface-variant mt-1">Biomedical waste collection log — vendor pre-configured per site (IMAGE / PASSCO)</p>
+  <div>
+    <h1 class="font-page-title text-page-title text-on-surface">BMW Tracking</h1>
+    <p class="font-body text-body text-on-surface-variant mt-1">Biomedical waste collection log — vendor pre-configured per site (IMAGE / PASSCO)</p>
+  </div>
+  <button onclick="bwOpenModal()" class="bg-primary hover:bg-primary-container text-white h-[36px] px-4 rounded font-label-sm text-label-sm flex items-center gap-2 transition-all active:scale-95 shadow-sm">
+    <span class="material-symbols-outlined text-sm">add</span> Log BMW Collection
+  </button>
 </div>
-<button class="bg-primary hover:bg-primary-container text-white h-[36px] px-4 rounded font-label-sm text-label-sm flex items-center gap-2 transition-all active:scale-95 shadow-sm">
-<span class="material-symbols-outlined text-sm">add</span> Log BMW Collection
-            </button>
+
+<!-- Compliance Banner (kept as-is) -->
+<div class="mb-container_gap bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center gap-3">
+  <span class="material-symbols-outlined text-emerald-600">check_circle</span>
+  <span class="font-body text-body text-emerald-900">BMW collected on schedule for this month.</span>
 </div>
-<!-- Compliance Banner -->
-<div class="mb-container_gap bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center gap-3 animate-fade-in">
-<span class="material-symbols-outlined text-emerald-600">check_circle</span>
-<span class="font-body text-body text-emerald-900">BMW collected on schedule for this month.</span>
+
+<!-- Summary Cards (kept as-is) -->
+<div class="grid grid-cols-3 gap-4 mb-container_gap">
+  <div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+    <span class="font-label-sm text-label-sm text-on-surface-variant">Total Waste (Month)</span>
+    <div class="flex items-baseline gap-1 mt-2"><span class="text-2xl font-bold text-primary">124.5</span><span class="text-sm font-semibold text-on-surface-variant">kg</span></div>
+  </div>
+  <div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+    <span class="font-label-sm text-label-sm text-on-surface-variant">Vendor Visits</span>
+    <div class="flex items-baseline gap-1 mt-2"><span class="text-2xl font-bold text-primary">18</span><span class="text-sm font-semibold text-on-surface-variant">Collections</span></div>
+  </div>
+  <div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
+    <span class="font-label-sm text-label-sm text-on-surface-variant">Next Scheduled</span>
+    <div class="flex items-baseline gap-1 mt-2"><span class="text-lg font-bold text-secondary">Tomorrow</span><span class="text-xs font-normal text-on-surface-variant">09:00 AM</span></div>
+  </div>
 </div>
-<!-- Layout Grid: Form and Info -->
-<div class="grid grid-cols-12 gap-container_gap">
-<!-- Section 1: Form Card -->
-<div class="col-span-12 lg:col-span-5">
-<section class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col h-full">
-<div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low">
-<h2 class="font-section-heading text-section-heading text-on-surface">New Collection Entry</h2>
-</div>
-<div class="p-6">
-<form class="grid grid-cols-2 gap-4">
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Date</label>
-<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" type="date" value="2023-10-24"/>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Time</label>
-<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" type="time" value="10:30"/>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Building</label>
-<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
-<option>Block A - Main Clinic</option>
-<option>Block B - Diagnostics</option>
-<option>Block C - Staff Quarters</option>
-</select>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Waste Category</label>
-<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
-<option>Yellow Bag</option>
-<option>Red Bag</option>
-<option>Blue Bag</option>
-</select>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Quantity</label>
-<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="0.0" step="0.1" type="number"/>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Unit</label>
-<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
-<option>kg</option>
-<option>grams</option>
-</select>
-</div>
-<div class="col-span-2">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Vendor / Agency</label>
-<select class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none">
-<option>IMAGE - Indian Medical Association</option>
-<option>PASSCO Environmental Solutions</option>
-</select>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Staff Sign</label>
-<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Employee Code / Name" type="text"/>
-</div>
-<div class="col-span-1">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Security Sign</label>
-<input class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Gate Pass / ID" type="text"/>
-</div>
-<div class="col-span-2 pt-2">
-<div class="flex items-center justify-between p-3 bg-surface-container-low border border-outline-variant rounded-lg">
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Collection Compliance Flag</span>
-<span class="text-[10px] text-on-surface-variant italic">Auto-calculated based on schedule</span>
-</div>
-<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-label-sm text-label-sm">Compliant</span>
-</div>
-</div>
-<div class="col-span-2 pt-4">
-<button class="w-full bg-primary text-on-primary font-bold py-3 rounded-lg hover:shadow-lg transition-all active:scale-95" type="submit">Save Collection Entry</button>
-</div>
-</form>
-</div>
-</section>
-</div>
-<!-- Section 2: Log Table & Visual Overview -->
-<div class="col-span-12 lg:col-span-7 space-y-container_gap">
-<!-- Bento Info Card -->
-<div class="grid grid-cols-3 gap-4">
-<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Total Waste (Month)</span>
-<div class="flex items-baseline gap-1 mt-2">
-<span class="text-2xl font-bold text-primary">124.5</span>
-<span class="text-sm font-semibold text-on-surface-variant">kg</span>
-</div>
-</div>
-<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Vendor Visits</span>
-<div class="flex items-baseline gap-1 mt-2">
-<span class="text-2xl font-bold text-primary">18</span>
-<span class="text-sm font-semibold text-on-surface-variant">Collections</span>
-</div>
-</div>
-<div class="bg-surface-container border border-outline-variant rounded-lg p-4 flex flex-col justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Next Scheduled</span>
-<div class="flex items-baseline gap-1 mt-2">
-<span class="text-lg font-bold text-secondary">Tomorrow</span>
-<span class="text-xs font-normal text-on-surface-variant">09:00 AM</span>
-</div>
-</div>
-</div>
-<!-- BMW Log Card -->
+
+<!-- BMW LOG Card -->
 <section class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
-<div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
-<h2 class="font-section-heading text-section-heading text-on-surface">BMW LOG</h2>
-<div class="flex gap-2">
-<select class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
-<option>All Buildings</option>
-</select>
-<select class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
-<option>Waste Category</option>
-</select>
-<button class="h-8 w-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined text-sm">filter_list</span>
-</button>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Date / Time</th>
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Building</th>
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Category</th>
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant text-right">Qty</th>
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
-<th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Compliance</th>
-</tr>
-</thead>
-<tbody class="font-body text-body">
-<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">24 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">10:30 AM</span></td>
-<td class="px-4 py-3">Block A</td>
-<td class="px-4 py-3">
-<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-200 uppercase tracking-tighter">Yellow Bag</span>
-</td>
-<td class="px-4 py-3 text-right font-semibold">4.2 kg</td>
-<td class="px-4 py-3">IMAGE</td>
-<td class="px-4 py-3">
-<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
-</td>
-</tr>
-<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">23 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">09:15 AM</span></td>
-<td class="px-4 py-3">Block B</td>
-<td class="px-4 py-3">
-<span class="bg-red-100 text-red-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-red-200 uppercase tracking-tighter">Red Bag</span>
-</td>
-<td class="px-4 py-3 text-right font-semibold">2.8 kg</td>
-<td class="px-4 py-3">PASSCO</td>
-<td class="px-4 py-3">
-<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
-</td>
-</tr>
-<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">22 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">11:00 AM</span></td>
-<td class="px-4 py-3">Block A</td>
-<td class="px-4 py-3">
-<span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-blue-200 uppercase tracking-tighter">Blue Bag</span>
-</td>
-<td class="px-4 py-3 text-right font-semibold">1.5 kg</td>
-<td class="px-4 py-3">IMAGE</td>
-<td class="px-4 py-3">
-<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
-</td>
-</tr>
-<tr class="bg-surface-container-lowest border-b border-outline-variant hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">20 Oct, 2023 <br/> <span class="text-[11px] text-on-surface-variant">10:45 AM</span></td>
-<td class="px-4 py-3">Block C</td>
-<td class="px-4 py-3">
-<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-200 uppercase tracking-tighter">Yellow Bag</span>
-</td>
-<td class="px-4 py-3 text-right font-semibold">5.0 kg</td>
-<td class="px-4 py-3">PASSCO</td>
-<td class="px-4 py-3">
-<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">Compliant</span>
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr class="bg-surface-container-high font-bold">
-<td class="px-4 py-4 font-label-sm text-label-sm" colspan="3">Monthly Summary (Oct)</td>
-<td class="px-4 py-4 text-right font-label-sm text-label-sm text-primary">13.5 kg</td>
-<td class="px-4 py-4 text-right font-label-sm text-label-sm text-on-surface-variant" colspan="2">100% On-Time Collection</td>
-</tr>
-</tfoot>
-</table>
-</div>
+  <div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low flex flex-wrap items-center gap-3">
+    <h2 class="font-section-heading text-section-heading text-on-surface mr-2">BMW LOG</h2>
+    <!-- Time-period filter pills -->
+    <div class="bw-pill-bar" role="group">
+      <button class="bw-pill active" data-period="today"   onclick="bwSetFilter(this)">Today</button>
+      <button class="bw-pill"        data-period="week"    onclick="bwSetFilter(this)">This Week</button>
+      <button class="bw-pill"        data-period="month"   onclick="bwSetFilter(this)">This Month</button>
+      <button class="bw-pill"        data-period="quarter" onclick="bwSetFilter(this)">This Quarter</button>
+      <button class="bw-pill"        data-period="year"    onclick="bwSetFilter(this)">This Year</button>
+    </div>
+    <span id="bw-count" class="text-[12px] font-medium text-on-surface-variant">— collections</span>
+    <!-- Existing filters kept -->
+    <div class="flex gap-2 ml-auto">
+      <select id="bw-building-filter" onchange="bwApplyFilters()" class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
+        <option value="">All Buildings</option>
+        <option>Block A</option><option>Block B</option><option>Block C</option>
+      </select>
+      <select id="bw-category-filter" onchange="bwApplyFilters()" class="h-8 border border-outline-variant rounded px-2 font-label-sm text-label-sm bg-surface">
+        <option value="">Waste Category</option>
+        <option>Yellow Bag</option><option>Red Bag</option><option>Blue Bag</option>
+      </select>
+      <button class="h-8 w-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-sm">filter_list</span>
+      </button>
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:16%"/><col style="width:10%"/>
+        <col style="width:13%"/><col style="width:9%"/>
+        <col style="width:10%"/><col style="width:13%"/><col style="width:12%"/>
+      </colgroup>
+      <thead>
+        <tr class="bg-surface-container-low border-b border-outline-variant">
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Date / Time</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Building</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Category</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant text-right">Qty</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Staff / Security</th>
+          <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant">Compliance</th>
+        </tr>
+      </thead>
+      <tbody id="bw-table-body" class="font-body text-body">
+        <!-- rendered by JS -->
+      </tbody>
+    </table>
+    <div id="bw-empty" style="display:none;" class="py-16 text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">delete_sweep</span>
+      <p class="font-body text-body text-on-surface-variant">No collections in this period.</p>
+    </div>
+  </div>
+  <!-- Summary bar — dynamically updated by bwApplyFilters -->
+  <div id="bw-summary-bar" class="border-t border-outline-variant bg-surface-container-low px-5 py-3 flex flex-wrap items-center gap-6">
+    <div class="flex flex-col">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Period</span>
+      <span id="bw-sum-period" class="font-body text-body font-semibold text-on-surface mt-0.5">—</span>
+    </div>
+    <div class="w-px h-8 bg-outline-variant"></div>
+    <div class="flex flex-col">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Waste</span>
+      <span id="bw-sum-kg" class="font-body text-body font-bold text-primary mt-0.5">— kg</span>
+    </div>
+    <div class="w-px h-8 bg-outline-variant"></div>
+    <div class="flex flex-col">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Collections</span>
+      <span id="bw-sum-collections" class="font-body text-body font-semibold text-on-surface mt-0.5">—</span>
+    </div>
+    <div class="w-px h-8 bg-outline-variant"></div>
+    <div class="flex flex-col">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">On-Time Rate</span>
+      <span class="font-body text-body font-bold mt-0.5" style="color:#059669;">100%</span>
+    </div>
+    <div class="ml-auto">
+      <span class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]">check_circle</span> All Compliant
+      </span>
+    </div>
+  </div>
 </section>
-<!-- Status Legend / Quick Visual -->
-<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center relative overflow-hidden group">
-<div class="absolute inset-0 opacity-5 pointer-events-none transition-transform group-hover:scale-110">
-<svg class="w-full h-full" viewbox="0 0 100 100">
-<pattern height="10" id="grid" patternunits="userSpaceOnUse" width="10">
-<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"></path>
-</pattern>
-<rect fill="url(#grid)" height="100%" width="100%"></rect>
-</svg>
+
+<!-- Waste distribution visual -->
+<div class="mt-container_gap bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+  <div class="px-5 py-4 border-b border-outline-variant bg-surface-container-low">
+    <h4 class="font-section-heading text-section-heading text-on-surface">Facility Waste Distribution</h4>
+    <p class="font-body text-body text-on-surface-variant mt-0.5">Breakdown by bag category — current month</p>
+  </div>
+  <div class="p-6 grid grid-cols-3 gap-6">
+    <!-- Yellow Bag donut -->
+    <div class="flex flex-col items-center gap-3">
+      <div class="relative w-20 h-20">
+        <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F3F4F6" stroke-width="3.2"/>
+          <!-- 45% = 0.45 * 100 = 45 dashoffset from 100 circumference -->
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F59E0B" stroke-width="3.2"
+            stroke-dasharray="45 55" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="font-bold text-on-surface" style="font-size:13px;">45%</span>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="flex items-center justify-center gap-1.5 mb-1">
+          <div class="w-3 h-3 rounded-sm" style="background:#F59E0B;"></div>
+          <span class="font-label-sm text-label-sm text-on-surface font-semibold">Yellow Bag</span>
+        </div>
+        <span class="font-body text-body text-on-surface-variant">Infectious waste</span>
+      </div>
+    </div>
+    <!-- Red Bag donut -->
+    <div class="flex flex-col items-center gap-3">
+      <div class="relative w-20 h-20">
+        <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F3F4F6" stroke-width="3.2"/>
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#EF4444" stroke-width="3.2"
+            stroke-dasharray="30 70" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="font-bold text-on-surface" style="font-size:13px;">30%</span>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="flex items-center justify-center gap-1.5 mb-1">
+          <div class="w-3 h-3 rounded-sm" style="background:#EF4444;"></div>
+          <span class="font-label-sm text-label-sm text-on-surface font-semibold">Red Bag</span>
+        </div>
+        <span class="font-body text-body text-on-surface-variant">Anatomical waste</span>
+      </div>
+    </div>
+    <!-- Blue Bag donut -->
+    <div class="flex flex-col items-center gap-3">
+      <div class="relative w-20 h-20">
+        <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F3F4F6" stroke-width="3.2"/>
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3B82F6" stroke-width="3.2"
+            stroke-dasharray="25 75" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="font-bold text-on-surface" style="font-size:13px;">25%</span>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="flex items-center justify-center gap-1.5 mb-1">
+          <div class="w-3 h-3 rounded-sm" style="background:#3B82F6;"></div>
+          <span class="font-label-sm text-label-sm text-on-surface font-semibold">Blue Bag</span>
+        </div>
+        <span class="font-body text-body text-on-surface-variant">Sharps / glass</span>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="z-10 text-center">
-<h4 class="font-section-heading text-section-heading text-on-surface mb-2">Facility Waste Distribution</h4>
-<div class="flex items-center gap-6 mt-4">
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full border-4 border-amber-400 border-t-transparent animate-spin-slow"></div>
-<span class="font-label-sm text-label-sm mt-2">Yellow (45%)</span>
-</div>
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full border-4 border-red-500 border-r-transparent border-b-transparent"></div>
-<span class="font-label-sm text-label-sm mt-2">Red (30%)</span>
-</div>
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full border-4 border-blue-500 border-l-transparent border-b-transparent border-t-transparent"></div>
-<span class="font-label-sm text-label-sm mt-2">Blue (25%)</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Floating Action Help (Contextual) -->
-<div class="fixed bottom-6 right-6">
-<button class="bg-surface-container-highest text-primary w-12 h-12 rounded-full shadow-lg border border-outline hover:bg-primary hover:text-white transition-all flex items-center justify-center group">
-<span class="material-symbols-outlined transition-transform group-hover:rotate-12">help_outline</span>
-</button>
-</div>
+
 </div>
 </main>
-<script>
-        // Simple micro-interaction for form button
-        const form = document.querySelector('form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'Processing...';
-            btn.classList.add('opacity-50', 'pointer-events-none');
-            
-            setTimeout(() => {
-                btn.innerText = 'Entry Saved Successfully!';
-                btn.classList.remove('bg-primary');
-                btn.classList.add('bg-emerald-600');
-                
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('bg-emerald-600', 'opacity-50', 'pointer-events-none');
-                    btn.classList.add('bg-primary');
-                    form.reset();
-                }, 2000);
-            }, 1000);
-        });
 
-        // Dashboard numeric animation simulation
-        function animateNumbers() {
-            const numElements = document.querySelectorAll('.text-2xl');
-            numElements.forEach(el => {
-                const finalValue = parseFloat(el.innerText);
-                let startValue = 0;
-                const duration = 1500;
-                const step = finalValue / (duration / 16);
-                
-                const timer = setInterval(() => {
-                    startValue += step;
-                    if (startValue >= finalValue) {
-                        el.innerText = finalValue.toFixed(el.innerText.includes('.') ? 1 : 0);
-                        clearInterval(timer);
-                    } else {
-                        el.innerText = startValue.toFixed(el.innerText.includes('.') ? 1 : 0);
-                    }
-                }, 16);
-            });
-        }
-        window.onload = animateNumbers;
-    </script>
+<!-- ===== BMW Collection Entry Modal ===== -->
+<div id="bw-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)bwCloseModal()">
+  <div class="ohc-modal ohc-modal-lg">
+    <div class="ohc-modal-header">
+      <h2>New BMW Collection Entry</h2>
+      <button onclick="bwCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="bw-modal-form" onsubmit="bwSaveEntry(event)">
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Date <span style="color:#ba1a1a">*</span></label>
+          <input id="bw-f-date" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" type="date" required/>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Time</label>
+          <input id="bw-f-time" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" type="time"/>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Building <span style="color:#ba1a1a">*</span></label>
+          <select id="bw-f-building" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" required>
+            <option>Block A - Main Clinic</option><option>Block B - Diagnostics</option><option>Block C - Staff Quarters</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Waste Category <span style="color:#ba1a1a">*</span></label>
+          <select id="bw-f-category" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" required>
+            <option>Yellow Bag</option><option>Red Bag</option><option>Blue Bag</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Quantity <span style="color:#ba1a1a">*</span></label>
+          <input id="bw-f-qty" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" placeholder="0.0" step="0.1" type="number" required/>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Unit</label>
+          <select id="bw-f-unit" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none">
+            <option>kg</option><option>grams</option>
+          </select>
+        </div>
+        <div class="col-span-2">
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Vendor / Agency</label>
+          <select id="bw-f-vendor" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none">
+            <option>IMAGE - Indian Medical Association</option><option>PASSCO Environmental Solutions</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Staff Sign</label>
+          <input id="bw-f-staff" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" placeholder="Employee Code / Name" type="text"/>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Security Sign</label>
+          <input id="bw-f-security" class="w-full h-[36px] border border-outline-variant rounded px-3 font-body text-body focus:ring-1 focus:ring-primary outline-none" placeholder="Gate Pass / ID" type="text"/>
+        </div>
+        <div class="col-span-2">
+          <div class="flex items-center justify-between p-3 bg-surface-container-low border border-outline-variant rounded-lg">
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface-variant">Collection Compliance Flag</span>
+              <span class="text-[10px] text-on-surface-variant italic">Auto-calculated based on schedule</span>
+            </div>
+            <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-label-sm text-label-sm">Compliant</span>
+          </div>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="bwCloseModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
+        <button type="submit" id="bw-submit-btn" class="bg-primary text-on-primary px-6 h-[36px] rounded-lg font-bold text-body hover:opacity-90 active:scale-95 transition-all">Save Collection Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+    // ── Demo data (daysAgo offsets) ────────────────────────────
+    var BW_RAW = [
+        { daysAgo:0,  time:'10:30 AM', building:'Block A', buildingShort:'Block A', category:'Yellow Bag', qty:'4.2 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:0,  time:'09:15 AM', building:'Block B', buildingShort:'Block B', category:'Red Bag',    qty:'2.8 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+        { daysAgo:1,  time:'11:00 AM', building:'Block A', buildingShort:'Block A', category:'Blue Bag',   qty:'1.5 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:2,  time:'10:45 AM', building:'Block C', buildingShort:'Block C', category:'Yellow Bag', qty:'5.0 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+        { daysAgo:3,  time:'09:00 AM', building:'Block B', buildingShort:'Block B', category:'Red Bag',    qty:'3.1 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:5,  time:'10:15 AM', building:'Block A', buildingShort:'Block A', category:'Blue Bag',   qty:'1.8 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+        { daysAgo:8,  time:'11:30 AM', building:'Block C', buildingShort:'Block C', category:'Yellow Bag', qty:'6.2 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:15, time:'09:45 AM', building:'Block A', buildingShort:'Block A', category:'Red Bag',    qty:'2.0 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+        { daysAgo:30, time:'10:00 AM', building:'Block B', buildingShort:'Block B', category:'Blue Bag',   qty:'1.2 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:60, time:'11:15 AM', building:'Block A', buildingShort:'Block A', category:'Yellow Bag', qty:'4.8 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+        { daysAgo:100,time:'09:30 AM', building:'Block C', buildingShort:'Block C', category:'Red Bag',    qty:'3.5 kg', vendor:'IMAGE',  staffSign:'KP', compliance:'Compliant' },
+        { daysAgo:200,time:'10:45 AM', building:'Block B', buildingShort:'Block B', category:'Blue Bag',   qty:'1.9 kg', vendor:'PASSCO', staffSign:'SR', compliance:'Compliant' },
+    ];
+
+    function bwMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+    var BW_ROWS = BW_RAW.map(function(r){ return Object.assign({},r,{date:bwMidnight(r.daysAgo)}); });
+    var BW_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function bwFmt(d){ return d.getDate()+' '+BW_MO[d.getMonth()]+', '+d.getFullYear(); }
+
+    var bwCurrentPeriod = 'today';
+
+    function bwGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function bwApplyFilters(){
+        var buildFilter = document.getElementById('bw-building-filter').value;
+        var catFilter   = document.getElementById('bw-category-filter').value;
+        var r = bwGetRange(bwCurrentPeriod);
+        var rows = BW_ROWS.filter(function(v){
+            if(v.date < r.start || v.date > r.end) return false;
+            if(buildFilter && v.buildingShort !== buildFilter) return false;
+            if(catFilter   && v.category !== catFilter) return false;
+            return true;
+        });
+        var n = rows.length;
+        document.getElementById('bw-count').textContent = n + ' collection'+(n===1?'':'s');
+
+        // Update summary bar
+        var periodLabels = { today:'Today', week:'This Week', month:'This Month', quarter:'This Quarter', year:'This Year' };
+        document.getElementById('bw-sum-period').textContent = periodLabels[bwCurrentPeriod] || 'All';
+        var totalKg = 0;
+        rows.forEach(function(v){
+            var num = parseFloat((v.qty||'').replace(/[^\d.]/g,''));
+            if(!isNaN(num)) totalKg += num;
+        });
+        document.getElementById('bw-sum-kg').textContent = totalKg.toFixed(1) + ' kg';
+        document.getElementById('bw-sum-collections').textContent = n + ' entr'+(n===1?'y':'ies');
+
+        var tbody = document.getElementById('bw-table-body');
+        var empty = document.getElementById('bw-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+
+        var catColors = {
+            'Yellow Bag': 'bg-amber-100 text-amber-800 border border-amber-200',
+            'Red Bag':    'bg-red-100 text-red-800 border border-red-200',
+            'Blue Bag':   'bg-blue-100 text-blue-800 border border-blue-200'
+        };
+
+        tbody.innerHTML = rows.map(function(v,i){
+            var bg = i%2===0 ? 'white' : '#f9fafb';
+            var cc = catColors[v.category] || 'bg-gray-100 text-gray-700';
+            return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f9ff\'" onmouseleave="this.style.background=\''+bg+'\'">'
+                +'<td class="px-4 py-3">'+bwFmt(v.date)+' <br/><span class="text-[11px] text-on-surface-variant">'+v.time+'</span></td>'
+                +'<td class="px-4 py-3 text-body">'+v.buildingShort+'</td>'
+                +'<td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter '+cc+'">'+v.category+'</span></td>'
+                +'<td class="px-4 py-3 text-right font-semibold text-body">'+v.qty+'</td>'
+                +'<td class="px-4 py-3 text-body">'+v.vendor+'</td>'
+                +'<td class="px-4 py-3 text-body text-[11px]"><div>Staff: '+v.staffSign+'</div></td>'
+                +'<td class="px-4 py-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-[10px] font-bold">'+v.compliance+'</span></td>'
+                +'</tr>';
+        }).join('');
+    }
+
+    function bwSetFilter(btn){
+        document.querySelectorAll('.bw-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        bwCurrentPeriod = btn.dataset.period;
+        bwApplyFilters();
+    }
+
+    // ── Modal ──────────────────────────────────────────────────
+    function bwOpenModal(){
+        var today = new Date();
+        document.getElementById('bw-f-date').value = today.toISOString().slice(0,10);
+        document.getElementById('bw-f-time').value = today.toTimeString().slice(0,5);
+        document.getElementById('bw-overlay').style.display = 'flex';
+    }
+
+    function bwCloseModal(){
+        document.getElementById('bw-overlay').style.display = 'none';
+        document.getElementById('bw-modal-form').reset();
+    }
+
+    function bwSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('bw-submit-btn');
+        var building  = document.getElementById('bw-f-building').value;
+        var category  = document.getElementById('bw-f-category').value;
+        var qty       = document.getElementById('bw-f-qty').value;
+        var unit      = document.getElementById('bw-f-unit').value;
+        var vendor    = document.getElementById('bw-f-vendor').value.split(' ')[0]; // first word
+        var staffSign = document.getElementById('bw-f-staff').value || '—';
+        var timeVal   = document.getElementById('bw-f-time').value || '—';
+        var dateVal   = document.getElementById('bw-f-date').value;
+        var blockShort = building.split(' ')[0]+' '+building.split(' ')[1]; // "Block A"
+
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var entryDate = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+            entryDate.setHours(0,0,0,0);
+            BW_ROWS.unshift({ date:entryDate, time:timeVal, building:building, buildingShort:blockShort, category:category, qty:qty+' '+unit, vendor:vendor, staffSign:staffSign, compliance:'Compliant' });
+            btn.textContent = 'Saved ✓';
+            btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Save Collection Entry';
+                btn.style.backgroundColor = '';
+                btn.disabled = false;
+                bwCloseModal();
+                bwApplyFilters();
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    bwApplyFilters();
+</script>
 </body></html>

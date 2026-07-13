@@ -7,112 +7,58 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
-        theme: {
-          extend: {
+        theme: { extend: {
             "colors": {
-                    "primary-fixed": "#c9e6ff",
-                    "secondary-fixed-dim": "#4edea3",
-                    "on-background": "#141b2b",
-                    "surface-dim": "#d3daef",
-                    "tertiary-fixed-dim": "#ffb95f",
-                    "inverse-on-surface": "#edf0ff",
-                    "error": "#ba1a1a",
-                    "background": "#f9f9ff",
-                    "on-error": "#ffffff",
-                    "tertiary-container": "#d88a00",
-                    "primary-container": "#0ea5e9",
-                    "on-primary-container": "#003751",
-                    "inverse-primary": "#89ceff",
-                    "surface-variant": "#dce2f7",
-                    "surface-container-lowest": "#ffffff",
-                    "outline": "#6e7881",
-                    "primary-fixed-dim": "#89ceff",
-                    "tertiary": "#855300",
-                    "on-tertiary-fixed-variant": "#653e00",
-                    "on-error-container": "#93000a",
-                    "surface-container-highest": "#dce2f7",
-                    "secondary": "#006c49",
-                    "error-container": "#ffdad6",
-                    "secondary-fixed": "#6ffbbe",
-                    "surface-container-high": "#e1e8fd",
-                    "tertiary-fixed": "#ffddb8",
-                    "on-tertiary-fixed": "#2a1700",
-                    "surface-tint": "#0EA5E9",
-                    "on-secondary": "#ffffff",
-                    "surface": "#f9f9ff",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-container": "#4a2c00",
-                    "primary": "#0EA5E9",
-                    "on-tertiary": "#ffffff",
-                    "surface-container": "#e9edff",
-                    "on-secondary-fixed": "#002113",
-                    "surface-bright": "#f9f9ff",
-                    "inverse-surface": "#293040",
-                    "secondary-container": "#6cf8bb",
-                    "surface-container-low": "#f1f3ff",
-                    "on-surface-variant": "#3e4850",
-                    "on-secondary-fixed-variant": "#005236",
-                    "on-primary-fixed-variant": "#004c6e",
-                    "on-primary-fixed": "#001e2f",
-                    "outline-variant": "#bec8d2",
-                    "on-surface": "#141b2b",
-                    "on-secondary-container": "#00714d",
-                    "ohc-primary-accent": "#0EA5E9",
-                    "ohc-primary-light": "#E0F2FE"
+                "primary-fixed": "#c9e6ff", "secondary-fixed-dim": "#4edea3", "on-background": "#141b2b",
+                "surface-dim": "#d3daef", "tertiary-fixed-dim": "#ffb95f", "inverse-on-surface": "#edf0ff",
+                "error": "#ba1a1a", "background": "#f9f9ff", "on-error": "#ffffff",
+                "tertiary-container": "#d88a00", "primary-container": "#0ea5e9", "on-primary-container": "#003751",
+                "inverse-primary": "#89ceff", "surface-variant": "#dce2f7", "surface-container-lowest": "#ffffff",
+                "outline": "#6e7881", "primary-fixed-dim": "#89ceff", "tertiary": "#855300",
+                "on-tertiary-fixed-variant": "#653e00", "on-error-container": "#93000a",
+                "surface-container-highest": "#dce2f7", "secondary": "#006c49", "error-container": "#ffdad6",
+                "secondary-fixed": "#6ffbbe", "surface-container-high": "#e1e8fd", "tertiary-fixed": "#ffddb8",
+                "on-tertiary-fixed": "#2a1700", "surface-tint": "#0EA5E9", "on-secondary": "#ffffff",
+                "surface": "#f9f9ff", "on-primary": "#ffffff", "on-tertiary-container": "#4a2c00",
+                "primary": "#0EA5E9", "on-tertiary": "#ffffff", "surface-container": "#e9edff",
+                "on-secondary-fixed": "#002113", "surface-bright": "#f9f9ff", "inverse-surface": "#293040",
+                "secondary-container": "#6cf8bb", "surface-container-low": "#f1f3ff",
+                "on-surface-variant": "#3e4850", "on-secondary-fixed-variant": "#005236",
+                "on-primary-fixed-variant": "#004c6e", "on-primary-fixed": "#001e2f",
+                "outline-variant": "#bec8d2", "on-surface": "#141b2b", "on-secondary-container": "#00714d",
+                "ohc-primary-accent": "#0EA5E9", "ohc-primary-light": "#E0F2FE"
             },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "gap-xs": "4px",
-                    "container-padding": "24px",
-                    "gap-md": "16px",
-                    "gap-sm": "8px",
-                    "sidebar-width": "240px",
-                    "base-unit": "4px",
-                    "header-height": "56px",
-                    "gap-lg": "24px"
-            },
-            "fontFamily": {
-                    "section-heading": ["Inter"],
-                    "body": ["Inter"],
-                    "metadata": ["Inter"],
-                    "page-title-mobile": ["Inter"],
-                    "page-title": ["Inter"],
-                    "label": ["Inter"]
-            },
+            "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+            "spacing": { "gap-xs": "4px", "container-padding": "24px", "gap-md": "16px", "gap-sm": "8px", "sidebar-width": "240px", "base-unit": "4px", "header-height": "56px", "gap-lg": "24px" },
+            "fontFamily": { "section-heading": ["Inter"], "body": ["Inter"], "metadata": ["Inter"], "page-title-mobile": ["Inter"], "page-title": ["Inter"], "label": ["Inter"] },
             "fontSize": {
-                    "section-heading": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
-                    "body": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
-                    "metadata": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
-                    "page-title-mobile": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                    "page-title": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                    "label": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+                "section-heading": ["16px", {"lineHeight":"24px","fontWeight":"600"}],
+                "body": ["13px", {"lineHeight":"20px","fontWeight":"400"}],
+                "metadata": ["12px", {"lineHeight":"16px","fontWeight":"400"}],
+                "page-title": ["20px", {"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],
+                "label": ["13px", {"lineHeight":"18px","fontWeight":"500"}]
             }
-          },
-        },
+        }}
       }
     </script>
 <style>
         body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
         .itc-button { background-color: #0EA5E9; }
         .itc-button:hover { background-color: #0284c7; }
         .itc-border-accent { border-left: 4px solid #0EA5E9; }
+        /* Filter pills */
+        .vm-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+        .vm-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+        .vm-pill:hover { color:#111827; background:#fff; }
+        .vm-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
     </style>
 </head>
 <body class="font-body text-on-surface" style="background-color:#F3F4F6;">
@@ -138,9 +84,7 @@
 </header>
 <aside class="ohc-sidebar">
   <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
+    <option>Select Site</option><option>Site A</option><option>Site B</option>
   </select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
@@ -158,337 +102,366 @@
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
   <div class="ohc-sidebar-footer">
-    <a href="#">
-      <span class="material-symbols-outlined mat-icon">help</span>
-      Help &amp; Support
-    </a>
+    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
     <div class="ohc-sidebar-version">OHC v4.0</div>
   </div>
 </aside>
 <main class="ohc-main">
 <div class="ohc-content">
-<!-- Breadcrumb & Page Header -->
-<div class="mb-gap-lg flex flex-col md:flex-row md:items-center md:justify-between gap-md">
-<div>
-<nav class="flex items-center gap-xs text-metadata text-on-surface-variant mb-1">
-<span>OHC Platform</span>
-<span class="material-symbols-outlined text-[14px]">chevron_right</span>
-<span class="text-secondary font-medium">Vending Machine</span>
-</nav>
-<h1 class="text-page-title font-page-title text-on-surface">Vending Machine Register</h1>
-<p class="text-body text-on-surface-variant">Sanitary product vending machine stock log per shift</p>
+
+<!-- Page Header -->
+<div class="mb-gap-lg flex flex-col md:flex-row md:items-center md:justify-between gap-gap-md">
+  <div>
+    <h1 class="text-page-title font-page-title text-on-surface">Vending Machine Register</h1>
+    <p class="text-body text-on-surface-variant">Sanitary product vending machine stock log per shift</p>
+  </div>
+  <button onclick="vmOpenModal()" class="itc-button text-white px-gap-lg py-2 rounded-xl text-label font-bold flex items-center gap-gap-sm shadow-sm active:scale-95 transition-transform">
+    <span class="material-symbols-outlined">add</span> Log Entry
+  </button>
 </div>
-<button class="itc-button text-white px-lg py-2 rounded-xl text-label font-bold flex items-center gap-sm shadow-sm active:scale-95 transition-transform">
-<span class="material-symbols-outlined">add</span>
-                Log Entry
-            </button>
-</div>
-<!-- Machine Status Cards -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-gap-lg">
-<!-- Card 1 -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md itc-border-accent shadow-sm">
-<div class="flex justify-between items-start mb-gap-sm">
-<div class="flex flex-col">
-<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
-<span class="text-section-heading font-section-heading">Floor 1 - VM01</span>
-</div>
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-bold rounded-full border border-secondary/20 uppercase">OK</span>
-</div>
-<div class="grid grid-cols-2 gap-md mt-4">
-<div>
-<p class="text-metadata text-on-surface-variant">Current Stock</p>
-<p class="text-page-title font-page-title text-secondary">42 units</p>
-</div>
-<div class="text-right">
-<p class="text-metadata text-on-surface-variant">Last Check</p>
-<p class="text-body font-medium">24 Oct 2023</p>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-tertiary shadow-sm">
-<div class="flex justify-between items-start mb-gap-sm">
-<div class="flex flex-col">
-<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
-<span class="text-section-heading font-section-heading">Floor 2 - VM02</span>
-</div>
-<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded-full border border-tertiary/20 uppercase">Low Stock</span>
-</div>
-<div class="grid grid-cols-2 gap-md mt-4">
-<div>
-<p class="text-metadata text-on-surface-variant">Current Stock</p>
-<p class="text-page-title font-page-title text-tertiary">12 units</p>
-</div>
-<div class="text-right">
-<p class="text-metadata text-on-surface-variant">Last Check</p>
-<p class="text-body font-medium">24 Oct 2023</p>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-error shadow-sm">
-<div class="flex justify-between items-start mb-gap-sm">
-<div class="flex flex-col">
-<span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
-<span class="text-section-heading font-section-heading">Floor 3 - VM03</span>
-</div>
-<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[11px] font-bold rounded-full border border-error/20 uppercase">Empty</span>
-</div>
-<div class="grid grid-cols-2 gap-md mt-4">
-<div>
-<p class="text-metadata text-on-surface-variant">Current Stock</p>
-<p class="text-page-title font-page-title text-error">0 units</p>
-</div>
-<div class="text-right">
-<p class="text-metadata text-on-surface-variant">Last Check</p>
-<p class="text-body font-medium">23 Oct 2023</p>
-</div>
-</div>
-</div>
+
+<!-- Machine Status Cards (kept as-is) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gap-lg mb-gap-lg">
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md itc-border-accent shadow-sm">
+    <div class="flex justify-between items-start mb-gap-sm">
+      <div class="flex flex-col">
+        <span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+        <span class="text-section-heading font-section-heading">Floor 1 - VM01</span>
+      </div>
+      <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[11px] font-bold rounded-full border border-secondary/20 uppercase">OK</span>
+    </div>
+    <div class="grid grid-cols-2 gap-gap-md mt-4">
+      <div><p class="text-metadata text-on-surface-variant">Current Stock</p><p class="text-page-title font-page-title text-secondary">42 units</p></div>
+      <div class="text-right"><p class="text-metadata text-on-surface-variant">Last Check</p><p class="text-body font-medium">24 Oct 2023</p></div>
+    </div>
+  </div>
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-tertiary shadow-sm">
+    <div class="flex justify-between items-start mb-gap-sm">
+      <div class="flex flex-col">
+        <span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+        <span class="text-section-heading font-section-heading">Floor 2 - VM02</span>
+      </div>
+      <span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded-full border border-tertiary/20 uppercase">Low Stock</span>
+    </div>
+    <div class="grid grid-cols-2 gap-gap-md mt-4">
+      <div><p class="text-metadata text-on-surface-variant">Current Stock</p><p class="text-page-title font-page-title text-tertiary">12 units</p></div>
+      <div class="text-right"><p class="text-metadata text-on-surface-variant">Last Check</p><p class="text-body font-medium">24 Oct 2023</p></div>
+    </div>
+  </div>
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md border-l-4 border-error shadow-sm">
+    <div class="flex justify-between items-start mb-gap-sm">
+      <div class="flex flex-col">
+        <span class="text-metadata text-on-surface-variant uppercase tracking-wider font-bold">Machine ID</span>
+        <span class="text-section-heading font-section-heading">Floor 3 - VM03</span>
+      </div>
+      <span class="px-2 py-0.5 bg-error-container text-on-error-container text-[11px] font-bold rounded-full border border-error/20 uppercase">Empty</span>
+    </div>
+    <div class="grid grid-cols-2 gap-gap-md mt-4">
+      <div><p class="text-metadata text-on-surface-variant">Current Stock</p><p class="text-page-title font-page-title text-error">0 units</p></div>
+      <div class="text-right"><p class="text-metadata text-on-surface-variant">Last Check</p><p class="text-body font-medium">23 Oct 2023</p></div>
+    </div>
+  </div>
 </section>
-<!-- New Log Entry Form -->
-<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm mb-gap-lg overflow-hidden">
-<div class="px-container-padding py-gap-md border-b border-outline-variant bg-surface-container-low flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary">edit_note</span>
-<h2 class="text-section-heading font-section-heading">Log Vending Machine Stock</h2>
-</div>
-<form class="p-container-padding space-y-gap-lg" onsubmit="event.preventDefault();">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-<!-- Row 1 -->
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Date <span class="text-error">*</span></label>
-<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" type="date" value="2023-10-25"/>
-</div>
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Machine ID / Location <span class="text-error">*</span></label>
-<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
-<option>Floor 1 - VM01</option>
-<option>Floor 2 - VM02</option>
-<option>Floor 3 - VM03</option>
-</select>
-</div>
-<!-- Row 2 -->
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Item Type <span class="text-error">*</span></label>
-<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
-<option>Sanitary Pad</option>
-<option>Other</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Opening Machine Stock <span class="text-error">*</span></label>
-<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" id="opening-stock" placeholder="Enter amount" type="number"/>
-</div>
-<!-- Row 3 -->
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Stock Used / Dispensed <span class="text-error">*</span></label>
-<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" id="used-stock" placeholder="Enter amount" type="number"/>
-</div>
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant">Closing Machine Stock (Auto-calc)</label>
-<input class="w-full rounded border-outline-variant bg-surface-container-low text-on-surface-variant text-body p-2 cursor-not-allowed" placeholder="Calculated value" readonly="" type="number"/>
-</div>
-<!-- Row 4 -->
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant">Restocked Quantity (Optional)</label>
-<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" placeholder="Enter amount" type="number"/>
-</div>
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Floor OHC Staff Name <span class="text-error">*</span></label>
-<select class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2">
-<option>Sarah M.</option>
-<option>James W.</option>
-<option>Rahul S.</option>
-</select>
-</div>
-<!-- Row 5 -->
-<div class="space-y-1">
-<label class="text-label font-bold text-on-surface-variant">Security Sign</label>
-<input class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2" placeholder="Security officer initials" type="text"/>
-</div>
-<div class="space-y-1 md:col-span-2">
-<label class="text-label font-bold text-on-surface-variant">Remarks</label>
-<textarea class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 h-20" placeholder="Additional notes..."></textarea>
-</div>
-</div>
-<div class="flex justify-end gap-md pt-4 border-t border-outline-variant">
-<button class="px-lg py-2 border border-outline-variant text-on-surface-variant rounded-xl text-label font-bold hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
-<button class="itc-button text-white px-lg py-2 rounded-xl text-label font-bold shadow-md active:scale-95 transition-all" type="submit">Save Entry</button>
-</div>
-</form>
-</section>
-<!-- Log History Table -->
+
+<!-- Log History Table — primary view -->
 <section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-<div class="px-container-padding py-gap-md border-b border-outline-variant bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-md">
-<h2 class="text-section-heading font-section-heading">Log History</h2>
-<div class="flex flex-wrap gap-sm">
-<div class="relative">
-<select class="pl-8 pr-4 py-1.5 rounded-lg border-outline-variant text-metadata bg-white focus:ring-primary">
-<option>All Machines</option>
-<option>Floor 1</option>
-<option>Floor 2</option>
-</select>
-<span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">filter_list</span>
-</div>
-<div class="relative">
-<input class="pl-8 pr-4 py-1.5 rounded-lg border-outline-variant text-metadata bg-white focus:ring-primary w-44" placeholder="Select Date Range" type="text"/>
-<span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">calendar_today</span>
-</div>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container text-on-surface-variant">
-<th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider">Date</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Machine</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Item Type</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Opening</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Used</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Closing</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Restocked</th>
-<th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Staff Name</th>
-<th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="text-body divide-y divide-outline-variant">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-container-padding py-3 whitespace-nowrap">24 Oct 2023</td>
-<td class="px-4 py-3 font-medium">Floor 1 - VM01</td>
-<td class="px-4 py-3">Sanitary Pad</td>
-<td class="px-4 py-3">45</td>
-<td class="px-4 py-3 text-error font-medium">3</td>
-<td class="px-4 py-3 font-bold">42</td>
-<td class="px-4 py-3">0</td>
-<td class="px-4 py-3">Sarah M.</td>
-<td class="px-container-padding py-3 text-right">
-<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-<td class="px-container-padding py-3 whitespace-nowrap">24 Oct 2023</td>
-<td class="px-4 py-3 font-medium">Floor 2 - VM02</td>
-<td class="px-4 py-3">Sanitary Pad</td>
-<td class="px-4 py-3">15</td>
-<td class="px-4 py-3 text-error font-medium">3</td>
-<td class="px-4 py-3">
-<div class="flex items-center gap-1.5 font-bold">
-                                    12
-                                    <span class="px-1.5 py-0.5 bg-tertiary-fixed text-[10px] rounded uppercase font-bold text-on-tertiary-fixed">Low</span>
-</div>
-</td>
-<td class="px-4 py-3">0</td>
-<td class="px-4 py-3">James W.</td>
-<td class="px-container-padding py-3 text-right">
-<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-container-padding py-3 whitespace-nowrap">23 Oct 2023</td>
-<td class="px-4 py-3 font-medium">Floor 3 - VM03</td>
-<td class="px-4 py-3">Sanitary Pad</td>
-<td class="px-4 py-3">5</td>
-<td class="px-4 py-3 text-error font-medium">5</td>
-<td class="px-4 py-3">
-<div class="flex items-center gap-1.5 font-bold text-error">
-                                    0
-                                    <span class="px-1.5 py-0.5 bg-error-container text-[10px] rounded uppercase font-bold text-on-error-container">Empty</span>
-</div>
-</td>
-<td class="px-4 py-3 text-secondary font-bold">+20</td>
-<td class="px-4 py-3">Rahul S.</td>
-<td class="px-container-padding py-3 text-right">
-<button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="px-container-padding py-3 border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest">
-<span class="text-metadata text-on-surface-variant">Showing 3 of 124 logs</span>
-<div class="flex gap-1">
-<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined">chevron_left</span></button>
-<button class="p-1 px-3 rounded bg-secondary text-white text-metadata font-bold">1</button>
-<button class="p-1 px-3 rounded hover:bg-surface-variant text-on-surface-variant text-metadata">2</button>
-<button class="p-1 px-3 rounded hover:bg-surface-variant text-on-surface-variant text-metadata">3</button>
-<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined">chevron_right</span></button>
-</div>
-</div>
+  <div class="px-container-padding py-gap-md border-b border-outline-variant bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-gap-md">
+    <div class="flex flex-wrap items-center gap-3">
+      <h2 class="text-section-heading font-section-heading">Log History</h2>
+      <!-- Time-period filter pills -->
+      <div class="vm-pill-bar" role="group">
+        <button class="vm-pill active" data-period="today"   onclick="vmSetFilter(this)">Today</button>
+        <button class="vm-pill"        data-period="week"    onclick="vmSetFilter(this)">This Week</button>
+        <button class="vm-pill"        data-period="month"   onclick="vmSetFilter(this)">This Month</button>
+        <button class="vm-pill"        data-period="quarter" onclick="vmSetFilter(this)">This Quarter</button>
+        <button class="vm-pill"        data-period="year"    onclick="vmSetFilter(this)">This Year</button>
+      </div>
+      <span id="vm-count" class="text-[12px] font-medium text-on-surface-variant">— entries</span>
+    </div>
+    <!-- Machine filter -->
+    <div class="flex flex-wrap gap-gap-sm">
+      <div class="relative">
+        <select id="vm-machine-filter" onchange="vmApplyFilters()" class="pl-8 pr-4 py-1.5 rounded-lg border-outline-variant text-metadata bg-white focus:ring-primary">
+          <option value="">All Machines</option>
+          <option>Floor 1 - VM01</option><option>Floor 2 - VM02</option><option>Floor 3 - VM03</option>
+        </select>
+        <span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">filter_list</span>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:10%"/><col style="width:14%"/><col style="width:11%"/>
+        <col style="width:9%"/><col style="width:9%"/><col style="width:10%"/>
+        <col style="width:11%"/><col style="width:12%"/><col style="width:14%"/>
+      </colgroup>
+      <thead>
+        <tr class="bg-surface-container text-on-surface-variant">
+          <th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider">Date</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Machine</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Item Type</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Opening</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Used</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Closing</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Restocked</th>
+          <th class="px-4 py-3 text-metadata font-bold uppercase tracking-wider">Staff Name</th>
+          <th class="px-container-padding py-3 text-metadata font-bold uppercase tracking-wider text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="vm-table-body" class="text-body divide-y divide-outline-variant">
+        <!-- rendered by JS -->
+      </tbody>
+    </table>
+    <div id="vm-empty" style="display:none;" class="py-16 text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">inventory</span>
+      <p class="text-body text-on-surface-variant">No log entries in this period.</p>
+    </div>
+  </div>
+  <div class="px-container-padding py-3 border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+    <span id="vm-showing" class="text-metadata text-on-surface-variant">—</span>
+  </div>
 </section>
-<!-- Interactive Section: Data Trends (Bento Style) -->
-<section class="mt-gap-lg grid grid-cols-1 md:grid-cols-4 gap-lg">
-<div class="md:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md shadow-sm">
-<h3 class="text-section-heading font-section-heading mb-gap-md">Dispensation Trends (7 Days)</h3>
-<div class="h-40 flex items-end justify-between gap-4 px-4 pb-2">
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 65%;">
-<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">12</div>
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">MON</div>
-</div>
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 45%;">
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">TUE</div>
-</div>
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 85%;">
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">WED</div>
-</div>
-<div class="w-full bg-ohc-primary-accent rounded-t relative group" style="height: 95%;">
-<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">18</div>
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">THU</div>
-</div>
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 55%;">
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">FRI</div>
-</div>
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 30%;">
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SAT</div>
-</div>
-<div class="w-full bg-ohc-primary-light rounded-t relative group" style="height: 20%;">
-<div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SUN</div>
-</div>
-</div>
-</div>
-<div class="bg-[#0EA5E9] text-white rounded-xl p-gap-md shadow-sm flex flex-col justify-between">
-<div>
-<h3 class="text-label font-bold uppercase tracking-wider opacity-80">Total Usage (Oct)</h3>
-<p class="text-[32px] font-extrabold leading-none mt-2">1,248</p>
-<p class="text-metadata mt-1 opacity-90">+12% vs last month</p>
-</div>
-<div class="flex -space-x-2">
-<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-surface-variant flex items-center justify-center text-on-surface text-[10px] font-bold">SM</div>
-<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-primary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">JW</div>
-<div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-tertiary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">RS</div>
-</div>
-</div>
+
+<!-- Dispensation Trends (kept as-is) -->
+<section class="mt-gap-lg grid grid-cols-1 md:grid-cols-4 gap-gap-lg">
+  <div class="md:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-gap-md shadow-sm">
+    <h3 class="text-section-heading font-section-heading mb-gap-md">Dispensation Trends (7 Days)</h3>
+    <div class="h-40 flex items-end justify-between gap-4 px-4 pb-2">
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:65%"><div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">12</div><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">MON</div></div>
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:45%"><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">TUE</div></div>
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:85%"><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">WED</div></div>
+      <div class="w-full bg-ohc-primary-accent rounded-t relative group" style="height:95%"><div class="absolute -top-6 left-1/2 -translate-x-1/2 text-metadata font-bold opacity-0 group-hover:opacity-100 transition-opacity">18</div><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">THU</div></div>
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:55%"><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">FRI</div></div>
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:30%"><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SAT</div></div>
+      <div class="w-full bg-ohc-primary-light rounded-t relative group" style="height:20%"><div class="absolute bottom-[-24px] left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">SUN</div></div>
+    </div>
+  </div>
+  <div class="bg-[#0EA5E9] text-white rounded-xl p-gap-md shadow-sm flex flex-col justify-between">
+    <div>
+      <h3 class="text-label font-bold uppercase tracking-wider opacity-80">Total Usage (Oct)</h3>
+      <p class="text-[32px] font-extrabold leading-none mt-2">1,248</p>
+      <p class="text-metadata mt-1 opacity-90">+12% vs last month</p>
+    </div>
+    <div class="flex -space-x-2">
+      <div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-surface-variant flex items-center justify-center text-on-surface text-[10px] font-bold">SM</div>
+      <div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-primary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">JW</div>
+      <div class="w-8 h-8 rounded-full border-2 border-[#0EA5E9] bg-tertiary-fixed flex items-center justify-center text-on-surface text-[10px] font-bold">RS</div>
+    </div>
+  </div>
 </section>
+
 </div>
 </main>
+
+<!-- ===== Log Entry Modal ===== -->
+<div id="vm-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)vmCloseModal()">
+  <div class="ohc-modal ohc-modal-lg">
+    <div class="ohc-modal-header">
+      <h2>Log Vending Machine Stock</h2>
+      <button onclick="vmCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="vm-modal-form" onsubmit="vmSaveEntry(event)">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-lg">
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Date <span style="color:#ba1a1a">*</span></label>
+          <input id="vm-f-date" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" type="date" required/>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Machine ID / Location <span style="color:#ba1a1a">*</span></label>
+          <select id="vm-f-machine" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" required>
+            <option>Floor 1 - VM01</option><option>Floor 2 - VM02</option><option>Floor 3 - VM03</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Item Type <span style="color:#ba1a1a">*</span></label>
+          <select id="vm-f-item" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" required>
+            <option>Sanitary Pad</option><option>Other</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Opening Stock <span style="color:#ba1a1a">*</span></label>
+          <input id="vm-f-opening" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" type="number" placeholder="0" min="0" required/>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Stock Used / Dispensed <span style="color:#ba1a1a">*</span></label>
+          <input id="vm-f-used" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" type="number" placeholder="0" min="0" required/>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant">Closing Stock (Auto-calc)</label>
+          <input id="vm-f-closing" class="w-full rounded border-outline-variant bg-surface-container-low text-on-surface-variant text-body p-2 cursor-not-allowed border" readonly type="number" placeholder="Calculated"/>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant">Restocked Qty (Optional)</label>
+          <input id="vm-f-restocked" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" type="number" placeholder="0"/>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant flex items-center gap-1">Staff Name <span style="color:#ba1a1a">*</span></label>
+          <select id="vm-f-staff" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" required>
+            <option>Sarah M.</option><option>James W.</option><option>Rahul S.</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-label font-bold text-on-surface-variant">Security Sign</label>
+          <input id="vm-f-security" class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 border" type="text" placeholder="Security officer initials"/>
+        </div>
+        <div class="space-y-1 md:col-span-2">
+          <label class="text-label font-bold text-on-surface-variant">Remarks</label>
+          <textarea class="w-full rounded border-outline-variant focus:border-[#0EA5E9] focus:ring-primary text-body p-2 h-16 border resize-none" placeholder="Additional notes..."></textarea>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="vmCloseModal()" class="px-gap-lg py-2 border border-outline-variant text-on-surface-variant rounded-xl text-label font-bold hover:bg-surface-container-low transition-colors">Cancel</button>
+        <button type="submit" id="vm-submit-btn" class="itc-button text-white px-gap-lg py-2 rounded-xl text-label font-bold shadow-md active:scale-95 transition-all">Save Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
-        // Micro-interaction for auto-calculation
-        const openingStock = document.getElementById('opening-stock');
-        const usedStock = document.getElementById('used-stock');
-        const closingStock = document.querySelector('input[readonly]');
+    // ── Demo data (daysAgo offsets) ────────────────────────────
+    var VM_RAW = [
+        { daysAgo:0, machine:'Floor 1 - VM01', item:'Sanitary Pad', opening:45, used:3,  closing:42, restocked:0,  staff:'Sarah M.' },
+        { daysAgo:0, machine:'Floor 2 - VM02', item:'Sanitary Pad', opening:15, used:3,  closing:12, restocked:0,  staff:'James W.' },
+        { daysAgo:1, machine:'Floor 3 - VM03', item:'Sanitary Pad', opening:5,  used:5,  closing:0,  restocked:20, staff:'Rahul S.' },
+        { daysAgo:2, machine:'Floor 1 - VM01', item:'Sanitary Pad', opening:50, used:5,  closing:45, restocked:0,  staff:'Sarah M.' },
+        { daysAgo:3, machine:'Floor 2 - VM02', item:'Sanitary Pad', opening:18, used:3,  closing:15, restocked:0,  staff:'James W.' },
+        { daysAgo:5, machine:'Floor 3 - VM03', item:'Sanitary Pad', opening:20, used:8,  closing:12, restocked:0,  staff:'Rahul S.' },
+        { daysAgo:7, machine:'Floor 1 - VM01', item:'Sanitary Pad', opening:42, used:4,  closing:38, restocked:0,  staff:'Sarah M.' },
+        { daysAgo:10,machine:'Floor 2 - VM02', item:'Sanitary Pad', opening:30, used:12, closing:18, restocked:0,  staff:'James W.' },
+        { daysAgo:15,machine:'Floor 3 - VM03', item:'Sanitary Pad', opening:20, used:20, closing:0,  restocked:25, staff:'Rahul S.' },
+        { daysAgo:30,machine:'Floor 1 - VM01', item:'Sanitary Pad', opening:48, used:6,  closing:42, restocked:0,  staff:'Sarah M.' },
+        { daysAgo:60,machine:'Floor 2 - VM02', item:'Sanitary Pad', opening:25, used:10, closing:15, restocked:0,  staff:'James W.' },
+        { daysAgo:200,machine:'Floor 1 - VM01',item:'Sanitary Pad', opening:50, used:8,  closing:42, restocked:0,  staff:'Sarah M.' },
+    ];
 
-        function updateClosingStock() {
-            const openVal = parseInt(openingStock.value) || 0;
-            const usedVal = parseInt(usedStock.value) || 0;
-            const result = openVal - usedVal;
-            closingStock.value = result >= 0 ? result : 0;
-            
-            if(result < 0) {
-                closingStock.classList.add('text-error');
+    function vmMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+    var VM_ROWS = VM_RAW.map(function(r){ return Object.assign({},r,{date:vmMidnight(r.daysAgo)}); });
+    var VM_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function vmFmt(d){ return d.getDate()+' '+VM_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+    var vmCurrentPeriod = 'today';
+
+    function vmGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function vmApplyFilters(){
+        var machFilter = document.getElementById('vm-machine-filter').value;
+        var r = vmGetRange(vmCurrentPeriod);
+        var rows = VM_ROWS.filter(function(v){
+            if(v.date < r.start || v.date > r.end) return false;
+            if(machFilter && v.machine !== machFilter) return false;
+            return true;
+        });
+        var n = rows.length;
+        document.getElementById('vm-count').textContent = n + ' entr'+(n===1?'y':'ies');
+        document.getElementById('vm-showing').textContent = 'Showing '+n+' entr'+(n===1?'y':'ies');
+        var tbody = document.getElementById('vm-table-body');
+        var empty = document.getElementById('vm-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+        tbody.innerHTML = rows.map(function(v,i){
+            var bg = i%2===0 ? 'white' : 'rgba(249,250,251,0.5)';
+            var closingCell;
+            if(v.closing === 0){
+                closingCell = '<div class="flex items-center gap-1.5 font-bold text-error">0<span class="px-1.5 py-0.5 bg-error-container text-[10px] rounded uppercase font-bold text-on-error-container">Empty</span></div>';
+            } else if(v.closing < 15){
+                closingCell = '<div class="flex items-center gap-1.5 font-bold">'+v.closing+'<span class="px-1.5 py-0.5 bg-tertiary-fixed text-[10px] rounded uppercase font-bold text-on-tertiary-fixed">Low</span></div>';
             } else {
-                closingStock.classList.remove('text-error');
+                closingCell = '<span class="font-bold">'+v.closing+'</span>';
             }
-        }
+            var restockCell = v.restocked > 0 ? '<span class="text-secondary font-bold">+'+v.restocked+'</span>' : '0';
+            return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f9ff\'" onmouseleave="this.style.background=\''+bg+'\'">'
+                +'<td class="px-container-padding py-3 whitespace-nowrap text-body">'+vmFmt(v.date)+'</td>'
+                +'<td class="px-4 py-3 font-medium text-body">'+v.machine+'</td>'
+                +'<td class="px-4 py-3 text-body">'+v.item+'</td>'
+                +'<td class="px-4 py-3 text-body">'+v.opening+'</td>'
+                +'<td class="px-4 py-3 text-error font-medium">'+v.used+'</td>'
+                +'<td class="px-4 py-3">'+closingCell+'</td>'
+                +'<td class="px-4 py-3">'+restockCell+'</td>'
+                +'<td class="px-4 py-3 text-body">'+v.staff+'</td>'
+                +'<td class="px-container-padding py-3 text-right"><button class="p-1 hover:bg-surface-variant rounded-full text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button></td>'
+                +'</tr>';
+        }).join('');
+    }
 
-        openingStock.addEventListener('input', updateClosingStock);
-        usedStock.addEventListener('input', updateClosingStock);
-    </script>
+    function vmSetFilter(btn){
+        document.querySelectorAll('.vm-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        vmCurrentPeriod = btn.dataset.period;
+        vmApplyFilters();
+    }
+
+    // ── Modal ──────────────────────────────────────────────────
+    function vmOpenModal(){
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth()+1).padStart(2,'0');
+        var dd = String(today.getDate()).padStart(2,'0');
+        document.getElementById('vm-f-date').value = yyyy+'-'+mm+'-'+dd;
+        document.getElementById('vm-overlay').style.display = 'flex';
+    }
+
+    function vmCloseModal(){
+        document.getElementById('vm-overlay').style.display = 'none';
+        document.getElementById('vm-modal-form').reset();
+        document.getElementById('vm-f-closing').value = '';
+    }
+
+    // Auto-calc closing stock in modal
+    function vmUpdateClosing(){
+        var open = parseInt(document.getElementById('vm-f-opening').value) || 0;
+        var used = parseInt(document.getElementById('vm-f-used').value) || 0;
+        var result = open - used;
+        document.getElementById('vm-f-closing').value = result >= 0 ? result : 0;
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+        document.getElementById('vm-f-opening').addEventListener('input', vmUpdateClosing);
+        document.getElementById('vm-f-used').addEventListener('input', vmUpdateClosing);
+    });
+
+    function vmSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('vm-submit-btn');
+        var machine    = document.getElementById('vm-f-machine').value;
+        var item       = document.getElementById('vm-f-item').value;
+        var opening    = parseInt(document.getElementById('vm-f-opening').value) || 0;
+        var used       = parseInt(document.getElementById('vm-f-used').value) || 0;
+        var closing    = Math.max(0, opening - used);
+        var restocked  = parseInt(document.getElementById('vm-f-restocked').value) || 0;
+        var staff      = document.getElementById('vm-f-staff').value;
+        var dateVal    = document.getElementById('vm-f-date').value;
+
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var entryDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+            entryDate.setHours(0,0,0,0);
+            VM_ROWS.unshift({ date:entryDate, machine:machine, item:item, opening:opening, used:used, closing:closing, restocked:restocked, staff:staff });
+            btn.textContent = 'Saved ✓';
+            btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Save Entry';
+                btn.style.backgroundColor = '';
+                btn.disabled = false;
+                vmCloseModal();
+                vmApplyFilters();
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    vmApplyFilters();
+</script>
 </body></html>

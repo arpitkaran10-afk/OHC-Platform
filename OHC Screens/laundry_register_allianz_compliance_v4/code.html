@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -7,129 +6,42 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "#8a5100",
-                        "surface-dim": "#d6dae0",
-                        "on-primary-fixed": "#001e2f",
-                        "surface-container-high": "#e4e8ee",
-                        "inverse-primary": "#89ceff",
-                        "primary-fixed-dim": "#89ceff",
-                        "on-primary-fixed-variant": "#004c6e",
-                        "on-secondary-fixed": "#001e2f",
-                        "surface-variant": "#dee3e9",
-                        "secondary-fixed": "#c9e6ff",
-                        "on-error-container": "#93000a",
-                        "surface-container-highest": "#dee3e9",
-                        "primary-fixed": "#c9e6ff",
-                        "primary": "#0EA5E9",
-                        "on-error": "#ffffff",
-                        "surface": "#f6faff",
-                        "inverse-surface": "#2c3135",
-                        "tertiary-fixed": "#ffdcbd",
-                        "error": "#ba1a1a",
-                        "secondary-fixed-dim": "#a5cbe9",
-                        "on-secondary": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "background": "#f6faff",
-                        "surface-tint": "#0EA5E9",
-                        "on-primary-container": "#003751",
-                        "surface-container": "#eaeef4",
-                        "on-tertiary": "#ffffff",
-                        "tertiary-fixed-dim": "#ffb86e",
-                        "on-surface": "#171c20",
-                        "on-secondary-container": "#3d637d",
-                        "surface-bright": "#f6faff",
-                        "primary-container": "#0ea5e9",
-                        "on-tertiary-fixed": "#2c1600",
-                        "tertiary-container": "#de8712",
-                        "on-tertiary-fixed-variant": "#693c00",
-                        "on-secondary-fixed-variant": "#234b64",
-                        "inverse-on-surface": "#edf1f7",
-                        "outline-variant": "#bec8d2",
-                        "secondary": "#3c627d",
-                        "on-background": "#171c20",
-                        "on-surface-variant": "#3e4850",
-                        "surface-container-low": "#f0f4fa",
-                        "outline": "#6e7881",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary-container": "#4d2b00",
-                        "secondary-container": "#b8dffe",
-                        "ohc-accent": "#0EA5E9"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "base": "4px",
-                        "header_height": "56px",
-                        "content_padding": "24px",
-                        "sidebar_width": "240px",
-                        "container_gap": "16px",
-                        "stack_gap": "8px"
-                    },
-                    "fontFamily": {
-                        "section-heading": ["Inter"],
-                        "page-title": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body": ["Inter"]
-                    },
-                    "fontSize": {
-                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
-                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
-                    }
-                },
-            },
-        }
-    </script>
+    tailwind.config = { darkMode:"class", theme:{ extend:{
+        "colors":{"tertiary":"#8a5100","surface-dim":"#d6dae0","on-primary-fixed":"#001e2f","surface-container-high":"#e4e8ee","inverse-primary":"#89ceff","primary-fixed-dim":"#89ceff","on-primary-fixed-variant":"#004c6e","on-secondary-fixed":"#001e2f","surface-variant":"#dee3e9","secondary-fixed":"#c9e6ff","on-error-container":"#93000a","surface-container-highest":"#dee3e9","primary-fixed":"#c9e6ff","primary":"#0EA5E9","on-error":"#ffffff","surface":"#f6faff","inverse-surface":"#2c3135","tertiary-fixed":"#ffdcbd","error":"#ba1a1a","secondary-fixed-dim":"#a5cbe9","on-secondary":"#ffffff","on-primary":"#ffffff","error-container":"#ffdad6","background":"#f6faff","surface-tint":"#0EA5E9","on-primary-container":"#003751","surface-container":"#eaeef4","on-tertiary":"#ffffff","tertiary-fixed-dim":"#ffb86e","on-surface":"#171c20","on-secondary-container":"#3d637d","surface-bright":"#f6faff","primary-container":"#0ea5e9","on-tertiary-fixed":"#2c1600","tertiary-container":"#de8712","on-tertiary-fixed-variant":"#693c00","on-secondary-fixed-variant":"#234b64","inverse-on-surface":"#edf1f7","outline-variant":"#bec8d2","secondary":"#3c627d","on-background":"#171c20","on-surface-variant":"#3e4850","surface-container-low":"#f0f4fa","outline":"#6e7881","surface-container-lowest":"#ffffff","on-tertiary-container":"#4d2b00","secondary-container":"#b8dffe","ohc-accent":"#0EA5E9"},
+        "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+        "spacing":{"base":"4px","header_height":"56px","content_padding":"24px","sidebar_width":"240px","container_gap":"16px","stack_gap":"8px"},
+        "fontFamily":{"section-heading":["Inter"],"page-title":["Inter"],"label-sm":["Inter"],"body":["Inter"]},
+        "fontSize":{"section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],"page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],"body":["13px",{"lineHeight":"20px","fontWeight":"400"}]}
+    }}}
+</script>
 <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
-        .custom-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    </style>
+    body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20; }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#bec8d2; border-radius:10px; }
+    .custom-shadow { box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+    /* filter pills */
+    .lr-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+    .lr-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+    .lr-pill:hover { color:#111827; background:#fff; }
+    .lr-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+</style>
 </head>
 <body class="bg-background text-on-surface">
+
 <header class="ohc-header">
-  <div class="ohc-header-left">
-    <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Laundry Register</span>
-  </div>
-  <div class="ohc-header-center">
-    <div class="ohc-search">
-      <span class="material-symbols-outlined search-icon">search</span>
-      <input type="text" placeholder="Search patients, medicines, staff…"/>
-    </div>
-  </div>
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Laundry Register</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
   <div class="ohc-header-right">
-    <div class="ohc-bell-wrap">
-      <span class="material-symbols-outlined">notifications</span>
-      <span class="ohc-bell-badge"></span>
-    </div>
-    <span class="ohc-user-name">Kiran Prasad</span>
-    <div class="ohc-avatar">KP</div>
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
   </div>
 </header>
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A</option><option>Site B</option></select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
@@ -145,236 +57,342 @@
     <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
 </aside>
+
 <main class="ohc-main">
 <div class="ohc-content">
+
 <!-- Page Header -->
 <div class="flex items-center justify-between mb-8">
-<div>
-<h1 class="font-page-title text-page-title text-on-surface mb-1">Laundry Register</h1>
-<p class="text-body font-body text-on-surface-variant">Weekly linen hygiene compliance log. <span class="font-semibold text-primary">v4: BGD Sign field added.</span></p>
+  <div>
+    <h1 class="font-page-title text-page-title text-on-surface mb-1">Laundry Register</h1>
+    <p class="text-body font-body text-on-surface-variant">Weekly linen hygiene compliance log. <span class="font-semibold text-primary">v4: BGD Sign field added.</span></p>
+  </div>
+  <button onclick="lrOpenModal()" class="h-[36px] px-6 bg-ohc-accent text-white font-semibold rounded-lg flex items-center gap-2 hover:opacity-90 transition-colors shadow-sm">
+    <span class="material-symbols-outlined text-[18px]">add</span>
+    <span>Log Weekly Entry</span>
+  </button>
 </div>
-<button class="h-[36px] px-6 bg-ohc-accent text-white font-semibold rounded-lg flex items-center gap-2 hover:opacity-90 transition-colors shadow-sm">
-<span class="material-symbols-outlined text-[18px]">add</span>
-<span>Log Weekly Entry</span>
-</button>
+
+<!-- Laundry Log — PRIMARY full-width view -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl custom-shadow overflow-hidden mb-6">
+  <div class="p-5 border-b border-outline-variant flex flex-wrap items-center gap-3 bg-white">
+    <div>
+      <h2 class="text-section-heading font-section-heading text-on-surface">Laundry Log</h2>
+      <p class="text-[12px] text-on-surface-variant">Weekly linen cycle entries, filterable by date</p>
+    </div>
+    <div class="lr-pill-bar ml-4" role="group">
+      <button class="lr-pill active" data-period="today"   onclick="lrSetFilter(this)">Today</button>
+      <button class="lr-pill"        data-period="week"    onclick="lrSetFilter(this)">This Week</button>
+      <button class="lr-pill"        data-period="month"   onclick="lrSetFilter(this)">This Month</button>
+      <button class="lr-pill"        data-period="quarter" onclick="lrSetFilter(this)">This Quarter</button>
+      <button class="lr-pill"        data-period="year"    onclick="lrSetFilter(this)">This Year</button>
+    </div>
+    <span id="lr-count" class="text-label-sm text-on-surface-variant ml-1">— entries</span>
+    <button class="h-[32px] px-4 border border-outline text-primary font-semibold rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors ml-auto">
+      <span class="material-symbols-outlined text-[16px]">download</span><span>Export CSV</span>
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:12%"/><col style="width:14%"/>
+        <col style="width:9%"/><col style="width:9%"/>
+        <col style="width:9%"/><col style="width:9%"/>
+        <col style="width:9%"/><col style="width:9%"/>
+        <col style="width:14%"/><col style="width:6%"/>
+      </colgroup>
+      <thead class="bg-surface-container-low sticky top-0 z-10 shadow-sm">
+        <tr>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant">Date</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant">Building</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Sheets To</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Sheets Rec</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Pillows To</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Pillows Rec</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Curtains To</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Curtains Rec</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant">Staff</th>
+          <th class="px-3 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center">Flag</th>
+        </tr>
+      </thead>
+      <tbody id="lr-table-body" class="text-body divide-y divide-outline-variant">
+        <!-- rendered by JS -->
+      </tbody>
+    </table>
+    <div id="lr-empty" style="display:none;" class="py-16 text-center">
+      <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">local_laundry_service</span>
+      <p class="text-body text-on-surface-variant">No laundry entries in this period.</p>
+      <button onclick="lrOpenModal()" class="mt-4 h-[36px] px-4 bg-ohc-accent text-white rounded-lg font-semibold text-body inline-flex items-center gap-2 hover:opacity-90">
+        <span class="material-symbols-outlined">add</span> Log Weekly Entry
+      </button>
+    </div>
+  </div>
+  <div class="px-5 py-3 border-t border-outline-variant flex justify-between items-center">
+    <span id="lr-showing" class="text-label-sm text-on-surface-variant">—</span>
+  </div>
 </div>
-<div class="grid grid-cols-12 gap-container_gap">
-<!-- Form Card: Weekly Log Entry -->
-<div class="col-span-12 lg:col-span-5 flex flex-col gap-container_gap">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 custom-shadow">
-<div class="flex items-center justify-between mb-6">
-<h2 class="text-section-heading font-section-heading text-on-surface">Weekly Log Entry</h2>
-<span class="text-[10px] bg-secondary-container text-primary px-2 py-0.5 rounded font-bold uppercase tracking-wider">Form v4</span>
+
+<!-- Monthly Summary (secondary, kept below) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl custom-shadow overflow-hidden mb-6">
+  <div class="p-5 border-b border-outline-variant flex items-center justify-between bg-white">
+    <div>
+      <h2 class="text-section-heading font-section-heading text-on-surface" id="lr-summary-title">Monthly Summary</h2>
+      <p class="text-[12px] text-on-surface-variant">Showing active week cycle logs for this campus</p>
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface-container-low sticky top-0 z-10 shadow-sm">
+        <tr>
+          <th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant w-32">Week / Date</th>
+          <th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Bedsheets (T/R)</th>
+          <th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Pillow Covers (T/R)</th>
+          <th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Curtains (T/R)</th>
+          <th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant">Staff</th>
+        </tr>
+        <tr class="bg-surface-container-high/50">
+          <th class="px-4 py-1 text-[10px] text-on-surface-variant border-b border-outline-variant"></th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
+          <th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
+          <th class="px-2 py-1 border-b border-outline-variant"></th>
+        </tr>
+      </thead>
+      <tbody class="text-body divide-y divide-outline-variant">
+        <tr class="hover:bg-surface-container-low transition-colors"><td class="px-4 py-3">Week 1 (01 Jul)</td><td class="px-2 py-3 text-center">45</td><td class="px-2 py-3 text-center">42</td><td class="px-2 py-3 text-center">50</td><td class="px-2 py-3 text-center">50</td><td class="px-2 py-3 text-center">12</td><td class="px-2 py-3 text-center">12</td><td class="px-4 py-3 text-on-surface-variant italic">M. Joseph</td></tr>
+        <tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors"><td class="px-4 py-3">Week 2 (08 Jul)</td><td class="px-2 py-3 text-center">38</td><td class="px-2 py-3 text-center">38</td><td class="px-2 py-3 text-center">40</td><td class="px-2 py-3 text-center">35</td><td class="px-2 py-3 text-center">0</td><td class="px-2 py-3 text-center">0</td><td class="px-4 py-3 text-on-surface-variant italic">S. Pillai</td></tr>
+      </tbody>
+      <tfoot class="bg-[#F0F9FF] border-t-2 border-primary">
+        <tr>
+          <td class="px-4 py-3 font-bold text-primary">Monthly Total</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">83</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">80</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">90</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">85</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">12</td>
+          <td class="px-2 py-3 text-center font-bold text-primary">12</td>
+          <td class="px-4 py-3"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>
-<div class="space-y-6">
-<!-- Date & Building -->
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-2">
-<label class="text-label-sm font-label-sm text-on-surface">Entry Date <span class="text-error">*</span></label>
-<input class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" required="" type="date"/>
+
+<!-- Compliance note -->
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-ohc-accent flex gap-4 mb-6">
+  <span class="material-symbols-outlined text-ohc-accent">info</span>
+  <div>
+    <p class="text-label-sm font-bold text-on-surface">Hygiene Standard Compliance</p>
+    <p class="text-body text-on-surface-variant">Linen sterilization logs are cross-referenced with vendor ETP certificates. Ensure all "Received" items are checked for chemical residue prior to distribution.</p>
+  </div>
 </div>
-<div class="flex flex-col gap-2">
-<label class="text-label-sm font-label-sm text-on-surface">Building / Wing <span class="text-error">*</span></label>
-<select class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" required="">
-<option>Main Tower - Phase 1</option>
-<option>Ganga Block</option>
-<option>Nila Block</option>
-<option>Yamuna Block</option>
-</select>
-</div>
-</div>
-<!-- Hybrid Input Table -->
-<div>
-<p class="text-label-sm font-label-sm text-on-surface-variant mb-3 uppercase tracking-tight">Linen Item Tally</p>
-<div class="border border-outline-variant rounded-lg overflow-hidden">
-<table class="w-full text-left">
-<thead class="bg-surface-container-low border-b border-outline-variant">
-<tr>
-<th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">Item</th>
-<th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">To Laundry</th>
-<th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">Received</th>
-</tr>
-</thead>
-<tbody class="text-body divide-y divide-outline-variant">
-<tr class="bg-white">
-<td class="px-4 py-3 font-medium">Bedsheets <span class="text-error">*</span></td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-</tr>
-<tr class="bg-surface-container-lowest">
-<td class="px-4 py-3 font-medium">Pillow Covers <span class="text-error">*</span></td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-</tr>
-<tr class="bg-white">
-<td class="px-4 py-3 font-medium">Curtains</td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-<td class="px-4 py-2"><input class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary" placeholder="0" type="number"/></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- Vendor Info -->
-<div class="flex flex-col gap-2">
-<label class="text-label-sm font-label-sm text-on-surface">Vendor / Service Provider</label>
-<input class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="e.g. CleanLine Hospitality Services" type="text"/>
-</div>
-<!-- Signatures Row -->
-<div class="grid grid-cols-3 gap-4 pt-4">
-<div class="flex flex-col gap-2">
-<label class="text-[10px] font-bold text-on-surface uppercase">Staff Sign <span class="text-error">*</span></label>
-<div class="h-24 border-2 border-dashed border-outline-variant rounded-lg bg-surface flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all">
-<span class="material-symbols-outlined text-[20px]">draw</span>
-<span class="text-[10px]">Draw Sign</span>
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-[10px] font-bold text-on-surface uppercase">Security Sign</label>
-<div class="h-24 border-2 border-dashed border-outline-variant rounded-lg bg-surface flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all">
-<span class="material-symbols-outlined text-[20px]">fingerprint</span>
-<span class="text-[10px]">Verify ID</span>
-</div>
-</div>
-<div class="flex flex-col gap-2 relative">
-<div class="flex items-center gap-1.5 mb-2">
-<label class="text-[10px] font-bold text-on-surface uppercase leading-none">BGD Sign</label>
-<span class="px-1 text-[8px] bg-tertiary-container text-on-tertiary-container rounded-full font-extrabold px-1.5">NEW</span>
-</div>
-<div class="h-24 border-2 border-dashed border-outline-variant rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all">
-<span class="material-symbols-outlined text-[20px]">check_circle</span>
-<span class="text-[10px]">Authenticate</span>
-</div>
-</div>
-</div>
-<div class="pt-4 flex justify-end gap-3">
-<button class="h-[36px] px-6 text-on-surface-variant border border-outline rounded-lg font-semibold hover:bg-surface-container-low">Discard</button>
-<button class="h-[36px] px-8 bg-primary text-white rounded-lg font-semibold shadow-sm hover:opacity-90">Save Log</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Section Card: Monthly Summary -->
-<div class="col-span-12 lg:col-span-7">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl custom-shadow overflow-hidden flex flex-col h-full">
-<div class="p-6 border-b border-outline-variant flex items-center justify-between bg-white">
-<div>
-<h2 class="text-section-heading font-section-heading text-on-surface">Monthly Summary — October 2023</h2>
-<p class="text-[12px] text-on-surface-variant">Showing active week cycle logs for this campus</p>
-</div>
-<button class="h-[32px] px-4 border border-outline text-primary font-semibold rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-[16px]">download</span>
-<span>Export CSV</span>
-</button>
-</div>
-<div class="flex-1 overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead class="bg-surface-container-low sticky top-0 z-10 shadow-sm">
-<tr>
-<th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant w-32">Week / Date</th>
-<th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Bedsheets (T/R)</th>
-<th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Pillow Covers (T/R)</th>
-<th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant text-center" colspan="2">Curtains (T/R)</th>
-<th class="px-4 py-3 text-label-sm font-label-sm text-on-surface-variant border-b border-outline-variant">Staff</th>
-</tr>
-<tr class="bg-surface-container-high/50">
-<th class="px-4 py-1 text-[10px] text-on-surface-variant border-b border-outline-variant"></th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">To</th>
-<th class="px-2 py-1 text-[10px] font-bold text-center border-b border-outline-variant">Rec</th>
-<th class="px-2 py-1 border-b border-outline-variant"></th>
-</tr>
-</thead>
-<tbody class="text-body divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">Week 1 (03 Oct)</td>
-<td class="px-2 py-3 text-center">45</td><td class="px-2 py-3 text-center">42</td>
-<td class="px-2 py-3 text-center">50</td><td class="px-2 py-3 text-center">50</td>
-<td class="px-2 py-3 text-center">12</td><td class="px-2 py-3 text-center">12</td>
-<td class="px-4 py-3 text-on-surface-variant italic">M. Joseph</td>
-</tr>
-<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">Week 2 (10 Oct)</td>
-<td class="px-2 py-3 text-center">38</td><td class="px-2 py-3 text-center">38</td>
-<td class="px-2 py-3 text-center">40</td><td class="px-2 py-3 text-center">35</td>
-<td class="px-2 py-3 text-center">0</td><td class="px-2 py-3 text-center">0</td>
-<td class="px-4 py-3 text-on-surface-variant italic">S. Pillai</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">Week 3 (17 Oct)</td>
-<td class="px-2 py-3 text-center">52</td><td class="px-2 py-3 text-center">52</td>
-<td class="px-2 py-3 text-center">60</td><td class="px-2 py-3 text-center">60</td>
-<td class="px-2 py-3 text-center">5</td><td class="px-2 py-3 text-center">5</td>
-<td class="px-4 py-3 text-on-surface-variant italic">K. Nair</td>
-</tr>
-<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-3">Week 4 (24 Oct)</td>
-<td class="px-2 py-3 text-center">41</td><td class="px-2 py-3 text-center">41</td>
-<td class="px-2 py-3 text-center">42</td><td class="px-2 py-3 text-center">42</td>
-<td class="px-2 py-3 text-center">15</td><td class="px-2 py-3 text-center">15</td>
-<td class="px-4 py-3 text-on-surface-variant italic">M. Joseph</td>
-</tr>
-</tbody>
-<tfoot class="bg-[#F0F9FF] border-t-2 border-primary">
-<tr>
-<td class="px-4 py-3 font-bold text-primary">Monthly Total</td>
-<td class="px-2 py-3 text-center font-bold text-primary">176</td>
-<td class="px-2 py-3 text-center font-bold text-primary">173</td>
-<td class="px-2 py-3 text-center font-bold text-primary">192</td>
-<td class="px-2 py-3 text-center font-bold text-primary">187</td>
-<td class="px-2 py-3 text-center font-bold text-primary">32</td>
-<td class="px-2 py-3 text-center font-bold text-primary">32</td>
-<td class="px-4 py-3"></td>
-</tr>
-</tfoot>
-</table>
-</div>
-</div>
-<!-- Environmental Compliance Note -->
-<div class="mt-6 p-4 bg-surface-container-low rounded-lg border-l-4 border-ohc-accent flex gap-4">
-<span class="material-symbols-outlined text-ohc-accent">info</span>
-<div>
-<p class="text-label-sm font-bold text-on-surface">Hygiene Standard Compliance</p>
-<p class="text-body text-on-surface-variant">Linen sterilization logs are cross-referenced with vendor ETP certificates. Ensure all "Received" items are checked for chemical residue prior to distribution.</p>
-</div>
-</div>
-</div>
-</div>
+
 </div>
 </main>
-<!-- Footer Action Bar (Mobile only) -->
-<footer class="md:hidden fixed bottom-0 w-full h-[64px] bg-white border-t border-outline-variant flex items-center justify-around px-4 z-50">
-<button class="flex flex-col items-center gap-1 text-primary">
-<span class="material-symbols-outlined">edit_note</span>
-<span class="text-[10px] font-bold">Register</span>
-</button>
-<button class="flex flex-col items-center gap-1 text-on-surface-variant">
-<span class="material-symbols-outlined">analytics</span>
-<span class="text-[10px] font-bold">Stats</span>
-</button>
-<button class="flex flex-col items-center gap-1 text-on-surface-variant">
-<span class="material-symbols-outlined">history</span>
-<span class="text-[10px] font-bold">History</span>
-</button>
-</footer>
+
+<!-- ===== Weekly Log Entry Modal ===== -->
+<div id="lr-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)lrCloseModal()">
+  <div class="ohc-modal ohc-modal-lg" style="max-height:90vh;overflow-y:auto;">
+    <div class="ohc-modal-header">
+      <h2>Weekly Log Entry <span class="text-[10px] bg-secondary-container text-primary px-2 py-0.5 rounded font-bold uppercase tracking-wider ml-2">Form v4</span></h2>
+      <button onclick="lrCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form id="lr-modal-form" onsubmit="lrSaveEntry(event)">
+      <div class="space-y-5">
+        <!-- Date & Building -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-2">
+            <label class="text-label-sm font-label-sm text-on-surface">Entry Date <span class="text-error">*</span></label>
+            <input id="lr-f-date" class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" required type="date"/>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-label-sm font-label-sm text-on-surface">Building / Wing <span class="text-error">*</span></label>
+            <select id="lr-f-building" class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" required>
+              <option>Main Tower - Phase 1</option><option>Ganga Block</option><option>Nila Block</option><option>Yamuna Block</option>
+            </select>
+          </div>
+        </div>
+        <!-- Linen Tally -->
+        <div>
+          <p class="text-label-sm font-label-sm text-on-surface-variant mb-3 uppercase tracking-tight">Linen Item Tally</p>
+          <div class="border border-outline-variant rounded-lg overflow-hidden">
+            <table class="w-full text-left">
+              <thead class="bg-surface-container-low border-b border-outline-variant">
+                <tr>
+                  <th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">Item</th>
+                  <th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">To Laundry</th>
+                  <th class="px-4 py-2 text-label-sm font-label-sm text-on-surface">Received</th>
+                </tr>
+              </thead>
+              <tbody class="text-body divide-y divide-outline-variant">
+                <tr class="bg-white"><td class="px-4 py-3 font-medium">Bedsheets <span class="text-error">*</span></td><td class="px-4 py-2"><input id="lr-f-sh-to" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td><td class="px-4 py-2"><input id="lr-f-sh-rec" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td></tr>
+                <tr class="bg-surface-container-lowest"><td class="px-4 py-3 font-medium">Pillow Covers <span class="text-error">*</span></td><td class="px-4 py-2"><input id="lr-f-pc-to" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td><td class="px-4 py-2"><input id="lr-f-pc-rec" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td></tr>
+                <tr class="bg-white"><td class="px-4 py-3 font-medium">Curtains</td><td class="px-4 py-2"><input id="lr-f-cu-to" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td><td class="px-4 py-2"><input id="lr-f-cu-rec" class="w-full h-[32px] border-outline rounded text-center focus:ring-1 focus:ring-primary outline-none" placeholder="0" type="number" min="0"/></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Vendor -->
+        <div class="flex flex-col gap-2">
+          <label class="text-label-sm font-label-sm text-on-surface">Vendor / Service Provider</label>
+          <input id="lr-f-vendor" class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="e.g. CleanLine Hospitality Services" type="text"/>
+        </div>
+        <!-- Staff name -->
+        <div class="flex flex-col gap-2">
+          <label class="text-label-sm font-label-sm text-on-surface">Staff Name <span class="text-error">*</span></label>
+          <input id="lr-f-staff" class="h-[36px] px-3 border border-outline rounded-lg text-body bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="e.g. M. Joseph" required type="text"/>
+        </div>
+        <!-- Signatures Row -->
+        <div class="grid grid-cols-3 gap-4 pt-2">
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-bold text-on-surface uppercase">Staff Sign <span class="text-error">*</span></label>
+            <div class="h-20 border-2 border-dashed border-outline-variant rounded-lg bg-surface flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all"><span class="material-symbols-outlined text-[20px]">draw</span><span class="text-[10px]">Draw Sign</span></div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-bold text-on-surface uppercase">Security Sign</label>
+            <div class="h-20 border-2 border-dashed border-outline-variant rounded-lg bg-surface flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all"><span class="material-symbols-outlined text-[20px]">fingerprint</span><span class="text-[10px]">Verify ID</span></div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 mb-1"><label class="text-[10px] font-bold text-on-surface uppercase leading-none">BGD Sign</label><span class="px-1 text-[8px] bg-tertiary-container text-on-tertiary-container rounded-full font-extrabold px-1.5">NEW</span></div>
+            <div class="h-20 border-2 border-dashed border-outline-variant rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-on-surface-variant hover:border-primary cursor-pointer transition-all"><span class="material-symbols-outlined text-[20px]">check_circle</span><span class="text-[10px]">Authenticate</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="lrCloseModal()" class="h-[36px] px-6 text-on-surface-variant border border-outline rounded-lg font-semibold hover:bg-surface-container-low">Discard</button>
+        <button type="submit" id="lr-submit-btn" class="h-[36px] px-8 bg-primary text-white rounded-lg font-semibold shadow-sm hover:opacity-90">Save Log</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
-        // Simple micro-interactions
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('focus', () => {
-                input.parentElement.classList.add('scale-[1.01]');
-                input.parentElement.style.transition = 'transform 0.2s ease-out';
-            });
-            input.addEventListener('blur', () => {
-                input.parentElement.classList.remove('scale-[1.01]');
-            });
-        });
-    </script>
+    var LR_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function lrMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+
+    // Demo data — daysAgo = entry date offset
+    var LR_RAW = [
+        { daysAgo:0,  building:'Main Tower - Phase 1', shTo:45, shRec:42, pcTo:50, pcRec:50, cuTo:12, cuRec:12, vendor:'CleanLine Services', staff:'M. Joseph' },
+        { daysAgo:0,  building:'Ganga Block',          shTo:20, shRec:20, pcTo:22, pcRec:22, cuTo:4,  cuRec:4,  vendor:'CleanLine Services', staff:'S. Pillai' },
+        { daysAgo:1,  building:'Nila Block',           shTo:18, shRec:16, pcTo:20, pcRec:20, cuTo:0,  cuRec:0,  vendor:'HygieneMax',         staff:'K. Nair'   },
+        { daysAgo:2,  building:'Main Tower - Phase 1', shTo:40, shRec:40, pcTo:45, pcRec:45, cuTo:8,  cuRec:8,  vendor:'CleanLine Services', staff:'M. Joseph'  },
+        { daysAgo:5,  building:'Yamuna Block',         shTo:15, shRec:15, pcTo:18, pcRec:18, cuTo:3,  cuRec:3,  vendor:'HygieneMax',         staff:'R. Kumar'  },
+        { daysAgo:7,  building:'Ganga Block',          shTo:22, shRec:22, pcTo:24, pcRec:24, cuTo:5,  cuRec:5,  vendor:'CleanLine Services', staff:'S. Pillai' },
+        { daysAgo:8,  building:'Main Tower - Phase 1', shTo:52, shRec:52, pcTo:60, pcRec:60, cuTo:15, cuRec:15, vendor:'CleanLine Services', staff:'M. Joseph'  },
+        { daysAgo:10, building:'Nila Block',           shTo:19, shRec:18, pcTo:21, pcRec:19, cuTo:0,  cuRec:0,  vendor:'HygieneMax',         staff:'K. Nair'   },
+        { daysAgo:14, building:'Main Tower - Phase 1', shTo:41, shRec:41, pcTo:42, pcRec:42, cuTo:10, cuRec:10, vendor:'CleanLine Services', staff:'M. Joseph'  },
+        { daysAgo:20, building:'Yamuna Block',         shTo:16, shRec:16, pcTo:20, pcRec:20, cuTo:2,  cuRec:2,  vendor:'HygieneMax',         staff:'R. Kumar'  },
+        { daysAgo:30, building:'Ganga Block',          shTo:21, shRec:21, pcTo:23, pcRec:23, cuTo:4,  cuRec:4,  vendor:'CleanLine Services', staff:'S. Pillai' },
+        { daysAgo:60, building:'Main Tower - Phase 1', shTo:44, shRec:44, pcTo:48, pcRec:48, cuTo:11, cuRec:11, vendor:'CleanLine Services', staff:'M. Joseph'  },
+        { daysAgo:90, building:'Nila Block',           shTo:17, shRec:17, pcTo:19, pcRec:19, cuTo:0,  cuRec:0,  vendor:'HygieneMax',         staff:'K. Nair'   },
+        { daysAgo:200,building:'Main Tower - Phase 1', shTo:40, shRec:39, pcTo:44, pcRec:44, cuTo:8,  cuRec:8,  vendor:'CleanLine Services', staff:'M. Joseph'  },
+    ];
+
+    var LR_ROWS = LR_RAW.map(function(r){ return Object.assign({},r,{date:lrMidnight(r.daysAgo)}); });
+    function lrFmt(d){ return d.getDate()+' '+LR_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+    var lrCurrentPeriod = 'today';
+
+    function lrGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function lrRender(period){
+        var r = lrGetRange(period);
+        var rows = LR_ROWS.filter(function(v){ return v.date>=r.start && v.date<=r.end; });
+        var n = rows.length;
+        document.getElementById('lr-count').textContent = n + ' entr'+(n===1?'y':'ies');
+        document.getElementById('lr-showing').textContent = 'Showing '+n+' entr'+(n===1?'y':'ies');
+        var tbody = document.getElementById('lr-table-body');
+        var empty = document.getElementById('lr-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+        tbody.innerHTML = rows.map(function(v,i){
+            var hasDisc = (v.shTo!==v.shRec || v.pcTo!==v.pcRec || v.cuTo!==v.cuRec);
+            var rowBg = hasDisc ? '#FEF2F2' : (i%2===0 ? '#fff' : 'rgba(240,244,250,0.3)');
+            var flag = hasDisc
+                ? '<span style="background:#ffdad6;color:#93000a;white-space:nowrap;display:inline-block;" class="px-2 py-0.5 text-[10px] font-bold rounded uppercase">Gap</span>'
+                : '<span style="background:#dcfce7;color:#15803d;white-space:nowrap;display:inline-block;" class="px-2 py-0.5 text-[10px] font-bold rounded">OK</span>';
+            var shStyle = v.shTo!==v.shRec ? 'color:#ba1a1a;font-weight:700;' : '';
+            var pcStyle = v.pcTo!==v.pcRec ? 'color:#ba1a1a;font-weight:700;' : '';
+            return '<tr style="background:'+rowBg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+rowBg+'\'">'
+                +'<td class="px-3 py-3" style="white-space:nowrap;">'+lrFmt(v.date)+'</td>'
+                +'<td class="px-3 py-3" style="white-space:normal;word-wrap:break-word;">'+v.building+'</td>'
+                +'<td class="px-3 py-3 text-center">'+v.shTo+'</td>'
+                +'<td class="px-3 py-3 text-center" style="'+shStyle+'">'+v.shRec+'</td>'
+                +'<td class="px-3 py-3 text-center">'+v.pcTo+'</td>'
+                +'<td class="px-3 py-3 text-center" style="'+pcStyle+'">'+v.pcRec+'</td>'
+                +'<td class="px-3 py-3 text-center">'+v.cuTo+'</td>'
+                +'<td class="px-3 py-3 text-center">'+v.cuRec+'</td>'
+                +'<td class="px-3 py-3 text-on-surface-variant italic" style="white-space:normal;word-wrap:break-word;">'+v.staff+'</td>'
+                +'<td class="px-3 py-3 text-center">'+flag+'</td>'
+                +'</tr>';
+        }).join('');
+    }
+
+    function lrSetFilter(btn){
+        document.querySelectorAll('.lr-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        lrCurrentPeriod = btn.dataset.period;
+        lrRender(lrCurrentPeriod);
+    }
+
+    // Update summary title to current month/year
+    document.addEventListener('DOMContentLoaded', function(){
+        var now = new Date();
+        document.getElementById('lr-summary-title').textContent = 'Monthly Summary — '+LR_MO[now.getMonth()]+' '+now.getFullYear();
+    });
+
+    function lrOpenModal(){
+        document.getElementById('lr-modal-form').reset();
+        document.getElementById('lr-f-date').value = new Date().toISOString().slice(0,10);
+        document.getElementById('lr-overlay').style.display = 'flex';
+    }
+
+    function lrCloseModal(){
+        document.getElementById('lr-overlay').style.display = 'none';
+    }
+
+    function lrSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('lr-submit-btn');
+        var dateVal  = document.getElementById('lr-f-date').value;
+        var building = document.getElementById('lr-f-building').value;
+        var shTo     = parseInt(document.getElementById('lr-f-sh-to').value)||0;
+        var shRec    = parseInt(document.getElementById('lr-f-sh-rec').value)||0;
+        var pcTo     = parseInt(document.getElementById('lr-f-pc-to').value)||0;
+        var pcRec    = parseInt(document.getElementById('lr-f-pc-rec').value)||0;
+        var cuTo     = parseInt(document.getElementById('lr-f-cu-to').value)||0;
+        var cuRec    = parseInt(document.getElementById('lr-f-cu-rec').value)||0;
+        var vendor   = document.getElementById('lr-f-vendor').value || '—';
+        var staff    = document.getElementById('lr-f-staff').value;
+
+        btn.textContent = 'Saving...'; btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2])); d.setHours(0,0,0,0);
+            LR_ROWS.unshift({ date:d, building:building, shTo:shTo, shRec:shRec, pcTo:pcTo, pcRec:pcRec, cuTo:cuTo, cuRec:cuRec, vendor:vendor, staff:staff, daysAgo:0 });
+            btn.textContent = 'Saved ✓'; btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Save Log'; btn.style.backgroundColor = ''; btn.disabled = false;
+                lrCloseModal();
+                lrRender(lrCurrentPeriod);
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    lrRender('today');
+</script>
 </body></html>

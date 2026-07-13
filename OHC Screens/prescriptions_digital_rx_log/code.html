@@ -7,7 +7,6 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -103,6 +102,11 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #dee3e9; border-radius: 10px; }
         .rx-accent { color: #0ea5e9; }
+        /* Filter pills */
+        .rx-pill-bar { display: inline-flex; background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 8px; padding: 3px; gap: 2px; }
+        .rx-pill { padding: 5px 14px; border-radius: 6px; border: none; background: transparent; font-size: 12px; font-weight: 500; color: #6B7280; cursor: pointer; font-family: 'Inter', sans-serif; transition: background .12s, color .12s, box-shadow .12s; white-space: nowrap; }
+        .rx-pill:hover { color: #111827; background: #fff; }
+        .rx-pill.active { background: #fff; color: #0EA5E9; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
     </style>
 </head>
 <body class="text-on-surface" style="background-color:#F3F4F6;">
@@ -157,275 +161,426 @@
 </aside>
 <main class="ohc-main">
 <div class="ohc-content">
-<!-- Content Header -->
-<header class="flex justify-between items-end mb-8 max-w-[1160px] mx-auto">
-<div>
-<h1 class="font-page-title text-[24px] font-bold text-on-surface">Prescriptions</h1>
-<p class="text-body text-on-surface-variant mt-1">Digital prescriptions linked to OPD visits</p>
+
+<!-- ===== VIEW: List Header (visible on load) ===== -->
+<div id="view-list">
+  <header class="flex justify-between items-end mb-6 max-w-[1160px] mx-auto">
+    <div>
+      <h1 class="font-page-title text-[24px] font-bold text-on-surface">Prescriptions</h1>
+      <p class="text-body text-on-surface-variant mt-1">Digital prescriptions linked to OPD visits</p>
+    </div>
+    <button onclick="rxShowForm()" class="bg-[#0EA5E9] text-white px-4 h-[36px] rounded-lg font-semibold text-body flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      New Prescription
+    </button>
+  </header>
 </div>
-<button class="bg-[#0EA5E9] text-white px-4 h-[36px] rounded-lg font-semibold text-body flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all">
-<span class="material-symbols-outlined text-[18px]">add</span>
-                New Prescription
-            </button>
-</header>
-<!-- Two Panel Layout -->
-<div class="flex gap-container_gap max-w-[1160px] mx-auto">
-<!-- Left Panel (60%) -->
-<div class="w-[60%] space-y-container_gap">
-<!-- Form Card -->
-<div class="bg-white border border-outline-variant rounded-lg p-content_padding">
-<div class="flex items-center gap-2 mb-6">
-<span class="material-symbols-outlined text-primary">edit_note</span>
-<h3 class="font-section-heading text-section-heading">New Prescription</h3>
+
+<!-- ===== VIEW: Form (hidden by default) ===== -->
+<div id="view-form" style="display:none;">
+  <!-- Back navigation -->
+  <div class="mb-5 max-w-[1160px] mx-auto">
+    <button onclick="rxShowList()" class="flex items-center gap-1 text-on-surface-variant hover:text-primary text-body transition-colors">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      Back to Prescriptions
+    </button>
+  </div>
+  <!-- Two Panel Layout (preserved exactly from original) -->
+  <div class="flex gap-container_gap max-w-[1160px] mx-auto">
+    <!-- Left Panel (60%) -->
+    <div class="w-[60%] space-y-container_gap">
+      <!-- Form Card -->
+      <div class="bg-white border border-outline-variant rounded-lg p-content_padding">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined text-primary">edit_note</span>
+          <h3 class="font-section-heading text-section-heading">New Prescription</h3>
+        </div>
+        <form class="space-y-6">
+          <!-- Row 1: Linked Patient -->
+          <div class="space-y-2">
+            <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Linked Patient</label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">person_search</span>
+              <input class="w-full h-9 pl-10 pr-4 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="Julian Daschle"/>
+            </div>
+          </div>
+          <!-- Row 2: Date & Prescribed By -->
+          <div class="grid grid-cols-2 gap-container_gap">
+            <div class="space-y-2">
+              <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Date</label>
+              <input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="date" value="2023-10-27"/>
+            </div>
+            <div class="space-y-2">
+              <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Prescribed By</label>
+              <select class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body appearance-none">
+                <option>Dr. Amelia Vance</option>
+                <option>Dr. Arun Kumar</option>
+                <option>Dr. Sarah Jenkins</option>
+              </select>
+            </div>
+          </div>
+          <!-- Row 3: Medicine(s) -->
+          <div class="space-y-2">
+            <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Medicine(s)</label>
+            <div class="min-h-[44px] p-2 bg-background border border-outline-variant rounded flex flex-wrap gap-2">
+              <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
+                Paracetamol 500mg
+                <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+              </div>
+              <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
+                Amoxicillin 250mg
+                <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+              </div>
+              <div class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
+                Alprazolam
+                <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+              </div>
+              <button class="text-primary text-label-sm flex items-center gap-1 px-2 hover:underline">
+                <span class="material-symbols-outlined text-[16px]">add_circle</span> Add
+              </button>
+            </div>
+            <!-- Schedule K Warning Banner -->
+            <div class="mt-2 bg-error-container border border-error/20 p-3 rounded flex items-start gap-3 animate-pulse">
+              <span class="material-symbols-outlined text-error">warning</span>
+              <div>
+                <p class="text-label-sm font-bold text-on-error-container">Schedule K medication detected.</p>
+                <p class="text-label-sm text-on-error-container opacity-80">Ensure statutory documentation is completed for Alprazolam before submission.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Row 4: Dosage & Duration -->
+          <div class="grid grid-cols-3 gap-container_gap">
+            <div class="col-span-2 space-y-2">
+              <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Dosage / Instructions</label>
+              <input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="One tablet twice daily after meals"/>
+            </div>
+            <div class="space-y-2">
+              <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Duration</label>
+              <input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="5 days"/>
+            </div>
+          </div>
+          <!-- Row 5: Paper Prescription Upload -->
+          <div class="space-y-2">
+            <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Paper Prescription Upload</label>
+            <div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+              <span class="material-symbols-outlined text-[32px] text-on-surface-variant group-hover:text-primary mb-2">cloud_upload</span>
+              <p class="text-body font-semibold">Click to upload or drag &amp; drop</p>
+              <p class="text-label-sm text-on-surface-variant">PNG, JPG or PDF (max. 10MB)</p>
+            </div>
+          </div>
+          <!-- Row 6: Notes -->
+          <div class="space-y-2">
+            <label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Notes</label>
+            <textarea class="w-full p-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body resize-none" rows="3">Patient reports slight nausea</textarea>
+          </div>
+          <!-- Form Actions -->
+          <div class="pt-4 flex items-center justify-between border-t border-outline-variant">
+            <div class="flex gap-stack_gap">
+              <button id="rx-save-btn" class="bg-[#0EA5E9] text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all" type="button">Save Prescription</button>
+              <button class="border border-outline-variant text-on-surface px-6 h-[36px] rounded-lg font-semibold text-body flex items-center gap-2 hover:bg-surface-container-low transition-all" type="button">
+                <span class="material-symbols-outlined text-[18px]">print</span>
+                Print
+              </button>
+            </div>
+            <button id="rx-cancel-btn" class="text-on-surface-variant hover:text-error text-body transition-colors" type="button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Right Panel (40%) -->
+    <div class="w-[40%] space-y-container_gap">
+      <!-- Prescription Preview Card -->
+      <div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+        <div class="p-6 relative bg-surface-container-lowest">
+          <!-- Large Rx Watermark -->
+          <div class="absolute top-4 left-4 text-[48px] font-extrabold opacity-10 select-none">Rx</div>
+          <div class="relative z-10 flex flex-col items-center">
+            <h4 class="font-page-title text-section-heading text-primary-container uppercase tracking-widest border-b-2 border-primary-container pb-1 mb-4">Prescription</h4>
+            <div class="w-full space-y-4">
+              <div class="flex justify-between text-label-sm border-b border-outline-variant pb-2">
+                <div>
+                  <p class="text-on-surface-variant font-medium">PATIENT</p>
+                  <p class="text-body font-bold">Julian Daschle</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-on-surface-variant font-medium">DATE</p>
+                  <p class="text-body font-bold">Oct 27, 2023</p>
+                </div>
+              </div>
+              <div class="py-2">
+                <div class="flex items-start gap-2 mb-2">
+                  <span class="material-symbols-outlined rx-accent text-[20px]">medical_services</span>
+                  <p class="text-body font-medium italic">Dr. Amelia Vance</p>
+                </div>
+                <ul class="space-y-3 ml-7">
+                  <li class="flex flex-col">
+                    <span class="text-body font-bold">Paracetamol 500mg</span>
+                    <span class="text-label-sm text-on-surface-variant">One tablet twice daily after meals (5 days)</span>
+                  </li>
+                  <li class="flex flex-col">
+                    <span class="text-body font-bold">Amoxicillin 250mg</span>
+                    <span class="text-label-sm text-on-surface-variant">One tablet twice daily after meals (5 days)</span>
+                  </li>
+                  <li class="flex flex-col">
+                    <span class="text-body font-bold text-error">Alprazolam</span>
+                    <span class="text-label-sm text-on-surface-variant">As prescribed (Schedule K)</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mt-8 border-t-2 border-dashed border-outline-variant pt-4 flex justify-end">
+                <div class="w-24 h-24 border border-outline-variant border-dashed flex items-center justify-center text-[10px] text-on-surface-variant text-center px-2 italic uppercase">
+                  Physician Stamp &amp; Signature Area
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-surface-container-high px-6 py-3 flex justify-between items-center">
+          <span class="text-label-sm text-on-surface-variant">PREVIEW MODE</span>
+          <div class="flex gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Past Prescriptions Card (preserved in form view for context) -->
+      <div class="bg-white border border-outline-variant rounded-lg overflow-hidden">
+        <div class="px-content_padding py-4 border-b border-outline-variant flex items-center justify-between">
+          <h3 class="font-section-heading text-section-heading">Past Prescriptions</h3>
+          <span class="text-label-sm bg-surface-container-high px-2 py-0.5 rounded">Julian Daschle</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low border-b border-outline-variant">
+                <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Date</th>
+                <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Doctor</th>
+                <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Medicines</th>
+                <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Stat.</th>
+                <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant">
+              <tr class="bg-white hover:bg-surface-container-low transition-colors">
+                <td class="p-3 text-body">15 Oct 2023</td>
+                <td class="p-3 text-body">Dr. Arun Kumar</td>
+                <td class="p-3 text-body truncate max-w-[80px]">Cetirizine</td>
+                <td class="p-3">--</td>
+                <td class="p-3 text-right">
+                  <button class="text-primary hover:text-primary-container">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                  </button>
+                </td>
+              </tr>
+              <tr class="bg-background hover:bg-surface-container-low transition-colors">
+                <td class="p-3 text-body text-error font-medium">02 Sep 2023</td>
+                <td class="p-3 text-body">Dr. Amelia Vance</td>
+                <td class="p-3 text-body truncate max-w-[80px]">Alprazolam</td>
+                <td class="p-3">
+                  <span class="bg-error-container text-on-error-container text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">SK</span>
+                </td>
+                <td class="p-3 text-right">
+                  <button class="text-primary hover:text-primary-container">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-3 text-center border-t border-outline-variant">
+          <button onclick="rxShowList()" class="text-primary text-label-sm font-semibold hover:underline">View All Records</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<form class="space-y-6">
-<!-- Row 1: Linked Patient -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Linked Patient</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">person_search</span>
-<input class="w-full h-9 pl-10 pr-4 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="Julian Daschle"/>
+
+<!-- ===== VIEW: List Table (visible on load) ===== -->
+<div id="view-list-table">
+  <div class="max-w-[1160px] mx-auto">
+    <!-- Filter bar -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="rx-pill-bar" role="group">
+        <button class="rx-pill active" data-period="today"   onclick="rxSetFilter(this)">Today</button>
+        <button class="rx-pill"        data-period="week"    onclick="rxSetFilter(this)">This Week</button>
+        <button class="rx-pill"        data-period="month"   onclick="rxSetFilter(this)">This Month</button>
+        <button class="rx-pill"        data-period="quarter" onclick="rxSetFilter(this)">This Quarter</button>
+        <button class="rx-pill"        data-period="year"    onclick="rxSetFilter(this)">This Year</button>
+      </div>
+      <span id="rx-count" class="text-label-sm text-on-surface-variant">— prescriptions</span>
+    </div>
+    <!-- Table card -->
+    <div class="bg-white border border-outline-variant rounded-lg overflow-hidden">
+      <table style="table-layout:fixed; width:100%;" class="w-full text-left border-collapse">
+        <colgroup>
+          <col style="width:11%"/>
+          <col style="width:19%"/>
+          <col style="width:18%"/>
+          <col style="width:36%"/>
+          <col style="width:9%"/>
+          <col style="width:7%"/>
+        </colgroup>
+        <thead>
+          <tr class="bg-surface-container-low border-b border-outline-variant">
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Date</th>
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Patient</th>
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Doctor</th>
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Medicine(s)</th>
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Status</th>
+            <th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody id="rx-table-body" class="divide-y divide-outline-variant">
+          <!-- rendered by JS -->
+        </tbody>
+      </table>
+      <!-- Empty state -->
+      <div id="rx-empty" style="display:none;" class="py-16 text-center">
+        <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">prescriptions</span>
+        <p class="text-body text-on-surface-variant">No prescriptions in this period.</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<!-- Row 2: Date & Prescribed By -->
-<div class="grid grid-cols-2 gap-container_gap">
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Date</label>
-<input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="date" value="2023-10-27"/>
-</div>
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Prescribed By</label>
-<select class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body appearance-none">
-<option>Dr. Amelia Vance</option>
-<option>Dr. Arun Kumar</option>
-<option>Dr. Sarah Jenkins</option>
-</select>
-</div>
-</div>
-<!-- Row 3: Medicine(s) -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Medicine(s)</label>
-<div class="min-h-[44px] p-2 bg-background border border-outline-variant rounded flex flex-wrap gap-2">
-<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
-                                    Paracetamol 500mg
-                                    <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
-</div>
-<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
-                                    Amoxicillin 250mg
-                                    <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
-</div>
-<div class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
-                                    Alprazolam
-                                    <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
-</div>
-<button class="text-primary text-label-sm flex items-center gap-1 px-2 hover:underline">
-<span class="material-symbols-outlined text-[16px]">add_circle</span> Add
-                                </button>
-</div>
-<!-- Schedule K Warning Banner -->
-<div class="mt-2 bg-error-container border border-error/20 p-3 rounded flex items-start gap-3 animate-pulse">
-<span class="material-symbols-outlined text-error">warning</span>
-<div>
-<p class="text-label-sm font-bold text-on-error-container">Schedule K medication detected.</p>
-<p class="text-label-sm text-on-error-container opacity-80">Ensure statutory documentation is completed for Alprazolam before submission.</p>
-</div>
-</div>
-</div>
-<!-- Row 4: Dosage & Duration -->
-<div class="grid grid-cols-3 gap-container_gap">
-<div class="col-span-2 space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Dosage / Instructions</label>
-<input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="One tablet twice daily after meals"/>
-</div>
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Duration</label>
-<input class="w-full h-9 px-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body" type="text" value="5 days"/>
-</div>
-</div>
-<!-- Row 5: Paper Prescription Upload -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Paper Prescription Upload</label>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-[32px] text-on-surface-variant group-hover:text-primary mb-2">cloud_upload</span>
-<p class="text-body font-semibold">Click to upload or drag &amp; drop</p>
-<p class="text-label-sm text-on-surface-variant">PNG, JPG or PDF (max. 10MB)</p>
-</div>
-</div>
-<!-- Row 6: Notes -->
-<div class="space-y-2">
-<label class="text-label-sm text-on-surface-variant uppercase tracking-wider">Notes</label>
-<textarea class="w-full p-3 bg-background border border-outline-variant rounded focus:ring-1 focus:ring-primary-container outline-none text-body resize-none" rows="3">Patient reports slight nausea</textarea>
-</div>
-<!-- Form Actions -->
-<div class="pt-4 flex items-center justify-between border-t border-outline-variant">
-<div class="flex gap-stack_gap">
-<button class="bg-[#0EA5E9] text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all" type="button">Save Prescription</button>
-<button class="border border-outline-variant text-on-surface px-6 h-[36px] rounded-lg font-semibold text-body flex items-center gap-2 hover:bg-surface-container-low transition-all" type="button">
-<span class="material-symbols-outlined text-[18px]">print</span>
-                                    Print
-                                </button>
-</div>
-<button class="text-on-surface-variant hover:text-error text-body transition-colors" type="button">Cancel</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Right Panel (40%) -->
-<div class="w-[40%] space-y-container_gap">
-<!-- Prescription Preview Card -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
-<div class="p-6 relative bg-surface-container-lowest">
-<!-- Large Rx Watermark -->
-<div class="absolute top-4 left-4 text-[48px] font-extrabold opacity-10 select-none">Rx</div>
-<div class="relative z-10 flex flex-col items-center">
-<h4 class="font-page-title text-section-heading text-primary-container uppercase tracking-widest border-b-2 border-primary-container pb-1 mb-4">Prescription</h4>
-<div class="w-full space-y-4">
-<div class="flex justify-between text-label-sm border-b border-outline-variant pb-2">
-<div>
-<p class="text-on-surface-variant font-medium">PATIENT</p>
-<p class="text-body font-bold">Julian Daschle</p>
-</div>
-<div class="text-right">
-<p class="text-on-surface-variant font-medium">DATE</p>
-<p class="text-body font-bold">Oct 27, 2023</p>
-</div>
-</div>
-<div class="py-2">
-<div class="flex items-start gap-2 mb-2">
-<span class="material-symbols-outlined rx-accent text-[20px]">medical_services</span>
-<p class="text-body font-medium italic">Dr. Amelia Vance</p>
-</div>
-<ul class="space-y-3 ml-7">
-<li class="flex flex-col">
-<span class="text-body font-bold">Paracetamol 500mg</span>
-<span class="text-label-sm text-on-surface-variant">One tablet twice daily after meals (5 days)</span>
-</li>
-<li class="flex flex-col">
-<span class="text-body font-bold">Amoxicillin 250mg</span>
-<span class="text-label-sm text-on-surface-variant">One tablet twice daily after meals (5 days)</span>
-</li>
-<li class="flex flex-col">
-<span class="text-body font-bold text-error">Alprazolam</span>
-<span class="text-label-sm text-on-surface-variant">As prescribed (Schedule K)</span>
-</li>
-</ul>
-</div>
-<div class="mt-8 border-t-2 border-dashed border-outline-variant pt-4 flex justify-end">
-<div class="w-24 h-24 border border-outline-variant border-dashed flex items-center justify-center text-[10px] text-on-surface-variant text-center px-2 italic uppercase">
-                                        Physician Stamp &amp; Signature Area
-                                    </div>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-surface-container-high px-6 py-3 flex justify-between items-center">
-<span class="text-label-sm text-on-surface-variant">PREVIEW MODE</span>
-<div class="flex gap-2">
-<span class="w-2 h-2 rounded-full bg-green-500"></span>
-<span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-</div>
-</div>
-</div>
-<!-- Past Prescriptions Card -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden">
-<div class="px-content_padding py-4 border-b border-outline-variant flex items-center justify-between">
-<h3 class="font-section-heading text-section-heading">Past Prescriptions</h3>
-<span class="text-label-sm bg-surface-container-high px-2 py-0.5 rounded">Julian Daschle</span>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Date</th>
-<th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Doctor</th>
-<th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Medicines</th>
-<th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Stat.</th>
-<th class="p-3 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-right">Action</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="bg-white hover:bg-surface-container-low transition-colors">
-<td class="p-3 text-body">15 Oct 2023</td>
-<td class="p-3 text-body">Dr. Arun Kumar</td>
-<td class="p-3 text-body truncate max-w-[80px]">Cetirizine</td>
-<td class="p-3">--</td>
-<td class="p-3 text-right">
-<button class="text-primary hover:text-primary-container">
-<span class="material-symbols-outlined text-[18px]">visibility</span>
-</button>
-</td>
-</tr>
-<tr class="bg-background hover:bg-surface-container-low transition-colors">
-<td class="p-3 text-body text-error font-medium">02 Sep 2023</td>
-<td class="p-3 text-body">Dr. Amelia Vance</td>
-<td class="p-3 text-body truncate max-w-[80px]">Alprazolam</td>
-<td class="p-3">
-<span class="bg-error-container text-on-error-container text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">SK</span>
-</td>
-<td class="p-3 text-right">
-<button class="text-primary hover:text-primary-container">
-<span class="material-symbols-outlined text-[18px]">visibility</span>
-</button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="p-3 text-center border-t border-outline-variant">
-<button class="text-primary text-label-sm font-semibold hover:underline">View All Records (8)</button>
-</div>
-</div>
-</div>
-</div>
+
 </div>
 </main>
-<!-- Contextual Micro-interactions Script -->
-<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Simulated form validation check
-            const saveBtn = document.querySelector('button:contains("Save Prescription")');
-            if(saveBtn) {
-                saveBtn.addEventListener('click', () => {
-                    const btnText = saveBtn.innerText;
-                    saveBtn.innerText = 'Processing...';
-                    saveBtn.disabled = true;
-                    saveBtn.style.opacity = '0.7';
-                    
-                    setTimeout(() => {
-                        saveBtn.innerText = 'Success ✓';
-                        saveBtn.style.backgroundColor = '#10b981';
-                        setTimeout(() => {
-                            saveBtn.innerText = btnText;
-                            saveBtn.style.backgroundColor = '#0EA5E9';
-                            saveBtn.disabled = false;
-                            saveBtn.style.opacity = '1';
-                        }, 2000);
-                    }, 800);
-                });
-            }
 
-            // Floating atmospheric interaction for prescription preview
-            const previewCard = document.querySelector('.rx-accent').closest('.bg-white');
-            if(previewCard) {
-                previewCard.addEventListener('mouseenter', () => {
-                    previewCard.style.transform = 'translateY(-2px)';
-                    previewCard.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.05)';
-                    previewCard.style.transition = 'all 0.3s ease';
+<script>
+    // Demo data — daysAgo offsets, never hardcoded dates
+    var RX_RAW = [
+        { daysAgo:0,  patient:'Rahul Mehta',    doctor:'Dr. Amelia Vance',  medicines:'Paracetamol 500mg, Cetirizine 10mg',                   schedK:false },
+        { daysAgo:0,  patient:'Priya Nair',     doctor:'Dr. Arun Kumar',    medicines:'Ibuprofen 400mg',                                      schedK:false },
+        { daysAgo:1,  patient:'Sanjay Gupta',   doctor:'Dr. Amelia Vance',  medicines:'Amoxicillin 500mg, Paracetamol 500mg',                  schedK:false },
+        { daysAgo:2,  patient:'Deepika Rao',    doctor:'Dr. Sarah Jenkins', medicines:'Alprazolam',                                           schedK:true  },
+        { daysAgo:3,  patient:'Julian Daschle', doctor:'Dr. Amelia Vance',  medicines:'Paracetamol 500mg, Amoxicillin 250mg, Alprazolam',      schedK:true  },
+        { daysAgo:4,  patient:'Anil Sharma',    doctor:'Dr. Arun Kumar',    medicines:'Metformin 850mg',                                      schedK:false },
+        { daysAgo:6,  patient:'Meena Krishnan', doctor:'Dr. Sarah Jenkins', medicines:'Cetirizine 10mg',                                      schedK:false },
+        { daysAgo:8,  patient:'Rohit Verma',    doctor:'Dr. Amelia Vance',  medicines:'Omeprazole 20mg, Antacids/Gelusil',                    schedK:false },
+        { daysAgo:12, patient:'Kavita Singh',   doctor:'Dr. Arun Kumar',    medicines:'Azithromycin 500mg',                                   schedK:false },
+        { daysAgo:20, patient:'Suresh Babu',    doctor:'Dr. Sarah Jenkins', medicines:'Diclofenac Gel 1%',                                    schedK:false },
+        { daysAgo:35, patient:'Pooja Desai',    doctor:'Dr. Amelia Vance',  medicines:'Chloramphenicol Eye Drops',                            schedK:false },
+        { daysAgo:45, patient:'Farhan Khan',    doctor:'Dr. Arun Kumar',    medicines:'Alprazolam, Amoxicillin 500mg',                        schedK:true  },
+        { daysAgo:60, patient:'Lakshmi Patel',  doctor:'Dr. Sarah Jenkins', medicines:'Paracetamol 500mg, ORS Sachets',                       schedK:false },
+        { daysAgo:100,patient:'Ramesh Kumar',   doctor:'Dr. Amelia Vance',  medicines:'Cetirizine 10mg, Ibuprofen 400mg',                     schedK:false },
+        { daysAgo:200,patient:'Anita Joshi',    doctor:'Dr. Arun Kumar',    medicines:'Metformin 850mg, Omeprazole 20mg',                     schedK:false },
+    ];
+
+    function rxMidnight(n) {
+        var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d;
+    }
+    var RX_ROWS = RX_RAW.map(function(r) { return Object.assign({}, r, { date: rxMidnight(r.daysAgo) }); });
+
+    function rxFmtDate(d) {
+        var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return d.getDate() + ' ' + mo[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    function rxGetRange(period) {
+        var s = new Date(); s.setHours(0,0,0,0);
+        var e = new Date(); e.setHours(23,59,59,999);
+        if (period === 'week')    { var dow = s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if (period === 'month')   { s.setDate(1); }
+        else if (period === 'quarter') { s.setMonth(Math.floor(s.getMonth()/3)*3, 1); }
+        else if (period === 'year')    { s.setMonth(0, 1); }
+        return { start:s, end:e };
+    }
+
+    function rxRender(period) {
+        var tbody = document.getElementById('rx-table-body');
+        var empty = document.getElementById('rx-empty');
+        var r     = rxGetRange(period);
+        var rows  = RX_ROWS.filter(function(v) { return v.date >= r.start && v.date <= r.end; });
+        var n     = rows.length;
+        document.getElementById('rx-count').textContent = n + ' prescription' + (n === 1 ? '' : 's');
+        if (!n) {
+            tbody.innerHTML = '';
+            empty.style.display = 'block';
+            return;
+        }
+        empty.style.display = 'none';
+        tbody.innerHTML = rows.map(function(v, i) {
+            var statusCell = v.schedK
+                ? '<span class="bg-error-container text-on-error-container text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">SK</span>'
+                : '<span class="text-on-surface-variant">—</span>';
+            var dateStyle = v.schedK ? 'color:#ba1a1a;font-weight:500;' : '';
+            var rowBg     = (i % 2 === 0) ? '#fff' : '#F9FAFB';
+            return '<tr style="background:' + rowBg + ';cursor:default;" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\'' + rowBg + '\'">'
+                + '<td class="p-3 text-body" style="white-space:nowrap;' + dateStyle + '">' + rxFmtDate(v.date) + '</td>'
+                + '<td class="p-3 text-body" style="white-space:normal;word-wrap:break-word;">' + v.patient + '</td>'
+                + '<td class="p-3 text-body" style="white-space:normal;word-wrap:break-word;">' + v.doctor + '</td>'
+                + '<td class="p-3 text-body" style="white-space:normal;word-wrap:break-word;">' + v.medicines + '</td>'
+                + '<td class="p-3">' + statusCell + '</td>'
+                + '<td class="p-3 text-right"><button class="text-primary hover:text-primary-container"><span class="material-symbols-outlined text-[18px]">visibility</span></button></td>'
+                + '</tr>';
+        }).join('');
+    }
+
+    function rxSetFilter(btn) {
+        document.querySelectorAll('.rx-pill').forEach(function(p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        rxRender(btn.dataset.period);
+    }
+
+    function rxShowForm() {
+        document.getElementById('view-list').style.display = 'none';
+        document.getElementById('view-list-table').style.display = 'none';
+        document.getElementById('view-form').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function rxShowList() {
+        document.getElementById('view-form').style.display = 'none';
+        document.getElementById('view-list').style.display = 'block';
+        document.getElementById('view-list-table').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    // Boot — render Today by default
+    rxRender('today');
+
+    // Save Prescription — microinteraction then return to list
+    document.getElementById('rx-save-btn').addEventListener('click', function() {
+        var btn = this;
+        btn.textContent = 'Processing...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        setTimeout(function() {
+            btn.textContent = 'Saved ✓';
+            btn.style.backgroundColor = '#10b981';
+            setTimeout(function() {
+                btn.textContent = 'Save Prescription';
+                btn.style.backgroundColor = '#0EA5E9';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                rxShowList();
+            }, 1200);
+        }, 800);
+    });
+
+    // Cancel — return to list
+    document.getElementById('rx-cancel-btn').addEventListener('click', function() {
+        rxShowList();
+    });
+
+    // Preview card hover effect (preserved)
+    document.addEventListener('DOMContentLoaded', function() {
+        var rxEl = document.querySelector('.rx-accent');
+        if (rxEl) {
+            var card = rxEl.closest('.bg-white');
+            if (card) {
+                card.addEventListener('mouseenter', function() {
+                    card.style.transform = 'translateY(-2px)';
+                    card.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,.05)';
+                    card.style.transition = 'all 0.3s ease';
                 });
-                previewCard.addEventListener('mouseleave', () => {
-                    previewCard.style.transform = 'translateY(0)';
-                    previewCard.style.boxShadow = 'none';
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = 'none';
                 });
             }
-        });
-        
-        // Helper for selector
-        window.jQuery_lite = (selector) => {
-            if (selector.includes(':contains')) {
-                const text = selector.split('"')[1];
-                return Array.from(document.querySelectorAll(selector.split(':')[0])).find(el => el.textContent.includes(text));
-            }
-            return document.querySelector(selector);
-        };
-    </script>
+        }
+    });
+</script>
 </body></html>

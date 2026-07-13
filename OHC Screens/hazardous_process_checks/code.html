@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--
+  Hazardous Process Checks — individual worker health check records
+  triggered by occupational hazardous exposure (noise, chemical, dust, etc).
+
+  NOTE: This is distinct from OSHWC Compliance > Hazardous Processes
+  (OSHWC Compliance/hazardous-processes.html), which is a compliance
+  register of which processes/areas exist and which workers are exposed.
+  This screen is worker-centric: it logs the outcome of each health check
+  for a named worker, with a Fit/Unfit/Restricted result per check.
+-->
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hazardous Process Checks | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+tailwind.config = { darkMode:"class", theme:{ extend:{
+    "colors":{
+      "on-error-container":"#93000a","surface-tint":"#0EA5E9","primary-fixed-dim":"#89ceff",
+      "error":"#ba1a1a","on-tertiary-container":"#4d2b00","surface-container-high":"#e4e8ee",
+      "on-surface":"#171c20","on-primary":"#ffffff","on-primary-fixed-variant":"#004c6e",
+      "on-secondary-container":"#3d637d","surface-variant":"#dee3e9","surface-container-low":"#f0f4fa",
+      "inverse-surface":"#2c3135","secondary-container":"#b8dffe","on-secondary":"#ffffff",
+      "on-error":"#ffffff","tertiary-fixed":"#ffdcbd","surface-dim":"#d6dae0",
+      "on-secondary-fixed":"#001e2f","surface-container-highest":"#dee3e9","surface-bright":"#f6faff",
+      "on-tertiary":"#ffffff","on-secondary-fixed-variant":"#234b64","inverse-on-surface":"#edf1f7",
+      "on-surface-variant":"#3e4850","primary-container":"#0ea5e9","surface":"#f6faff",
+      "outline-variant":"#bec8d2","on-tertiary-fixed":"#2c1600","surface-container":"#eaeef4",
+      "on-primary-fixed":"#001e2f","error-container":"#ffdad6","background":"#F3F4F6",
+      "surface-container-lowest":"#ffffff","primary-fixed":"#c9e6ff","tertiary-container":"#de8712",
+      "on-background":"#171c20","secondary-fixed-dim":"#a5cbe9","inverse-primary":"#89ceff",
+      "tertiary":"#8a5100","tertiary-fixed-dim":"#ffb86e","primary":"#0EA5E9",
+      "on-tertiary-fixed-variant":"#693c00","secondary":"#3c627d","outline":"#6e7881",
+      "on-primary-container":"#003751","secondary-fixed":"#c9e6ff"
+    },
+    "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+    "spacing":{"content_padding":"24px","stack_gap":"8px","container_gap":"16px","sidebar_width":"240px","header_height":"56px","base":"4px"},
+    "fontFamily":{"section-heading":["Inter"],"page-title":["Inter"],"label-sm":["Inter"],"body":["Inter"]},
+    "fontSize":{
+      "section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],
+      "page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],
+      "label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],
+      "body":["13px",{"lineHeight":"20px","fontWeight":"400"}]
+    }
+}}}
+</script>
+<style>
+  body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+  .hz-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+  .hz-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+  .hz-pill:hover { color:#111827; background:#fff; }
+  .hz-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+</style>
+</head>
+<body class="bg-background font-body text-on-surface">
+
+<header class="ohc-header">
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform › Health Camps › Hazardous Process Checks</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A</option><option>Site B</option></select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
+</aside>
+
+<main class="ohc-main">
+<div class="ohc-content">
+
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6">
+  <div>
+    <h1 class="font-page-title text-page-title text-on-surface">Hazardous Process Checks</h1>
+    <p class="text-body text-on-surface-variant mt-1">Individual worker health checks for occupational hazardous exposure monitoring</p>
+  </div>
+  <button onclick="hzOpenModal(null)" class="h-[36px] px-4 bg-primary text-white rounded-lg flex items-center gap-2 font-semibold text-body hover:opacity-90 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-[18px]">add</span> New Check
+  </button>
+</div>
+
+<!-- Filter bar -->
+<div class="flex flex-wrap items-center gap-3 mb-4">
+  <div class="hz-pill-bar" role="group">
+    <button class="hz-pill active" data-period="today"   onclick="hzSetFilter(this)">Today</button>
+    <button class="hz-pill"        data-period="week"    onclick="hzSetFilter(this)">This Week</button>
+    <button class="hz-pill"        data-period="month"   onclick="hzSetFilter(this)">This Month</button>
+    <button class="hz-pill"        data-period="quarter" onclick="hzSetFilter(this)">This Quarter</button>
+    <button class="hz-pill"        data-period="year"    onclick="hzSetFilter(this)">This Year</button>
+  </div>
+  <span id="hz-count" class="text-body text-on-surface-variant font-medium">— checks</span>
+</div>
+
+<!-- Log table -->
+<div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+  <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+    <colgroup>
+      <col style="width:18%"/><col style="width:16%"/><col style="width:10%"/>
+      <col style="width:15%"/><col style="width:13%"/><col style="width:13%"/><col style="width:8%"/>
+    </colgroup>
+    <thead class="bg-surface-container-low border-b border-outline-variant">
+      <tr>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Employee / Worker</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Process / Exposure</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Site / Building</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Result</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Physician</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="hz-table-body" class="divide-y divide-outline-variant text-body">
+      <!-- rendered by JS -->
+    </tbody>
+  </table>
+  <div id="hz-empty" style="display:none;" class="py-16 text-center">
+    <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">health_and_safety</span>
+    <p class="text-body text-on-surface-variant">No hazardous process checks in this period.</p>
+    <button onclick="hzOpenModal(null)" class="mt-4 h-[36px] px-4 bg-primary text-white rounded-lg font-semibold text-body inline-flex items-center gap-2 hover:opacity-90">
+      <span class="material-symbols-outlined text-[18px]">add</span> New Check
+    </button>
+  </div>
+</div>
+
+</div>
+</main>
+
+<!-- ===== New Check Modal ===== -->
+<div id="hz-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)hzCloseModal()">
+  <div class="ohc-modal ohc-modal-lg" style="max-height:90vh;overflow-y:auto;">
+    <div class="ohc-modal-header">
+      <h2 id="hz-modal-title">New Hazardous Process Check</h2>
+      <button onclick="hzCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form id="hz-modal-form" onsubmit="hzSaveEntry(event)">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Employee / Worker Name <span style="color:#ba1a1a">*</span></label>
+          <input id="hz-f-name" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Full name" required/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Employee ID</label>
+          <input id="hz-f-empid" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. EMP-4421"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Process / Exposure Type <span style="color:#ba1a1a">*</span></label>
+          <select id="hz-f-exposure" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" required>
+            <option value="">Select exposure type...</option>
+            <option>Noise</option>
+            <option>Chemical</option>
+            <option>Dust / Particulate</option>
+            <option>Vibration</option>
+            <option>Radiation</option>
+            <option>Heat / Thermal</option>
+            <option>Biological</option>
+            <option>Ergonomic / Manual Handling</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Date <span style="color:#ba1a1a">*</span></label>
+          <input id="hz-f-date" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date" required/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Site / Building</label>
+          <input id="hz-f-site" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. Plant 02 / Block B"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Examining Physician</label>
+          <input id="hz-f-physician" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Dr. Name"/>
+        </div>
+        <div class="flex flex-col gap-1 col-span-2">
+          <label class="text-label-sm text-on-surface-variant">Clinical Findings</label>
+          <textarea id="hz-f-findings" class="border border-outline-variant rounded-lg px-3 py-2 text-body focus:ring-1 focus:ring-primary outline-none resize-none" rows="3" placeholder="Audiometry result, spirometry, blood lead level, dermatology findings, etc."></textarea>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Fitness Status <span style="color:#ba1a1a">*</span></label>
+          <select id="hz-f-result" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" required>
+            <option value="Fit">Fit</option>
+            <option value="Fit with Restrictions">Fit with Restrictions</option>
+            <option value="Unfit">Unfit</option>
+            <option value="Referred">Referred for Further Investigation</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Next Review Date</label>
+          <input id="hz-f-review" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date"/>
+        </div>
+        <div class="flex flex-col gap-1 col-span-2">
+          <label class="text-label-sm text-on-surface-variant">Notes / Recommendations</label>
+          <textarea id="hz-f-notes" class="border border-outline-variant rounded-lg px-3 py-2 text-body focus:ring-1 focus:ring-primary outline-none resize-none" rows="2" placeholder="Protective equipment required, job rotation recommended, referral instructions, etc."></textarea>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="hzCloseModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
+        <button type="submit" id="hz-submit-btn" class="bg-primary text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all">Save Check</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+    var HZ_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function hzMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+
+    var HZ_RAW = [
+        { daysAgo:0,  name:'Suresh Nair',         empid:'EMP-3312', exposure:'Noise',                   site:'Plant 02',     result:'Fit',                    physician:'Dr. Arvind Rao'  },
+        { daysAgo:0,  name:'Ramesh Pillai',        empid:'EMP-2201', exposure:'Chemical',                site:'Block B',      result:'Fit with Restrictions',  physician:'Dr. Arvind Rao'  },
+        { daysAgo:1,  name:'Kavitha Menon',        empid:'EMP-4488', exposure:'Dust / Particulate',      site:'Warehouse 1',  result:'Fit',                    physician:'Dr. Priya Menon' },
+        { daysAgo:2,  name:'Arun Kumar Singh',     empid:'EMP-5501', exposure:'Vibration',               site:'Plant 02',     result:'Fit with Restrictions',  physician:'Dr. Arvind Rao'  },
+        { daysAgo:3,  name:'Meena Sharma',         empid:'EMP-1192', exposure:'Heat / Thermal',          site:'Block A, HQ',  result:'Fit',                    physician:'Dr. Priya Menon' },
+        { daysAgo:5,  name:'Balachandran K.',      empid:'EMP-3398', exposure:'Noise',                   site:'Plant 02',     result:'Unfit',                  physician:'Dr. Arvind Rao'  },
+        { daysAgo:7,  name:'Divya Krishnamurthy',  empid:'EMP-6672', exposure:'Chemical',                site:'Block B',      result:'Referred for Further Investigation', physician:'Dr. Priya Menon' },
+        { daysAgo:10, name:'Jitendra Prasad',      empid:'EMP-2244', exposure:'Dust / Particulate',      site:'Warehouse 1',  result:'Fit',                    physician:'Dr. Sunita Joshi'},
+        { daysAgo:15, name:'Renuka Devi',          empid:'EMP-8812', exposure:'Radiation',               site:'OHC-1',        result:'Fit',                    physician:'Dr. Priya Menon' },
+        { daysAgo:30, name:'Mohan Das',            empid:'EMP-4401', exposure:'Ergonomic / Manual Handling', site:'Warehouse 1', result:'Fit with Restrictions', physician:'Dr. Arvind Rao' },
+        { daysAgo:60, name:'Pradeep Tiwari',       empid:'EMP-3355', exposure:'Noise',                   site:'Plant 02',     result:'Fit',                    physician:'Dr. Sunita Joshi'},
+        { daysAgo:100,name:'Anita George',         empid:'EMP-7741', exposure:'Chemical',                site:'Block B',      result:'Fit',                    physician:'Dr. Priya Menon' },
+        { daysAgo:200,name:'Venkatesh Iyer',       empid:'EMP-9901', exposure:'Dust / Particulate',      site:'Warehouse 1',  result:'Fit',                    physician:'Dr. Arvind Rao'  },
+    ];
+
+    var HZ_ROWS = HZ_RAW.map(function(r,i){ return Object.assign({},r,{date:hzMidnight(r.daysAgo),id:i}); });
+    function hzFmt(d){ return d.getDate()+' '+HZ_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+    var hzCurrentPeriod = 'today';
+    var hzEditId = null;
+
+    function hzGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function hzRender(period){
+        var r = hzGetRange(period);
+        var rows = HZ_ROWS.filter(function(v){ return v.date>=r.start && v.date<=r.end; });
+        var n = rows.length;
+        document.getElementById('hz-count').textContent = n + ' check'+(n===1?'':'s');
+        var tbody = document.getElementById('hz-table-body');
+        var empty = document.getElementById('hz-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+
+        var resultStyles = {
+            'Fit':                               'background:#dcfce7;color:#15803d;',
+            'Fit with Restrictions':             'background:#fef3c7;color:#92400e;',
+            'Unfit':                             'background:#ffdad6;color:#93000a;',
+            'Referred for Further Investigation':'background:#e0f2fe;color:#0369a1;'
+        };
+
+        tbody.innerHTML = rows.map(function(v,i){
+            var bg = i%2===0 ? '#fff' : '#f9fafb';
+            var rs = resultStyles[v.result] || 'background:#eaeef4;color:#3e4850;';
+            return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+bg+'\'">'
+                +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;"><div class="font-semibold">'+v.name+'</div><div class="text-label-sm text-on-surface-variant">'+v.empid+'</div></td>'
+                +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+v.exposure+'</td>'
+                +'<td class="px-4 py-3" style="white-space:nowrap;">'+hzFmt(v.date)+'</td>'
+                +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+v.site+'</td>'
+                +'<td class="px-4 py-3"><span style="'+rs+'white-space:nowrap;display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;">'+v.result+'</span></td>'
+                +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+v.physician+'</td>'
+                +'<td class="px-4 py-3 text-right" style="white-space:nowrap;">'
+                +'<button onclick="hzOpenModal('+v.id+')" style="background:none;border:none;cursor:pointer;color:#0EA5E9;padding:4px;"><span class="material-symbols-outlined" style="font-size:18px;">edit</span></button>'
+                +'</td>'
+                +'</tr>';
+        }).join('');
+    }
+
+    function hzSetFilter(btn){
+        document.querySelectorAll('.hz-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        hzCurrentPeriod = btn.dataset.period;
+        hzRender(hzCurrentPeriod);
+    }
+
+    function hzOpenModal(id){
+        hzEditId = id;
+        if(id===null){
+            document.getElementById('hz-modal-title').textContent = 'New Hazardous Process Check';
+            document.getElementById('hz-modal-form').reset();
+            document.getElementById('hz-f-date').value = new Date().toISOString().slice(0,10);
+        } else {
+            var v = HZ_ROWS.filter(function(r){ return r.id===id; })[0];
+            if(!v) return;
+            document.getElementById('hz-modal-title').textContent = 'Edit Check — '+v.name;
+            document.getElementById('hz-f-name').value     = v.name;
+            document.getElementById('hz-f-empid').value    = v.empid;
+            document.getElementById('hz-f-exposure').value = v.exposure;
+            var dd = v.date;
+            document.getElementById('hz-f-date').value = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
+            document.getElementById('hz-f-site').value      = v.site;
+            document.getElementById('hz-f-physician').value = v.physician;
+            document.getElementById('hz-f-result').value    = v.result;
+        }
+        document.getElementById('hz-overlay').style.display = 'flex';
+    }
+
+    function hzCloseModal(){
+        document.getElementById('hz-overlay').style.display = 'none';
+        hzEditId = null;
+    }
+
+    function hzSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('hz-submit-btn');
+        var name      = document.getElementById('hz-f-name').value;
+        var empid     = document.getElementById('hz-f-empid').value || '—';
+        var exposure  = document.getElementById('hz-f-exposure').value;
+        var dateVal   = document.getElementById('hz-f-date').value;
+        var site      = document.getElementById('hz-f-site').value || '—';
+        var physician = document.getElementById('hz-f-physician').value || '—';
+        var result    = document.getElementById('hz-f-result').value;
+
+        btn.textContent = 'Saving...'; btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2])); d.setHours(0,0,0,0);
+            if(hzEditId!==null){
+                var idx = HZ_ROWS.findIndex(function(r){ return r.id===hzEditId; });
+                if(idx>=0) HZ_ROWS[idx] = { id:hzEditId, name:name, empid:empid, exposure:exposure, date:d, site:site, physician:physician, result:result, daysAgo:0 };
+            } else {
+                HZ_ROWS.unshift({ id:HZ_ROWS.length, name:name, empid:empid, exposure:exposure, date:d, site:site, physician:physician, result:result, daysAgo:0 });
+            }
+            btn.textContent = 'Saved ✓'; btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Save Check'; btn.style.backgroundColor = ''; btn.disabled = false;
+                hzCloseModal();
+                hzRender(hzCurrentPeriod);
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    hzRender('today');
+</script>
+</body></html>

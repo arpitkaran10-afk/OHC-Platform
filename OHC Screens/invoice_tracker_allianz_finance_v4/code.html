@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -7,133 +6,42 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../ohc-design-system.css"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "ohc-accent": "#0EA5E9",
-                        "on-primary-fixed": "#001e2f",
-                        "secondary-fixed": "#c9e6ff",
-                        "outline": "#6e7881",
-                        "surface": "#f6faff",
-                        "background": "#f6faff",
-                        "on-primary-fixed-variant": "#004c6e",
-                        "on-secondary-fixed-variant": "#234b64",
-                        "inverse-primary": "#89ceff",
-                        "outline-variant": "#bec8d2",
-                        "on-error": "#ffffff",
-                        "on-error-container": "#93000a",
-                        "surface-container-high": "#e4e8ee",
-                        "secondary-container": "#b8dffe",
-                        "on-tertiary-container": "#4d2b00",
-                        "surface-container-low": "#f0f4fa",
-                        "surface-container-highest": "#dee3e9",
-                        "secondary-fixed-dim": "#a5cbe9",
-                        "surface-bright": "#f6faff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed-variant": "#693c00",
-                        "on-secondary-fixed": "#001e2f",
-                        "on-primary-container": "#003751",
-                        "on-primary": "#ffffff",
-                        "inverse-on-surface": "#edf1f7",
-                        "primary-fixed": "#c9e6ff",
-                        "on-secondary": "#ffffff",
-                        "surface-variant": "#dee3e9",
-                        "on-tertiary-fixed": "#2c1600",
-                        "on-secondary-container": "#3d637d",
-                        "on-background": "#171c20",
-                        "surface-container": "#eaeef4",
-                        "primary-fixed-dim": "#89ceff",
-                        "secondary": "#3c627d",
-                        "primary-container": "#0ea5e9",
-                        "primary": "#0EA5E9",
-                        "inverse-surface": "#2c3135",
-                        "error": "#ba1a1a",
-                        "tertiary-fixed-dim": "#ffb86e",
-                        "tertiary": "#8a5100",
-                        "surface-dim": "#d6dae0",
-                        "tertiary-container": "#de8712",
-                        "tertiary-fixed": "#ffdcbd",
-                        "surface-tint": "#0EA5E9",
-                        "error-container": "#ffdad6",
-                        "on-surface": "#171c20",
-                        "on-surface-variant": "#3e4850"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "base": "4px",
-                        "content_padding": "24px",
-                        "header_height": "56px",
-                        "stack_gap": "8px",
-                        "container_gap": "16px",
-                        "sidebar_width": "240px"
-                    },
-                    "fontFamily": {
-                        "label-sm": ["Inter"],
-                        "page-title": ["Inter"],
-                        "body": ["Inter"],
-                        "section-heading": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "600"}],
-                        "page-title": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "section-heading": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
-                    }
-                },
-            },
-        }
-    </script>
+    tailwind.config = { darkMode:"class", theme:{ extend:{
+        "colors":{"ohc-accent":"#0EA5E9","on-primary-fixed":"#001e2f","secondary-fixed":"#c9e6ff","outline":"#6e7881","surface":"#f6faff","background":"#f6faff","on-primary-fixed-variant":"#004c6e","on-secondary-fixed-variant":"#234b64","inverse-primary":"#89ceff","outline-variant":"#bec8d2","on-error":"#ffffff","on-error-container":"#93000a","surface-container-high":"#e4e8ee","secondary-container":"#b8dffe","on-tertiary-container":"#4d2b00","surface-container-low":"#f0f4fa","surface-container-highest":"#dee3e9","secondary-fixed-dim":"#a5cbe9","surface-bright":"#f6faff","surface-container-lowest":"#ffffff","on-tertiary":"#ffffff","on-tertiary-fixed-variant":"#693c00","on-secondary-fixed":"#001e2f","on-primary-container":"#003751","on-primary":"#ffffff","inverse-on-surface":"#edf1f7","primary-fixed":"#c9e6ff","on-secondary":"#ffffff","surface-variant":"#dee3e9","on-tertiary-fixed":"#2c1600","on-secondary-container":"#3d637d","on-background":"#171c20","surface-container":"#eaeef4","primary-fixed-dim":"#89ceff","secondary":"#3c627d","primary-container":"#0ea5e9","primary":"#0EA5E9","inverse-surface":"#2c3135","error":"#ba1a1a","tertiary-fixed-dim":"#ffb86e","tertiary":"#8a5100","surface-dim":"#d6dae0","tertiary-container":"#de8712","tertiary-fixed":"#ffdcbd","surface-tint":"#0EA5E9","error-container":"#ffdad6","on-surface":"#171c20","on-surface-variant":"#3e4850"},
+        "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+        "spacing":{"base":"4px","content_padding":"24px","header_height":"56px","stack_gap":"8px","container_gap":"16px","sidebar_width":"240px"},
+        "fontFamily":{"label-sm":["Inter"],"page-title":["Inter"],"body":["Inter"],"section-heading":["Inter"]},
+        "fontSize":{"label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],"page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body":["13px",{"lineHeight":"20px","fontWeight":"400"}],"section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}]}
+    }}}
+</script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-            font-size: 20px;
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #bec8d2; border-radius: 10px; }
-        .invoice-overdue-row { background-color: #FEF2F2 !important; }
-        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
-    </style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; font-size:20px; }
+    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#bec8d2; border-radius:10px; }
+    .invoice-overdue-row { background-color:#FEF2F2 !important; }
+    body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
+    /* filter pills */
+    .inv-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+    .inv-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+    .inv-pill:hover { color:#111827; background:#fff; }
+    .inv-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+</style>
 </head>
 <body class="bg-surface text-on-surface">
+
 <header class="ohc-header">
-  <div class="ohc-header-left">
-    <span class="ohc-logo">OHC</span>
-    <span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Invoice Tracker</span>
-  </div>
-  <div class="ohc-header-center">
-    <div class="ohc-search">
-      <span class="material-symbols-outlined search-icon">search</span>
-      <input type="text" placeholder="Search patients, medicines, staff…"/>
-    </div>
-  </div>
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform &gt; Others &gt; Invoice Tracker</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
   <div class="ohc-header-right">
-    <div class="ohc-bell-wrap">
-      <span class="material-symbols-outlined">notifications</span>
-      <span class="ohc-bell-badge"></span>
-    </div>
-    <span class="ohc-user-name">Kiran Prasad</span>
-    <div class="ohc-avatar">KP</div>
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
   </div>
 </header>
 <aside class="ohc-sidebar">
-  <select class="ohc-site-selector">
-    <option>Select Site</option>
-    <option>Site A</option>
-    <option>Site B</option>
-  </select>
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A</option><option>Site B</option></select>
   <nav class="ohc-nav">
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
@@ -149,304 +57,319 @@
     <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">more_horiz</span>Others</a>
     <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
   </nav>
-  <div class="ohc-sidebar-footer">
-    <a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
-  </div>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.0</div></div>
 </aside>
+
 <main class="ohc-main">
 <div class="ohc-content">
+
 <!-- Page Header -->
 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-container_gap">
-<div>
-<h2 class="font-page-title text-page-title text-on-surface">Invoice Tracker</h2>
-<p class="font-body text-body text-on-surface-variant mt-1">Finance role. Log and track OHC-related invoices and payment status.</p>
+  <div>
+    <h2 class="font-page-title text-page-title text-on-surface">Invoice Tracker</h2>
+    <p class="font-body text-body text-on-surface-variant mt-1">Finance role. Log and track OHC-related invoices and payment status.</p>
+  </div>
+  <button onclick="invOpenModal()" class="h-[36px] px-6 bg-ohc-accent text-white rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity font-semibold shadow-sm">
+    <span class="material-symbols-outlined">add</span> Add Invoice
+  </button>
 </div>
-<button class="h-[36px] px-6 bg-ohc-accent text-white rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity font-semibold shadow-sm">
-<span class="material-symbols-outlined">add</span>
-                Add Invoice
-            </button>
-</div>
-<!-- KPI Summary Row -->
+
+<!-- KPI Summary Row (kept as-is) -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-container_gap mb-8">
-<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-cyan-500 flex flex-col gap-1">
-<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Invoices (Month)</span>
-<span class="text-3xl font-bold text-on-surface">142</span>
-<span class="text-xs text-green-600 font-medium flex items-center gap-1 mt-1">
-<span class="material-symbols-outlined text-xs">trending_up</span> +12% vs last month
-                </span>
+  <div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-cyan-500 flex flex-col gap-1">
+    <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Invoices (Month)</span>
+    <span class="text-3xl font-bold text-on-surface">142</span>
+    <span class="text-xs text-green-600 font-medium flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-xs">trending_up</span> +12% vs last month</span>
+  </div>
+  <div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-ohc-accent flex flex-col gap-1">
+    <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Amount (₹)</span>
+    <span class="text-3xl font-bold text-on-surface">12,45,200</span>
+    <span class="text-xs text-on-surface-variant font-medium mt-1">Current Billing Cycle</span>
+  </div>
+  <div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-green-500 flex flex-col gap-1">
+    <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Paid Amount (₹)</span>
+    <span class="text-3xl font-bold text-on-surface">9,80,000</span>
+    <span class="text-xs text-on-surface-variant font-medium mt-1">78% Collection Efficiency</span>
+  </div>
+  <div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-error flex flex-col gap-1">
+    <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Pending / Overdue</span>
+    <span class="text-3xl font-bold text-error">2,65,200</span>
+    <span class="text-xs text-error font-medium flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-xs">warning</span> 14 Invoices Overdue</span>
+  </div>
 </div>
-<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-ohc-accent flex flex-col gap-1">
-<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Amount (₹)</span>
-<span class="text-3xl font-bold text-on-surface">12,45,200</span>
-<span class="text-xs text-on-surface-variant font-medium mt-1">Current Billing Cycle</span>
-</div>
-<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-green-500 flex flex-col gap-1">
-<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Paid Amount (₹)</span>
-<span class="text-3xl font-bold text-on-surface">9,80,000</span>
-<span class="text-xs text-on-surface-variant font-medium mt-1">78% Collection Efficiency</span>
-</div>
-<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant border-l-4 border-l-error flex flex-col gap-1">
-<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Pending / Overdue</span>
-<span class="text-3xl font-bold text-error">2,65,200</span>
-<span class="text-xs text-error font-medium flex items-center gap-1 mt-1">
-<span class="material-symbols-outlined text-xs">warning</span> 14 Invoices Overdue
-                </span>
-</div>
-</div>
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-container_gap">
-<!-- Form Card: New Invoice Entry -->
-<section class="xl:col-span-1 bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
-<div class="px-5 py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
-<h3 class="font-section-heading text-section-heading">New Invoice Entry</h3>
-<span class="material-symbols-outlined text-ohc-accent">description</span>
-</div>
-<div class="p-5">
-<form class="flex flex-col gap-4">
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Number</label>
-<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="e.g. INV-9902" type="text"/>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Category</label>
-<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white">
-<option>OHC Service Charge</option>
-<option>BMW Charges</option>
-<option>Equipment Lease</option>
-<option>Medicine Procurement</option>
-</select>
-</div>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Vendor / Party</label>
-<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="Search Vendor..." type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Building / Site</label>
-<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white">
-<option>Allianz HQ (Trivandrum)</option>
-<option>Phase 2 Office (Pune)</option>
-<option>Global Center (Gurgaon)</option>
-</select>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Date</label>
-<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Amount (₹)</label>
-<div class="relative">
-<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">₹</span>
-<input class="pl-7 h-[36px] w-full border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="0.00" type="number"/>
-</div>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Due Date</label>
-<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
-</div>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Payment Status</label>
-<select class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none bg-white" id="payment-status-select">
-<option value="Pending">Pending</option>
-<option value="Paid">Paid</option>
-<option value="Overdue">Overdue</option>
-</select>
-</div>
-<!-- Conditional Field -->
-<div class="hidden flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1" id="payment-date-field">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Payment Date</label>
-<input class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" type="date"/>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Document (Upload)</label>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors cursor-pointer">
-<span class="material-symbols-outlined text-3xl text-outline">upload_file</span>
-<span class="text-xs text-on-surface-variant text-center">Click to upload or drag and drop PDF, PNG, JPG (Max 5MB)</span>
-</div>
-</div>
-<div class="flex flex-col gap-1.5">
-<label class="text-label-sm font-label-sm text-on-surface-variant">Remarks</label>
-<textarea class="border border-outline-variant rounded p-3 text-body focus:ring-1 focus:ring-ohc-accent focus:border-ohc-accent outline-none" placeholder="Enter any specific notes..." rows="3"></textarea>
-</div>
-<div class="flex gap-3 pt-2">
-<button class="flex-1 h-[36px] border border-outline-variant rounded text-on-surface-variant font-semibold hover:bg-surface-container-low transition-colors" type="button">Discard</button>
-<button class="flex-1 h-[36px] bg-ohc-accent text-white rounded font-semibold hover:opacity-90 transition-opacity" type="submit">Submit Invoice</button>
-</div>
-</form>
-</div>
-</section>
-<!-- Section Card: Invoice List -->
-<section class="xl:col-span-2 bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden flex flex-col">
-<div class="px-5 py-4 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-container-low gap-3">
-<h3 class="font-section-heading text-section-heading">Invoice List</h3>
-<div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-<select class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[100px]">
-<option>All Status</option>
-<option>Paid</option>
-<option>Pending</option>
-<option>Overdue</option>
-</select>
-<select class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[100px]">
-<option>All Categories</option>
-<option>Service Charge</option>
-<option>Medicine</option>
-</select>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant">search</span>
-<input class="pl-7 h-[32px] text-[12px] border border-outline-variant rounded px-2 outline-none w-[140px]" placeholder="Search..." type="text"/>
-</div>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full border-collapse">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Invoice No.</th>
-<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Category</th>
-<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
-<th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Amount (₹)</th>
-<th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Due Date</th>
-<th class="px-4 py-3 text-center font-label-sm text-label-sm text-on-surface-variant">Status</th>
-<th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<!-- Overdue Row -->
-<tr class="invoice-overdue-row hover:brightness-95 transition-all">
-<td class="px-4 py-3 font-body text-body font-bold">INV-9821</td>
-<td class="px-4 py-3 font-body text-body">BMW Charges</td>
-<td class="px-4 py-3 font-body text-body">CleanWave Ltd.</td>
-<td class="px-4 py-3 font-body text-body text-right">45,000</td>
-<td class="px-4 py-3 font-body text-body">12 Oct 2023</td>
-<td class="px-4 py-3 text-center">
-<div class="flex flex-col items-center gap-1">
-<span class="px-2 py-0.5 bg-error-container text-on-error-container rounded text-[10px] font-bold uppercase tracking-tight">Overdue</span>
-<span class="text-[9px] text-error font-bold flex items-center gap-0.5">
-<span class="material-symbols-outlined text-[10px]">priority_high</span> 32 Days Past
-                                        </span>
-</div>
-</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-1.5 hover:bg-white rounded transition-colors text-on-surface-variant" title="View"><span class="material-symbols-outlined text-lg">visibility</span></button>
-<button class="p-1.5 hover:bg-white rounded transition-colors text-ohc-accent" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
-</div>
-</td>
-</tr>
-<tr class="bg-white hover:bg-surface-container transition-all">
-<td class="px-4 py-3 font-body text-body font-bold">INV-9901</td>
-<td class="px-4 py-3 font-body text-body">OHC Service</td>
-<td class="px-4 py-3 font-body text-body">MediCore Solutions</td>
-<td class="px-4 py-3 font-body text-body text-right">2,10,000</td>
-<td class="px-4 py-3 font-body text-body">25 Nov 2023</td>
-<td class="px-4 py-3 text-center">
-<span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase tracking-tight">Paid</span>
-</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
-</div>
-</td>
-</tr>
-<tr class="bg-surface-container-lowest hover:bg-surface-container transition-all">
-<td class="px-4 py-3 font-body text-body font-bold">INV-9912</td>
-<td class="px-4 py-3 font-body text-body">Equipment Lease</td>
-<td class="px-4 py-3 font-body text-body">Precision Medical</td>
-<td class="px-4 py-3 font-body text-body text-right">82,400</td>
-<td class="px-4 py-3 font-body text-body">05 Dec 2023</td>
-<td class="px-4 py-3 text-center">
-<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
-</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
-</div>
-</td>
-</tr>
-<tr class="bg-white hover:bg-surface-container transition-all">
-<td class="px-4 py-3 font-body text-body font-bold">INV-9915</td>
-<td class="px-4 py-3 font-body text-body">OHC Service</td>
-<td class="px-4 py-3 font-body text-body">MediCore Solutions</td>
-<td class="px-4 py-3 font-body text-body text-right">1,45,000</td>
-<td class="px-4 py-3 font-body text-body">15 Dec 2023</td>
-<td class="px-4 py-3 text-center">
-<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
-</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
-</div>
-</td>
-</tr>
-<tr class="bg-surface-container-lowest hover:bg-surface-container transition-all">
-<td class="px-4 py-3 font-body text-body font-bold">INV-9920</td>
-<td class="px-4 py-3 font-body text-body">Medicine Proc.</td>
-<td class="px-4 py-3 font-body text-body">PharmaLink Dist.</td>
-<td class="px-4 py-3 font-body text-body text-right">12,500</td>
-<td class="px-4 py-3 font-body text-body">20 Dec 2023</td>
-<td class="px-4 py-3 text-center">
-<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-[10px] font-bold uppercase tracking-tight">Pending</span>
-</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">visibility</span></button>
-<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined text-lg">edit</span></button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="mt-auto px-5 py-3 border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
-<span class="text-label-sm text-on-surface-variant">Showing 1-5 of 142 invoices</span>
-<div class="flex items-center gap-1">
-<button class="p-1 rounded hover:bg-surface-container-highest transition-colors disabled:opacity-30" disabled="">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<span class="px-3 py-1 bg-ohc-accent text-white rounded text-xs font-bold">1</span>
-<button class="px-3 py-1 hover:bg-surface-container-highest rounded text-xs font-medium">2</button>
-<button class="px-3 py-1 hover:bg-surface-container-highest rounded text-xs font-medium">3</button>
-<button class="p-1 rounded hover:bg-surface-container-highest transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-</div>
-</section>
-</div>
-<!-- Atmospheric Script for Micro-interactions -->
-<script>
-            // Conditional Logic for Payment Date Field
-            const statusSelect = document.getElementById('payment-status-select');
-            const paymentDateField = document.getElementById('payment-date-field');
 
-            statusSelect.addEventListener('change', (e) => {
-                if (e.target.value === 'Paid') {
-                    paymentDateField.classList.remove('hidden');
-                } else {
-                    paymentDateField.classList.add('hidden');
-                }
-            });
+<!-- Invoice List — PRIMARY view (full width) -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden flex flex-col">
+  <div class="px-5 py-4 border-b border-outline-variant flex flex-wrap items-center gap-3 bg-surface-container-low">
+    <h3 class="font-section-heading text-section-heading mr-2">Invoice List</h3>
+    <!-- filter pills -->
+    <div class="inv-pill-bar" role="group">
+      <button class="inv-pill active" data-period="today"   onclick="invSetFilter(this)">Today</button>
+      <button class="inv-pill"        data-period="week"    onclick="invSetFilter(this)">This Week</button>
+      <button class="inv-pill"        data-period="month"   onclick="invSetFilter(this)">This Month</button>
+      <button class="inv-pill"        data-period="quarter" onclick="invSetFilter(this)">This Quarter</button>
+      <button class="inv-pill"        data-period="year"    onclick="invSetFilter(this)">This Year</button>
+    </div>
+    <span id="inv-count" class="text-label-sm text-on-surface-variant">— invoices</span>
+    <!-- existing dropdowns -->
+    <div class="flex items-center gap-2 ml-auto flex-wrap">
+      <select id="inv-status-filter" onchange="invApplyFilters()" class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[100px]">
+        <option value="">All Status</option><option>Paid</option><option>Pending</option><option>Overdue</option>
+      </select>
+      <select id="inv-cat-filter" onchange="invApplyFilters()" class="h-[32px] text-[12px] border border-outline-variant rounded px-2 bg-white outline-none min-w-[110px]">
+        <option value="">All Categories</option><option>OHC Service Charge</option><option>BMW Charges</option><option>Equipment Lease</option><option>Medicine Procurement</option>
+      </select>
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:12%"/><col style="width:16%"/><col style="width:18%"/>
+        <col style="width:14%"/><col style="width:11%"/><col style="width:11%"/>
+        <col style="width:11%"/><col style="width:7%"/>
+      </colgroup>
+      <thead>
+        <tr class="bg-surface-container-low border-b border-outline-variant">
+          <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Invoice No.</th>
+          <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Category</th>
+          <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Vendor</th>
+          <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Building</th>
+          <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant">Inv. Date</th>
+          <th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Amount (₹)</th>
+          <th class="px-4 py-3 text-center font-label-sm text-label-sm text-on-surface-variant">Status</th>
+          <th class="px-4 py-3 text-right font-label-sm text-label-sm text-on-surface-variant">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="inv-table-body" class="divide-y divide-outline-variant">
+        <!-- rendered by JS -->
+      </tbody>
+    </table>
+    <div id="inv-empty" style="display:none;" class="py-16 text-center">
+      <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">receipt_long</span>
+      <p class="font-body text-body text-on-surface-variant">No invoices in this period.</p>
+      <button onclick="invOpenModal()" class="mt-4 h-[36px] px-4 bg-ohc-accent text-white rounded-lg font-semibold text-body inline-flex items-center gap-2 hover:opacity-90">
+        <span class="material-symbols-outlined">add</span> Add Invoice
+      </button>
+    </div>
+  </div>
+  <div class="mt-auto px-5 py-3 border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+    <span id="inv-showing" class="text-label-sm text-on-surface-variant">—</span>
+  </div>
+</section>
 
-            // Smooth Hover Effects for Rows
-            const rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                row.addEventListener('mouseenter', () => {
-                    row.style.transform = 'translateX(2px)';
-                });
-                row.addEventListener('mouseleave', () => {
-                    row.style.transform = 'translateX(0px)';
-                });
-                row.style.transition = 'all 0.15s ease-out';
-            });
-        </script>
 </div>
 </main>
+
+<!-- ===== Add Invoice Modal ===== -->
+<div id="inv-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)invCloseModal()">
+  <div class="ohc-modal ohc-modal-lg" style="max-height:90vh;overflow-y:auto;">
+    <div class="ohc-modal-header">
+      <h2>New Invoice Entry</h2>
+      <button onclick="invCloseModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form id="inv-modal-form" onsubmit="invSaveEntry(event)">
+      <div class="flex flex-col gap-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Number <span style="color:#ba1a1a">*</span></label>
+            <input id="inv-f-num" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" placeholder="e.g. INV-9902" type="text" required/>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Category</label>
+            <select id="inv-f-cat" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none bg-white">
+              <option>OHC Service Charge</option><option>BMW Charges</option><option>Equipment Lease</option><option>Medicine Procurement</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-label-sm font-label-sm text-on-surface-variant">Vendor / Party <span style="color:#ba1a1a">*</span></label>
+          <input id="inv-f-vendor" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" placeholder="Vendor name..." type="text" required/>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Building / Site</label>
+            <select id="inv-f-building" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none bg-white">
+              <option>Allianz HQ (Trivandrum)</option><option>Phase 2 Office (Pune)</option><option>Global Center (Gurgaon)</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Date <span style="color:#ba1a1a">*</span></label>
+            <input id="inv-f-date" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" type="date" required/>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Amount (₹) <span style="color:#ba1a1a">*</span></label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">₹</span>
+              <input id="inv-f-amount" class="pl-7 h-[36px] w-full border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" placeholder="0.00" type="number" required min="0"/>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-label-sm font-label-sm text-on-surface-variant">Due Date</label>
+            <input id="inv-f-due" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" type="date"/>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-label-sm font-label-sm text-on-surface-variant">Payment Status</label>
+          <select id="inv-f-status" onchange="invTogglePayDate(this.value)" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none bg-white">
+            <option value="Pending">Pending</option><option value="Paid">Paid</option><option value="Overdue">Overdue</option>
+          </select>
+        </div>
+        <div id="inv-pay-date-field" style="display:none;" class="flex flex-col gap-1.5">
+          <label class="text-label-sm font-label-sm text-on-surface-variant">Payment Date</label>
+          <input id="inv-f-paydate" class="h-[36px] border border-outline-variant rounded px-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none" type="date"/>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-label-sm font-label-sm text-on-surface-variant">Invoice Document (Upload)</label>
+          <div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-3xl text-outline">upload_file</span>
+            <span class="text-xs text-on-surface-variant text-center">Click to upload or drag and drop PDF, PNG, JPG (Max 5MB)</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-label-sm font-label-sm text-on-surface-variant">Remarks</label>
+          <textarea id="inv-f-remarks" class="border border-outline-variant rounded p-3 text-body focus:ring-1 focus:ring-ohc-accent outline-none resize-none" placeholder="Enter any specific notes..." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="ohc-modal-footer">
+        <button type="button" onclick="invCloseModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded font-semibold hover:bg-surface-container-low transition-colors">Discard</button>
+        <button type="submit" id="inv-submit-btn" class="h-[36px] px-6 bg-ohc-accent text-white rounded font-semibold hover:opacity-90 transition-opacity">Submit Invoice</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+    var INV_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function invMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+
+    // Demo data — daysAgo = invoice date offset
+    var INV_RAW = [
+        { daysAgo:0,  num:'INV-9940', cat:'OHC Service Charge', vendor:'MediCore Solutions',  building:'Allianz HQ (Trivandrum)',   amount:'2,10,000', due:'25 Jul 2026', status:'Pending'  },
+        { daysAgo:0,  num:'INV-9941', cat:'BMW Charges',         vendor:'CleanWave Ltd.',      building:'Phase 2 Office (Pune)',     amount:'45,000',   due:'30 Jul 2026', status:'Pending'  },
+        { daysAgo:1,  num:'INV-9938', cat:'Medicine Procurement',vendor:'PharmaLink Dist.',    building:'Global Center (Gurgaon)',   amount:'12,500',   due:'20 Jul 2026', status:'Paid'     },
+        { daysAgo:2,  num:'INV-9935', cat:'Equipment Lease',     vendor:'Precision Medical',   building:'Allianz HQ (Trivandrum)',   amount:'82,400',   due:'05 Jul 2026', status:'Paid'     },
+        { daysAgo:3,  num:'INV-9930', cat:'OHC Service Charge',  vendor:'MediCore Solutions',  building:'Phase 2 Office (Pune)',     amount:'1,45,000', due:'15 Jun 2026', status:'Overdue'  },
+        { daysAgo:5,  num:'INV-9920', cat:'BMW Charges',         vendor:'IMAGE Agency',        building:'Global Center (Gurgaon)',   amount:'38,000',   due:'10 Jun 2026', status:'Paid'     },
+        { daysAgo:8,  num:'INV-9912', cat:'Equipment Lease',     vendor:'Precision Medical',   building:'Allianz HQ (Trivandrum)',   amount:'75,000',   due:'05 Jun 2026', status:'Overdue'  },
+        { daysAgo:10, num:'INV-9901', cat:'OHC Service Charge',  vendor:'MediCore Solutions',  building:'Allianz HQ (Trivandrum)',   amount:'2,10,000', due:'25 May 2026', status:'Paid'     },
+        { daysAgo:15, num:'INV-9895', cat:'Medicine Procurement',vendor:'PharmaLink Dist.',    building:'Phase 2 Office (Pune)',     amount:'9,800',    due:'20 May 2026', status:'Paid'     },
+        { daysAgo:30, num:'INV-9880', cat:'BMW Charges',         vendor:'CleanWave Ltd.',      building:'Global Center (Gurgaon)',   amount:'45,000',   due:'12 Apr 2026', status:'Paid'     },
+        { daysAgo:60, num:'INV-9850', cat:'OHC Service Charge',  vendor:'MediCore Solutions',  building:'Allianz HQ (Trivandrum)',   amount:'2,10,000', due:'25 Mar 2026', status:'Paid'     },
+        { daysAgo:100,num:'INV-9821', cat:'Equipment Lease',     vendor:'Precision Medical',   building:'Phase 2 Office (Pune)',     amount:'82,400',   due:'12 Oct 2025', status:'Overdue'  },
+        { daysAgo:200,num:'INV-9700', cat:'Medicine Procurement',vendor:'PharmaLink Dist.',    building:'Allianz HQ (Trivandrum)',   amount:'15,000',   due:'25 Jun 2025', status:'Paid'     },
+    ];
+
+    var INV_ROWS = INV_RAW.map(function(r){ return Object.assign({},r,{date:invMidnight(r.daysAgo)}); });
+    function invFmtDate(d){ return d.getDate()+' '+INV_MO[d.getMonth()]+' '+d.getFullYear(); }
+
+    var invCurrentPeriod = 'today';
+
+    function invGetRange(period){
+        var s=new Date(); s.setHours(0,0,0,0);
+        var e=new Date(); e.setHours(23,59,59,999);
+        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+        else if(period==='month'){ s.setDate(1); }
+        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+        else if(period==='year'){ s.setMonth(0,1); }
+        return {start:s,end:e};
+    }
+
+    function invApplyFilters(){
+        var statusF = document.getElementById('inv-status-filter').value;
+        var catF    = document.getElementById('inv-cat-filter').value;
+        var r = invGetRange(invCurrentPeriod);
+        var rows = INV_ROWS.filter(function(v){
+            if(v.date<r.start || v.date>r.end) return false;
+            if(statusF && v.status!==statusF) return false;
+            if(catF    && v.cat!==catF) return false;
+            return true;
+        });
+        var n = rows.length;
+        document.getElementById('inv-count').textContent = n + ' invoice'+(n===1?'':'s');
+        document.getElementById('inv-showing').textContent = 'Showing '+n+' invoice'+(n===1?'':'s');
+        var tbody = document.getElementById('inv-table-body');
+        var empty = document.getElementById('inv-empty');
+        if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
+        empty.style.display='none';
+
+        var statusStyles = {
+            'Paid':    'background:#dcfce7;color:#15803d;',
+            'Pending': 'background:#fef3c7;color:#92400e;',
+            'Overdue': 'background:#ffdad6;color:#93000a;'
+        };
+
+        tbody.innerHTML = rows.map(function(v,i){
+            var isOverdue = v.status==='Overdue';
+            var rowBg = isOverdue ? '#FEF2F2' : (i%2===0 ? '#fff' : '#f9fafb');
+            var ss = statusStyles[v.status] || 'background:#eaeef4;color:#3e4850;';
+            return '<tr style="background:'+rowBg+';transition:all .15s ease-out;" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+rowBg+'\'">'
+                +'<td class="px-4 py-3 font-body text-body font-bold" style="white-space:nowrap;">'+v.num+'</td>'
+                +'<td class="px-4 py-3 font-body text-body" style="white-space:normal;word-wrap:break-word;">'+v.cat+'</td>'
+                +'<td class="px-4 py-3 font-body text-body" style="white-space:normal;word-wrap:break-word;">'+v.vendor+'</td>'
+                +'<td class="px-4 py-3 font-body text-body" style="white-space:normal;word-wrap:break-word;">'+v.building.split(' ')[0]+' '+v.building.split(' ')[1]+'</td>'
+                +'<td class="px-4 py-3 font-body text-body" style="white-space:nowrap;">'+invFmtDate(v.date)+'</td>'
+                +'<td class="px-4 py-3 font-body text-body text-right font-medium" style="white-space:nowrap;">'+v.amount+'</td>'
+                +'<td class="px-4 py-3 text-center"><span style="'+ss+'white-space:nowrap;display:inline-block;" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight">'+v.status+'</span></td>'
+                +'<td class="px-4 py-3 text-right"><div class="flex items-center justify-end gap-1">'
+                +'<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined" style="font-size:18px;">visibility</span></button>'
+                +'<button class="p-1.5 hover:bg-surface-container-high rounded transition-colors text-ohc-accent"><span class="material-symbols-outlined" style="font-size:18px;">edit</span></button>'
+                +'</div></td>'
+                +'</tr>';
+        }).join('');
+    }
+
+    function invSetFilter(btn){
+        document.querySelectorAll('.inv-pill').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        invCurrentPeriod = btn.dataset.period;
+        invApplyFilters();
+    }
+
+    function invTogglePayDate(val){
+        document.getElementById('inv-pay-date-field').style.display = val==='Paid' ? 'flex' : 'none';
+    }
+
+    function invOpenModal(){
+        document.getElementById('inv-modal-form').reset();
+        document.getElementById('inv-f-date').value = new Date().toISOString().slice(0,10);
+        document.getElementById('inv-pay-date-field').style.display = 'none';
+        document.getElementById('inv-overlay').style.display = 'flex';
+    }
+
+    function invCloseModal(){
+        document.getElementById('inv-overlay').style.display = 'none';
+    }
+
+    function invSaveEntry(e){
+        e.preventDefault();
+        var btn = document.getElementById('inv-submit-btn');
+        var num      = document.getElementById('inv-f-num').value;
+        var cat      = document.getElementById('inv-f-cat').value;
+        var vendor   = document.getElementById('inv-f-vendor').value;
+        var building = document.getElementById('inv-f-building').value;
+        var dateVal  = document.getElementById('inv-f-date').value;
+        var amount   = document.getElementById('inv-f-amount').value;
+        var due      = document.getElementById('inv-f-due').value;
+        var status   = document.getElementById('inv-f-status').value;
+
+        btn.textContent = 'Saving...'; btn.disabled = true;
+        setTimeout(function(){
+            var parts = dateVal.split('-');
+            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2])); d.setHours(0,0,0,0);
+            var dueFmt = due ? (function(){ var dp=due.split('-'); var dd=new Date(parseInt(dp[0]),parseInt(dp[1])-1,parseInt(dp[2])); return dd.getDate()+' '+INV_MO[dd.getMonth()]+' '+dd.getFullYear(); })() : '—';
+            INV_ROWS.unshift({ date:d, num:num, cat:cat, vendor:vendor, building:building, amount:parseInt(amount).toLocaleString('en-IN'), due:dueFmt, status:status, daysAgo:0 });
+            btn.textContent = 'Saved ✓'; btn.style.backgroundColor = '#10b981';
+            setTimeout(function(){
+                btn.textContent = 'Submit Invoice'; btn.style.backgroundColor = ''; btn.disabled = false;
+                invCloseModal();
+                invApplyFilters();
+            }, 900);
+        }, 500);
+    }
+
+    // Boot
+    invApplyFilters();
+</script>
 </body></html>
