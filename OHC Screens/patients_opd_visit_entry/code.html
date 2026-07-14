@@ -52,6 +52,8 @@
   .cell-wrap { white-space: normal; word-wrap: break-word; line-height: 1.45; }
   .cell-datetime .t-date { font-size: 12.5px; color: #6B7280; display: block; }
   .cell-datetime .t-time { font-size: 11px; color: var(--ohc-n-400); display: block; margin-top: 1px; }
+  /* nurse field read-only style */
+  .form-input-readonly { background: #F0F4FA; color: #6B7280; cursor: default; }
 
   /* ── Empty state ── */
   .empty-state { display: none; padding: 56px 24px; text-align: center; }
@@ -164,23 +166,31 @@
         </div>
       </div>
       <div style="overflow-x:auto; width:100%;">
-        <table class="ohc-table" style="table-layout:fixed; width:100%;">
+        <table class="ohc-table" style="table-layout:auto; min-width:1100px; width:100%;">
           <colgroup>
-            <col style="width:18%"/>  <!-- Visit / Patient -->
-            <col style="width:8%"/>   <!-- Date/Time -->
-            <col style="width:12%"/>  <!-- Health Issue -->
-            <col style="width:31%"/>  <!-- Treatment Given -->
-            <col style="width:13%"/>  <!-- Pathology -->
-            <col style="width:18%"/>  <!-- Referred To -->
+            <col style="width:160px"/>  <!-- Visit / Patient (name + serial) -->
+            <col style="width:110px"/>  <!-- Employee ID -->
+            <col style="width:100px"/>  <!-- DOB -->
+            <col style="width:105px"/>  <!-- Date / Time -->
+            <col style="width:140px"/>  <!-- Floor / Wing -->
+            <col style="width:110px"/>  <!-- Health Issue -->
+            <col style="width:220px"/>  <!-- Treatment Given -->
+            <col style="width:130px"/>  <!-- Pathology / Diagnostics -->
+            <col style="width:150px"/>  <!-- Referred To -->
+            <col style="width:90px"/>   <!-- Nurse -->
           </colgroup>
           <thead>
             <tr>
               <th>Visit / Patient</th>
+              <th>Employee ID</th>
+              <th>DOB</th>
               <th>Date / Time</th>
+              <th>Floor / Wing</th>
               <th>Health Issue</th>
               <th>Treatment Given</th>
               <th>Pathology / Diagnostics</th>
               <th>Referred To</th>
+              <th>Nurse</th>
             </tr>
           </thead>
           <tbody id="table-body"></tbody>
@@ -273,6 +283,15 @@
                 <option>General Shift (09:00–18:00)</option><option>Morning Shift (06:00–14:00)</option>
                 <option>Evening Shift (14:00–22:00)</option><option>Night Shift (22:00–06:00)</option>
               </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Date of Birth</label>
+              <input class="form-input" type="date" id="opd-f-dob"/>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Attending Nurse</label>
+              <!-- Auto-filled from RBAC session; editable as dropdown if role ≠ Nurse -->
+              <input class="form-input form-input-readonly" type="text" id="opd-f-nurse" readonly placeholder="—"/>
             </div>
           </div>
         </div>
@@ -446,30 +465,31 @@ function toggleInjury() {
 
 // ── Dataset ──────────────────────────────────────────────────
 var RAW = [
+  // empId, dob (YYYY-MM-DD), floor, nurse added to every row
   // ── Today (8 rows) ──
-  { id:'OPD-2026-0213', name:'Ravi Menon',        daysAgo:0, time:'08:10', issueKey:'fever',     issueLbl:'Fever',            tx:'Paracetamol 500mg, rest advised, fluids increased',                                         path:'CBC ordered',            ref:null },
-  { id:'OPD-2026-0212', name:'Sunita Pillai',     daysAgo:0, time:'09:05', issueKey:'bp',        issueLbl:'BP Check',         tx:'BP medication adjusted',                                                                     path:'—',                      ref:null },
-  { id:'OPD-2026-0211', name:'Arjun Sharma',      daysAgo:0, time:'09:50', issueKey:'wound',     issueLbl:'Cut / Wound',      tx:'Wound irrigated, antiseptic dressing applied, tetanus shot administered, advised follow-up',  path:'X-ray ordered',          ref:'St. Thomas Hospital, Trivandrum' },
-  { id:'OPD-2026-0210', name:'Nisha Rao',         daysAgo:0, time:'10:30', issueKey:'back',      issueLbl:'Back Pain',        tx:'Ibuprofen, heat pack, posture advice given',                                                 path:'—',                      ref:null },
-  { id:'OPD-2026-0209', name:'Arun Pillai',       daysAgo:0, time:'11:15', issueKey:'dizziness', issueLbl:'Dizziness',        tx:'ORS administered, BP monitored, patient rested 30 min, discharged stable',                  path:'—',                      ref:null },
-  { id:'OPD-2026-0208', name:'Preethi Varma',     daysAgo:0, time:'12:00', issueKey:'allergy',   issueLbl:'Allergic Reaction',tx:'Cetirizine 10mg, cold compress applied',                                                    path:'Skin prick test advised', ref:null },
-  { id:'OPD-2026-0207', name:'Suresh Babu',       daysAgo:0, time:'13:45', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, dark room rest',                                                                path:'—',                      ref:null },
-  { id:'OPD-2026-0206', name:'Kavitha Ramesh',    daysAgo:0, time:'15:20', issueKey:'routine',   issueLbl:'Routine Check',    tx:'Vitals recorded, all normal',                                                                path:'Lipid profile advised',  ref:null },
+  { id:'OPD-2026-0213', name:'Ravi Menon',        empId:'EMP-4821', dob:'1989-03-14', floor:'Floor 4 – North Wing', nurse:'Anjali S.',   daysAgo:0, time:'08:10', issueKey:'fever',     issueLbl:'Fever',            tx:'Paracetamol 500mg, rest advised, fluids increased',                                         path:'CBC ordered',            ref:null },
+  { id:'OPD-2026-0212', name:'Sunita Pillai',     empId:'EMP-3310', dob:'1994-07-22', floor:'Floor 2 – South Wing', nurse:'Rekha M.',    daysAgo:0, time:'09:05', issueKey:'bp',        issueLbl:'BP Check',         tx:'BP medication adjusted',                                                                     path:'—',                      ref:null },
+  { id:'OPD-2026-0211', name:'Arjun Sharma',      empId:'EMP-5502', dob:'1991-11-05', floor:'Floor 5 – Tech Lab',   nurse:'Anjali S.',   daysAgo:0, time:'09:50', issueKey:'wound',     issueLbl:'Cut / Wound',      tx:'Wound irrigated, antiseptic dressing applied, tetanus shot administered, advised follow-up',  path:'X-ray ordered',          ref:'St. Thomas Hospital, Trivandrum' },
+  { id:'OPD-2026-0210', name:'Nisha Rao',         empId:'EMP-2201', dob:'1996-05-18', floor:'Floor 3 – East Wing',  nurse:'Rekha M.',    daysAgo:0, time:'10:30', issueKey:'back',      issueLbl:'Back Pain',        tx:'Ibuprofen, heat pack, posture advice given',                                                 path:'—',                      ref:null },
+  { id:'OPD-2026-0209', name:'Arun Pillai',       empId:'EMP-6690', dob:'1988-09-30', floor:'Floor 1 – Lobby',      nurse:'Anjali S.',   daysAgo:0, time:'11:15', issueKey:'dizziness', issueLbl:'Dizziness',        tx:'ORS administered, BP monitored, patient rested 30 min, discharged stable',                  path:'—',                      ref:null },
+  { id:'OPD-2026-0208', name:'Preethi Varma',     empId:'EMP-7741', dob:'1993-02-11', floor:'Floor 6 – Admin',      nurse:'Rekha M.',    daysAgo:0, time:'12:00', issueKey:'allergy',   issueLbl:'Allergic Reaction',tx:'Cetirizine 10mg, cold compress applied',                                                    path:'Skin prick test advised', ref:null },
+  { id:'OPD-2026-0207', name:'Suresh Babu',       empId:'EMP-1188', dob:'1985-12-25', floor:'Floor 4 – North Wing', nurse:'Anjali S.',   daysAgo:0, time:'13:45', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, dark room rest',                                                                path:'—',                      ref:null },
+  { id:'OPD-2026-0206', name:'Kavitha Ramesh',    empId:'EMP-9012', dob:'1997-06-08', floor:'Floor 2 – South Wing', nurse:'Rekha M.',    daysAgo:0, time:'15:20', issueKey:'routine',   issueLbl:'Routine Check',    tx:'Vitals recorded, all normal',                                                                path:'Lipid profile advised',  ref:null },
   // ── This week (2–4 days ago) ──
-  { id:'OPD-2026-0205', name:'Priya Nair',        daysAgo:2, time:'08:30', issueKey:'sprain',    issueLbl:'Sprain',           tx:'Ice pack, compression bandage, ibuprofen 400mg',                                             path:'Ultrasound recommended', ref:null },
-  { id:'OPD-2026-0204', name:'Mohammed Saleem',   daysAgo:2, time:'14:10', issueKey:'eye',       issueLbl:'Eye Irritation',   tx:'Eye wash, chloramphenicol drops',                                                            path:'—',                      ref:null },
-  { id:'OPD-2026-0203', name:'Deepa Krishnan',    daysAgo:3, time:'09:50', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, hydration advised',                                                             path:'—',                      ref:null },
-  { id:'OPD-2026-0202', name:'Rajesh Varma',      daysAgo:4, time:'16:05', issueKey:'back',      issueLbl:'Back Pain',        tx:'Diclofenac gel, rest advised, referred for physiotherapy assessment',                        path:'Physiotherapy referral', ref:'Ernakulam Medical Centre' },
+  { id:'OPD-2026-0205', name:'Priya Nair',        empId:'EMP-3355', dob:'1992-04-17', floor:'Floor 5 – Tech Lab',   nurse:'Anjali S.',   daysAgo:2, time:'08:30', issueKey:'sprain',    issueLbl:'Sprain',           tx:'Ice pack, compression bandage, ibuprofen 400mg',                                             path:'Ultrasound recommended', ref:null },
+  { id:'OPD-2026-0204', name:'Mohammed Saleem',   empId:'EMP-4401', dob:'1990-08-03', floor:'Floor 3 – East Wing',  nurse:'Rekha M.',    daysAgo:2, time:'14:10', issueKey:'eye',       issueLbl:'Eye Irritation',   tx:'Eye wash, chloramphenicol drops',                                                            path:'—',                      ref:null },
+  { id:'OPD-2026-0203', name:'Deepa Krishnan',    empId:'EMP-5580', dob:'1995-01-29', floor:'Floor 1 – Lobby',      nurse:'Anjali S.',   daysAgo:3, time:'09:50', issueKey:'headache',  issueLbl:'Headache',         tx:'Paracetamol, hydration advised',                                                             path:'—',                      ref:null },
+  { id:'OPD-2026-0202', name:'Rajesh Varma',      empId:'EMP-2244', dob:'1987-10-14', floor:'Floor 6 – Admin',      nurse:'Rekha M.',    daysAgo:4, time:'16:05', issueKey:'back',      issueLbl:'Back Pain',        tx:'Diclofenac gel, rest advised, referred for physiotherapy assessment',                        path:'Physiotherapy referral', ref:'Ernakulam Medical Centre' },
   // ── This month (8–20 days ago) ──
-  { id:'OPD-2026-0198', name:'Anjali Thomas',     daysAgo:8,  time:'10:20', issueKey:'cold',     issueLbl:'Cold / URTI',      tx:'Antihistamine, steam inhalation',                                                            path:'—',                      ref:null },
-  { id:'OPD-2026-0194', name:'Santhosh Kumar',    daysAgo:11, time:'13:35', issueKey:'wound',    issueLbl:'Cut / Wound',      tx:'First aid dressing, tetanus booster given, wound reviewed at 48h',                           path:'—',                      ref:'Medical Centre TVM' },
-  { id:'OPD-2026-0191', name:'Vinod Chandran',    daysAgo:15, time:'11:45', issueKey:'bp',       issueLbl:'BP Check',         tx:'Amlodipine dose reviewed',                                                                   path:'ECG recommended',        ref:'Cardiology Dept, KIMS' },
-  { id:'OPD-2026-0185', name:'Leena George',      daysAgo:19, time:'09:00', issueKey:'gastric',  issueLbl:'Gastric Pain',     tx:'Antacid, dietary advice given',                                                              path:'Stool test recommended', ref:null },
+  { id:'OPD-2026-0198', name:'Anjali Thomas',     empId:'EMP-8812', dob:'1998-03-21', floor:'Floor 2 – South Wing', nurse:'Anjali S.',   daysAgo:8,  time:'10:20', issueKey:'cold',     issueLbl:'Cold / URTI',      tx:'Antihistamine, steam inhalation',                                                            path:'—',                      ref:null },
+  { id:'OPD-2026-0194', name:'Santhosh Kumar',    empId:'EMP-3398', dob:'1986-07-09', floor:'Floor 4 – North Wing', nurse:'Rekha M.',    daysAgo:11, time:'13:35', issueKey:'wound',    issueLbl:'Cut / Wound',      tx:'First aid dressing, tetanus booster given, wound reviewed at 48h',                           path:'—',                      ref:'Medical Centre TVM' },
+  { id:'OPD-2026-0191', name:'Vinod Chandran',    empId:'EMP-6672', dob:'1983-11-18', floor:'Floor 5 – Tech Lab',   nurse:'Anjali S.',   daysAgo:15, time:'11:45', issueKey:'bp',       issueLbl:'BP Check',         tx:'Amlodipine dose reviewed',                                                                   path:'ECG recommended',        ref:'Cardiology Dept, KIMS' },
+  { id:'OPD-2026-0185', name:'Leena George',      empId:'EMP-1192', dob:'1999-05-02', floor:'Floor 3 – East Wing',  nurse:'Rekha M.',    daysAgo:19, time:'09:00', issueKey:'gastric',  issueLbl:'Gastric Pain',     tx:'Antacid, dietary advice given',                                                              path:'Stool test recommended', ref:null },
   // ── This year / quarter (45–110 days ago) ──
-  { id:'OPD-2026-0142', name:'Meera Gopalan',     daysAgo:45,  time:'10:10', issueKey:'allergy', issueLbl:'Allergy',          tx:'Cetirizine, avoid known trigger',                                                            path:'Skin prick test advised', ref:null },
-  { id:'OPD-2026-0118', name:'Ravi Kumar',        daysAgo:62,  time:'15:30', issueKey:'sprain',  issueLbl:'Sprain',           tx:'RICE protocol, physiotherapy referral',                                                      path:'MRI advised',            ref:'Physiotherapy Centre, TVM' },
-  { id:'OPD-2026-0097', name:'Neetha Das',        daysAgo:85,  time:'08:45', issueKey:'fever',   issueLbl:'Fever',            tx:'Azithromycin, paracetamol, increased fluids, follow-up in 3 days',                           path:'Typhidot test done',     ref:null },
-  { id:'OPD-2026-0074', name:'Arun Krishnan',     daysAgo:110, time:'12:00', issueKey:'routine', issueLbl:'Routine Check',    tx:'Annual health check completed, all parameters normal',                                        path:'Full blood panel done',  ref:null },
+  { id:'OPD-2026-0142', name:'Meera Gopalan',     empId:'EMP-7720', dob:'1994-09-15', floor:'Floor 6 – Admin',      nurse:'Anjali S.',   daysAgo:45,  time:'10:10', issueKey:'allergy', issueLbl:'Allergy',          tx:'Cetirizine, avoid known trigger',                                                            path:'Skin prick test advised', ref:null },
+  { id:'OPD-2026-0118', name:'Ravi Kumar',        empId:'EMP-9901', dob:'1988-02-27', floor:'Floor 1 – Lobby',      nurse:'Rekha M.',    daysAgo:62,  time:'15:30', issueKey:'sprain',  issueLbl:'Sprain',           tx:'RICE protocol, physiotherapy referral',                                                      path:'MRI advised',            ref:'Physiotherapy Centre, TVM' },
+  { id:'OPD-2026-0097', name:'Neetha Das',        empId:'EMP-4488', dob:'1996-12-04', floor:'Floor 5 – Tech Lab',   nurse:'Anjali S.',   daysAgo:85,  time:'08:45', issueKey:'fever',   issueLbl:'Fever',            tx:'Azithromycin, paracetamol, increased fluids, follow-up in 3 days',                           path:'Typhidot test done',     ref:null },
+  { id:'OPD-2026-0074', name:'Arun Krishnan',     empId:'EMP-3312', dob:'1982-08-19', floor:'Floor 2 – South Wing', nurse:'Rekha M.',    daysAgo:110, time:'12:00', issueKey:'routine', issueLbl:'Routine Check',    tx:'Annual health check completed, all parameters normal',                                        path:'Full blood panel done',  ref:null },
 ];
 
 function midnight(n) {
@@ -515,13 +535,29 @@ function renderTable(period) {
         var ref = v.ref
           ? '<span class="ref-icon" style="white-space:normal;word-wrap:break-word;"><span class="material-symbols-outlined" style="flex-shrink:0;">local_hospital</span>'+v.ref+'</span>'
           : '<span style="color:var(--ohc-n-400);">—</span>';
+        // Format DOB for display
+        var dobDisp = v.dob ? (function(){
+          var parts = v.dob.split('-');
+          var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          return parts[2]+' '+mo[parseInt(parts[1])-1]+' '+parts[0];
+        })() : '—';
         return '<tr>'+
-          '<td><span style="font-weight:600;color:#111827;font-size:13px;display:block;margin-bottom:3px;">'+v.name+'</span><span class="visit-id">'+v.id+'</span></td>'+
-          '<td class="cell-datetime"><span class="t-date">'+fmtDate(v.date)+'</span><span class="t-time">'+v.time+'</span></td>'+
+          '<td>'+
+            '<span style="font-weight:600;color:#111827;font-size:13px;display:block;margin-bottom:2px;">'+v.name+'</span>'+
+            '<span class="visit-id">'+v.id+'</span>'+
+          '</td>'+
+          '<td style="font-size:12px;color:#374151;white-space:nowrap;">'+v.empId+'</td>'+
+          '<td style="font-size:12px;color:#6B7280;white-space:nowrap;">'+dobDisp+'</td>'+
+          '<td class="cell-datetime">'+
+            '<span class="t-date">'+fmtDate(v.date)+'</span>'+
+            '<span class="t-time">'+v.time+'</span>'+
+          '</td>'+
+          '<td style="font-size:12px;color:#374151;white-space:normal;word-wrap:break-word;">'+v.floor+'</td>'+
           '<td><span class="issue-chip issue-'+v.issueKey+'">'+v.issueLbl+'</span></td>'+
           '<td class="cell-wrap">'+v.tx+'</td>'+
           '<td class="cell-wrap" style="color:#6B7280;">'+v.path+'</td>'+
           '<td>'+ref+'</td>'+
+          '<td style="font-size:12px;color:#374151;white-space:normal;word-wrap:break-word;">'+v.nurse+'</td>'+
         '</tr>';
       }).join('');
     }
@@ -534,6 +570,31 @@ function setFilter(btn) {
   btn.classList.add('active');
   renderTable(btn.dataset.period);
 }
+
+// ── Nurse auto-fill from RBAC session ───────────────────────
+// Reads the active role from the parent shell (localStorage).
+// If the role is 'nurse', pre-fills the Attending Nurse field with
+// the session user's name and makes it read-only.
+// For other roles (admin, doctor, etc.), the field stays editable
+// so they can log a visit on behalf of a specific nurse.
+(function() {
+  var nurseField = document.getElementById('opd-f-nurse');
+  if (!nurseField) return;
+  var role = '';
+  try { role = (window.parent && window.parent.activeRole) || localStorage.getItem('ohc_active_role') || ''; } catch(e) {}
+  // Nurse names keyed by session user (extend as needed)
+  var NURSE_NAMES = { nurse: 'Anjali S.' };
+  if (role === 'nurse' && NURSE_NAMES[role]) {
+    nurseField.value = NURSE_NAMES[role];
+    nurseField.readOnly = true;
+    nurseField.classList.add('form-input-readonly');
+  } else {
+    // Non-nurse roles: make editable with a helpful placeholder
+    nurseField.readOnly = false;
+    nurseField.classList.remove('form-input-readonly');
+    nurseField.placeholder = 'Enter attending nurse name';
+  }
+})();
 
 // Boot
 renderTable('today');

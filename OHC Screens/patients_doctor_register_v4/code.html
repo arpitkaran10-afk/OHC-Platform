@@ -108,7 +108,7 @@
         .filter-pill:hover { color:#111827; background:#fff; }
         .filter-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
         #dr-empty { display:none; padding:40px 24px; text-align:center; color:#9CA3AF; font-size:13px; }
-        .btn-primary { height: 36px; padding: 0 16px; background-color: #0EA5E9; color: white; font-weight: 600; border-radius: 4px; display: inline-flex; items-center; gap: 8px; font-size: 13px; transition: opacity 0.2s; cursor: pointer; }
+        .btn-primary { height: 36px; padding: 0 16px; background-color: #0EA5E9; color: white; font-weight: 600; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: opacity 0.2s; cursor: pointer; border: none; font-family: 'Inter', sans-serif; }
         .btn-primary:hover { opacity: 0.9; }
         .btn-secondary { height: 36px; padding: 0 16px; border: 1px solid #E5E7EB; color: #171c20; font-weight: 600; border-radius: 4px; font-size: 13px; transition: background 0.2s; cursor: pointer; }
         .btn-secondary:hover { background-color: #f9fafb; }
@@ -319,23 +319,7 @@
 <h2 class="font-section-heading text-section-heading">Clinical Details</h2>
 </div>
 <div class="space-y-6">
-<div>
-<label class="form-label">Complaints / Ailments</label>
-<div class="flex flex-wrap gap-2 mb-3">
-<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
-                                    Fever <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
-</span>
-<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
-                                    Headache <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
-</span>
-<button class="text-primary text-[10px] font-bold border border-primary px-2 py-1 rounded hover:bg-primary-container transition-colors">+ ADD CHIP</button>
-</div>
-<textarea class="form-input h-24 py-2 resize-none" placeholder="Describe patient complaints in detail..."></textarea>
-</div>
-<div>
-<label class="form-label">Diagnosis <span class="text-error">*</span></label>
-<textarea class="form-input h-20 py-2 resize-none" placeholder="Final clinical diagnosis..."></textarea>
-</div>
+<!-- 1. Patient Vitals — first -->
 <div class="bg-surface-container-low p-4 rounded-lg">
 <p class="text-[10px] font-bold text-outline uppercase tracking-widest mb-4">Patient Vitals</p>
 <div class="grid grid-cols-5 gap-4">
@@ -360,6 +344,35 @@
 <input class="form-input !bg-white" placeholder="°F" type="text"/>
 </div>
 </div>
+</div>
+<!-- 2. Complaints / Ailments — second -->
+<div>
+<label class="form-label">Complaints / Ailments</label>
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
+                                    Fever <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">
+                                    Headache <span class="material-symbols-outlined text-xs cursor-pointer">close</span>
+</span>
+<button class="text-primary text-[10px] font-bold border border-primary px-2 py-1 rounded hover:bg-primary-container transition-colors">+ ADD CHIP</button>
+</div>
+<textarea class="form-input h-24 py-2 resize-none" placeholder="Describe patient complaints in detail..."></textarea>
+</div>
+<!-- 3. Investigation Recommended — new -->
+<div>
+<label class="form-label">Investigation Recommended</label>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="e.g. CBC, ECG, X-ray, Ultrasound — specify tests recommended..."></textarea>
+</div>
+<!-- 4. Lab Reports — new -->
+<div>
+<label class="form-label">Lab Reports</label>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="Enter available lab report findings or pending results..."></textarea>
+</div>
+<!-- 5. Diagnosis — last, required -->
+<div>
+<label class="form-label">Diagnosis <span class="text-error">*</span></label>
+<textarea class="form-input h-20 py-2 resize-none" placeholder="Final clinical diagnosis..."></textarea>
 </div>
 </div>
 </section>

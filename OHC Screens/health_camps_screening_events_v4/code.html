@@ -17,6 +17,29 @@
     .hc-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
     .hc-pill:hover { color:#111827; background:#fff; }
     .hc-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+    /* parameter checklist */
+    .hc-param-group { border:1px solid #E5E7EB; border-radius:8px; overflow:hidden; margin-bottom:8px; }
+    .hc-param-group summary {
+        display:flex; align-items:center; justify-content:space-between;
+        padding:8px 12px; background:#f0f4fa; cursor:pointer;
+        font-size:12px; font-weight:600; color:#3e4850;
+        list-style:none; user-select:none;
+    }
+    .hc-param-group summary::-webkit-details-marker { display:none; }
+    .hc-param-group[open] summary { border-bottom:1px solid #E5E7EB; }
+    .hc-param-group summary .hc-chevron { font-size:16px; transition:transform .15s; color:#9CA3AF; }
+    .hc-param-group[open] summary .hc-chevron { transform:rotate(180deg); }
+    .hc-param-group-body { padding:8px 12px; display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; }
+    .hc-param-item { display:flex; align-items:center; gap:6px; font-size:13px; color:#171c20; cursor:pointer; padding:3px 0; }
+    .hc-param-item input[type=checkbox] { accent-color:#0EA5E9; flex-shrink:0; }
+    /* add-param inline form */
+    .hc-add-param-form { display:none; background:#f9fafb; border:1px solid #E5E7EB; border-radius:8px; padding:12px; margin-top:8px; }
+    .hc-add-param-form.open { display:block; }
+    .hc-add-param-row { display:grid; grid-template-columns:1fr 200px auto; gap:8px; align-items:end; }
+    .hc-add-param-input { height:32px; border:1px solid #E5E7EB; border-radius:4px; padding:0 8px; font-size:13px; outline:none; }
+    .hc-add-param-input:focus { border-color:#0EA5E9; }
+    .hc-add-param-select { height:32px; border:1px solid #E5E7EB; border-radius:4px; padding:0 6px; font-size:13px; outline:none; background:#fff; }
+    .hc-add-param-select:focus { border-color:#0EA5E9; }
 </style>
 <script id="tailwind-config">
     tailwind.config = { darkMode:"class", theme:{ extend:{
@@ -153,19 +176,48 @@
             <option>Upcoming</option><option>In Progress</option><option>Completed</option>
           </select>
         </div>
-        <div class="flex flex-col gap-1 col-span-2">
-          <label class="text-label-sm text-on-surface-variant">Coverage Types <span class="text-on-surface-variant font-normal">(select all that apply)</span></label>
-          <div class="flex flex-wrap gap-2 p-3 border border-outline-variant rounded-lg bg-surface-container-low" id="hc-coverage-checkboxes">
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Visual Health Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Visual Health Check</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Night Blindness Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Night Blindness Check</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Colour Blindness Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Colour Blindness Check</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Vertigo Check" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Vertigo Check</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Audiogram" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Audiogram</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Lung Health" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Lung Health</label>
-            <label class="flex items-center gap-1.5 text-body cursor-pointer"><input type="checkbox" value="Other" class="hc-coverage-cb" style="accent-color:#0EA5E9;"/> Other</label>
+      </div>
+
+      <!-- List of Parameters of the Health Camp -->
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-primary">checklist</span>
+        <h3 class="font-section-heading text-section-heading">List of Parameters of the Health Camp</h3>
+      </div>
+      <!-- JS renders grouped collapsible checklist here -->
+      <div id="hc-params-container" class="mb-2"></div>
+      <!-- Add New Parameter action -->
+      <div class="mb-6">
+        <button type="button" onclick="hcToggleAddParam()" id="hc-add-param-btn"
+          class="flex items-center gap-1.5 text-primary text-body font-semibold hover:underline">
+          <span class="material-symbols-outlined text-[18px]">add_circle</span> Add New Parameter
+        </button>
+        <div class="hc-add-param-form" id="hc-add-param-form">
+          <p class="text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">New parameter will be saved to the master list and auto-selected for this camp.</p>
+          <div class="hc-add-param-row">
+            <div>
+              <label class="text-label-sm text-on-surface-variant block mb-1">Parameter Name *</label>
+              <input id="hc-new-param-name" class="hc-add-param-input w-full" type="text" placeholder="e.g. Chest X-Ray (PA View)"/>
+            </div>
+            <div>
+              <label class="text-label-sm text-on-surface-variant block mb-1">Category *</label>
+              <select id="hc-new-param-cat" class="hc-add-param-select w-full">
+                <option>Vitals &amp; Anthropometry</option>
+                <option>Pathology - Blood</option>
+                <option>Imaging</option>
+                <option>Screening &amp; Consultation</option>
+                <option>Gender-Specific</option>
+                </select>
+            </div>
+            <div style="padding-bottom:0;">
+              <button type="button" onclick="hcAddNewParam()"
+                class="h-[32px] px-4 bg-primary text-white rounded font-semibold text-body hover:opacity-90 transition-all" style="font-size:12px;">
+                Add
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- Bulk Employee Upload section -->
       <div class="flex items-center gap-2 mb-4">
         <span class="material-symbols-outlined text-primary">upload_file</span>
@@ -185,172 +237,340 @@
 </div>
 
 <script>
-    // ── Demo data (daysAgo for schedule date) ─────────────────
-    var HC_RAW = [
-        { daysAgo:0,   title:'Annual Screening 2026', type:'Annual Health Check',    building:'Block A, HQ',       conductor:'Metro Diagnostics',  headcount:500, attended:450, status:'In Progress', coverage:['Visual Health Check','Audiogram','Lung Health']  },
-        { daysAgo:0,   title:'Eye Specialist Camp',   type:'Specialist',              building:'OPD Block',         conductor:'Vasan Eye Care',     headcount:120, attended:0,   status:'Upcoming',    coverage:['Visual Health Check','Night Blindness Check','Colour Blindness Check'] },
-        { daysAgo:2,   title:'Diabetes Screening',    type:'Periodic Screening',      building:'South Wing',        conductor:'In-house Team',      headcount:200, attended:185, status:'Completed',   coverage:['Other'] },
-        { daysAgo:4,   title:'PCC Compliance Q3',     type:'PCC Compliance',          building:'Block B',           conductor:'Apollo Hospitals',   headcount:90,  attended:88,  status:'Completed',   coverage:['Visual Health Check','Audiogram'] },
-        { daysAgo:6,   title:'Hearing Test Camp',     type:'Specialist',              building:'Plant 02',          conductor:'ENT Specialists',    headcount:90,  attended:88,  status:'Completed',   coverage:['Audiogram','Vertigo Check'] },
-        { daysAgo:10,  title:'BP & Sugar Screening',  type:'Periodic Screening',      building:'All Buildings',     conductor:'In-house Team',      headcount:350, attended:310, status:'Completed',   coverage:['Other'] },
-        { daysAgo:15,  title:'Vision Camp 2026',      type:'Specialist',              building:'OHC-1',             conductor:'Vasan Eye Care',     headcount:150, attended:142, status:'Completed',   coverage:['Visual Health Check','Colour Blindness Check'] },
-        { daysAgo:30,  title:'Stress Mgmt Workshop',  type:'Annual Health Check',     building:'Admin Block',       conductor:'Max Healthcare',     headcount:80,  attended:75,  status:'Completed',   coverage:['Other'] },
-        { daysAgo:60,  title:'PCC Compliance Q2',     type:'PCC Compliance',          building:'South Wing',        conductor:'Apollo Hospitals',   headcount:120, attended:118, status:'Completed',   coverage:['Visual Health Check','Lung Health'] },
-        { daysAgo:100, title:'Ergonomics Screening',  type:'Periodic Screening',      building:'Warehouse 1',       conductor:'External Agency',    headcount:200, attended:195, status:'Completed',   coverage:['Lung Health'] },
-        { daysAgo:200, title:'Annual Screening 2025', type:'Annual Health Check',     building:'Block A, HQ',       conductor:'Metro Diagnostics',  headcount:500, attended:480, status:'Completed',   coverage:['Visual Health Check','Night Blindness Check','Audiogram','Lung Health'] },
-    ];
+// ════════════════════════════════════════════════════════════
+//  MASTER PARAMETER LIST
+//  Stored in localStorage as 'ohc_camp_params_v1'.
+//  Each entry: { name, category, tier }
+//  tier: 'Both' | 'Category-B'
+//  category: one of the 6 defined categories
+// ════════════════════════════════════════════════════════════
 
-    var HC_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    function hcMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
-    var HC_ROWS = HC_RAW.map(function(r,i){ return Object.assign({},r,{date:hcMidnight(r.daysAgo),id:i}); });
-    function hcFmt(d){ return d.getDate()+' '+HC_MO[d.getMonth()]+' '+d.getFullYear(); }
+var HC_PARAM_CATEGORIES = [
+    'Vitals & Anthropometry',
+    'Pathology - Blood',
+    'Imaging',
+    'Screening & Consultation',
+    'Gender-Specific'
+];
 
-    var hcCurrentPeriod = 'today';
-    var hcEditId = null;
+var HC_PARAM_DEFAULTS = [
+    // Vitals & Anthropometry
+    { name:'BP – Systolic',             category:'Vitals & Anthropometry',       tier:'Both' },
+    { name:'BP – Diastolic',            category:'Vitals & Anthropometry',       tier:'Both' },
+    { name:'Height',                          category:'Vitals & Anthropometry',       tier:'Both' },
+    { name:'Weight',                          category:'Vitals & Anthropometry',       tier:'Both' },
+    { name:'BMI',                             category:'Vitals & Anthropometry',       tier:'Both' },
+    { name:'Waist Circumference',             category:'Vitals & Anthropometry',       tier:'Both' },
+    // Pathology - Blood
+    { name:'CBC',                             category:'Pathology - Blood',            tier:'Both' },
+    { name:'ESR',                             category:'Pathology - Blood',            tier:'Both' },
+    { name:'Blood Grouping & RH Factor',      category:'Pathology - Blood',            tier:'Both' },
+    { name:'Glucose (Fasting)',               category:'Pathology - Blood',            tier:'Both' },
+    { name:'Glucose (PP)',                    category:'Pathology - Blood',            tier:'Both' },
+    { name:'HbA1c',                           category:'Pathology - Blood',            tier:'Both' },
+    { name:'Serum Creatinine',                category:'Pathology - Blood',            tier:'Both' },
+    { name:'Urea',                            category:'Pathology - Blood',            tier:'Both' },
+    { name:'Uric Acid',                       category:'Pathology - Blood',            tier:'Both' },
+    { name:'Lipid Profile',                   category:'Pathology - Blood',            tier:'Both' },
+    { name:'Triglycerides',                   category:'Pathology - Blood',            tier:'Both' },
+    { name:'LFT (incl. GGT)',                 category:'Pathology - Blood',            tier:'Both' },
+    { name:'TSH',                             category:'Pathology - Blood',            tier:'Both' },
+    { name:'Hepatitis B Antigen',             category:'Pathology - Blood',            tier:'Both' },
+    { name:'HCV',                             category:'Pathology - Blood',            tier:'Both' },
+    { name:'Vitamin B12',                     category:'Pathology - Blood',            tier:'Both' },
+    { name:'Vitamin D (25-OH)',               category:'Pathology - Blood',            tier:'Both' },
+    // Imaging
+    { name:'ECG',                             category:'Imaging',                      tier:'Both' },
+    { name:'X-ray Chest',                     category:'Imaging',                      tier:'Both' },
+    { name:'Echocardiogram',                  category:'Imaging',                      tier:'Both' },
+    { name:'USG Whole Abdomen',               category:'Imaging',                      tier:'Both' },
+    // Screening & Consultation
+    { name:'Stool Analysis',                  category:'Screening & Consultation',     tier:'Both' },
+    { name:'Urine Analysis',                  category:'Screening & Consultation',     tier:'Both' },
+    { name:'Vision Test',                     category:'Screening & Consultation',     tier:'Both' },
+    { name:'Dental Consultation',             category:'Screening & Consultation',     tier:'Both' },
+    { name:'TMT',                             category:'Screening & Consultation',     tier:'Category-B' },
+    // Gender-Specific
+    { name:'PSA (Male)',                      category:'Gender-Specific',              tier:'Category-B' },
+    { name:'Cervical PAP Smear (Female)',     category:'Gender-Specific',              tier:'Category-B' },
+    { name:'Mammography (Female)',            category:'Gender-Specific',              tier:'Category-B' },
+    { name:'Stool for Occult Blood',          category:'Gender-Specific',              tier:'Category-B' },
+];
 
-    function hcGetRange(period){
-        var s=new Date(); s.setHours(0,0,0,0);
-        var e=new Date(); e.setHours(23,59,59,999);
-        if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
-        else if(period==='month'){ s.setDate(1); }
-        else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
-        else if(period==='year'){ s.setMonth(0,1); }
-        return {start:s,end:e};
-    }
+// Load or initialise the master list from localStorage
+function hcLoadParams() {
+    try {
+        var stored = localStorage.getItem('ohc_camp_params_v2');
+        if (stored) return JSON.parse(stored);
+    } catch(e) {}
+    // First run (or after version bump) — seed from defaults and save
+    hcSaveParams(HC_PARAM_DEFAULTS);
+    return HC_PARAM_DEFAULTS.slice();
+}
 
-    function hcApplyFilters(){
-        var search = (document.getElementById('hc-search').value||'').toLowerCase();
-        var r = hcGetRange(hcCurrentPeriod);
-        var rows = HC_ROWS.filter(function(v){
-            if(v.date < r.start || v.date > r.end) return false;
-            if(search && v.title.toLowerCase().indexOf(search)===-1) return false;
-            return true;
-        });
-        var n = rows.length;
-        document.getElementById('hc-count').textContent = n + ' camp'+(n===1?'':'s');
-        var grid = document.getElementById('hc-cards-grid');
-        var empty = document.getElementById('hc-empty');
-        if(!n){ grid.innerHTML=''; empty.style.display='block'; return; }
-        empty.style.display='none';
+function hcSaveParams(list) {
+    try { localStorage.setItem('ohc_camp_params_v2', JSON.stringify(list)); } catch(e) {}
+}
 
-        var typeColors = {
-            'Annual Health Check': 'bg-primary-container/10 text-primary',
-            'PCC Compliance':      'bg-secondary-container text-on-secondary-container',
-            'Specialist':          'bg-tertiary-fixed text-on-tertiary-fixed',
-            'Periodic Screening':  'bg-surface-container-high text-on-surface-variant'
-        };
-        var statusMeta = {
-            'In Progress': { icon:'check_circle', cls:'text-primary',              label:'In Progress' },
-            'Completed':   { icon:'archive',      cls:'text-error',                label:'Completed'   },
-            'Upcoming':    { icon:'schedule',     cls:'text-on-surface-variant opacity-60', label:'Upcoming' }
-        };
+// Global master list (mutable — new params are pushed here and persisted)
+var HC_PARAMS = hcLoadParams();
 
-        grid.innerHTML = rows.map(function(v){
-            var tc = typeColors[v.type] || 'bg-surface-container text-on-surface-variant';
-            var sm = statusMeta[v.status] || statusMeta['Upcoming'];
-            var coverageChips = (v.coverage||[]).map(function(c){
-                return '<span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap;">'+c+'</span>';
-            }).join('');
-            return '<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm" onclick="hcOpenModal('+v.id+')">'
-                +'<div class="flex justify-between items-start mb-2">'
-                +'<h3 class="font-semibold text-body">'+v.title+'</h3>'
-                +'<span class="px-3 py-0.5 rounded-full text-label-sm font-semibold '+tc+'">'+v.type.split(' ')[0]+'</span>'
-                +'</div>'
-                +'<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm mb-2">'
-                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">calendar_today</span> '+hcFmt(v.date)+'</div>'
-                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">domain</span> '+v.building+'</div>'
-                +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">groups</span> '+v.attended+' / '+v.headcount+'</div>'
-                +'<div class="flex items-center gap-1.5 '+sm.cls+'"><span class="material-symbols-outlined text-[16px]">'+sm.icon+'</span> '+sm.label+'</div>'
-                +'</div>'
-                +(coverageChips ? '<div class="flex flex-wrap gap-1">'+coverageChips+'</div>' : '')
-                +'</div>';
+// ════════════════════════════════════════════════════════════
+//  RENDER PARAMETER CHECKLIST
+// ════════════════════════════════════════════════════════════
+function hcRenderParamChecklist(selectedNames) {
+    selectedNames = selectedNames || [];
+    var selectedSet = {};
+    selectedNames.forEach(function(n){ selectedSet[n] = true; });
+
+    // Group params by category (preserve HC_PARAM_CATEGORIES order)
+    var grouped = {};
+    HC_PARAM_CATEGORIES.forEach(function(cat){ grouped[cat] = []; });
+    HC_PARAMS.forEach(function(p){
+        if (!grouped[p.category]) grouped[p.category] = [];
+        grouped[p.category].push(p);
+    });
+
+    var html = HC_PARAM_CATEGORIES.map(function(cat){
+        var items = grouped[cat];
+        if (!items || items.length === 0) return '';
+        var itemsHtml = items.map(function(p){
+            var cbId = 'hc-param-' + p.name.replace(/[^a-zA-Z0-9]/g,'_');
+            var checked = selectedSet[p.name] ? 'checked' : '';
+            return '<label class="hc-param-item" for="'+cbId+'">'
+                +'<input type="checkbox" id="'+cbId+'" name="hc_params" value="'+hcEsc(p.name)+'" '+checked+' style="accent-color:#0EA5E9;">'
+                +'<span>'+hcEsc(p.name)+'</span>'
+                +'</label>';
         }).join('');
+
+        var count = items.length;
+        return '<details class="hc-param-group" open>'
+            +'<summary>'
+            +'<span>'+hcEsc(cat)
+            +' <span style="font-weight:400;color:#9CA3AF;font-size:11px;">('+count+')</span></span>'
+            +'<span class="hc-chevron material-symbols-outlined">expand_more</span>'
+            +'</summary>'
+            +'<div class="hc-param-group-body">'+itemsHtml+'</div>'
+            +'</details>';
+    }).join('');
+
+    document.getElementById('hc-params-container').innerHTML = html;
+}
+
+function hcEsc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function hcGetSelectedParams() {
+    return Array.from(document.querySelectorAll('#hc-params-container input[name="hc_params"]:checked'))
+        .map(function(cb){ return cb.value; });
+}
+
+// ════════════════════════════════════════════════════════════
+//  ADD NEW PARAMETER
+// ════════════════════════════════════════════════════════════
+function hcToggleAddParam() {
+    var form = document.getElementById('hc-add-param-form');
+    form.classList.toggle('open');
+    if (form.classList.contains('open')) {
+        document.getElementById('hc-new-param-name').focus();
+    }
+}
+
+function hcAddNewParam() {
+    var name = document.getElementById('hc-new-param-name').value.trim();
+    var cat  = document.getElementById('hc-new-param-cat').value;
+    var tier = 'Both';
+
+    if (!name) {
+        document.getElementById('hc-new-param-name').focus();
+        return;
+    }
+    // Prevent exact duplicates
+    var exists = HC_PARAMS.some(function(p){ return p.name.toLowerCase() === name.toLowerCase(); });
+    if (exists) {
+        alert('"' + name + '" already exists in the parameter list.');
+        return;
     }
 
-    function hcSetFilter(btn){
-        document.querySelectorAll('.hc-pill').forEach(function(p){ p.classList.remove('active'); });
-        btn.classList.add('active');
-        hcCurrentPeriod = btn.dataset.period;
-        hcApplyFilters();
-    }
+    var newParam = { name: name, category: cat, tier: tier };
+    HC_PARAMS.push(newParam);
+    hcSaveParams(HC_PARAMS);
 
-    // ── Modal ─────────────────────────────────────────────────
-    function hcOpenModal(id){
-        hcEditId = id;
-        var today = new Date().toISOString().slice(0,10);
-        // reset all coverage checkboxes
-        document.querySelectorAll('.hc-coverage-cb').forEach(function(cb){ cb.checked = false; });
-        if(id === null){
-            document.getElementById('hc-modal-title').textContent = 'Create Camp';
-            document.getElementById('hc-modal-form').reset();
-            document.getElementById('hc-f-date').value = today;
-        } else {
-            var v = HC_ROWS.filter(function(r){ return r.id===id; })[0];
-            if(!v) return;
-            document.getElementById('hc-modal-title').textContent = 'Edit Camp';
-            document.getElementById('hc-f-title').value     = v.title;
-            document.getElementById('hc-f-type').value      = v.type;
-            var dd = v.date;
-            document.getElementById('hc-f-date').value = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
-            document.getElementById('hc-f-building').value  = v.building;
-            document.getElementById('hc-f-conductor').value = v.conductor;
-            document.getElementById('hc-f-headcount').value = v.headcount;
-            document.getElementById('hc-f-attended').value  = v.attended;
-            document.getElementById('hc-f-status').value    = v.status;
-            // restore coverage checkboxes
-            (v.coverage||[]).forEach(function(c){
-                document.querySelectorAll('.hc-coverage-cb').forEach(function(cb){
-                    if(cb.value===c) cb.checked = true;
-                });
-            });
-        }
-        document.getElementById('hc-overlay').style.display = 'flex';
-    }
+    // Re-render checklist, preserving current selections + auto-checking the new one
+    var current = hcGetSelectedParams();
+    current.push(name);
+    hcRenderParamChecklist(current);
 
-    function hcCloseModal(){
-        document.getElementById('hc-overlay').style.display = 'none';
-        hcEditId = null;
-    }
+    // Reset and close the add form
+    document.getElementById('hc-new-param-name').value = '';
+    document.getElementById('hc-add-param-form').classList.remove('open');
+}
 
-    function hcSaveEntry(e){
-        e.preventDefault();
-        var btn = document.getElementById('hc-submit-btn');
-        var title     = document.getElementById('hc-f-title').value;
-        var type      = document.getElementById('hc-f-type').value;
-        var dateVal   = document.getElementById('hc-f-date').value;
-        var building  = document.getElementById('hc-f-building').value || '—';
-        var conductor = document.getElementById('hc-f-conductor').value || '—';
-        var headcount = parseInt(document.getElementById('hc-f-headcount').value) || 0;
-        var attended  = parseInt(document.getElementById('hc-f-attended').value) || 0;
-        var status    = document.getElementById('hc-f-status').value;
-        var coverage  = Array.from(document.querySelectorAll('.hc-coverage-cb:checked')).map(function(cb){ return cb.value; });
+// ════════════════════════════════════════════════════════════
+//  DEMO DATA
+// ════════════════════════════════════════════════════════════
+var HC_RAW = [
+    { daysAgo:0,   title:'Annual Screening 2026', type:'Annual Health Check',    building:'Block A, HQ',    conductor:'Metro Diagnostics',  headcount:500, attended:450, status:'In Progress', coverage:['BP – Systolic','BP – Diastolic','Height','Weight','BMI','CBC','HbA1c','ECG','X-ray Chest','Vision Test','Dental Consultation'] },
+    { daysAgo:0,   title:'Eye Specialist Camp',   type:'Specialist',              building:'OPD Block',      conductor:'Vasan Eye Care',     headcount:120, attended:0,   status:'Upcoming',    coverage:['Vision Test','Mammography (Female)','PSA (Male)'] },
+    { daysAgo:2,   title:'Diabetes Screening',    type:'Periodic Screening',      building:'South Wing',     conductor:'In-house Team',      headcount:200, attended:185, status:'Completed',   coverage:['Glucose (Fasting)','Glucose (PP)','HbA1c','Urine Analysis'] },
+    { daysAgo:4,   title:'PCC Compliance Q3',     type:'PCC Compliance',          building:'Block B',        conductor:'Apollo Hospitals',   headcount:90,  attended:88,  status:'Completed',   coverage:['CBC','ESR','ECG','Vision Test','Urine Analysis'] },
+    { daysAgo:6,   title:'Hearing Test Camp',     type:'Specialist',              building:'Plant 02',       conductor:'ENT Specialists',    headcount:90,  attended:88,  status:'Completed',   coverage:['TMT','Stool Analysis'] },
+    { daysAgo:10,  title:'BP & Sugar Screening',  type:'Periodic Screening',      building:'All Buildings',  conductor:'In-house Team',      headcount:350, attended:310, status:'Completed',   coverage:['BP – Systolic','BP – Diastolic','Glucose (Fasting)','Urine Analysis'] },
+    { daysAgo:15,  title:'Vision Camp 2026',      type:'Specialist',              building:'OHC-1',          conductor:'Vasan Eye Care',     headcount:150, attended:142, status:'Completed',   coverage:['Vision Test','Cervical PAP Smear (Female)'] },
+    { daysAgo:30,  title:'Stress Mgmt Workshop',  type:'Annual Health Check',     building:'Admin Block',    conductor:'Max Healthcare',     headcount:80,  attended:75,  status:'Completed',   coverage:['BP – Systolic','BMI','TSH'] },
+    { daysAgo:60,  title:'PCC Compliance Q2',     type:'PCC Compliance',          building:'South Wing',     conductor:'Apollo Hospitals',   headcount:120, attended:118, status:'Completed',   coverage:['CBC','Lipid Profile','ECG','X-ray Chest'] },
+    { daysAgo:100, title:'Ergonomics Screening',  type:'Periodic Screening',      building:'Warehouse 1',    conductor:'External Agency',    headcount:200, attended:195, status:'Completed',   coverage:['Height','Weight','BMI','Waist Circumference'] },
+    { daysAgo:200, title:'Annual Screening 2025', type:'Annual Health Check',     building:'Block A, HQ',    conductor:'Metro Diagnostics',  headcount:500, attended:480, status:'Completed',   coverage:['BP – Systolic','CBC','HbA1c','ECG','X-ray Chest','Vision Test','Dental Consultation','Complimentary Breakfast Provided'] },
+];
 
-        btn.textContent = 'Saving...';
-        btn.disabled = true;
-        setTimeout(function(){
-            var parts = dateVal.split('-');
-            var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
-            d.setHours(0,0,0,0);
-            if(hcEditId !== null){
-                var idx = HC_ROWS.findIndex(function(r){ return r.id===hcEditId; });
-                if(idx>=0){ HC_ROWS[idx] = { id:hcEditId, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 }; }
-            } else {
-                var newId = HC_ROWS.length;
-                HC_ROWS.unshift({ id:newId, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 });
-            }
-            btn.textContent = 'Saved ✓';
-            btn.style.backgroundColor = '#10b981';
-            setTimeout(function(){
-                btn.textContent = 'Save Setup';
-                btn.style.backgroundColor = '';
-                btn.disabled = false;
-                hcCloseModal();
-                hcApplyFilters();
-            }, 900);
-        }, 500);
-    }
+var HC_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function hcMidnight(n){ var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d; }
+var HC_ROWS = HC_RAW.map(function(r,i){ return Object.assign({},r,{date:hcMidnight(r.daysAgo),id:i}); });
+function hcFmt(d){ return d.getDate()+' '+HC_MO[d.getMonth()]+' '+d.getFullYear(); }
 
-    // Boot
+var hcCurrentPeriod = 'today';
+var hcEditId = null;
+
+function hcGetRange(period){
+    var s=new Date(); s.setHours(0,0,0,0);
+    var e=new Date(); e.setHours(23,59,59,999);
+    if(period==='week'){ var dow=s.getDay(); s.setDate(s.getDate()-(dow===0?6:dow-1)); }
+    else if(period==='month'){ s.setDate(1); }
+    else if(period==='quarter'){ s.setMonth(Math.floor(s.getMonth()/3)*3,1); }
+    else if(period==='year'){ s.setMonth(0,1); }
+    return {start:s,end:e};
+}
+
+function hcApplyFilters(){
+    var search = (document.getElementById('hc-search').value||'').toLowerCase();
+    var r = hcGetRange(hcCurrentPeriod);
+    var rows = HC_ROWS.filter(function(v){
+        if(v.date < r.start || v.date > r.end) return false;
+        if(search && v.title.toLowerCase().indexOf(search)===-1) return false;
+        return true;
+    });
+    var n = rows.length;
+    document.getElementById('hc-count').textContent = n + ' camp'+(n===1?'':'s');
+    var grid  = document.getElementById('hc-cards-grid');
+    var empty = document.getElementById('hc-empty');
+    if(!n){ grid.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+
+    var typeColors = {
+        'Annual Health Check': 'bg-primary-container/10 text-primary',
+        'PCC Compliance':      'bg-secondary-container text-on-secondary-container',
+        'Specialist':          'bg-tertiary-fixed text-on-tertiary-fixed',
+        'Periodic Screening':  'bg-surface-container-high text-on-surface-variant'
+    };
+    var statusMeta = {
+        'In Progress': { icon:'check_circle', cls:'text-primary',                      label:'In Progress' },
+        'Completed':   { icon:'archive',      cls:'text-error',                        label:'Completed'   },
+        'Upcoming':    { icon:'schedule',     cls:'text-on-surface-variant opacity-60', label:'Upcoming'   }
+    };
+
+    grid.innerHTML = rows.map(function(v){
+        var tc = typeColors[v.type] || 'bg-surface-container text-on-surface-variant';
+        var sm = statusMeta[v.status] || statusMeta['Upcoming'];
+        var coverageChips = (v.coverage||[]).map(function(c){
+            return '<span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap;">'+c+'</span>';
+        }).join('');
+        return '<div class="bg-white border border-outline-variant rounded-lg p-4 cursor-pointer hover:border-primary-container transition-colors shadow-sm" onclick="hcOpenModal('+v.id+')">'
+            +'<div class="flex justify-between items-start mb-2">'
+            +'<h3 class="font-semibold text-body">'+v.title+'</h3>'
+            +'<span class="px-3 py-0.5 rounded-full text-label-sm font-semibold '+tc+'">'+v.type.split(' ')[0]+'</span>'
+            +'</div>'
+            +'<div class="grid grid-cols-2 gap-y-2 text-on-surface-variant text-label-sm mb-2">'
+            +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">calendar_today</span> '+hcFmt(v.date)+'</div>'
+            +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">domain</span> '+v.building+'</div>'
+            +'<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">groups</span> '+v.attended+' / '+v.headcount+'</div>'
+            +'<div class="flex items-center gap-1.5 '+sm.cls+'"><span class="material-symbols-outlined text-[16px]">'+sm.icon+'</span> '+sm.label+'</div>'
+            +'</div>'
+            +(coverageChips ? '<div class="flex flex-wrap gap-1">'+coverageChips+'</div>' : '')
+            +'</div>';
+    }).join('');
+}
+
+function hcSetFilter(btn){
+    document.querySelectorAll('.hc-pill').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    hcCurrentPeriod = btn.dataset.period;
     hcApplyFilters();
+}
+
+// ── Modal ─────────────────────────────────────────────────
+function hcOpenModal(id){
+    hcEditId = id;
+    // Always close the add-param form when opening
+    document.getElementById('hc-add-param-form').classList.remove('open');
+
+    var today = new Date().toISOString().slice(0,10);
+    if(id === null){
+        document.getElementById('hc-modal-title').textContent = 'Create Camp';
+        document.getElementById('hc-modal-form').reset();
+        document.getElementById('hc-f-date').value = today;
+        hcRenderParamChecklist([]);
+    } else {
+        var v = HC_ROWS.filter(function(r){ return r.id===id; })[0];
+        if(!v) return;
+        document.getElementById('hc-modal-title').textContent = 'Edit Camp';
+        document.getElementById('hc-f-title').value     = v.title;
+        document.getElementById('hc-f-type').value      = v.type;
+        var dd = v.date;
+        document.getElementById('hc-f-date').value = dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
+        document.getElementById('hc-f-building').value  = v.building;
+        document.getElementById('hc-f-conductor').value = v.conductor;
+        document.getElementById('hc-f-headcount').value = v.headcount;
+        document.getElementById('hc-f-attended').value  = v.attended;
+        document.getElementById('hc-f-status').value    = v.status;
+        hcRenderParamChecklist(v.coverage || []);
+    }
+    document.getElementById('hc-overlay').style.display = 'flex';
+}
+
+function hcCloseModal(){
+    document.getElementById('hc-overlay').style.display = 'none';
+    hcEditId = null;
+}
+
+function hcSaveEntry(e){
+    e.preventDefault();
+    var btn = document.getElementById('hc-submit-btn');
+    var title     = document.getElementById('hc-f-title').value;
+    var type      = document.getElementById('hc-f-type').value;
+    var dateVal   = document.getElementById('hc-f-date').value;
+    var building  = document.getElementById('hc-f-building').value || '—';
+    var conductor = document.getElementById('hc-f-conductor').value || '—';
+    var headcount = parseInt(document.getElementById('hc-f-headcount').value) || 0;
+    var attended  = parseInt(document.getElementById('hc-f-attended').value) || 0;
+    var status    = document.getElementById('hc-f-status').value;
+    var coverage  = hcGetSelectedParams();
+
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+    setTimeout(function(){
+        var parts = dateVal.split('-');
+        var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+        d.setHours(0,0,0,0);
+        if(hcEditId !== null){
+            var idx = HC_ROWS.findIndex(function(r){ return r.id===hcEditId; });
+            if(idx>=0){ HC_ROWS[idx] = { id:hcEditId, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 }; }
+        } else {
+            HC_ROWS.unshift({ id:HC_ROWS.length, title:title, type:type, date:d, building:building, conductor:conductor, headcount:headcount, attended:attended, status:status, coverage:coverage, daysAgo:0 });
+        }
+        btn.textContent = 'Saved ✓';
+        btn.style.backgroundColor = '#10b981';
+        setTimeout(function(){
+            btn.textContent = 'Save Setup';
+            btn.style.backgroundColor = '';
+            btn.disabled = false;
+            hcCloseModal();
+            hcApplyFilters();
+        }, 900);
+    }, 500);
+}
+
+// Boot
+hcApplyFilters();
 </script>
 </body></html>

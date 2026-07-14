@@ -166,6 +166,29 @@
     }
     .nav-row--l3.active { color: var(--ohc-primary); }
     .nav-row--l3:hover  { color: #374151; }
+
+    /* ── Role switcher (dev-only, not production UI) ─── */
+    #role-switcher-wrap {
+      display: flex; align-items: center; gap: 6px;
+      margin-right: 8px;
+    }
+    #role-switcher-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: #9CA3AF; white-space: nowrap;
+    }
+    #role-switcher {
+      height: 28px; border: 1px solid #E5E7EB; border-radius: 6px;
+      background: #F9FAFB; font-size: 12px; font-weight: 500;
+      color: #374151; padding: 0 8px; cursor: pointer; outline: none;
+    }
+    #role-switcher:focus { border-color: #0EA5E9; }
+    /* view-only banner injected into iframes */
+    #__ohc-view-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #FEF3C7; border-bottom: 1px solid #FCD34D;
+      padding: 5px 16px; font-size: 12px; font-weight: 600; color: #92400E;
+      display: flex; align-items: center; gap: 6px; pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -185,12 +208,23 @@
     </div>
   </div>
   <div class="ohc-header-right">
+    <!-- DEV-ONLY role switcher — remove before production -->
+    <div id="role-switcher-wrap" title="DEV ONLY — Role Switcher">
+      <span id="role-switcher-label">Role:</span>
+      <select id="role-switcher" onchange="ohcSetRole(this.value)">
+        <option value="admin">Admin</option>
+        <option value="nurse">Nurse</option>
+        <option value="doctor">Doctor</option>
+        <option value="tghc_ops">TGHC Ops</option>
+        <option value="client_manager">Client Manager</option>
+      </select>
+    </div>
     <div class="ohc-bell-wrap">
       <span class="material-symbols-outlined">notifications</span>
       <span class="ohc-bell-badge"></span>
     </div>
-    <span class="ohc-user-name">Kiran Prasad</span>
-    <div class="ohc-avatar">KP</div>
+    <span class="ohc-user-name" id="header-username">Kiran Prasad</span>
+    <div class="ohc-avatar" id="header-avatar">KP</div>
   </div>
 </header>
 
@@ -260,9 +294,9 @@ const NAV = [
         label: 'Patients',
         icon: 'person',
         children: [
-          { key: 'patients_opd',       label: 'OPD Visits',        file: 'patients_opd_visit_entry/code.html?v=7' },
+          { key: 'patients_opd',       label: 'OPD Visits',        file: 'patients_opd_visit_entry/code.html?v=9' },
           { key: 'patients_firstaid',  label: 'First Aid Register', file: 'patients_first_aid_register_itc/code.html?v=3' },
-          { key: 'patients_doctor',    label: 'Doctor Register',    file: 'patients_doctor_register_v4/code.html?v=3' },
+          { key: 'patients_doctor',    label: 'Doctor Register',    file: 'patients_doctor_register_v4/code.html?v=4' },
           { key: 'patients_ambulance', label: 'Ambulance Register', file: 'patients_ambulance_register/code.html?v=4' },
           { key: 'patients_rest',      label: 'Rest Case',          file: 'patients_rest_case_allianz/code.html?v=5' }
         ]
@@ -287,7 +321,7 @@ const NAV = [
     label: 'Health Camps & Screenings',
     icon: 'campaign',
     children: [
-      { key: 'health_camps_annual',     label: 'Annual Health Camps',      file: 'health_camps_screening_events_v4/code.html?v=3' },
+      { key: 'health_camps_annual',     label: 'Annual Health Camps',      file: 'health_camps_screening_events_v4/code.html?v=5' },
       // New Employee Screening reuses the Pre-Employment Medical module built under Clinicians
       { key: 'health_camps_new_emp',    label: 'New Employee Screening',   file: 'clinicians_pre_employment_medical/code.html?v=1' },
       { key: 'health_camps_hazardous',  label: 'Hazardous Process Checks', file: 'hazardous_process_checks/code.html?v=1' }
@@ -323,7 +357,7 @@ const NAV = [
           { key: 'oshwc_incident_register', label: 'Incident Register', file: 'others_incident_register_v4/code.html?v=7' }
         ]
       },
-      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',  file: 'general_inventory_register_allianz/code.html?v=2' }
+      { key: 'general_inventory', label: 'General Inventory', icon: 'inventory_2',  file: 'general_inventory_register_allianz/code.html?v=3' }
     ]
   },
   {
@@ -349,6 +383,62 @@ const NAV = [
   }
 ];
 
+// ════════════════════════════════════════════════════════════════
+//  RBAC — PERMISSIONS CONFIG
+//  access levels: 'edit' | 'view' | 'none'
+//
+//  Keys map to top-level NAV group keys or individual leaf keys.
+//  A group key covers ALL descendants unless a more specific
+//  leaf/sub-key overrides it (most-specific wins).
+//
+//  Special case: doctor has edit on 'patients_doctor' only;
+//  everything else in 'clinic' is 'view'.
+// ════════════════════════════════════════════════════════════════
+const ROLE_PERMISSIONS = {
+  admin: {
+    _default: 'edit'   // admin sees and edits everything
+  },
+  nurse: {
+    _default:   'edit',
+    settings:   'none'
+  },
+  doctor: {
+    _default:            'none',
+    dashboard:           'view',
+    // clinic group — view overall, but patients_doctor is edit
+    clinic:              'view',
+    patients:            'view',
+    patients_opd:        'view',
+    patients_firstaid:   'view',
+    patients_doctor:     'edit',   // ← the nested exception
+    patients_ambulance:  'view',
+    patients_rest:       'view',
+    clinicians:          'view',
+    prescriptions:       'view',
+    pharmacy:            'view',
+    pharmacy_stock:      'view',
+    pharmacy_oxygen:     'view',
+    pharmacy_vending:    'view',
+    bmw:                 'view',
+    analytics:           'view',
+    // everything else stays 'none'
+    health_camps:        'none',
+    wellness:            'none',
+    compliance:          'none',
+    others:              'none',
+    settings:            'none'
+  },
+  tghc_ops: {
+    _default: 'view',
+    settings: 'none'
+  },
+  client_manager: {
+    _default:  'view',
+    others:    'none',
+    settings:  'none'
+  }
+};
+
 // ── Flat map of all leaf nodes (key → item) ───────────────────
 const LEAF_MAP = {};
 (function buildLeafMap(items) {
@@ -365,7 +455,57 @@ const loadingOverlay = document.getElementById('loading-overlay');
 const mainNav        = document.getElementById('main-nav');
 
 // ── State ─────────────────────────────────────────────────────
-let activeKey = null;
+let activeKey  = null;
+let activeRole = localStorage.getItem('ohc_active_role') || 'admin';
+
+// ── Sync role switcher dropdown to stored role ────────────────
+document.getElementById('role-switcher').value = activeRole;
+
+// ════════════════════════════════════════════════════════════════
+//  PERMISSION RESOLVER
+//  Walks from most-specific key up to _default.
+//  ancestors = array of group keys from root to parent (inclusive).
+// ════════════════════════════════════════════════════════════════
+function ohcGetAccess(leafKey, ancestorKeys) {
+  const perms = ROLE_PERMISSIONS[activeRole];
+  if (!perms) return 'none';
+
+  // Check from most specific → least specific
+  const chain = [leafKey, ...(ancestorKeys || []).slice().reverse(), '_default'];
+  for (const k of chain) {
+    if (perms[k] !== undefined) return perms[k];
+  }
+  return 'none';
+}
+
+// Build a lookup: leafKey → access level, using ancestor context
+const ACCESS_CACHE = {};
+function buildAccessCache(items, ancestors) {
+  ancestors = ancestors || [];
+  items.forEach(item => {
+    if (item.file || item.external) {
+      ACCESS_CACHE[item.key] = ohcGetAccess(item.key, ancestors);
+    }
+    if (item.children) {
+      buildAccessCache(item.children, [item.key, ...ancestors]);
+    }
+  });
+}
+buildAccessCache(NAV, []);
+
+// ════════════════════════════════════════════════════════════════
+//  NAV VISIBILITY: does a subtree have any non-'none' node?
+// ════════════════════════════════════════════════════════════════
+function subtreeVisible(item, ancestors) {
+  ancestors = ancestors || [];
+  if (item.file || item.external) {
+    return ACCESS_CACHE[item.key] !== 'none';
+  }
+  if (item.children) {
+    return item.children.some(child => subtreeVisible(child, [item.key, ...ancestors]));
+  }
+  return false;
+}
 
 // ── Shell-hide CSS injected into each iframe after load ───────
 const OVERRIDE_CSS = `
@@ -378,6 +518,47 @@ const OVERRIDE_CSS = `
   body         { overflow-y: auto !important; background: #F3F4F6 !important; }
 `;
 
+// CSS injected into view-only iframes — disables all edit affordances
+const VIEW_ONLY_CSS = `
+  /* Hide add/create/edit/save buttons and action icons */
+  button[onclick*="OpenModal"],
+  button[onclick*="openModal"],
+  button[onclick*="showForm"],
+  button[onclick*="AddModal"],
+  button[onclick*="LogModal"],
+  a[onclick*="OpenModal"],
+  #pe-overlay, #hc-overlay, #gi-log-overlay, #gi-add-overlay,
+  #inv-overlay, #lr-overlay, #ox-overlay, #vm-overlay,
+  #bw-overlay, #tb-overlay, #wc-overlay, #hz-overlay,
+  #rx-overlay, #sm-overlay {
+    display: none !important;
+  }
+  /* Disable all form inputs, selects, textareas, submit buttons */
+  input, select, textarea, button[type="submit"], button[type="button"] {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+    cursor: default !important;
+  }
+  /* Re-enable filter pills and read controls so view works */
+  .filter-pill, .hc-pill, .rx-pill, .bw-pill, .ox-pill,
+  .vm-pill, .lr-pill, .pe-pill, .tb-pill, .wc-pill, .gi-pill,
+  .inv-pill, .hz-pill, .sm-pill {
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+  }
+  /* Hide the page-level "+ New / Create / Add / Log" primary action buttons */
+  .ohc-content > div > button,
+  .ohc-content > .ohc-content-header button,
+  [onclick*="OpenModal"]:not(.filter-pill),
+  [onclick*="openModal"]:not(.filter-pill) {
+    display: none !important;
+  }
+`;
+
+// For Doctor role on patients_doctor: full edit allowed — inject no restrictions
+const DOCTOR_EDIT_OVERRIDE_CSS = `/* Doctor Register — full edit for Doctor role */`;
+
 // ── File loader ───────────────────────────────────────────────
 function loadFile(file) {
   loadingOverlay.classList.remove('hidden');
@@ -389,63 +570,80 @@ iframe.addEventListener('load', () => {
   try {
     const doc = iframe.contentDocument || iframe.contentWindow.document;
     if (!doc) return;
-    const old = doc.getElementById('__ohc-override');
+
+    // Inject shell override CSS
+    let old = doc.getElementById('__ohc-override');
     if (old) old.remove();
     const style = doc.createElement('style');
     style.id = '__ohc-override';
     style.textContent = OVERRIDE_CSS;
     (doc.head || doc.documentElement).appendChild(style);
+
+    // Determine access for current active key
+    const access = activeKey ? (ACCESS_CACHE[activeKey] || 'none') : 'edit';
+
+    // Remove any previous view-only style + banner
+    let oldVo = doc.getElementById('__ohc-viewonly');
+    if (oldVo) oldVo.remove();
+    let oldBanner = doc.getElementById('__ohc-view-banner');
+    if (oldBanner) oldBanner.remove();
+
+    if (access === 'view') {
+      // Inject read-only CSS
+      const voStyle = doc.createElement('style');
+      voStyle.id = '__ohc-viewonly';
+      voStyle.textContent = VIEW_ONLY_CSS;
+      (doc.head || doc.documentElement).appendChild(voStyle);
+
+      // Inject view-only banner
+      const banner = doc.createElement('div');
+      banner.id = '__ohc-view-banner';
+      banner.innerHTML = '&#128274; View Only — your role does not have edit access to this module';
+      (doc.body || doc.documentElement).insertBefore(banner, doc.body.firstChild);
+    }
   } catch (e) {
     console.warn('Could not inject override CSS:', e);
   }
   loadingOverlay.classList.add('hidden');
 });
 
-// ── Nav tree renderer ─────────────────────────────────────────
-// Recursively builds HTML string for the nav tree.
-// level 1 = top-level, 2 = children of groups, 3 = sub-children.
+// ── Nav tree renderer (RBAC-aware) ───────────────────────────
+// Hides nodes where access === 'none' (entire subtree pruned).
 function renderNav(items, level) {
   level = level || 1;
-  return items.map(item => {
-    const iconHtml = item.icon
-      ? `<span class="nav-icon material-symbols-outlined">${item.icon}</span>`
-      : '';
-
-    if (item.external) {
-      // ── External-link node (opens in new tab, never loads iframe) ──
-      return `<a class="nav-row nav-row--l${level}"
-                 data-key="${item.key}"
-                 href="javascript:void(0)"
-                 onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
-    } else if (item.file) {
-      // ── Leaf node ─────────────────────────────────────────
-      return `<a class="nav-row nav-row--l${level}"
-                 data-key="${item.key}"
-                 href="javascript:void(0)"
-                 onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
-    } else {
-      // ── Group / accordion node ────────────────────────────
-      const childrenHtml = (item.children || []).length
-        ? renderNav(item.children, level + 1)
+  return items
+    .filter(item => subtreeVisible(item))
+    .map(item => {
+      const iconHtml = item.icon
+        ? `<span class="nav-icon material-symbols-outlined">${item.icon}</span>`
         : '';
-      return `<div class="nav-group" id="group-${item.key}">
-        <button class="nav-row nav-row--l${level}"
-                onclick="toggleGroup('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span><span class="nav-chevron material-symbols-outlined">expand_more</span></button>
-        <div class="nav-group-body">
-          <div class="nav-group-body-inner">${childrenHtml}</div>
-        </div>
-      </div>`;
-    }
-  }).join('');
+
+      if (item.external) {
+        return `<a class="nav-row nav-row--l${level}"
+                   data-key="${item.key}"
+                   href="javascript:void(0)"
+                   onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
+      } else if (item.file) {
+        return `<a class="nav-row nav-row--l${level}"
+                   data-key="${item.key}"
+                   href="javascript:void(0)"
+                   onclick="navigateTo('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span></a>`;
+      } else {
+        const childrenHtml = (item.children || []).length
+          ? renderNav(item.children, level + 1)
+          : '';
+        return `<div class="nav-group" id="group-${item.key}">
+          <button class="nav-row nav-row--l${level}"
+                  onclick="toggleGroup('${item.key}')">${iconHtml}<span class="nav-label">${item.label}</span><span class="nav-chevron material-symbols-outlined">expand_more</span></button>
+          <div class="nav-group-body">
+            <div class="nav-group-body-inner">${childrenHtml}</div>
+          </div>
+        </div>`;
+      }
+    }).join('');
 }
 
-// Inject the nav tree into the sidebar
-mainNav.innerHTML = renderNav(NAV);
-
 // ── Tree helpers ──────────────────────────────────────────────
-
-// Returns array of ancestor group keys from root down to (not including) targetKey.
-// Returns null if targetKey not found.
 function findAncestors(items, targetKey, path) {
   path = path || [];
   for (const item of items) {
@@ -458,8 +656,6 @@ function findAncestors(items, targetKey, path) {
   return null;
 }
 
-// Returns array of labels from root down to and including targetKey.
-// Returns null if targetKey not found.
 function findLabelPath(items, targetKey, path) {
   path = path || [];
   for (const item of items) {
@@ -468,6 +664,19 @@ function findLabelPath(items, targetKey, path) {
     if (item.children) {
       const found = findLabelPath(item.children, targetKey, current);
       if (found !== null) return found;
+    }
+  }
+  return null;
+}
+
+// Find the first visible leaf in the nav tree (used for fallback navigation)
+function findFirstVisibleLeaf(items) {
+  for (const item of items) {
+    if (item.file && ACCESS_CACHE[item.key] !== 'none') return item.key;
+    if (item.external && ACCESS_CACHE[item.key] !== 'none') return null; // skip external for auto-nav
+    if (item.children) {
+      const found = findFirstVisibleLeaf(item.children);
+      if (found) return found;
     }
   }
   return null;
@@ -484,7 +693,9 @@ function navigateTo(key) {
   const item = LEAF_MAP[key];
   if (!item) return;
 
-  // External links open in a new tab — do not load into the iframe
+  // Block navigation to 'none' access nodes (shouldn't appear in nav, but guard anyway)
+  if (ACCESS_CACHE[key] === 'none') return;
+
   if (item.external && item.url) {
     window.open(item.url, '_blank', 'noopener,noreferrer');
     return;
@@ -492,16 +703,13 @@ function navigateTo(key) {
 
   activeKey = key;
 
-  // Clear all previous active / has-active states
   mainNav.querySelectorAll('.nav-row.active, .nav-row.has-active').forEach(el => {
     el.classList.remove('active', 'has-active');
   });
 
-  // Mark the leaf row as active
   const leafEl = mainNav.querySelector(`.nav-row[data-key="${key}"]`);
   if (leafEl) leafEl.classList.add('active');
 
-  // Open every ancestor group and mark its header row
   const ancestors = findAncestors(NAV, key) || [];
   ancestors.forEach(groupKey => {
     const groupEl = document.getElementById('group-' + groupKey);
@@ -511,16 +719,52 @@ function navigateTo(key) {
     if (headerBtn) headerBtn.classList.add('has-active');
   });
 
-  // Update breadcrumb with full path
   const labelPath = findLabelPath(NAV, key) || [item.label];
   breadcrumbEl.textContent = 'OHC Platform › ' + labelPath.join(' › ');
 
-  // Load the module file into the iframe
   loadFile(item.file);
 }
 
-// ── Boot: load Dashboard ──────────────────────────────────────
-navigateTo('dashboard');
+// ── Role switcher ─────────────────────────────────────────────
+const ROLE_LABELS = {
+  admin:          'Admin',
+  nurse:          'Nurse',
+  doctor:         'Doctor',
+  tghc_ops:       'TGHC Ops',
+  client_manager: 'Client Manager'
+};
+
+function ohcSetRole(role) {
+  activeRole = role;
+  localStorage.setItem('ohc_active_role', role);
+
+  // Rebuild access cache for new role
+  Object.keys(ACCESS_CACHE).forEach(k => delete ACCESS_CACHE[k]);
+  buildAccessCache(NAV, []);
+
+  // Re-render nav
+  mainNav.innerHTML = renderNav(NAV);
+
+  // Navigate to first visible leaf (or dashboard if accessible)
+  const dashAccess = ACCESS_CACHE['dashboard'];
+  if (dashAccess && dashAccess !== 'none') {
+    navigateTo('dashboard');
+  } else {
+    const fallback = findFirstVisibleLeaf(NAV);
+    if (fallback) navigateTo(fallback);
+  }
+}
+
+// ── Boot ──────────────────────────────────────────────────────
+mainNav.innerHTML = renderNav(NAV);
+// Navigate to first accessible screen for this role
+const _initDash = ACCESS_CACHE['dashboard'];
+if (_initDash && _initDash !== 'none') {
+  navigateTo('dashboard');
+} else {
+  const _fallback = findFirstVisibleLeaf(NAV);
+  if (_fallback) navigateTo(_fallback);
+}
 </script>
 
 </body>

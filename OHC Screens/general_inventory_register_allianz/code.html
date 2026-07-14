@@ -26,6 +26,18 @@
     .gi-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
     .gi-pill:hover { color:#111827; background:#fff; }
     .gi-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+    /* kit contents section */
+    .gi-kit-section { display:none; border:1px solid #E5E7EB; border-radius:8px; margin-top:12px; overflow:hidden; }
+    .gi-kit-section.open { display:block; }
+    .gi-kit-section-header { background:#f0f4fa; padding:8px 12px; font-size:12px; font-weight:600; color:#3e4850; display:flex; align-items:center; gap:6px; border-bottom:1px solid #E5E7EB; }
+    .gi-kit-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; padding:12px; }
+    .gi-kit-item { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:12px; color:#374151; }
+    .gi-kit-item input { width:60px; height:28px; border:1px solid #E5E7EB; border-radius:4px; text-align:center; font-size:12px; outline:none; }
+    .gi-kit-item input:focus { border-color:#0EA5E9; }
+    /* kit detail expand row in log table */
+    .gi-kit-detail-row td { background:#f8fafc !important; padding:8px 12px !important; }
+    .gi-kit-detail-inner { display:flex; flex-wrap:wrap; gap:6px; }
+    .gi-kit-detail-chip { background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:500; padding:2px 8px; border-radius:4px; white-space:nowrap; }
 </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -137,7 +149,10 @@
           <td class="px-4 py-3 text-center">10</td>
           <td class="px-4 py-3 text-center">8</td>
           <td class="px-4 py-3"><span class="h-6 px-3 flex items-center justify-center bg-green-100 text-green-700 text-[11px] font-bold rounded-full w-fit" style="white-space:nowrap;">Optimal</span></td>
-          <td class="px-4 py-3"><button onclick="giOpenLogModal('First Aid Kit - Type A')" class="material-symbols-outlined text-on-surface-variant hover:text-primary" title="Log count">edit_calendar</button></td>
+          <td class="px-4 py-3 flex gap-2">
+            <button onclick="giOpenLogModal('First Aid Kit - Type A')" class="material-symbols-outlined text-on-surface-variant hover:text-primary" title="Log count">edit_calendar</button>
+            <button onclick="giShowKitSummary()" class="material-symbols-outlined text-on-surface-variant hover:text-primary" title="View kit contents">expand_circle_down</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -252,6 +267,16 @@
           <label class="font-label-sm text-label-sm text-on-surface-variant">Remarks</label>
           <textarea id="gi-f-remarks" class="w-full h-16 border border-outline rounded bg-surface p-3 text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-none"></textarea>
         </div>
+        <!-- Kit Contents — shown only when item is a First Aid Kit -->
+        <div class="gi-kit-section" id="gi-kit-section">
+          <div class="gi-kit-section-header">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#0EA5E9;">medical_services</span>
+            Kit Contents — log current quantity of each item
+          </div>
+          <div class="gi-kit-grid" id="gi-kit-grid">
+            <!-- rendered by JS -->
+          </div>
+        </div>
       </div>
       <div class="ohc-modal-footer">
         <button type="button" onclick="giCloseLogModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
@@ -300,21 +325,48 @@
 </div>
 
 <script>
+    // ════════════════════════════════════════════════════════
+    //  FIRST AID KIT CONTENTS — standard list
+    //  Applies to all "First Aid Kit" items (Type A, Type B, etc.)
+    //  Only quantity is tracked (no expiry, no alerts).
+    // ════════════════════════════════════════════════════════
+    var GI_KIT_CONTENTS = [
+        'Adhesive Bandages',
+        'Gauze Pads',
+        'Antiseptic Solution',
+        'Adhesive Tape',
+        'Scissors',
+        'Tweezers',
+        'Disposable Gloves',
+        'Crepe Bandage',
+        'Cotton Roll',
+        'Antiseptic Cream',
+        'Paracetamol Tablets',
+        'ORS Sachets',
+        'Thermometer',
+        'CPR Face Shield',
+        'Burn Gel'
+    ];
+
+    function giIsKit(itemName) {
+        return itemName && itemName.toLowerCase().indexOf('first aid kit') !== -1;
+    }
+
     // ── Demo log data (daysAgo) ───────────────────────────────
     var GI_RAW = [
-        { daysAgo:0, item:'Sphygmomanometer (Digital)', morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'All items calibrated.',             status:'MATCH'       },
-        { daysAgo:0, item:'First Aid Kit - Type A',     morning:10,evening:10,condition:'Working',      checker:'Nurse Anjali S.', remarks:'Stocks replenished.',               status:'MATCH'       },
-        { daysAgo:1, item:'Oxygen Concentrator',        morning:2, evening:1, condition:'Damaged',      checker:'John Doe (Ops)', remarks:'Unit 2 filter broken.',              status:'DISCREPANCY' },
-        { daysAgo:2, item:'Stethoscope',                morning:8, evening:8, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH'       },
-        { daysAgo:3, item:'Infrared Thermometer',       morning:6, evening:6, condition:'Working',      checker:'Staff Kumar',     remarks:'Battery replaced.',                 status:'MATCH'       },
-        { daysAgo:5, item:'First Aid Kit - Type A',     morning:10,evening:9, condition:'Working',      checker:'Nurse Anjali S.', remarks:'One kit used during drill.',         status:'DISCREPANCY' },
-        { daysAgo:7, item:'Sphygmomanometer (Digital)', morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH'       },
-        { daysAgo:10,item:'Oxygen Concentrator',        morning:2, evening:2, condition:'Working',      checker:'John Doe (Ops)',  remarks:'Serviced by vendor.',               status:'MATCH'       },
-        { daysAgo:15,item:'Stethoscope',                morning:8, evening:8, condition:'Needs Service',checker:'Staff Kumar',     remarks:'Ear tips worn.',                    status:'MATCH'       },
-        { daysAgo:30,item:'Infrared Thermometer',       morning:6, evening:6, condition:'Working',      checker:'Nurse Anjali S.', remarks:'Calibration verified.',             status:'MATCH'       },
-        { daysAgo:60,item:'First Aid Kit - Type A',     morning:10,evening:10,condition:'Working',      checker:'Nurse Anjali S.', remarks:'Quarterly replenishment done.',      status:'MATCH'       },
-        { daysAgo:100,item:'Oxygen Concentrator',       morning:2, evening:2, condition:'Working',      checker:'John Doe (Ops)',  remarks:'Annual service complete.',          status:'MATCH'       },
-        { daysAgo:200,item:'Sphygmomanometer (Digital)',morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH'       },
+        { daysAgo:0, item:'Sphygmomanometer (Digital)', morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'All items calibrated.',             status:'MATCH',       kitContents:null },
+        { daysAgo:0, item:'First Aid Kit - Type A',     morning:10,evening:10,condition:'Working',      checker:'Nurse Anjali S.', remarks:'Stocks replenished.',               status:'MATCH',       kitContents:{'Adhesive Bandages':20,'Gauze Pads':10,'Antiseptic Solution':2,'Adhesive Tape':4,'Scissors':1,'Tweezers':1,'Disposable Gloves':8,'Crepe Bandage':3,'Cotton Roll':2,'Antiseptic Cream':1,'Paracetamol Tablets':20,'ORS Sachets':5,'Thermometer':1,'CPR Face Shield':1,'Burn Gel':1} },
+        { daysAgo:1, item:'Oxygen Concentrator',        morning:2, evening:1, condition:'Damaged',      checker:'John Doe (Ops)', remarks:'Unit 2 filter broken.',              status:'DISCREPANCY', kitContents:null },
+        { daysAgo:2, item:'Stethoscope',                morning:8, evening:8, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH',       kitContents:null },
+        { daysAgo:3, item:'Infrared Thermometer',       morning:6, evening:6, condition:'Working',      checker:'Staff Kumar',     remarks:'Battery replaced.',                 status:'MATCH',       kitContents:null },
+        { daysAgo:5, item:'First Aid Kit - Type A',     morning:10,evening:9, condition:'Working',      checker:'Nurse Anjali S.', remarks:'One kit used during drill.',         status:'DISCREPANCY', kitContents:{'Adhesive Bandages':15,'Gauze Pads':8,'Antiseptic Solution':1,'Adhesive Tape':3,'Scissors':1,'Tweezers':1,'Disposable Gloves':6,'Crepe Bandage':2,'Cotton Roll':1,'Antiseptic Cream':1,'Paracetamol Tablets':18,'ORS Sachets':4,'Thermometer':1,'CPR Face Shield':1,'Burn Gel':0} },
+        { daysAgo:7, item:'Sphygmomanometer (Digital)', morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH',       kitContents:null },
+        { daysAgo:10,item:'Oxygen Concentrator',        morning:2, evening:2, condition:'Working',      checker:'John Doe (Ops)',  remarks:'Serviced by vendor.',               status:'MATCH',       kitContents:null },
+        { daysAgo:15,item:'Stethoscope',                morning:8, evening:8, condition:'Needs Service',checker:'Staff Kumar',     remarks:'Ear tips worn.',                    status:'MATCH',       kitContents:null },
+        { daysAgo:30,item:'Infrared Thermometer',       morning:6, evening:6, condition:'Working',      checker:'Nurse Anjali S.', remarks:'Calibration verified.',             status:'MATCH',       kitContents:null },
+        { daysAgo:60,item:'First Aid Kit - Type A',     morning:10,evening:10,condition:'Working',      checker:'Nurse Anjali S.', remarks:'Quarterly replenishment done.',      status:'MATCH',       kitContents:{'Adhesive Bandages':20,'Gauze Pads':10,'Antiseptic Solution':2,'Adhesive Tape':4,'Scissors':1,'Tweezers':1,'Disposable Gloves':8,'Crepe Bandage':3,'Cotton Roll':2,'Antiseptic Cream':1,'Paracetamol Tablets':20,'ORS Sachets':5,'Thermometer':1,'CPR Face Shield':1,'Burn Gel':1} },
+        { daysAgo:100,item:'Oxygen Concentrator',       morning:2, evening:2, condition:'Working',      checker:'John Doe (Ops)',  remarks:'Annual service complete.',          status:'MATCH',       kitContents:null },
+        { daysAgo:200,item:'Sphygmomanometer (Digital)',morning:5, evening:5, condition:'Working',      checker:'Nurse Anjali S.', remarks:'',                                  status:'MATCH',       kitContents:null },
     ];
 
     var GI_MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -344,22 +396,44 @@
         var empty = document.getElementById('gi-empty');
         if(!n){ tbody.innerHTML=''; empty.style.display='block'; return; }
         empty.style.display='none';
-        tbody.innerHTML = rows.map(function(v,i){
+        var rowHtml = [];
+        rows.forEach(function(v,i){
+            var rowId = 'gi-row-' + i;
+            var detailId = 'gi-detail-' + i;
             var rowBg = v.status==='DISCREPANCY' ? 'background:#FEF2F2;' : (i%2===0?'background:#fff;':'background:#f9fafb;');
             var condCls = v.condition==='Working' ? 'color:#16a34a;font-weight:500;' : (v.condition==='Damaged'?'color:#ba1a1a;font-weight:500;':'color:#92400e;font-weight:500;');
             var statusBadge = v.status==='MATCH'
                 ? '<span style="background:#dcfce7;color:#15803d;white-space:nowrap;" class="px-2 py-0.5 text-[10px] font-bold rounded">MATCH</span>'
                 : '<span style="background:#ba1a1a;color:#fff;white-space:nowrap;" class="px-2 py-0.5 text-[10px] font-bold rounded uppercase">Discrepancy</span>';
-            return '<tr style="'+rowBg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+rowBg.split(':')[1].replace(';','').trim()+'\'">'
+            var isKit = giIsKit(v.item);
+            var kitToggle = isKit && v.kitContents
+                ? '<button onclick="giToggleKitDetail(\''+detailId+'\')" style="background:none;border:none;cursor:pointer;color:#0EA5E9;padding:2px;" title="View kit contents"><span class="material-symbols-outlined" style="font-size:16px;">expand_circle_down</span></button>'
+                : '';
+            rowHtml.push(
+                '<tr id="'+rowId+'" style="'+rowBg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+rowBg.split(':')[1].replace(';','').trim()+'\'">'
                 +'<td class="px-4 py-3" style="white-space:nowrap;">'+giFmt(v.date)+'</td>'
-                +'<td class="px-4 py-3 font-semibold" style="white-space:normal;word-wrap:break-word;">'+v.item+'</td>'
+                +'<td class="px-4 py-3 font-semibold" style="white-space:normal;word-wrap:break-word;">'+v.item+(isKit?'<br><span style="font-size:10px;color:#0EA5E9;font-weight:600;">FIRST AID KIT</span>':'')+'</td>'
                 +'<td class="px-4 py-3 text-center font-medium">'+v.morning+' / '+v.evening+'</td>'
                 +'<td class="px-4 py-3" style="'+condCls+'white-space:nowrap;">'+v.condition+'</td>'
                 +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+v.checker+'</td>'
                 +'<td class="px-4 py-3 text-on-surface-variant" style="white-space:normal;word-wrap:break-word;">'+(v.remarks||'—')+'</td>'
-                +'<td class="px-4 py-3">'+statusBadge+'</td>'
-                +'</tr>';
-        }).join('');
+                +'<td class="px-4 py-3" style="white-space:nowrap;">'+statusBadge+kitToggle+'</td>'
+                +'</tr>'
+            );
+            // Kit detail row (hidden by default)
+            if(isKit && v.kitContents){
+                var chips = Object.entries(v.kitContents).map(function(kv){
+                    return '<span class="gi-kit-detail-chip">'+kv[0]+': <strong>'+kv[1]+'</strong></span>';
+                }).join('');
+                rowHtml.push(
+                    '<tr id="'+detailId+'" class="gi-kit-detail-row" style="display:none;">'
+                    +'<td colspan="7"><div style="font-size:11px;font-weight:600;color:#3e4850;margin-bottom:6px;">Kit Contents (latest count):</div>'
+                    +'<div class="gi-kit-detail-inner">'+chips+'</div></td>'
+                    +'</tr>'
+                );
+            }
+        });
+        tbody.innerHTML = rowHtml.join('');
     }
 
     function giSetFilter(btn){
@@ -369,6 +443,56 @@
         giRender(giCurrentPeriod);
     }
 
+    // ── Kit detail toggle in log table ───────────────────────
+    function giToggleKitDetail(detailId){
+        var row = document.getElementById(detailId);
+        if(row){ row.style.display = row.style.display==='none' ? '' : 'none'; }
+    }
+
+    // ── Kit contents section in modal ────────────────────────
+    function giRenderKitContents(){
+        var grid = document.getElementById('gi-kit-grid');
+        grid.innerHTML = GI_KIT_CONTENTS.map(function(item){
+            var safeId = 'gi-kit-qty-'+item.replace(/[^a-zA-Z0-9]/g,'_');
+            return '<div class="gi-kit-item">'
+                +'<span>'+item+'</span>'
+                +'<input type="number" id="'+safeId+'" min="0" value="0" placeholder="0"/>'
+                +'</div>';
+        }).join('');
+    }
+
+    function giGetKitContents(){
+        var result = {};
+        GI_KIT_CONTENTS.forEach(function(item){
+            var safeId = 'gi-kit-qty-'+item.replace(/[^a-zA-Z0-9]/g,'_');
+            var el = document.getElementById(safeId);
+            result[item] = el ? (parseInt(el.value)||0) : 0;
+        });
+        return result;
+    }
+
+    function giUpdateKitSection(){
+        var itemName = document.getElementById('gi-f-item').value;
+        var section = document.getElementById('gi-kit-section');
+        if(giIsKit(itemName)){
+            section.classList.add('open');
+        } else {
+            section.classList.remove('open');
+        }
+    }
+
+    // ── Kit Summary modal (from Equipment Master expand button) ─
+    function giShowKitSummary(){
+        // Find the most recent First Aid Kit log with kit contents
+        var recent = GI_ROWS.filter(function(r){ return giIsKit(r.item) && r.kitContents; });
+        if(!recent.length){ alert('No kit contents have been logged yet.'); return; }
+        var latest = recent[0];
+        var lines = Object.entries(latest.kitContents).map(function(kv){
+            return kv[0]+': '+kv[1];
+        }).join('\n');
+        alert('First Aid Kit — Latest Contents ('+giFmt(latest.date)+'):\n\n'+lines);
+    }
+
     // ── Log Count Modal ───────────────────────────────────────
     function giOpenLogModal(itemName){
         document.getElementById('gi-log-form').reset();
@@ -376,13 +500,16 @@
         if(itemName) document.getElementById('gi-f-item').value = itemName;
         document.getElementById('gi-flag-text').textContent = 'CLEAR';
         document.getElementById('gi-flag-text').style.color = '#16a34a';
+        // Render kit contents section; show/hide based on item
+        giRenderKitContents();
+        giUpdateKitSection();
         document.getElementById('gi-log-overlay').style.display = 'flex';
     }
     function giCloseLogModal(){
         document.getElementById('gi-log-overlay').style.display = 'none';
     }
 
-    // discrepancy flag wired to modal inputs
+    // discrepancy flag + kit section wired to modal inputs
     document.addEventListener('DOMContentLoaded', function(){
         function updateFlag(){
             var m = parseInt(document.getElementById('gi-f-morning').value)||0;
@@ -393,6 +520,8 @@
         }
         document.getElementById('gi-f-morning').addEventListener('input', updateFlag);
         document.getElementById('gi-f-evening').addEventListener('input', updateFlag);
+        // Show/hide kit contents when item changes
+        document.getElementById('gi-f-item').addEventListener('change', giUpdateKitSection);
     });
 
     function giSaveLog(e){
@@ -405,14 +534,15 @@
         var condition = document.getElementById('gi-f-condition').value;
         var checker   = document.getElementById('gi-f-checker').value || 'Staff';
         var remarks   = document.getElementById('gi-f-remarks').value;
-        var status    = (morning!==evening && evening!==0) ? 'DISCREPANCY' : 'MATCH';
+        var status      = (morning!==evening && evening!==0) ? 'DISCREPANCY' : 'MATCH';
+        var kitContents = giIsKit(item) ? giGetKitContents() : null;
 
         btn.textContent = 'Saving...';
         btn.disabled = true;
         setTimeout(function(){
             var parts = dateVal.split('-');
             var d = new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2])); d.setHours(0,0,0,0);
-            GI_ROWS.unshift({ date:d, item:item, morning:morning, evening:evening, condition:condition, checker:checker, remarks:remarks, status:status, daysAgo:0 });
+            GI_ROWS.unshift({ date:d, item:item, morning:morning, evening:evening, condition:condition, checker:checker, remarks:remarks, status:status, kitContents:kitContents, daysAgo:0 });
             btn.textContent = 'Saved ✓';
             btn.style.backgroundColor = '#10b981';
             setTimeout(function(){
