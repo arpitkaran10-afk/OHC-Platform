@@ -334,8 +334,10 @@ const NAV = [
     label: 'Wellness',
     icon: 'favorite',
     children: [
-      { key: 'toolbox',        label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html?v=3' },
-      { key: 'other_wellness', label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html?v=3' }
+      { key: 'toolbox',           label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html?v=3' },
+      { key: 'other_wellness',    label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html?v=3' },
+      // External link — opens HR coaching dashboard in a new tab. Replace URL before go-live.
+      { key: 'coaching_programs', label: 'Coaching Programs', icon: 'open_in_new',  external: true, url: 'https://REPLACE-WITH-HR-DASHBOARD-URL' }
     ]
   },
   {

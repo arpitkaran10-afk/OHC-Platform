@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Occupational Safety Checks | OHC Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../ohc-design-system.css"/>
+<script id="tailwind-config">
+tailwind.config = { darkMode:"class", theme:{ extend:{
+    "colors":{
+      "on-error-container":"#93000a","surface-tint":"#0EA5E9","primary-fixed-dim":"#89ceff",
+      "error":"#ba1a1a","on-tertiary-container":"#4d2b00","surface-container-high":"#e4e8ee",
+      "on-surface":"#171c20","on-primary":"#ffffff","on-primary-fixed-variant":"#004c6e",
+      "on-secondary-container":"#3d637d","surface-variant":"#dee3e9","surface-container-low":"#f0f4fa",
+      "inverse-surface":"#2c3135","secondary-container":"#b8dffe","on-secondary":"#ffffff",
+      "on-error":"#ffffff","tertiary-fixed":"#ffdcbd","surface-dim":"#d6dae0",
+      "on-secondary-fixed":"#001e2f","surface-container-highest":"#dee3e9","surface-bright":"#f6faff",
+      "on-tertiary":"#ffffff","on-secondary-fixed-variant":"#234b64","inverse-on-surface":"#edf1f7",
+      "on-surface-variant":"#3e4850","primary-container":"#0ea5e9","surface":"#f6faff",
+      "outline-variant":"#bec8d2","on-tertiary-fixed":"#2c1600","surface-container":"#eaeef4",
+      "on-primary-fixed":"#001e2f","error-container":"#ffdad6","background":"#F3F4F6",
+      "surface-container-lowest":"#ffffff","primary-fixed":"#c9e6ff","tertiary-container":"#de8712",
+      "on-background":"#171c20","secondary-fixed-dim":"#a5cbe9","inverse-primary":"#89ceff",
+      "tertiary":"#8a5100","tertiary-fixed-dim":"#ffb86e","primary":"#0EA5E9",
+      "on-tertiary-fixed-variant":"#693c00","secondary":"#3c627d","outline":"#6e7881",
+      "on-primary-container":"#003751","secondary-fixed":"#c9e6ff"
+    },
+    "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+    "spacing":{"content_padding":"24px","stack_gap":"8px","container_gap":"16px","sidebar_width":"240px","header_height":"56px","base":"4px"},
+    "fontFamily":{"section-heading":["Inter"],"page-title":["Inter"],"label-sm":["Inter"],"body":["Inter"]},
+    "fontSize":{
+      "section-heading":["16px",{"lineHeight":"24px","fontWeight":"600"}],
+      "page-title":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],
+      "label-sm":["11px",{"lineHeight":"16px","fontWeight":"600"}],
+      "body":["13px",{"lineHeight":"20px","fontWeight":"400"}]
+    }
+}}}
+</script>
+<style>
+  body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+
+  /* Tab bar */
+  .osc-tab-bar { display:flex; gap:0; border-bottom:1px solid #E5E7EB; margin-bottom:20px; overflow-x:auto; }
+  .osc-tab { padding:10px 18px; border:none; background:none; font-size:13px; font-weight:500; color:#6B7280; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; font-family:'Inter',sans-serif; transition:color .12s; }
+  .osc-tab:hover { color:#374151; }
+  .osc-tab.active { color:#0EA5E9; border-bottom-color:#0EA5E9; font-weight:600; }
+
+  /* Period filter pills */
+  .osc-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
+  .osc-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
+  .osc-pill:hover { color:#111827; background:#fff; }
+  .osc-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+
+  /* Status chips */
+  .osc-chip { display:inline-block; padding:2px 10px; border-radius:999px; font-size:10px; font-weight:700; text-transform:uppercase; white-space:nowrap; }
+  .osc-chip-completed { background:#dcfce7; color:#15803d; }
+  .osc-chip-due       { background:#fef3c7; color:#92400e; }
+  .osc-chip-overdue   { background:#ffdad6; color:#93000a; }
+  .osc-chip-pending   { background:#f3f4f6; color:#374151; }
+
+  /* Summary bar chips */
+  .osc-summary-chip { display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700; }
+</style>
+</head>
+<body class="bg-background font-body text-on-surface">
+
+<header class="ohc-header">
+  <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform › Health Camps & Screenings › Occupational Safety Checks</span></div>
+  <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
+  <div class="ohc-header-right">
+    <div class="ohc-bell-wrap"><span class="material-symbols-outlined">notifications</span><span class="ohc-bell-badge"></span></div>
+    <span class="ohc-user-name">Kiran Prasad</span><div class="ohc-avatar">KP</div>
+  </div>
+</header>
+<aside class="ohc-sidebar">
+  <select class="ohc-site-selector"><option>Select Site</option><option>Site A — Trivandrum</option><option>Site B — Pune</option><option>Site C — Khordha</option></select>
+  <nav class="ohc-nav">
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">dashboard</span>Dashboard</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">person</span>Patients</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">medical_services</span>Clinicians</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">prescriptions</span>Prescriptions</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">local_pharmacy</span>Pharmacy</a>
+    <a href="#" class="ohc-nav-item active"><span class="material-symbols-outlined mat-icon">campaign</span>Health Camps</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">construction</span>Toolbox Trainings</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">favorite</span>Wellness</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">fact_check</span>Compliance &amp; Audits</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">analytics</span>Analytics</a>
+    <a href="#" class="ohc-nav-item"><span class="material-symbols-outlined mat-icon">settings</span>Settings</a>
+  </nav>
+  <div class="ohc-sidebar-footer"><a href="#"><span class="material-symbols-outlined mat-icon">help</span>Help &amp; Support</a><div class="ohc-sidebar-version">OHC v4.1</div></div>
+</aside>
+
+<main class="ohc-main">
+<div class="ohc-content">
+
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6">
+  <div>
+    <h1 class="font-page-title text-page-title text-on-surface">Occupational Safety Checks</h1>
+    <p class="text-body text-on-surface-variant mt-1">Periodic statutory health checks — master list tracking and compliance status</p>
+  </div>
+  <button onclick="oscOpenLogModal(null)" class="h-[36px] px-4 bg-primary text-white rounded-lg flex items-center gap-2 font-semibold text-body hover:opacity-90 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-[18px]">add</span> Log Check Result
+  </button>
+</div>
+
+<!-- Tab Bar -->
+<div class="osc-tab-bar" id="osc-tab-bar">
+  <button class="osc-tab active" data-tab="night_blindness"  onclick="oscSwitchTab(this)">Night Blindness</button>
+  <button class="osc-tab"        data-tab="colour_blindness" onclick="oscSwitchTab(this)">Colour Blindness</button>
+  <button class="osc-tab"        data-tab="audiometry"       onclick="oscSwitchTab(this)">Audiometry</button>
+  <button class="osc-tab"        data-tab="pulmonary"        onclick="oscSwitchTab(this)">Pulmonary Lung Function</button>
+  <button class="osc-tab"        data-tab="vertigo"          onclick="oscSwitchTab(this)">Vertigo</button>
+  <button class="osc-tab"        data-tab="vision_check"     onclick="oscSwitchTab(this)">Vision Check</button>
+</div>
+
+<!-- Summary bar -->
+<div id="osc-summary-bar" class="flex flex-wrap gap-2 mb-4"></div>
+
+<!-- Filter bar -->
+<div class="flex flex-wrap items-center gap-3 mb-4">
+  <div class="osc-pill-bar" role="group">
+    <button class="osc-pill active" data-period="all"     onclick="oscSetPeriod(this)">All</button>
+    <button class="osc-pill"        data-period="overdue" onclick="oscSetPeriod(this)">Overdue</button>
+    <button class="osc-pill"        data-period="due"     onclick="oscSetPeriod(this)">Due Soon</button>
+    <button class="osc-pill"        data-period="pending" onclick="oscSetPeriod(this)">Pending</button>
+    <button class="osc-pill"        data-period="done"    onclick="oscSetPeriod(this)">Completed</button>
+  </div>
+  <div style="position:relative;flex:1;min-width:180px;max-width:300px;">
+    <span class="material-symbols-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#6e7881;pointer-events:none;">search</span>
+    <input id="osc-search" class="h-[36px] border border-outline-variant rounded-lg pl-9 pr-3 text-body w-full outline-none focus:ring-1 focus:ring-primary" type="text" placeholder="Search by name or ID…" oninput="oscRender()"/>
+  </div>
+  <span id="osc-count" class="text-body text-on-surface-variant font-medium ml-1"></span>
+</div>
+
+<!-- Table -->
+<div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+  <table class="w-full text-left border-collapse" style="table-layout:fixed;">
+    <colgroup>
+      <col style="width:12%"/><col style="width:18%"/><col style="width:13%"/>
+      <col style="width:11%"/><col style="width:13%"/><col style="width:13%"/>
+      <col style="width:10%"/><col style="width:10%"/>
+    </colgroup>
+    <thead class="bg-surface-container-low border-b border-outline-variant">
+      <tr>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Employee ID</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Name</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Department</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Building</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Deadline</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Last Check Date</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+      </tr>
+    </thead>
+    <tbody id="osc-table-body" class="divide-y divide-outline-variant text-body"></tbody>
+  </table>
+  <div id="osc-empty" style="display:none;" class="py-16 text-center">
+    <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">health_and_safety</span>
+    <p class="text-body text-on-surface-variant" id="osc-empty-msg">No records for this check type.</p>
+  </div>
+</div>
+
+</div>
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOG CHECK RESULT MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="osc-log-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)oscCloseLogModal()">
+  <div class="ohc-modal" style="max-width:480px;">
+    <div class="ohc-modal-header">
+      <h2 id="osc-log-title">Log Check Result</h2>
+      <button onclick="oscCloseLogModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <form onsubmit="oscSaveLog(event)" style="padding:20px;">
+      <!-- Employee info bar (pre-filled when editing) -->
+      <div id="osc-log-info-bar" style="background:#f0f4fa;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;display:none;">
+        <span id="osc-log-info-name" style="font-weight:600;color:#171c20;"></span>
+        <span id="osc-log-info-meta" style="color:#6B7280;"></span>
+      </div>
+      <!-- New entry fields (shown when logging for a new employee) -->
+      <div id="osc-log-new-fields">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div class="flex flex-col gap-1">
+            <label class="text-label-sm text-on-surface-variant">Employee ID <span style="color:#ba1a1a">*</span></label>
+            <input id="osc-l-empid" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. EMP-1021"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-sm text-on-surface-variant">Name <span style="color:#ba1a1a">*</span></label>
+            <input id="osc-l-name" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Full name"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-sm text-on-surface-variant">Department</label>
+            <input id="osc-l-dept" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. Operations"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-sm text-on-surface-variant">Building</label>
+            <select id="osc-l-building" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
+              <option>Block A</option><option>Block B</option><option>Block C</option><option>Main OHC</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-sm text-on-surface-variant">Deadline</label>
+            <input id="osc-l-deadline" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date"/>
+          </div>
+        </div>
+      </div>
+      <!-- Check result fields (always shown) -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Check Date <span style="color:#ba1a1a">*</span></label>
+          <input id="osc-l-checkdate" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date" required/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-label-sm text-on-surface-variant">Result / Findings</label>
+          <select id="osc-l-result" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
+            <option value="Normal">Normal</option>
+            <option value="Mild Abnormality">Mild Abnormality — monitor</option>
+            <option value="Referred">Referred for further evaluation</option>
+            <option value="Unfit">Unfit for role</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1 mb-4">
+        <label class="text-label-sm text-on-surface-variant">Notes</label>
+        <textarea id="osc-l-notes" class="border border-outline-variant rounded-lg px-3 py-2 text-body focus:ring-1 focus:ring-primary outline-none resize-none" rows="2" placeholder="Additional observations, recommendations…"></textarea>
+      </div>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="oscCloseLogModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
+        <button type="submit" id="osc-log-submit-btn" class="bg-primary text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all">Save Result</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ── Check types ───────────────────────────────────────────────
+var OSC_TABS = [
+  { key:'night_blindness',  label:'Night Blindness'        },
+  { key:'colour_blindness', label:'Colour Blindness'       },
+  { key:'audiometry',       label:'Audiometry'             },
+  { key:'pulmonary',        label:'Pulmonary Lung Function'},
+  { key:'vertigo',          label:'Vertigo'                },
+  { key:'vision_check',     label:'Vision Check'           }
+];
+
+// ── Mock seed data — 3 employees per tab ─────────────────────
+var TODAY = new Date(); TODAY.setHours(0,0,0,0);
+function daysFromNow(n){ var d=new Date(TODAY); d.setDate(d.getDate()+n); return d; }
+function daysBefore(n){ return daysFromNow(-n); }
+
+var OSC_DATA = {
+  night_blindness: [
+    { empId:'EMP-1021', name:'Arjun Mehta',    dept:'Operations',   building:'Block A', deadline:daysBefore(30), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-1034', name:'Sunita Rao',     dept:'Assembly',     building:'Block B', deadline:daysFromNow(5), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-1058', name:'Ravi Pillai',    dept:'Logistics',    building:'Block C', deadline:daysFromNow(45),lastCheckDate:daysBefore(10),findings:'Normal' }
+  ],
+  colour_blindness: [
+    { empId:'EMP-2011', name:'Priya Nair',     dept:'Quality',      building:'Block A', deadline:daysBefore(15), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-2045', name:'Dinesh Kumar',   dept:'Maintenance',  building:'Block B', deadline:daysFromNow(3), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-2061', name:'Meena Iyer',     dept:'HR',           building:'Main OHC',deadline:daysFromNow(60),lastCheckDate:daysBefore(5), findings:'Normal' }
+  ],
+  audiometry: [
+    { empId:'EMP-3002', name:'Vikram Singh',   dept:'Production',   building:'Block A', deadline:daysBefore(8),  lastCheckDate:null,         findings:'' },
+    { empId:'EMP-3019', name:'Anita Sharma',   dept:'Warehouse',    building:'Block B', deadline:daysFromNow(6), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-3037', name:'Mohan Das',      dept:'Security',     building:'Main OHC',deadline:daysFromNow(30),lastCheckDate:daysBefore(20),findings:'Mild loss — recheck in 6 months' }
+  ],
+  pulmonary: [
+    { empId:'EMP-4008', name:'Leela Krishnan', dept:'Chemical',     building:'Block C', deadline:daysBefore(45), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-4021', name:'Sanjay Gupta',   dept:'Dispatch',     building:'Block A', deadline:daysFromNow(2), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-4055', name:'Kavita Joshi',   dept:'Admin',        building:'Main OHC',deadline:daysFromNow(90),lastCheckDate:daysBefore(3), findings:'Normal' }
+  ],
+  vertigo: [
+    { empId:'EMP-5003', name:'Rajan Nambiar',  dept:'Engineering',  building:'Block B', deadline:daysBefore(12), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-5017', name:'Deepa Menon',    dept:'IT',           building:'Main OHC',deadline:daysFromNow(4), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-5031', name:'Arun Babu',      dept:'Safety',       building:'Block C', deadline:daysFromNow(25),lastCheckDate:daysBefore(7), findings:'Normal' }
+  ],
+  vision_check: [
+    { empId:'EMP-6011', name:'Suma Thomas',    dept:'Finance',      building:'Main OHC',deadline:daysBefore(20), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-6028', name:'Naresh Varma',   dept:'Production',   building:'Block A', deadline:daysFromNow(6), lastCheckDate:null,         findings:'' },
+    { empId:'EMP-6042', name:'Latha Suresh',   dept:'Accounts',     building:'Block B', deadline:daysFromNow(50),lastCheckDate:daysBefore(14),findings:'6/6 — Normal' }
+  ]
+};
+
+// ── State ─────────────────────────────────────────────────────
+var oscActiveTab    = 'night_blindness';
+var oscActivePeriod = 'all';
+var oscLogTarget    = null; // { tabKey, empIdx } when editing; null for new
+
+// ── Status derivation ─────────────────────────────────────────
+function oscStatus(emp) {
+  if (emp.lastCheckDate) return 'Completed';
+  var dl = new Date(emp.deadline); dl.setHours(0,0,0,0);
+  if (dl < TODAY) return 'Overdue';
+  var sevenDays = new Date(TODAY); sevenDays.setDate(sevenDays.getDate()+7);
+  if (dl <= sevenDays) return 'Due';
+  return 'Pending';
+}
+
+function oscChipHtml(status) {
+  var cls = { Completed:'osc-chip-completed', Due:'osc-chip-due', Overdue:'osc-chip-overdue', Pending:'osc-chip-pending' }[status] || 'osc-chip-pending';
+  return '<span class="osc-chip '+cls+'">'+status+'</span>';
+}
+
+// ── Date helpers ──────────────────────────────────────────────
+var MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(d) {
+  if (!d) return '—';
+  var dt = new Date(d); if (isNaN(dt)) return '—';
+  return dt.getDate()+' '+MO[dt.getMonth()]+' '+dt.getFullYear();
+}
+function dateToInput(d) {
+  if (!d) return '';
+  var dt = new Date(d);
+  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+}
+
+// ── Render ────────────────────────────────────────────────────
+function oscRender() {
+  var rows = OSC_DATA[oscActiveTab] || [];
+  var q = (document.getElementById('osc-search').value||'').toLowerCase();
+  var filtered = rows.filter(function(emp) {
+    var status = oscStatus(emp);
+    var matchSearch = !q || emp.empId.toLowerCase().includes(q) || emp.name.toLowerCase().includes(q);
+    var matchPeriod =
+      oscActivePeriod === 'all'     ? true :
+      oscActivePeriod === 'overdue' ? status === 'Overdue'   :
+      oscActivePeriod === 'due'     ? status === 'Due'       :
+      oscActivePeriod === 'pending' ? status === 'Pending'   :
+      oscActivePeriod === 'done'    ? status === 'Completed' : true;
+    return matchSearch && matchPeriod;
+  });
+
+  var tbody = document.getElementById('osc-table-body');
+  var empty = document.getElementById('osc-empty');
+  document.getElementById('osc-count').textContent = filtered.length + ' record'+(filtered.length===1?'':'s');
+
+  if (!filtered.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    document.getElementById('osc-empty-msg').textContent =
+      rows.length === 0
+        ? 'No records for this check type yet. Use "Log Check Result" to add employees.'
+        : 'No records match your current filter.';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map(function(emp, i) {
+    var status = oscStatus(emp);
+    var bg = i%2===0 ? '#fff' : '#f9fafb';
+    var dlColor = status === 'Overdue' ? 'style="color:#93000a;font-weight:600;"' : '';
+    return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+bg+'\'">'
+      +'<td class="px-4 py-3 font-semibold" style="white-space:nowrap;">'+emp.empId+'</td>'
+      +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+emp.name+'</td>'
+      +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+emp.dept+'</td>'
+      +'<td class="px-4 py-3" style="white-space:nowrap;">'+emp.building+'</td>'
+      +'<td class="px-4 py-3" '+dlColor+' style="white-space:nowrap;">'+fmtDate(emp.deadline)+'</td>'
+      +'<td class="px-4 py-3" style="white-space:nowrap;">'+fmtDate(emp.lastCheckDate)+'</td>'
+      +'<td class="px-4 py-3">'+oscChipHtml(status)+'</td>'
+      +'<td class="px-4 py-3 text-right" style="white-space:nowrap;">'
+      +(status !== 'Completed'
+        ? '<button onclick="oscOpenLogModal({tabKey:\''+oscActiveTab+'\',empIdx:'+rows.indexOf(emp)+'})" style="background:none;border:1px solid #bec8d2;border-radius:6px;cursor:pointer;color:#0EA5E9;padding:4px 10px;font-size:11px;font-weight:600;font-family:Inter,sans-serif;display:inline-flex;align-items:center;gap:4px;"><span class="material-symbols-outlined" style="font-size:14px;">edit_note</span> Log Result</button>'
+        : '<span style="color:#10b981;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;"><span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Done</span>')
+      +'</td>'
+      +'</tr>';
+  }).join('');
+
+  // Update summary bar
+  var counts = {Overdue:0,Due:0,Pending:0,Completed:0};
+  rows.forEach(function(e){ counts[oscStatus(e)]++; });
+  document.getElementById('osc-summary-bar').innerHTML =
+    '<span class="osc-summary-chip" style="background:#ffdad6;color:#93000a;">'+counts.Overdue+' Overdue</span>'
+    +'<span class="osc-summary-chip" style="background:#fef3c7;color:#92400e;">'+counts.Due+' Due Soon</span>'
+    +'<span class="osc-summary-chip" style="background:#f3f4f6;color:#374151;">'+counts.Pending+' Pending</span>'
+    +'<span class="osc-summary-chip" style="background:#dcfce7;color:#15803d;">'+counts.Completed+' Completed</span>';
+}
+
+// ── Tab switch ────────────────────────────────────────────────
+function oscSwitchTab(btn) {
+  document.querySelectorAll('.osc-tab').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  oscActiveTab = btn.dataset.tab;
+  oscActivePeriod = 'all';
+  document.querySelectorAll('.osc-pill').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('.osc-pill[data-period="all"]').classList.add('active');
+  document.getElementById('osc-search').value = '';
+  oscRender();
+}
+
+// ── Period filter ─────────────────────────────────────────────
+function oscSetPeriod(btn) {
+  document.querySelectorAll('.osc-pill').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  oscActivePeriod = btn.dataset.period;
+  oscRender();
+}
+
+// ── Log modal ─────────────────────────────────────────────────
+function oscOpenLogModal(target) {
+  oscLogTarget = target;
+  var today = new Date().toISOString().slice(0,10);
+
+  if (target) {
+    // Editing existing employee
+    var emp = OSC_DATA[target.tabKey][target.empIdx];
+    document.getElementById('osc-log-title').textContent = 'Log Check Result';
+    document.getElementById('osc-log-info-name').textContent = emp.name;
+    document.getElementById('osc-log-info-meta').textContent = ' · '+emp.empId+' · '+emp.dept;
+    document.getElementById('osc-log-info-bar').style.display = 'block';
+    document.getElementById('osc-log-new-fields').style.display = 'none';
+    document.getElementById('osc-l-checkdate').value = today;
+    document.getElementById('osc-l-result').value = 'Normal';
+    document.getElementById('osc-l-notes').value = emp.findings || '';
+  } else {
+    // New employee entry
+    document.getElementById('osc-log-title').textContent = 'Add Employee & Log Check';
+    document.getElementById('osc-log-info-bar').style.display = 'none';
+    document.getElementById('osc-log-new-fields').style.display = 'block';
+    document.getElementById('osc-l-empid').value = '';
+    document.getElementById('osc-l-name').value = '';
+    document.getElementById('osc-l-dept').value = '';
+    document.getElementById('osc-l-building').value = 'Block A';
+    document.getElementById('osc-l-deadline').value = '';
+    document.getElementById('osc-l-checkdate').value = today;
+    document.getElementById('osc-l-result').value = 'Normal';
+    document.getElementById('osc-l-notes').value = '';
+  }
+  document.getElementById('osc-log-overlay').style.display = 'flex';
+}
+
+function oscCloseLogModal() {
+  document.getElementById('osc-log-overlay').style.display = 'none';
+  oscLogTarget = null;
+}
+
+function oscSaveLog(e) {
+  e.preventDefault();
+  var btn = document.getElementById('osc-log-submit-btn');
+  var checkDate = document.getElementById('osc-l-checkdate').value;
+  var result    = document.getElementById('osc-l-result').value;
+  var notes     = document.getElementById('osc-l-notes').value.trim();
+  var findings  = (result !== 'Normal' ? result + (notes ? ' — '+notes : '') : (notes || 'Normal'));
+
+  btn.textContent = 'Saving...'; btn.disabled = true;
+
+  setTimeout(function() {
+    if (oscLogTarget) {
+      // Update existing
+      var emp = OSC_DATA[oscLogTarget.tabKey][oscLogTarget.empIdx];
+      emp.lastCheckDate = new Date(checkDate);
+      emp.findings = findings;
+    } else {
+      // Add new
+      var empId    = document.getElementById('osc-l-empid').value.trim();
+      var name     = document.getElementById('osc-l-name').value.trim();
+      var dept     = document.getElementById('osc-l-dept').value.trim();
+      var building = document.getElementById('osc-l-building').value;
+      var dlVal    = document.getElementById('osc-l-deadline').value;
+      if (!empId || !name) { btn.textContent='Save Result'; btn.disabled=false; alert('Employee ID and Name are required.'); return; }
+      var dl = dlVal ? new Date(dlVal) : daysFromNow(90);
+      var cd = new Date(checkDate);
+      OSC_DATA[oscActiveTab].push({ empId:empId, name:name, dept:dept||'—', building:building, deadline:dl, lastCheckDate:cd, findings:findings });
+    }
+
+    btn.textContent = 'Saved ✓'; btn.style.backgroundColor = '#10b981';
+    setTimeout(function() {
+      btn.textContent = 'Save Result'; btn.style.backgroundColor = ''; btn.disabled = false;
+      oscCloseLogModal();
+      oscRender();
+    }, 900);
+  }, 500);
+}
+
+// ── Boot ──────────────────────────────────────────────────────
+oscRender();
+</script>
+</body></html>
