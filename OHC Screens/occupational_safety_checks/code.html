@@ -42,31 +42,43 @@ tailwind.config = { darkMode:"class", theme:{ extend:{
   body { font-family:'Inter',sans-serif; background-color:#F3F4F6; }
   .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
 
-  /* Tab bar */
-  .osc-tab-bar { display:flex; gap:0; border-bottom:1px solid #E5E7EB; margin-bottom:20px; overflow-x:auto; }
-  .osc-tab { padding:10px 18px; border:none; background:none; font-size:13px; font-weight:500; color:#6B7280; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; font-family:'Inter',sans-serif; transition:color .12s; }
-  .osc-tab:hover { color:#374151; }
-  .osc-tab.active { color:#0EA5E9; border-bottom-color:#0EA5E9; font-weight:600; }
+  /* ── Tab bar — matches .ohc-tab-bar / .ohc-tab from design system ── */
+  .ohc-tab-bar { display:flex; gap:0; border-bottom:2px solid #E5E7EB; margin-bottom:20px; overflow-x:auto; }
+  .ohc-tab { padding:10px 18px; border:none; background:none; font-size:13px; font-weight:500; color:#6B7280; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; white-space:nowrap; font-family:'Inter',sans-serif; transition:color .12s; }
+  .ohc-tab:hover { color:#374151; }
+  .ohc-tab.active { color:#0EA5E9; border-bottom-color:#0EA5E9; font-weight:600; }
 
-  /* Period filter pills */
-  .osc-pill-bar { display:inline-flex; background:#F3F4F6; border:1px solid #E5E7EB; border-radius:8px; padding:3px; gap:2px; }
-  .osc-pill { padding:5px 14px; border-radius:6px; border:none; background:transparent; font-size:12px; font-weight:500; color:#6B7280; cursor:pointer; font-family:'Inter',sans-serif; transition:background .12s,color .12s,box-shadow .12s; white-space:nowrap; }
-  .osc-pill:hover { color:#111827; background:#fff; }
-  .osc-pill.active { background:#fff; color:#0EA5E9; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+  /* ── ohc-filter-bar ── */
+  .ohc-filter-bar { display:flex; flex-wrap:wrap; align-items:center; gap:12px; background:#fff; border:1px solid #BEC8D2; border-radius:8px; padding:12px 16px; margin-bottom:16px; }
 
-  /* Status chips */
-  .osc-chip { display:inline-block; padding:2px 10px; border-radius:999px; font-size:10px; font-weight:700; text-transform:uppercase; white-space:nowrap; }
-  .osc-chip-completed { background:#dcfce7; color:#15803d; }
-  .osc-chip-due       { background:#fef3c7; color:#92400e; }
-  .osc-chip-overdue   { background:#ffdad6; color:#93000a; }
-  .osc-chip-pending   { background:#f3f4f6; color:#374151; }
+  /* ── Status chips — matches ohc-chip-* ── */
+  .ohc-chip { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .ohc-chip-active  { background:#D1FAE5; color:#065F46; }
+  .ohc-chip-pending { background:#FEF3C7; color:#92400E; }
+  .ohc-chip-overdue { background:#FEE2E2; color:#991B1B; font-weight:700; }
+  .ohc-chip-na      { background:#F3F4F6; color:#374151; }
 
-  /* Summary bar chips */
-  .osc-summary-chip { display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700; }
+  /* ── Empty state — matches .osc-empty-state ── */
+  .osc-empty-state { text-align:center; padding:64px 24px; background:#fff; border:1px solid #BEC8D2; border-radius:12px; }
+
+  /* ── Toast — matches .osc-toast ── */
+  .osc-toast {
+    position:fixed; bottom:28px; right:28px;
+    background:#1E293B; color:#F8FAFC;
+    font-size:13px; font-weight:500;
+    padding:10px 18px; border-radius:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
+    z-index:9999; display:flex; align-items:center; gap:8px;
+    pointer-events:none;
+    opacity:0; transition:opacity .25s, transform .25s;
+    transform:translateY(8px);
+  }
+  .osc-toast.show { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body class="bg-background font-body text-on-surface">
 
+<!-- Shell header/sidebar hidden by parent iframe injector -->
 <header class="ohc-header">
   <div class="ohc-header-left"><span class="ohc-logo">OHC</span><span class="ohc-breadcrumb">OHC Platform › Health Camps & Screenings › Occupational Safety Checks</span></div>
   <div class="ohc-header-center"><div class="ohc-search"><span class="material-symbols-outlined search-icon">search</span><input type="text" placeholder="Search patients, medicines, staff…"/></div></div>
@@ -96,71 +108,94 @@ tailwind.config = { darkMode:"class", theme:{ extend:{
 <main class="ohc-main">
 <div class="ohc-content">
 
-<!-- Page Header -->
-<div class="flex justify-between items-end mb-6">
+<!-- Page Header (no action button — matches Vue component) -->
+<div class="ohc-page-header" style="margin-bottom:24px;">
   <div>
-    <h1 class="font-page-title text-page-title text-on-surface">Occupational Safety Checks</h1>
-    <p class="text-body text-on-surface-variant mt-1">Periodic statutory health checks — master list tracking and compliance status</p>
+    <h1 class="ohc-page-title">Occupational Safety Checks</h1>
+    <p class="ohc-page-subtitle">Periodic statutory health checks — master list tracking and compliance status</p>
   </div>
-  <button onclick="oscOpenLogModal(null)" class="h-[36px] px-4 bg-primary text-white rounded-lg flex items-center gap-2 font-semibold text-body hover:opacity-90 active:scale-95 transition-all">
-    <span class="material-symbols-outlined text-[18px]">add</span> Log Check Result
-  </button>
 </div>
 
 <!-- Tab Bar -->
-<div class="osc-tab-bar" id="osc-tab-bar">
-  <button class="osc-tab active" data-tab="night_blindness"  onclick="oscSwitchTab(this)">Night Blindness</button>
-  <button class="osc-tab"        data-tab="colour_blindness" onclick="oscSwitchTab(this)">Colour Blindness</button>
-  <button class="osc-tab"        data-tab="audiometry"       onclick="oscSwitchTab(this)">Audiometry</button>
-  <button class="osc-tab"        data-tab="pulmonary"        onclick="oscSwitchTab(this)">Pulmonary Lung Function</button>
-  <button class="osc-tab"        data-tab="vertigo"          onclick="oscSwitchTab(this)">Vertigo</button>
-  <button class="osc-tab"        data-tab="vision_check"     onclick="oscSwitchTab(this)">Vision Check</button>
+<div class="ohc-tab-bar" id="osc-tab-bar">
+  <button class="ohc-tab active" data-tab="night_blindness"  onclick="oscSwitchTab(this)">Night Blindness</button>
+  <button class="ohc-tab"        data-tab="colour_blindness" onclick="oscSwitchTab(this)">Colour Blindness</button>
+  <button class="ohc-tab"        data-tab="audiometry"       onclick="oscSwitchTab(this)">Audiometry</button>
+  <button class="ohc-tab"        data-tab="pulmonary"        onclick="oscSwitchTab(this)">Pulmonary Lung Function</button>
+  <button class="ohc-tab"        data-tab="vertigo"          onclick="oscSwitchTab(this)">Vertigo</button>
+  <button class="ohc-tab"        data-tab="vision_check"     onclick="oscSwitchTab(this)">Vision Check</button>
 </div>
 
-<!-- Summary bar -->
-<div id="osc-summary-bar" class="flex flex-wrap gap-2 mb-4"></div>
+<!-- Per-tab content panel (single panel, swapped by JS) -->
+<div id="osc-panel">
+  <!-- Summary chips row -->
+  <div id="osc-summary-bar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;"></div>
 
-<!-- Filter bar -->
-<div class="flex flex-wrap items-center gap-3 mb-4">
-  <div class="osc-pill-bar" role="group">
-    <button class="osc-pill active" data-period="all"     onclick="oscSetPeriod(this)">All</button>
-    <button class="osc-pill"        data-period="overdue" onclick="oscSetPeriod(this)">Overdue</button>
-    <button class="osc-pill"        data-period="due"     onclick="oscSetPeriod(this)">Due Soon</button>
-    <button class="osc-pill"        data-period="pending" onclick="oscSetPeriod(this)">Pending</button>
-    <button class="osc-pill"        data-period="done"    onclick="oscSetPeriod(this)">Completed</button>
+  <!-- Empty state (shown when no employees for this tab) -->
+  <div id="osc-empty-state" class="osc-empty-state" style="display:none;">
+    <span class="material-symbols-outlined" style="font-size:48px;color:#BEC8D2;display:block;margin-bottom:12px;">assignment</span>
+    <p style="font-size:14px;font-weight:600;color:#374151;margin-bottom:6px;" id="osc-empty-title"></p>
+    <p style="font-size:12px;color:#6B7280;margin-bottom:16px;">Upload a CSV to get started.</p>
+    <button class="ohc-btn ohc-btn-primary" onclick="oscOpenUploadModal()" id="osc-empty-upload-btn">
+      <span class="material-symbols-outlined" style="font-size:16px;">upload_file</span>
+      Upload Master List
+    </button>
   </div>
-  <div style="position:relative;flex:1;min-width:180px;max-width:300px;">
-    <span class="material-symbols-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#6e7881;pointer-events:none;">search</span>
-    <input id="osc-search" class="h-[36px] border border-outline-variant rounded-lg pl-9 pr-3 text-body w-full outline-none focus:ring-1 focus:ring-primary" type="text" placeholder="Search by name or ID…" oninput="oscRender()"/>
-  </div>
-  <span id="osc-count" class="text-body text-on-surface-variant font-medium ml-1"></span>
-</div>
 
-<!-- Table -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm">
-  <table class="w-full text-left border-collapse" style="table-layout:fixed;">
-    <colgroup>
-      <col style="width:12%"/><col style="width:18%"/><col style="width:13%"/>
-      <col style="width:11%"/><col style="width:13%"/><col style="width:13%"/>
-      <col style="width:10%"/><col style="width:10%"/>
-    </colgroup>
-    <thead class="bg-surface-container-low border-b border-outline-variant">
-      <tr>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Employee ID</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Name</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Department</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Building</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Deadline</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Last Check Date</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
-        <th class="px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
-      </tr>
-    </thead>
-    <tbody id="osc-table-body" class="divide-y divide-outline-variant text-body"></tbody>
-  </table>
-  <div id="osc-empty" style="display:none;" class="py-16 text-center">
-    <span class="material-symbols-outlined block mb-3" style="font-size:48px;color:#bec8d2;">health_and_safety</span>
-    <p class="text-body text-on-surface-variant" id="osc-empty-msg">No records for this check type.</p>
+  <!-- Table section (shown when employees exist) -->
+  <div id="osc-table-section">
+    <!-- Filter bar -->
+    <div class="ohc-filter-bar">
+      <div style="position:relative;flex:1;min-width:180px;">
+        <span class="material-symbols-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#6e7881;pointer-events:none;">search</span>
+        <input id="osc-search" class="ohc-input" style="padding-left:36px;width:100%;" placeholder="Search by name or ID…" oninput="oscRender()" type="text"/>
+      </div>
+      <div>
+        <select id="osc-status-filter" class="ohc-select" onchange="oscRender()">
+          <option value="All">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Due">Due</option>
+          <option value="Overdue">Overdue</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div style="margin-left:auto;">
+        <button class="ohc-btn ohc-btn-primary" onclick="oscOpenUploadModal()" id="osc-upload-btn">
+          <span class="material-symbols-outlined" style="font-size:16px;">upload_file</span>
+          Upload Master List
+        </button>
+      </div>
+    </div>
+
+    <!-- Table card -->
+    <div class="ohc-card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="ohc-table" id="osc-table" style="table-layout:fixed;">
+          <colgroup>
+            <col style="width:11%"/><col style="width:16%"/><col style="width:13%"/>
+            <col style="width:10%"/><col style="width:12%"/><col style="width:13%"/>
+            <col style="width:9%"/><col style="width:11%"/><col style="width:5%"/>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Building</th>
+              <th>Deadline</th>
+              <th>Last Check Date</th>
+              <th>Status</th>
+              <th>Findings / Result</th>
+              <th style="text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="osc-table-body"></tbody>
+        </table>
+        <div id="osc-filter-empty" style="display:none;padding:32px 24px;text-align:center;color:#9CA3AF;font-size:13px;">
+          No employees match your search or filter.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -168,314 +203,364 @@ tailwind.config = { darkMode:"class", theme:{ extend:{
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     LOG CHECK RESULT MODAL
+     UPLOAD MASTER LIST MODAL — matches Vue component exactly
+════════════════════════════════════════════════════════════ -->
+<div id="osc-upload-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)oscCloseUploadModal()">
+  <div class="ohc-modal" style="max-width:520px;">
+    <div class="ohc-modal-header">
+      <h2 id="osc-upload-title">Upload Master List</h2>
+      <button onclick="oscCloseUploadModal()" class="ohc-modal-close" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="ohc-mf" style="padding:24px;">
+      <div class="ohc-mf-field">
+        <label class="ohc-label">CSV File <span class="ohc-req">*</span></label>
+        <input id="osc-file-input" class="ohc-input" type="file" accept=".csv" onchange="oscHandleFile(this)" style="padding:6px 10px;"/>
+      </div>
+      <div style="background:#F0F4FA;border:1px solid #BEC8D2;border-radius:8px;padding:12px 16px;margin-top:12px;">
+        <p style="font-size:12px;font-weight:600;color:#374151;margin:0 0 4px;">Expected columns:</p>
+        <code style="font-size:11px;color:#0EA5E9;background:#E8F4FD;padding:4px 8px;border-radius:4px;display:block;line-height:1.8;">Employee ID, Name, Department, Building, Deadline</code>
+        <p style="font-size:11px;color:#6B7280;margin:6px 0 0;">Deadline format: YYYY-MM-DD or any standard date string.<br/>Existing Employee IDs will be updated; new IDs will be appended.</p>
+      </div>
+      <div id="osc-upload-filename" style="display:none;margin-top:12px;font-size:12px;color:#374151;">
+        <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;color:#6B7280;">attach_file</span>
+        <span id="osc-upload-fname-text"></span>
+      </div>
+      <div id="osc-upload-error" style="display:none;margin-top:12px;background:#FEE2E2;border:1px solid #FCA5A5;border-radius:6px;padding:10px 14px;font-size:12px;color:#991B1B;display:flex;gap:8px;align-items:flex-start;">
+        <span class="material-symbols-outlined" style="font-size:16px;flex-shrink:0;margin-top:1px;">error</span>
+        <span id="osc-upload-error-text"></span>
+      </div>
+    </div>
+    <div class="ohc-modal-footer">
+      <button class="ohc-btn ohc-btn-secondary" onclick="oscCloseUploadModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOG CHECK RESULT MODAL — matches Vue component exactly
 ════════════════════════════════════════════════════════════ -->
 <div id="osc-log-overlay" class="ohc-overlay" style="display:none;" onclick="if(event.target===this)oscCloseLogModal()">
-  <div class="ohc-modal" style="max-width:480px;">
+  <div class="ohc-modal" style="max-width:420px;">
     <div class="ohc-modal-header">
-      <h2 id="osc-log-title">Log Check Result</h2>
-      <button onclick="oscCloseLogModal()" style="background:none;border:none;cursor:pointer;color:#6B7280;"><span class="material-symbols-outlined">close</span></button>
+      <h2>Log Check Result</h2>
+      <button onclick="oscCloseLogModal()" class="ohc-modal-close" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
-    <form onsubmit="oscSaveLog(event)" style="padding:20px;">
-      <!-- Employee info bar (pre-filled when editing) -->
-      <div id="osc-log-info-bar" style="background:#f0f4fa;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;display:none;">
-        <span id="osc-log-info-name" style="font-weight:600;color:#171c20;"></span>
-        <span id="osc-log-info-meta" style="color:#6B7280;"></span>
+    <div class="ohc-mf" style="padding:24px;">
+      <div id="osc-log-info-bar" style="background:#F0F4FA;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;">
+        <span id="osc-log-name" style="font-weight:600;color:#171C20;"></span>
+        <span id="osc-log-meta" style="color:#6B7280;"></span>
       </div>
-      <!-- New entry fields (shown when logging for a new employee) -->
-      <div id="osc-log-new-fields">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-          <div class="flex flex-col gap-1">
-            <label class="text-label-sm text-on-surface-variant">Employee ID <span style="color:#ba1a1a">*</span></label>
-            <input id="osc-l-empid" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. EMP-1021"/>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-label-sm text-on-surface-variant">Name <span style="color:#ba1a1a">*</span></label>
-            <input id="osc-l-name" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="Full name"/>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-label-sm text-on-surface-variant">Department</label>
-            <input id="osc-l-dept" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="text" placeholder="e.g. Operations"/>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-label-sm text-on-surface-variant">Building</label>
-            <select id="osc-l-building" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
-              <option>Block A</option><option>Block B</option><option>Block C</option><option>Main OHC</option>
-            </select>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-label-sm text-on-surface-variant">Deadline</label>
-            <input id="osc-l-deadline" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date"/>
-          </div>
-        </div>
+      <div class="ohc-mf-field">
+        <label class="ohc-label">Check Date <span class="ohc-req">*</span></label>
+        <input id="osc-log-date" class="ohc-input" type="date"/>
       </div>
-      <!-- Check result fields (always shown) -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div class="flex flex-col gap-1">
-          <label class="text-label-sm text-on-surface-variant">Check Date <span style="color:#ba1a1a">*</span></label>
-          <input id="osc-l-checkdate" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none" type="date" required/>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-label-sm text-on-surface-variant">Result / Findings</label>
-          <select id="osc-l-result" class="h-[36px] border border-outline-variant rounded-lg px-3 text-body focus:ring-1 focus:ring-primary outline-none">
-            <option value="Normal">Normal</option>
-            <option value="Mild Abnormality">Mild Abnormality — monitor</option>
-            <option value="Referred">Referred for further evaluation</option>
-            <option value="Unfit">Unfit for role</option>
-          </select>
-        </div>
+      <div class="ohc-mf-field" style="margin-top:12px;">
+        <label class="ohc-label">Findings / Result</label>
+        <textarea id="osc-log-findings" class="ohc-textarea" rows="3" placeholder="e.g. Normal, Referred for further evaluation…"></textarea>
       </div>
-      <div class="flex flex-col gap-1 mb-4">
-        <label class="text-label-sm text-on-surface-variant">Notes</label>
-        <textarea id="osc-l-notes" class="border border-outline-variant rounded-lg px-3 py-2 text-body focus:ring-1 focus:ring-primary outline-none resize-none" rows="2" placeholder="Additional observations, recommendations…"></textarea>
-      </div>
-      <div class="flex justify-end gap-3">
-        <button type="button" onclick="oscCloseLogModal()" class="border border-outline-variant text-on-surface-variant px-6 h-[36px] rounded-lg font-semibold text-body hover:bg-surface-container-low transition-all">Cancel</button>
-        <button type="submit" id="osc-log-submit-btn" class="bg-primary text-white px-6 h-[36px] rounded-lg font-semibold text-body hover:opacity-90 active:scale-95 transition-all">Save Result</button>
-      </div>
-    </form>
+    </div>
+    <div class="ohc-modal-footer">
+      <button class="ohc-btn ohc-btn-secondary" onclick="oscCloseLogModal()">Cancel</button>
+      <button class="ohc-btn ohc-btn-primary" id="osc-log-save-btn" onclick="oscSaveLog()">Save Result</button>
+    </div>
   </div>
+</div>
+
+<!-- Toast -->
+<div class="osc-toast" id="osc-toast">
+  <span class="material-symbols-outlined" style="font-size:16px;color:#10B981;">check_circle</span>
+  <span id="osc-toast-msg"></span>
 </div>
 
 <script>
 'use strict';
 
-// ── Check types ───────────────────────────────────────────────
-var OSC_TABS = [
-  { key:'night_blindness',  label:'Night Blindness'        },
-  { key:'colour_blindness', label:'Colour Blindness'       },
-  { key:'audiometry',       label:'Audiometry'             },
-  { key:'pulmonary',        label:'Pulmonary Lung Function'},
-  { key:'vertigo',          label:'Vertigo'                },
-  { key:'vision_check',     label:'Vision Check'           }
-];
-
-// ── Mock seed data — 3 employees per tab ─────────────────────
+// ── Seed data — identical to Vue component ───────────────────
 var TODAY = new Date(); TODAY.setHours(0,0,0,0);
 function daysFromNow(n){ var d=new Date(TODAY); d.setDate(d.getDate()+n); return d; }
-function daysBefore(n){ return daysFromNow(-n); }
 
 var OSC_DATA = {
   night_blindness: [
-    { empId:'EMP-1021', name:'Arjun Mehta',    dept:'Operations',   building:'Block A', deadline:daysBefore(30), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-1034', name:'Sunita Rao',     dept:'Assembly',     building:'Block B', deadline:daysFromNow(5), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-1058', name:'Ravi Pillai',    dept:'Logistics',    building:'Block C', deadline:daysFromNow(45),lastCheckDate:daysBefore(10),findings:'Normal' }
+    { empId:'EMP-1021', name:'Arjun Mehta',    dept:'Operations',  building:'Block A', deadline:daysFromNow(-30), lastCheckDate:null,           findings:'' },
+    { empId:'EMP-1034', name:'Sunita Rao',     dept:'Assembly',    building:'Block B', deadline:daysFromNow(5),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-1058', name:'Ravi Pillai',    dept:'Logistics',   building:'Block C', deadline:daysFromNow(45), lastCheckDate:daysFromNow(-10),findings:'Normal' }
   ],
   colour_blindness: [
-    { empId:'EMP-2011', name:'Priya Nair',     dept:'Quality',      building:'Block A', deadline:daysBefore(15), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-2045', name:'Dinesh Kumar',   dept:'Maintenance',  building:'Block B', deadline:daysFromNow(3), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-2061', name:'Meena Iyer',     dept:'HR',           building:'Main OHC',deadline:daysFromNow(60),lastCheckDate:daysBefore(5), findings:'Normal' }
+    { empId:'EMP-2011', name:'Priya Nair',     dept:'Quality',     building:'Block A', deadline:daysFromNow(-15), lastCheckDate:null,           findings:'' },
+    { empId:'EMP-2045', name:'Dinesh Kumar',   dept:'Maintenance', building:'Block B', deadline:daysFromNow(3),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-2061', name:'Meena Iyer',     dept:'HR',          building:'Main',    deadline:daysFromNow(60), lastCheckDate:daysFromNow(-5), findings:'Normal' }
   ],
   audiometry: [
-    { empId:'EMP-3002', name:'Vikram Singh',   dept:'Production',   building:'Block A', deadline:daysBefore(8),  lastCheckDate:null,         findings:'' },
-    { empId:'EMP-3019', name:'Anita Sharma',   dept:'Warehouse',    building:'Block B', deadline:daysFromNow(6), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-3037', name:'Mohan Das',      dept:'Security',     building:'Main OHC',deadline:daysFromNow(30),lastCheckDate:daysBefore(20),findings:'Mild loss — recheck in 6 months' }
+    { empId:'EMP-3002', name:'Vikram Singh',   dept:'Production',  building:'Block A', deadline:daysFromNow(-8),  lastCheckDate:null,           findings:'' },
+    { empId:'EMP-3019', name:'Anita Sharma',   dept:'Warehouse',   building:'Block B', deadline:daysFromNow(6),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-3037', name:'Mohan Das',      dept:'Security',    building:'Main',    deadline:daysFromNow(30), lastCheckDate:daysFromNow(-20),findings:'Mild loss — recheck in 6 months' }
   ],
   pulmonary: [
-    { empId:'EMP-4008', name:'Leela Krishnan', dept:'Chemical',     building:'Block C', deadline:daysBefore(45), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-4021', name:'Sanjay Gupta',   dept:'Dispatch',     building:'Block A', deadline:daysFromNow(2), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-4055', name:'Kavita Joshi',   dept:'Admin',        building:'Main OHC',deadline:daysFromNow(90),lastCheckDate:daysBefore(3), findings:'Normal' }
+    { empId:'EMP-4008', name:'Leela Krishnan', dept:'Chemical',    building:'Block C', deadline:daysFromNow(-45), lastCheckDate:null,           findings:'' },
+    { empId:'EMP-4021', name:'Sanjay Gupta',   dept:'Dispatch',    building:'Block A', deadline:daysFromNow(2),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-4055', name:'Kavita Joshi',   dept:'Admin',       building:'Main',    deadline:daysFromNow(90), lastCheckDate:daysFromNow(-3), findings:'Normal' }
   ],
   vertigo: [
-    { empId:'EMP-5003', name:'Rajan Nambiar',  dept:'Engineering',  building:'Block B', deadline:daysBefore(12), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-5017', name:'Deepa Menon',    dept:'IT',           building:'Main OHC',deadline:daysFromNow(4), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-5031', name:'Arun Babu',      dept:'Safety',       building:'Block C', deadline:daysFromNow(25),lastCheckDate:daysBefore(7), findings:'Normal' }
+    { empId:'EMP-5003', name:'Rajan Nambiar',  dept:'Engineering', building:'Block B', deadline:daysFromNow(-12), lastCheckDate:null,           findings:'' },
+    { empId:'EMP-5017', name:'Deepa Menon',    dept:'IT',          building:'Main',    deadline:daysFromNow(4),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-5031', name:'Arun Babu',      dept:'Safety',      building:'Block C', deadline:daysFromNow(25), lastCheckDate:daysFromNow(-7), findings:'Normal' }
   ],
   vision_check: [
-    { empId:'EMP-6011', name:'Suma Thomas',    dept:'Finance',      building:'Main OHC',deadline:daysBefore(20), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-6028', name:'Naresh Varma',   dept:'Production',   building:'Block A', deadline:daysFromNow(6), lastCheckDate:null,         findings:'' },
-    { empId:'EMP-6042', name:'Latha Suresh',   dept:'Accounts',     building:'Block B', deadline:daysFromNow(50),lastCheckDate:daysBefore(14),findings:'6/6 — Normal' }
+    { empId:'EMP-6011', name:'Suma Thomas',    dept:'Finance',     building:'Main',    deadline:daysFromNow(-20), lastCheckDate:null,           findings:'' },
+    { empId:'EMP-6028', name:'Naresh Varma',   dept:'Production',  building:'Block A', deadline:daysFromNow(6),   lastCheckDate:null,           findings:'' },
+    { empId:'EMP-6042', name:'Latha Suresh',   dept:'Accounts',    building:'Block B', deadline:daysFromNow(50), lastCheckDate:daysFromNow(-14),findings:'6/6 — Normal' }
   ]
 };
 
-// ── State ─────────────────────────────────────────────────────
-var oscActiveTab    = 'night_blindness';
-var oscActivePeriod = 'all';
-var oscLogTarget    = null; // { tabKey, empIdx } when editing; null for new
+var TAB_LABELS = {
+  night_blindness:'Night Blindness', colour_blindness:'Colour Blindness',
+  audiometry:'Audiometry', pulmonary:'Pulmonary Lung Function',
+  vertigo:'Vertigo', vision_check:'Vision Check'
+};
 
-// ── Status derivation ─────────────────────────────────────────
+// ── State ─────────────────────────────────────────────────────
+var oscActiveTab = 'night_blindness';
+var oscLogTargetEmpId = null;
+var oscToastTimer = null;
+
+// ── Status derivation — identical to _deriveStatus() ─────────
 function oscStatus(emp) {
   if (emp.lastCheckDate) return 'Completed';
   var dl = new Date(emp.deadline); dl.setHours(0,0,0,0);
   if (dl < TODAY) return 'Overdue';
-  var sevenDays = new Date(TODAY); sevenDays.setDate(sevenDays.getDate()+7);
-  if (dl <= sevenDays) return 'Due';
+  var seven = new Date(TODAY); seven.setDate(seven.getDate()+7);
+  if (dl <= seven) return 'Due';
   return 'Pending';
 }
 
-function oscChipHtml(status) {
-  var cls = { Completed:'osc-chip-completed', Due:'osc-chip-due', Overdue:'osc-chip-overdue', Pending:'osc-chip-pending' }[status] || 'osc-chip-pending';
-  return '<span class="osc-chip '+cls+'">'+status+'</span>';
+// ── Chip classes — identical to chipClass() ───────────────────
+function chipHtml(status) {
+  var cls = status === 'Completed' ? 'ohc-chip-active'
+          : status === 'Due'       ? 'ohc-chip-pending'
+          : status === 'Overdue'   ? 'ohc-chip-overdue'
+          :                          'ohc-chip-na';
+  return '<span class="ohc-chip '+cls+'">'+status+'</span>';
 }
 
-// ── Date helpers ──────────────────────────────────────────────
+// ── Date formatter — identical to fmtDate() ───────────────────
 var MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtDate(d) {
   if (!d) return '—';
   var dt = new Date(d); if (isNaN(dt)) return '—';
   return dt.getDate()+' '+MO[dt.getMonth()]+' '+dt.getFullYear();
 }
-function dateToInput(d) {
-  if (!d) return '';
-  var dt = new Date(d);
-  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
-}
 
 // ── Render ────────────────────────────────────────────────────
 function oscRender() {
   var rows = OSC_DATA[oscActiveTab] || [];
-  var q = (document.getElementById('osc-search').value||'').toLowerCase();
+  var q = (document.getElementById('osc-search').value || '').toLowerCase();
+  var sf = document.getElementById('osc-status-filter').value;
+
+  var emptyState    = document.getElementById('osc-empty-state');
+  var tableSection  = document.getElementById('osc-table-section');
+  var filterEmpty   = document.getElementById('osc-filter-empty');
+  var tbody         = document.getElementById('osc-table-body');
+
+  // Update upload modal title
+  document.getElementById('osc-upload-title').textContent =
+    'Upload Master List — ' + (TAB_LABELS[oscActiveTab] || '');
+
+  // Summary counts (always over all rows, not filtered)
+  var counts = { Overdue:0, Due:0, Pending:0, Completed:0 };
+  rows.forEach(function(e){ var s=oscStatus(e); if(counts[s]!==undefined) counts[s]++; });
+  document.getElementById('osc-summary-bar').innerHTML =
+    '<span class="ohc-chip ohc-chip-overdue">'+counts.Overdue+' Overdue</span>'
+   +'<span class="ohc-chip ohc-chip-pending">'+counts.Due+' Due Soon</span>'
+   +'<span class="ohc-chip ohc-chip-na">'+counts.Pending+' Pending</span>'
+   +'<span class="ohc-chip ohc-chip-active">'+counts.Completed+' Completed</span>';
+
+  // Empty state when no employees at all for this tab
+  if (rows.length === 0) {
+    emptyState.style.display = 'block';
+    tableSection.style.display = 'none';
+    document.getElementById('osc-empty-title').textContent =
+      'No master list uploaded for '+TAB_LABELS[oscActiveTab]+'.';
+    return;
+  }
+  emptyState.style.display = 'none';
+  tableSection.style.display = 'block';
+
+  // Filter
   var filtered = rows.filter(function(emp) {
     var status = oscStatus(emp);
     var matchSearch = !q || emp.empId.toLowerCase().includes(q) || emp.name.toLowerCase().includes(q);
-    var matchPeriod =
-      oscActivePeriod === 'all'     ? true :
-      oscActivePeriod === 'overdue' ? status === 'Overdue'   :
-      oscActivePeriod === 'due'     ? status === 'Due'       :
-      oscActivePeriod === 'pending' ? status === 'Pending'   :
-      oscActivePeriod === 'done'    ? status === 'Completed' : true;
-    return matchSearch && matchPeriod;
+    var matchStatus = sf === 'All' || status === sf;
+    return matchSearch && matchStatus;
   });
-
-  var tbody = document.getElementById('osc-table-body');
-  var empty = document.getElementById('osc-empty');
-  document.getElementById('osc-count').textContent = filtered.length + ' record'+(filtered.length===1?'':'s');
 
   if (!filtered.length) {
     tbody.innerHTML = '';
-    empty.style.display = 'block';
-    document.getElementById('osc-empty-msg').textContent =
-      rows.length === 0
-        ? 'No records for this check type yet. Use "Log Check Result" to add employees.'
-        : 'No records match your current filter.';
+    filterEmpty.style.display = 'block';
     return;
   }
-  empty.style.display = 'none';
+  filterEmpty.style.display = 'none';
 
   tbody.innerHTML = filtered.map(function(emp, i) {
     var status = oscStatus(emp);
     var bg = i%2===0 ? '#fff' : '#f9fafb';
-    var dlColor = status === 'Overdue' ? 'style="color:#93000a;font-weight:600;"' : '';
+    var dlStyle = status === 'Overdue'
+      ? 'style="color:#991B1B;font-weight:600;white-space:nowrap;"'
+      : 'style="white-space:nowrap;"';
+
+    var actionHtml = status !== 'Completed'
+      ? '<button onclick="oscOpenLogModal(\''+emp.empId+'\')" style="background:none;border:1px solid #BEC8D2;cursor:pointer;color:#0EA5E9;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;" title="Log Check Result">'
+        +'<span class="material-symbols-outlined" style="font-size:14px;">edit_note</span> Log Result</button>'
+      : '<span style="font-size:11px;color:#10B981;font-weight:600;display:inline-flex;align-items:center;gap:3px;">'
+        +'<span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Done</span>';
+
     return '<tr style="background:'+bg+'" onmouseenter="this.style.background=\'#f0f4fa\'" onmouseleave="this.style.background=\''+bg+'\'">'
-      +'<td class="px-4 py-3 font-semibold" style="white-space:nowrap;">'+emp.empId+'</td>'
-      +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+emp.name+'</td>'
-      +'<td class="px-4 py-3" style="white-space:normal;word-wrap:break-word;">'+emp.dept+'</td>'
-      +'<td class="px-4 py-3" style="white-space:nowrap;">'+emp.building+'</td>'
-      +'<td class="px-4 py-3" '+dlColor+' style="white-space:nowrap;">'+fmtDate(emp.deadline)+'</td>'
-      +'<td class="px-4 py-3" style="white-space:nowrap;">'+fmtDate(emp.lastCheckDate)+'</td>'
-      +'<td class="px-4 py-3">'+oscChipHtml(status)+'</td>'
-      +'<td class="px-4 py-3 text-right" style="white-space:nowrap;">'
-      +(status !== 'Completed'
-        ? '<button onclick="oscOpenLogModal({tabKey:\''+oscActiveTab+'\',empIdx:'+rows.indexOf(emp)+'})" style="background:none;border:1px solid #bec8d2;border-radius:6px;cursor:pointer;color:#0EA5E9;padding:4px 10px;font-size:11px;font-weight:600;font-family:Inter,sans-serif;display:inline-flex;align-items:center;gap:4px;"><span class="material-symbols-outlined" style="font-size:14px;">edit_note</span> Log Result</button>'
-        : '<span style="color:#10b981;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;"><span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Done</span>')
-      +'</td>'
+      +'<td style="font-weight:600;white-space:nowrap;">'+emp.empId+'</td>'
+      +'<td style="white-space:normal;word-wrap:break-word;">'+emp.name+'</td>'
+      +'<td style="white-space:normal;word-wrap:break-word;">'+emp.dept+'</td>'
+      +'<td style="white-space:nowrap;">'+emp.building+'</td>'
+      +'<td '+dlStyle+'>'+fmtDate(emp.deadline)+'</td>'
+      +'<td style="white-space:nowrap;">'+fmtDate(emp.lastCheckDate)+'</td>'
+      +'<td>'+chipHtml(status)+'</td>'
+      +'<td style="color:#374151;font-size:12px;">'+( emp.findings || '—' )+'</td>'
+      +'<td style="text-align:right;white-space:nowrap;">'+actionHtml+'</td>'
       +'</tr>';
   }).join('');
-
-  // Update summary bar
-  var counts = {Overdue:0,Due:0,Pending:0,Completed:0};
-  rows.forEach(function(e){ counts[oscStatus(e)]++; });
-  document.getElementById('osc-summary-bar').innerHTML =
-    '<span class="osc-summary-chip" style="background:#ffdad6;color:#93000a;">'+counts.Overdue+' Overdue</span>'
-    +'<span class="osc-summary-chip" style="background:#fef3c7;color:#92400e;">'+counts.Due+' Due Soon</span>'
-    +'<span class="osc-summary-chip" style="background:#f3f4f6;color:#374151;">'+counts.Pending+' Pending</span>'
-    +'<span class="osc-summary-chip" style="background:#dcfce7;color:#15803d;">'+counts.Completed+' Completed</span>';
 }
 
 // ── Tab switch ────────────────────────────────────────────────
 function oscSwitchTab(btn) {
-  document.querySelectorAll('.osc-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.ohc-tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
   oscActiveTab = btn.dataset.tab;
-  oscActivePeriod = 'all';
-  document.querySelectorAll('.osc-pill').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelector('.osc-pill[data-period="all"]').classList.add('active');
   document.getElementById('osc-search').value = '';
+  document.getElementById('osc-status-filter').value = 'All';
   oscRender();
 }
 
-// ── Period filter ─────────────────────────────────────────────
-function oscSetPeriod(btn) {
-  document.querySelectorAll('.osc-pill').forEach(function(p){ p.classList.remove('active'); });
-  btn.classList.add('active');
-  oscActivePeriod = btn.dataset.period;
-  oscRender();
+// ── Upload modal ──────────────────────────────────────────────
+function oscOpenUploadModal() {
+  document.getElementById('osc-file-input').value = '';
+  document.getElementById('osc-upload-filename').style.display = 'none';
+  document.getElementById('osc-upload-error').style.display = 'none';
+  document.getElementById('osc-upload-overlay').style.display = 'flex';
+}
+function oscCloseUploadModal() {
+  document.getElementById('osc-upload-overlay').style.display = 'none';
 }
 
-// ── Log modal ─────────────────────────────────────────────────
-function oscOpenLogModal(target) {
-  oscLogTarget = target;
-  var today = new Date().toISOString().slice(0,10);
+function oscHandleFile(input) {
+  var file = input.files[0];
+  if (!file) return;
+  document.getElementById('osc-upload-fname-text').textContent = file.name;
+  document.getElementById('osc-upload-filename').style.display = 'block';
+  document.getElementById('osc-upload-error').style.display = 'none';
 
-  if (target) {
-    // Editing existing employee
-    var emp = OSC_DATA[target.tabKey][target.empIdx];
-    document.getElementById('osc-log-title').textContent = 'Log Check Result';
-    document.getElementById('osc-log-info-name').textContent = emp.name;
-    document.getElementById('osc-log-info-meta').textContent = ' · '+emp.empId+' · '+emp.dept;
-    document.getElementById('osc-log-info-bar').style.display = 'block';
-    document.getElementById('osc-log-new-fields').style.display = 'none';
-    document.getElementById('osc-l-checkdate').value = today;
-    document.getElementById('osc-l-result').value = 'Normal';
-    document.getElementById('osc-l-notes').value = emp.findings || '';
-  } else {
-    // New employee entry
-    document.getElementById('osc-log-title').textContent = 'Add Employee & Log Check';
-    document.getElementById('osc-log-info-bar').style.display = 'none';
-    document.getElementById('osc-log-new-fields').style.display = 'block';
-    document.getElementById('osc-l-empid').value = '';
-    document.getElementById('osc-l-name').value = '';
-    document.getElementById('osc-l-dept').value = '';
-    document.getElementById('osc-l-building').value = 'Block A';
-    document.getElementById('osc-l-deadline').value = '';
-    document.getElementById('osc-l-checkdate').value = today;
-    document.getElementById('osc-l-result').value = 'Normal';
-    document.getElementById('osc-l-notes').value = '';
-  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = e.target.result;
+    // Minimal CSV parser (handles quoted fields)
+    var lines = text.split(/\r?\n/).filter(function(l){ return l.trim(); });
+    if (!lines.length) { oscUploadError('File is empty.'); return; }
+
+    // Parse header
+    var headers = lines[0].split(',').map(function(h){ return h.trim().replace(/^"|"$/g,''); });
+    var required = ['Employee ID','Name','Department','Building','Deadline'];
+    var missing = required.filter(function(c){ return !headers.includes(c); });
+    if (missing.length) {
+      oscUploadError('Missing columns: '+missing.join(', ')+'. Expected: '+required.join(', '));
+      return;
+    }
+
+    var idxOf = function(col){ return headers.indexOf(col); };
+    var parsed = [];
+    for (var i = 1; i < lines.length; i++) {
+      var cols = lines[i].split(',').map(function(c){ return c.trim().replace(/^"|"$/g,''); });
+      var dl = new Date(cols[idxOf('Deadline')]);
+      if (isNaN(dl)) { oscUploadError('Row '+(i+1)+': invalid Deadline "'+cols[idxOf('Deadline')]+'"'); return; }
+      parsed.push({
+        empId:    cols[idxOf('Employee ID')] || '',
+        name:     cols[idxOf('Name')]        || '',
+        dept:     cols[idxOf('Department')]  || '',
+        building: cols[idxOf('Building')]    || '',
+        deadline: dl,
+        lastCheckDate: null,
+        findings: ''
+      });
+    }
+    if (!parsed.length) { oscUploadError('No valid rows found.'); return; }
+
+    // Merge: update existing by empId, append new
+    var existingIdx = {};
+    var tabData = OSC_DATA[oscActiveTab];
+    tabData.forEach(function(e,i){ existingIdx[e.empId] = i; });
+    parsed.forEach(function(p) {
+      if (existingIdx[p.empId] !== undefined) {
+        var old = tabData[existingIdx[p.empId]];
+        tabData[existingIdx[p.empId]] = Object.assign({}, old, { deadline:p.deadline, dept:p.dept, building:p.building, name:p.name });
+      } else {
+        tabData.push(p);
+      }
+    });
+
+    oscCloseUploadModal();
+    oscRender();
+    oscShowToast(parsed.length+' record'+(parsed.length===1?'':'s')+' imported successfully.');
+  };
+  reader.readAsText(file);
+}
+
+function oscUploadError(msg) {
+  var el = document.getElementById('osc-upload-error');
+  document.getElementById('osc-upload-error-text').textContent = msg;
+  el.style.display = 'flex';
+}
+
+// ── Log Check Result modal ────────────────────────────────────
+function oscOpenLogModal(empId) {
+  var emp = (OSC_DATA[oscActiveTab] || []).find(function(e){ return e.empId === empId; });
+  if (!emp) return;
+  oscLogTargetEmpId = empId;
+  document.getElementById('osc-log-name').textContent = emp.name;
+  document.getElementById('osc-log-meta').textContent = ' · ' + emp.empId + ' · ' + emp.dept;
+  document.getElementById('osc-log-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('osc-log-findings').value = emp.findings || '';
   document.getElementById('osc-log-overlay').style.display = 'flex';
 }
-
 function oscCloseLogModal() {
   document.getElementById('osc-log-overlay').style.display = 'none';
-  oscLogTarget = null;
+  oscLogTargetEmpId = null;
 }
-
-function oscSaveLog(e) {
-  e.preventDefault();
-  var btn = document.getElementById('osc-log-submit-btn');
-  var checkDate = document.getElementById('osc-l-checkdate').value;
-  var result    = document.getElementById('osc-l-result').value;
-  var notes     = document.getElementById('osc-l-notes').value.trim();
-  var findings  = (result !== 'Normal' ? result + (notes ? ' — '+notes : '') : (notes || 'Normal'));
-
+function oscSaveLog() {
+  var dateVal = document.getElementById('osc-log-date').value;
+  if (!dateVal || !oscLogTargetEmpId) return;
+  var findings = document.getElementById('osc-log-findings').value.trim();
+  var btn = document.getElementById('osc-log-save-btn');
   btn.textContent = 'Saving...'; btn.disabled = true;
 
   setTimeout(function() {
-    if (oscLogTarget) {
-      // Update existing
-      var emp = OSC_DATA[oscLogTarget.tabKey][oscLogTarget.empIdx];
-      emp.lastCheckDate = new Date(checkDate);
-      emp.findings = findings;
-    } else {
-      // Add new
-      var empId    = document.getElementById('osc-l-empid').value.trim();
-      var name     = document.getElementById('osc-l-name').value.trim();
-      var dept     = document.getElementById('osc-l-dept').value.trim();
-      var building = document.getElementById('osc-l-building').value;
-      var dlVal    = document.getElementById('osc-l-deadline').value;
-      if (!empId || !name) { btn.textContent='Save Result'; btn.disabled=false; alert('Employee ID and Name are required.'); return; }
-      var dl = dlVal ? new Date(dlVal) : daysFromNow(90);
-      var cd = new Date(checkDate);
-      OSC_DATA[oscActiveTab].push({ empId:empId, name:name, dept:dept||'—', building:building, deadline:dl, lastCheckDate:cd, findings:findings });
+    var tabData = OSC_DATA[oscActiveTab];
+    var idx = tabData.findIndex(function(e){ return e.empId === oscLogTargetEmpId; });
+    if (idx !== -1) {
+      tabData[idx] = Object.assign({}, tabData[idx], { lastCheckDate: new Date(dateVal), findings: findings });
     }
-
-    btn.textContent = 'Saved ✓'; btn.style.backgroundColor = '#10b981';
-    setTimeout(function() {
-      btn.textContent = 'Save Result'; btn.style.backgroundColor = ''; btn.disabled = false;
-      oscCloseLogModal();
-      oscRender();
-    }, 900);
+    btn.textContent = 'Save Result'; btn.disabled = false;
+    oscCloseLogModal();
+    oscRender();
+    oscShowToast('Check result saved for ' + (tabData[idx] ? tabData[idx].name : ''));
   }, 500);
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+function oscShowToast(msg) {
+  var el = document.getElementById('osc-toast');
+  document.getElementById('osc-toast-msg').textContent = msg;
+  el.classList.add('show');
+  if (oscToastTimer) clearTimeout(oscToastTimer);
+  oscToastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3500);
 }
 
 // ── Boot ──────────────────────────────────────────────────────
