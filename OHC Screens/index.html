@@ -216,7 +216,8 @@
         <option value="nurse">Nurse</option>
         <option value="doctor">Doctor</option>
         <option value="tghc_ops">TGHC Ops</option>
-        <option value="client_manager">Client Manager</option>
+        <option value="safety_manager">Safety Manager</option>
+        <option value="client_hr">Client HR</option>
       </select>
     </div>
     <div class="ohc-bell-wrap">
@@ -245,7 +246,7 @@
       <span class="material-symbols-outlined mat-icon">help</span>
       Help &amp; Support
     </a>
-    <div class="ohc-sidebar-version">OHC v4.0</div>
+    <div class="ohc-sidebar-version">OHC v4.1</div>
   </div>
 </aside>
 
@@ -321,10 +322,11 @@ const NAV = [
     label: 'Health Camps & Screenings',
     icon: 'campaign',
     children: [
-      { key: 'health_camps_annual',     label: 'Annual Health Camps',      file: 'health_camps_screening_events_v4/code.html?v=5' },
+      { key: 'health_camps_annual',        label: 'Annual Health Camps',        file: 'health_camps_screening_events_v4/code.html?v=5' },
       // New Employee Screening reuses the Pre-Employment Medical module built under Clinicians
-      { key: 'health_camps_new_emp',    label: 'New Employee Screening',   file: 'clinicians_pre_employment_medical/code.html?v=1' },
-      { key: 'health_camps_hazardous',  label: 'Hazardous Process Checks', file: 'hazardous_process_checks/code.html?v=1' }
+      { key: 'health_camps_new_emp',       label: 'New Employee Screening',     file: 'clinicians_pre_employment_medical/code.html?v=1' },
+      { key: 'health_camps_hazardous',     label: 'Hazardous Process Checks',   file: 'hazardous_process_checks/code.html?v=1' },
+      { key: 'health_camps_safety_checks', label: 'Occupational Safety Checks', file: 'occupational_safety_checks/code.html?v=1' }
     ]
   },
   {
@@ -332,10 +334,8 @@ const NAV = [
     label: 'Wellness',
     icon: 'favorite',
     children: [
-      { key: 'toolbox',           label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html?v=3' },
-      { key: 'other_wellness',    label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html?v=3' },
-      // External link — opens HR coaching dashboard in a new tab. Replace URL before go-live.
-      { key: 'coaching_programs', label: 'Coaching Programs', icon: 'open_in_new',  external: true, url: 'https://REPLACE-WITH-HR-DASHBOARD-URL' }
+      { key: 'toolbox',        label: 'Toolbox Trainings', icon: 'construction', file: 'Toolbox Training/code.html?v=3' },
+      { key: 'other_wellness', label: 'Other Wellness',    icon: 'spa',          file: 'wellness_campaigns_calendar_v4/code.html?v=3' }
     ]
   },
   {
@@ -422,8 +422,9 @@ const ROLE_PERMISSIONS = {
     bmw:                 'view',
     analytics:           'view',
     // everything else stays 'none'
-    health_camps:        'none',
-    wellness:            'none',
+    health_camps:                'none',
+    health_camps_safety_checks:  'none',
+    wellness:                    'none',
     compliance:          'none',
     others:              'none',
     settings:            'none'
@@ -432,7 +433,24 @@ const ROLE_PERMISSIONS = {
     _default: 'view',
     settings: 'none'
   },
-  client_manager: {
+  safety_manager: {
+    _default:                    'none',
+    dashboard:                   'view',
+    patients:                    'view',
+    patients_doctor:             'view',
+    bmw:                         'view',
+    health_camps:                'view',
+    health_camps_safety_checks:  'view',
+    compliance:                  'view',
+    analytics:                   'view',
+    clinicians:                  'none',
+    prescriptions:               'none',
+    pharmacy:                    'none',
+    wellness:                    'none',
+    others:                      'none',
+    settings:                    'none'
+  },
+  client_hr: {
     _default:  'view',
     others:    'none',
     settings:  'none'
@@ -727,11 +745,12 @@ function navigateTo(key) {
 
 // ── Role switcher ─────────────────────────────────────────────
 const ROLE_LABELS = {
-  admin:          'Admin',
-  nurse:          'Nurse',
-  doctor:         'Doctor',
-  tghc_ops:       'TGHC Ops',
-  client_manager: 'Client Manager'
+  admin:           'Admin',
+  nurse:           'Nurse',
+  doctor:          'Doctor',
+  tghc_ops:        'TGHC Ops',
+  safety_manager:  'Safety Manager',
+  client_hr:       'Client HR'
 };
 
 function ohcSetRole(role) {
